@@ -3,6 +3,7 @@ package com.spellofplay.dsp.model;
 public class ModelFacade {
 	
 	Game m_game = new Game();
+	Level m_level = new Level();
 	
 	public String getGameTitle() {
 		return "Deep Space Pirates " + lastTime;
@@ -10,12 +11,12 @@ public class ModelFacade {
 
 	float lastTime=0;
 	public void update(float elapsedTimeSeconds) {
-		lastTime = elapsedTimeSeconds;
+		lastTime = 1.0f / elapsedTimeSeconds;
 		
 		m_game.update();
 	}
 	public Level getLevel() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return m_level;
 	}
 }
