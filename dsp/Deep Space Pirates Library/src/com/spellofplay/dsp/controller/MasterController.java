@@ -4,17 +4,20 @@ package com.spellofplay.dsp.controller;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.view.GameView;
 import com.spellofplay.dsp.view.IDraw;
+import com.spellofplay.dsp.view.ITexture;
 
 import android.content.Context;
 import android.graphics.Paint;
 
 public class MasterController {
 	private ModelFacade m_model = new ModelFacade();
-	private GameView m_view = new GameView();
+	private GameView m_view;
 	
 	
-	public MasterController(Context context, IInput m_input) {
+	public MasterController(Context context, IInput m_input, ITexture a_texture) {
 		// TODO Auto-generated constructor stub
+		
+		m_view = new GameView(a_texture);
 	}
 
 	public void update(float elapsedTimeSeconds) {
