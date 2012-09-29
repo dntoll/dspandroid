@@ -5,7 +5,10 @@ import com.spellofplay.dsp.controller.MasterController;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.view.View;
 public class Application extends View   implements IUpdateable {
 	
 	MasterController m_master = null;//new MasterController(context)
+	AndroidDraw m_draw = new AndroidDraw();
 	private Input m_input = new Input();
 	
 	private Activity m_activity;
@@ -25,10 +29,19 @@ public class Application extends View   implements IUpdateable {
 	public Application(Context context, Activity cfTimerActivity) {
         super(context);
         
-        m_master = new MasterController(context, m_input);
+        Resources r = context.getResources();
+		Drawable tile = r.getDrawable(R.drawable.sprites);
+		
+		Bitmap bitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
+        Canvas canvas2 = new Canvas(bitmap);
+        tile.setBounds(0, 0, 256, 256);
+        tile.draw(canvas2);
+        ConcreteTexture texture = new ConcreteTexture(bitmap);
+        
+        m_master = new MasterController(context, m_input, texture);
         
         
-        m_sleepHandler.sleep(this, 500);
+        m_sleepHandler.sleep(this, 100);
         m_lastTime = System.currentTimeMillis();
         
         m_activity = cfTimerActivity;
@@ -82,7 +95,7 @@ public class Application extends View   implements IUpdateable {
         
 		m_master.update(elapsedTimeSeconds);
 		invalidate();
-    	m_sleepHandler.sleep(this, 20);
+    	m_sleepHandler.sleep(this, 10);
     	m_lastTime = now;
 	}
 	
@@ -91,8 +104,8 @@ public class Application extends View   implements IUpdateable {
     	
         super.onDraw(canvas);
         
-        
-        if (m_master.onDraw(new AndroidDraw(canvas)) == false ) {
+        m_draw.preDraw(canvas);
+        if (m_master.onDraw(m_draw) == false ) {
         	m_activity.finish();
         }
 	}
