@@ -1,12 +1,14 @@
 package com.spellofplay.dsp;
 
 import com.spellofplay.common.view.Mesh;
+import com.spellofplay.dsp.model.Soldier;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Shader.TileMode;
 
 public class AndroidDraw implements com.spellofplay.dsp.view.IDraw {
@@ -66,6 +68,14 @@ public class AndroidDraw implements com.spellofplay.dsp.view.IDraw {
 	@Override
 	public void drawBackground() {
 		m_canvas.drawBitmap(m_background, 0, 0.0f, m_guiText);
+	}
+
+	@Override
+	public void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst) {
+		
+		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
+		
+		m_canvas.drawBitmap((Bitmap)a_textureMap.getTexture(), src, dst, m_path);
 	}
 	
 
