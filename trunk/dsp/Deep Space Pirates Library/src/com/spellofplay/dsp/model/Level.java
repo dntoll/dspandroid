@@ -4,6 +4,7 @@ public class Level {
 
 	public static final int Height = 24;
 	public static final int Width = 16;
+	
 	public TileType GetTile(int a_x, int a_y) {
 		if (a_x > 4 && a_x < Width-5 && a_y > 5 && a_y < Height-8)
 			return TileType.TileWall;
@@ -13,6 +14,14 @@ public class Level {
 		else
 			return TileType.TileWall;
 		
+	}
+
+	public void loadLevel(int a_level) {
+		
+	}
+
+	public ModelPosition getStartLocation(int i) {
+		return new ModelPosition(0,0);
 	}
 	
 
