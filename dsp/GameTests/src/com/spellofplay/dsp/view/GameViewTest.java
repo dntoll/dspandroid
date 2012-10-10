@@ -24,9 +24,9 @@ public class GameViewTest {
 	GameView sut;
 	private ModelPosition farAway = new ModelPosition(18, 19);
 	private ModelPosition soldierPos = new ModelPosition(2, 3);
-	private ViewPosition  soldierViewPos = new ViewPosition(2, 3);
-	private ViewPosition  destinationPosition = new ViewPosition(0, 1);
-	private ViewPosition  farAwayPosition = new ViewPosition(18, 19);
+	private ViewPosition  soldierViewPos = new ViewPosition(2 * GameView.m_scale, 3 * GameView.m_scale);
+	private ViewPosition  destinationPosition = new ViewPosition(0, 1 * GameView.m_scale);
+	private ViewPosition  farAwayPosition = new ViewPosition(18* GameView.m_scale, 19* GameView.m_scale);
 	private ModelPosition destinationModelPosition = new ModelPosition(0, 1);
 	
 	

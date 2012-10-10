@@ -33,7 +33,7 @@ public class GameControllerTests {
 		when(mockedModel.hasUnfinishedActions()).thenReturn(true);
 		when(mockedModel.isEnemyTime()).thenReturn(false);
 		
-		sut.update(mockedModel, mockedView, null, 0.0f);
+		sut.update(null, mockedModel, mockedView, null, 0.0f);
 		
 		verify(mockedModel).updatePlayers();
 	}
@@ -42,7 +42,7 @@ public class GameControllerTests {
 	public void testUpdatesEnemiesIfItsTheirTurn() {
 		when(mockedModel.isEnemyTime()).thenReturn(true);
 		
-		sut.update(mockedModel, mockedView, null, 0.0f);
+		sut.update(null, mockedModel, mockedView, null, 0.0f);
 		
 		verify(mockedModel).updateEnemies();
 	}
@@ -53,7 +53,7 @@ public class GameControllerTests {
 		when(mockedView.getSelectedSoldier(input, mockedModel)).thenReturn(selectedSoldier);
 		when(mockedView.getDestination(input)).thenReturn(destination);
 		
-		sut.update(mockedModel, mockedView, null, 0.0f);
+		sut.update(null, mockedModel, mockedView, null, 0.0f);
 		
 		verify(mockedModel).doMoveTo(selectedSoldier, destination);
 	}
@@ -65,7 +65,7 @@ public class GameControllerTests {
 		when(mockedView.getSelectedSoldier(input, mockedModel)).thenReturn(selectedSoldier);
 		when(mockedView.getDestination(input)).thenReturn(null);
 		
-		sut.update(mockedModel, mockedView, null, 0.0f);
+		sut.update(null, mockedModel, mockedView, null, 0.0f);
 		
 		verify(mockedModel, never()).doMoveTo(selectedSoldier, null);
 	}
@@ -75,7 +75,7 @@ public class GameControllerTests {
 		when(mockedModel.isEnemyTime()).thenReturn(false);
 		when(mockedView.getSelectedSoldier(input, mockedModel)).thenReturn(null);
 		
-		sut.update(mockedModel, mockedView, null, 0.0f);
+		sut.update(null, mockedModel, mockedView, null, 0.0f);
 		
 		verify(mockedView, never()).getDestination(input);
 	}
