@@ -24,4 +24,10 @@ public interface IModel {
 
 	public abstract void startNewGame(int a_level);
 
+	public abstract void startNewRound();
+
+	public abstract boolean enemyHasWon();
+
+	public abstract boolean playerHasWon();
+
 }

@@ -30,7 +30,11 @@ public class ModelFacade implements IModel {
 	 */
 	@Override
 	public boolean hasUnfinishedActions() {
-		// TODO Auto-generated method stub
+		for (Soldier s : m_game.getAliveSoldiers()) {
+			if (s.getTimeUnits() > 0) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -40,7 +44,14 @@ public class ModelFacade implements IModel {
 	 */
 	@Override
 	public boolean isEnemyTime() {
-		// TODO Auto-generated method stub
+		if (hasUnfinishedActions())
+			return false;
+		
+		for (Enemy e : m_game.getAliveEnemies()) {
+			if (e.getTimeUnits() > 0) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -50,8 +61,7 @@ public class ModelFacade implements IModel {
 	 */
 	@Override
 	public void updatePlayers() {
-		// TODO Auto-generated method stub
-		
+		m_game.updatePlayers();
 	}
 	
 	/* (non-Javadoc)
@@ -59,8 +69,7 @@ public class ModelFacade implements IModel {
 	 */
 	@Override
 	public void updateEnemies() {
-		// TODO Auto-generated method stub
-		
+		m_game.updateEnemies();
 	}
 
 
@@ -69,8 +78,7 @@ public class ModelFacade implements IModel {
 	 */
 	@Override
 	public void doMoveTo(Soldier selectedSoldier, ModelPosition destination) {
-		// TODO Auto-generated method stub
-		
+		m_game.doMoveTo(selectedSoldier, destination);
 	}
 
 
@@ -84,6 +92,26 @@ public class ModelFacade implements IModel {
 	public void startNewGame(int a_level) {
 		m_game.startLevel(a_level);
 		
+	}
+
+
+	@Override
+	public void startNewRound() {
+		m_game.startNewRound();
+	}
+
+
+	@Override
+	public boolean enemyHasWon() {
+		// TODO Auto-generated method stub
+		return m_game.getAliveSoldiers().size() == 0;
+	}
+
+
+	@Override
+	public boolean playerHasWon() {
+		// TODO Auto-generated method stub
+		return m_game.getAliveEnemies().size() == 0 && m_game.getAliveSoldiers().size() > 0;
 	}
 
 

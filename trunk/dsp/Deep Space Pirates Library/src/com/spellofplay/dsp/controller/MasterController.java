@@ -28,14 +28,13 @@ public class MasterController {
 		m_model.startNewGame(0);
 	}
 
-	public void update(float elapsedTimeSeconds) {
-		m_game.update(m_model, m_view, m_input, elapsedTimeSeconds);
-	}
+	
 
 	public Paint m_guiText = new Paint();
 	
-	public boolean onDraw(IDraw drawable) {
-		m_game.drawGame(drawable, m_model, m_view);
+	public boolean onDraw(IDraw drawable, float elapsedTimeSeconds) {
+		
+		m_game.update(drawable, m_model, m_view, m_input, elapsedTimeSeconds);
 		
 		return true;
 	}

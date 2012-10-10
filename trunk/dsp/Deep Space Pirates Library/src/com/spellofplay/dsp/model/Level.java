@@ -21,8 +21,28 @@ public class Level {
 	}
 
 	public ModelPosition getStartLocation(int i) {
-		return new ModelPosition(0,0);
+		return new ModelPosition(1,1);
 	}
+	
+	public Enemy getEnemy(int i) {
+		
+		return new Enemy();
+	}
+
+	public boolean canMove(ModelPosition a_from, ModelPosition a_to) {
+		if (GetTile(a_to.m_x, a_to.m_y) == TileType.TileEmpty) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isClear(ModelPosition m_end) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	
 	
 
 }

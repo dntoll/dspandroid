@@ -9,13 +9,22 @@ import com.spellofplay.dsp.view.IInput;
 public class GameController {
 
 	
-	public void update(IModel a_model, IGameView a_view, IInput a_input, float elapsedTimeSeconds) {
+	public void update(IDraw drawable, IModel a_model, IGameView a_view, IInput a_input, float elapsedTimeSeconds) {
 		
 		a_view.setupInput(a_input, a_model);
 		
-		if (a_model.isEnemyTime()) {
+		
+		
+		
+		if (a_model.enemyHasWon()) {
+			//drawable.drawText("Game Over", 10, 100);
+		} else if (a_model.playerHasWon()) {
+			//drawable.drawText("Game Won", 10, 100);
+		} else if (a_model.isEnemyTime()) {
+			//drawable.drawText("Enemy moving", 10, 100);
 			a_model.updateEnemies();
-		} else {
+			
+		} else if (a_model.hasUnfinishedActions()) {
 			com.spellofplay.dsp.model.Soldier selectedSoldier = a_view.getSelectedSoldier(a_input, a_model);
 			
 			if (selectedSoldier != null) {
@@ -27,19 +36,27 @@ public class GameController {
 				}
 			}
 			
-			if (a_model.hasUnfinishedActions()) {
-				a_model.updatePlayers();
-			}
+			
+			a_model.updatePlayers();
+			
+		} else  {
+			a_model.startNewRound();
 		}
 		
 		
+		a_view.drawGame(drawable, a_model);
 		
+		if (a_model.enemyHasWon()) {
+			drawable.drawText("Game Over", 10, 100);
+		} else if (a_model.playerHasWon()) {
+			drawable.drawText("Game Won", 10, 100);
+		} else if (a_model.isEnemyTime()) {
+			drawable.drawText("Enemy moving", 10, 100);
+		}
 		
 	}
 
-	public void drawGame(IDraw drawable, IModel m_model, IGameView m_view) {
-		m_view.drawGame(drawable, m_model);
-	}
+	
 
 	
 
