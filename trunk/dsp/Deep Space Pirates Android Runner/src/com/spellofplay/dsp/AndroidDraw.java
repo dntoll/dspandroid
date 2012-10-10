@@ -29,7 +29,7 @@ public class AndroidDraw implements com.spellofplay.dsp.view.IDraw {
 	
 	@Override
 	public void drawText(String gameTitle, int i, int j) {
-		
+		m_guiText.setColor(Color.WHITE);
 		
 		m_canvas.drawText(gameTitle, i, j, m_guiText );
 	}

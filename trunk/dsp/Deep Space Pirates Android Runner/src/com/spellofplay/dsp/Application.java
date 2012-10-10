@@ -88,26 +88,28 @@ public class Application extends View   implements IUpdateable {
 	
 	public void update() {
 		
-		long now = System.currentTimeMillis();
-        long elapsedTime = now - m_lastTime;
-        float elapsedTimeSeconds = ((float)elapsedTime)/1000.0f;
+		
         
         
-		m_master.update(elapsedTimeSeconds);
 		invalidate();
     	m_sleepHandler.sleep(this, 10);
-    	m_lastTime = now;
+    	
 	}
 	
 	@Override
     public void onDraw(Canvas canvas) {
     	
+		long now = System.currentTimeMillis();
+        long elapsedTime = now - m_lastTime;
+        float elapsedTimeSeconds = ((float)elapsedTime)/1000.0f;
+        
         super.onDraw(canvas);
         
         m_draw.preDraw(canvas);
-        if (m_master.onDraw(m_draw) == false ) {
+        if (m_master.onDraw(m_draw, elapsedTimeSeconds) == false ) {
         	m_activity.finish();
         }
+        m_lastTime = now;
 	}
 	
 	public void Stop() {
