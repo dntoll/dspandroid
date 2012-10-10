@@ -20,7 +20,7 @@ public class Camera {
 
 	public ModelPosition toModelPos(ViewPosition mousePos) {
 		
-		ViewPosition vp = mousePos.sub(m_displacement);
+		ViewPosition vp = mousePos.sub(m_displacement).sub(new ViewPosition(-m_scale/2,-m_scale/2));
 		
 		return new ModelPosition((int)(vp.m_x / m_scale), (int)(vp.m_y / m_scale));
 	}

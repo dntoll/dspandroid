@@ -18,11 +18,14 @@ public class GameView implements IGameView {
 	boolean hasInitatedBuffer = false;
 	Camera m_camera = new Camera();
 	Soldier m_selectedSoldier;
+	public static final int m_scale = 32;
 	
 	ITexture m_texture;
 	public GameView(ITexture a_texture) {
 		m_level = new LevelDrawer(a_texture);
 		m_texture = a_texture;
+		
+		m_camera.m_scale = m_scale;
 	}
 	
 	/* (non-Javadoc)
@@ -44,12 +47,14 @@ public class GameView implements IGameView {
 		for (Soldier s : a_model.getAliveSoldiers()) {
 			ViewPosition vpos = m_camera.toViewPos(s.getPosition());
 			
-			Rect dst = new Rect((int)vpos.m_x, 
-					(int)vpos.m_y,
-					(int)vpos.m_x + 32, 
-					(int)vpos.m_y + 32);
+			Rect dst = new Rect((int)vpos.m_x -m_scale/2, 
+					(int)vpos.m_y -m_scale/2,
+					(int)vpos.m_x + m_scale/2, 
+					(int)vpos.m_y + m_scale/2);
 			
 			drawable.drawBitmap(m_texture, src, dst);
+			
+			drawable.drawText("" + s.getTimeUnits(), dst.left, dst.top);
 		}
 		
 		drawable.drawText(a_model.getGameTitle(), 10, 10);
@@ -96,13 +101,8 @@ public class GameView implements IGameView {
 			
 			float soldierViewRadius = m_camera.toViewScale(s.getRadius());
 			
-			
-			
 			if (viewPosition.sub(clickpos).length() < soldierViewRadius) {
-				
-				if (a_input.IsMouseClicked()) {
-					return s;
-				}
+				return s;
 			}
 		}
 		return null;
