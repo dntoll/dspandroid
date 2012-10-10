@@ -39,8 +39,9 @@ public class Input implements com.spellofplay.dsp.view.IInput {
 		if (m_dragClick) {
 			m_dragClick = false;
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 	
 	public boolean IsKeyClicked(int a_keyCode) {
