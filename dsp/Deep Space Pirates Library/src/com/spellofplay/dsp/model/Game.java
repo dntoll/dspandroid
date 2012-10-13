@@ -76,9 +76,7 @@ public class Game implements IIsMovePossible {
 		m_ai.think(enemies, soldiers, this);
 		
 		
-		for (Enemy s : enemies) {
-			s.update(this);
-		}
+		
 		
 	}
 

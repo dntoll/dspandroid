@@ -17,5 +17,10 @@ public class Enemy extends Character{
 		m_timeUnits = 0;
 	}
 
+	public void removeTimeUnit() {
+		m_timeUnits--;
+		
+	}
+
 	
 }

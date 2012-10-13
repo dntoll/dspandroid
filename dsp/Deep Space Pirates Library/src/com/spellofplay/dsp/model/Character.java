@@ -43,6 +43,11 @@ public class Character {
 		m_pathFinder.InitSearch(m_position, destination, a_distance > 0.0f, a_distance);
 	}
 
+	/**
+	 * 
+	 * @param check
+	 * @return true if everything is ok but false if a search or move failed
+	 */
 	public boolean update(IIsMovePossible check) {
 		
 		if (m_pathFinder != null && m_timeUnits > 0) {
@@ -55,10 +60,10 @@ public class Character {
 					
 					if (check.isMovePossible(pos)) {
 						m_position = pos;
-						m_timeUnits--; //TODO: this one is just a hack to get the ai responsive
+						m_timeUnits--; 
 					} else {
-						m_pathFinder = null;
-						m_timeUnits--;
+						m_pathFinder = null; //this should in theory never happen...
+						return false;
 					}
 				} else {
 					m_pathFinder = null;
@@ -68,13 +73,14 @@ public class Character {
 			} else if (result == SearchResult.SearchFailedNoPath) {
 				//do nothing
 				m_pathFinder = null;
-				m_timeUnits--; //this should be handled by ai since it should not be for players
+				return false;
 			}
 		}
 		
-		if (m_timeUnits <= 0)
+		if (m_timeUnits <= 0) {
 			m_pathFinder = null;
+		}
 		
-		return m_timeUnits <= 0;
+		return true;
 	}
 }
