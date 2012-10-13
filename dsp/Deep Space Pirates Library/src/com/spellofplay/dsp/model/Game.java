@@ -3,13 +3,10 @@ package com.spellofplay.dsp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.spellofplay.NotImplementedException;
-import com.spellofplay.dsp.model.AStar.SearchResult;
-
-public class Game {
+public class Game implements IIsMovePossible {
 
 	public static final int MAX_SOLDIERS = 4;
-	public static final int MAX_ENEMIES = 4;
+	public static final int MAX_ENEMIES = 20;
 	Soldier[] m_soldiers = new Soldier[MAX_SOLDIERS];
 	Enemy[] m_enemies = new Enemy[MAX_ENEMIES];
 	Level m_level = new Level();
@@ -59,27 +56,31 @@ public class Game {
 
 	
 	public void doMoveTo(Soldier selectedSoldier, ModelPosition destination) {
-		selectedSoldier.setDestination(destination, m_level);
+		selectedSoldier.setDestination(destination, this, 0.0f);
 		
 	}
 
 	public void updatePlayers() {
 		List<Soldier> soldiers = getAliveSoldiers();
 		for (Soldier s : soldiers) {
-			s.update();
+			s.update(this);
 		}
 
 	}
 	
+	EnemyAI m_ai = new EnemyAI();
 	public void updateEnemies() {
 		List<Enemy> enemies = getAliveEnemies();
+		List<Soldier> soldiers = getAliveSoldiers();
+		
+		m_ai.think(enemies, soldiers, this);
+		
+		
 		for (Enemy s : enemies) {
-			s.update();
+			s.update(this);
 		}
 		
 	}
-
-	
 
 	public void startNewRound() {
 		List<Soldier> soldiers = getAliveSoldiers();
@@ -93,6 +94,35 @@ public class Game {
 		}
 	}
 
+	@Override
+	public boolean isMovePossible(ModelPosition pos) {
+		if (m_level.isClear(pos) == false)
+			return false;
+		
+		if (isOccupied(pos)) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	private boolean isOccupied(ModelPosition pos) {
+		List<Soldier> soldiers = getAliveSoldiers();
+		for (Soldier s : soldiers) {
+			if (s.getPosition().equals(pos))
+				return true;
+		}
+		
+		List<Enemy> enemies = getAliveEnemies();
+		for (Enemy s : enemies) {
+			if (s.getPosition().equals(pos))
+				return true;
+		}
+		
+		return false;
+	}
+
 	
 
+	
 }

@@ -1,21 +1,21 @@
 package com.spellofplay.dsp.model;
 
-public class Enemy {
+public class Enemy extends Character{
 
-	int m_timeUnits = 0;
-	public int getTimeUnits() {
-		// TODO Auto-generated method stub
-		return m_timeUnits;
+	public Enemy(ModelPosition startPosition) {
+		super(startPosition, 3);
+
 	}
 
-	public void startNewRound() {
-		m_timeUnits = 3;
+	public boolean isDoingSomething() {
 		
+		return m_pathFinder != null;
 	}
 
-	public boolean update() {
+	public void attack(Soldier closest) {
+		
 		m_timeUnits = 0;
-		return true;
 	}
 
+	
 }
