@@ -3,13 +3,13 @@ package com.spellofplay.dsp.controller;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.view.IDraw;
-import com.spellofplay.dsp.view.IGameView;
+import com.spellofplay.dsp.view.GameView;
 import com.spellofplay.dsp.view.IInput;
 
 public class GameController {
 
 	
-	public void update(IDraw drawable, IModel a_model, IGameView a_view, IInput a_input, float elapsedTimeSeconds) {
+	public void update(IDraw drawable, IModel a_model, GameView a_view, IInput a_input, float elapsedTimeSeconds) {
 		
 		a_view.setupInput(a_input, a_model);
 		
@@ -24,7 +24,7 @@ public class GameController {
 			//drawable.drawText("Enemy moving", 10, 100);
 			a_model.updateEnemies();
 			
-		} else if (a_model.hasUnfinishedActions()) {
+		} else if (a_model.isSoldierTime()) {
 			com.spellofplay.dsp.model.Soldier selectedSoldier = a_view.getSelectedSoldier(a_input, a_model);
 			
 			if (selectedSoldier != null) {

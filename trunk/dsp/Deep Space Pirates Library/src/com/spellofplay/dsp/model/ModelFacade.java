@@ -29,7 +29,7 @@ public class ModelFacade implements IModel {
 	 * @see com.spellofplay.dsp.model.IModel#hasUnfinishedActions()
 	 */
 	@Override
-	public boolean hasUnfinishedActions() {
+	public boolean isSoldierTime() {
 		for (Soldier s : m_game.getAliveSoldiers()) {
 			if (s.getTimeUnits() > 0) {
 				return true;
@@ -44,7 +44,7 @@ public class ModelFacade implements IModel {
 	 */
 	@Override
 	public boolean isEnemyTime() {
-		if (hasUnfinishedActions())
+		if (isSoldierTime())
 			return false;
 		
 		for (Enemy e : m_game.getAliveEnemies()) {
@@ -85,6 +85,11 @@ public class ModelFacade implements IModel {
 	@Override
 	public List<Soldier> getAliveSoldiers() {
 		return m_game.getAliveSoldiers();
+	}
+	
+	@Override
+	public List<Enemy> getAliveEnemies() {
+		return m_game.getAliveEnemies();
 	}
 
 

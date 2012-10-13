@@ -6,11 +6,12 @@ import java.util.List;
 import android.graphics.PointF;
 import android.graphics.Rect;
 
+import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Soldier;
 
-public class GameView implements IGameView {
+public class GameView {
 
 	
 	
@@ -20,6 +21,9 @@ public class GameView implements IGameView {
 	Soldier m_selectedSoldier;
 	public static final int m_scale = 32;
 	
+	Rect enemy = new Rect(0, 128, 32, 128 + 32);
+	Rect soldier = new Rect(32, 224, 64, 224 + 32);
+	
 	ITexture m_texture;
 	public GameView(ITexture a_texture) {
 		m_level = new LevelDrawer(a_texture);
@@ -28,10 +32,7 @@ public class GameView implements IGameView {
 		m_camera.m_scale = m_scale;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.view.IGameView#drawGame(com.spellofplay.dsp.view.IDraw, com.spellofplay.dsp.model.IModel)
-	 */
-	@Override
+	
 	public void drawGame(IDraw drawable, IModel a_model) {
 		if (hasInitatedBuffer == false) {
 			m_level.draw(a_model.getLevel(), drawable);
@@ -39,10 +40,7 @@ public class GameView implements IGameView {
 		}
 		drawable.drawBackground();
 		
-		Rect src = new Rect(0, 
-				128,
-				0 + 32, 
-				128 + 32);
+		
 		
 		for (Soldier s : a_model.getAliveSoldiers()) {
 			ViewPosition vpos = m_camera.toViewPos(s.getPosition());
@@ -52,7 +50,20 @@ public class GameView implements IGameView {
 					(int)vpos.m_x + m_scale/2, 
 					(int)vpos.m_y + m_scale/2);
 			
-			drawable.drawBitmap(m_texture, src, dst);
+			drawable.drawBitmap(m_texture, soldier, dst);
+			
+			drawable.drawText("" + s.getTimeUnits(), dst.left, dst.top);
+		}
+		
+		for (Enemy s : a_model.getAliveEnemies()) {
+			ViewPosition vpos = m_camera.toViewPos(s.getPosition());
+			
+			Rect dst = new Rect((int)vpos.m_x -m_scale/2, 
+					(int)vpos.m_y -m_scale/2,
+					(int)vpos.m_x + m_scale/2, 
+					(int)vpos.m_y + m_scale/2);
+			
+			drawable.drawBitmap(m_texture, enemy, dst);
 			
 			drawable.drawText("" + s.getTimeUnits(), dst.left, dst.top);
 		}
@@ -69,7 +80,6 @@ public class GameView implements IGameView {
 	
 	Action m_action = Action.None;
 	
-	@Override
 	public void setupInput(IInput a_input, IModel a_model) {
 		
 		m_action = Action.None;
@@ -110,18 +120,12 @@ public class GameView implements IGameView {
 	
 	
 
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.view.IGameView#getSelectedSoldier()
-	 */
-	@Override
+	
 	public Soldier getSelectedSoldier(IInput a_input, IModel a_model) {
 		return m_selectedSoldier;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.view.IGameView#getDestination()
-	 */
-	@Override
+	
 	public ModelPosition getDestination(IInput a_input) {
 		if (m_action == Action.ClickedOnGround) {
 			

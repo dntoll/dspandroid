@@ -5,7 +5,6 @@ import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.view.GameView;
 import com.spellofplay.dsp.view.IDraw;
-import com.spellofplay.dsp.view.IGameView;
 import com.spellofplay.dsp.view.IInput;
 import com.spellofplay.dsp.view.ITexture;
 
@@ -15,7 +14,7 @@ import android.graphics.Paint;
 public class MasterController {
 	private IModel m_model = new ModelFacade();
 	private GameController m_game = new GameController();
-	private IGameView m_view;
+	private GameView m_view;
 	private IInput m_input = null;
 	
 	
