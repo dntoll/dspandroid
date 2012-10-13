@@ -214,18 +214,16 @@ public class AStar {
     						
 					        //om den fanns i closed plocka upp den igen...
 					        //ta bort den ur closed
-					        if (ExistInClosed(NewNode.m_node)) {
-						        removeFromClosed(NewNode);
-					        }
+					        //if (ExistInClosed(NewNode.m_node)) {
+						    removeFromClosed(NewNode);
+					        //}
 					        //om den fanns i open plocka upp den igen...
 					        //ta bort den ur closed
-					        if (ExistInOpen( NewNode.m_node)) {
-						        removeFromOpen(NewNode);
-						        //och lägg den längst bak i open
-                                m_listOpen.add(NewNode);
-					        } else {
-                                m_listOpen.add(NewNode);
-					        }
+					        //if (ExistInOpen( NewNode.m_node)) {
+						    removeFromOpen(NewNode);
+					        //}
+					        //och lägg den längst bak i open
+					        m_listOpen.add(NewNode);
 				        }
 			        }
 		        }

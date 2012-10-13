@@ -12,6 +12,10 @@ public class EnemyAI {
 			index++;
 			//Is doing something
 			if (e.isDoingSomething()) {
+				//if search or move failed remove timeunits...
+				if (e.update(a_checker) == false) {
+					e.removeTimeUnit();
+				}
 				break;
 			} else if (e.getTimeUnits() > 0) {
 				//attack closest soldier
