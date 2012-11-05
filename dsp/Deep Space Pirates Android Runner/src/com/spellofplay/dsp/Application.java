@@ -2,6 +2,8 @@ package com.spellofplay.dsp;
 
 
 import com.spellofplay.dsp.controller.MasterController;
+import com.spellofplay.dsp.view.AndroidDraw;
+import com.spellofplay.dsp.view.Input;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,15 +32,25 @@ public class Application extends View   implements IUpdateable {
         super(context);
         
         Resources r = context.getResources();
-		Drawable tile = r.getDrawable(R.drawable.sprites);
-		
-		Bitmap bitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
-        Canvas canvas2 = new Canvas(bitmap);
-        tile.setBounds(0, 0, 256, 256);
-        tile.draw(canvas2);
-        ConcreteTexture texture = new ConcreteTexture(bitmap);
+		Drawable tilesDrawable = r.getDrawable(R.drawable.sprites);
+		Drawable playerDrawable = r.getDrawable(R.drawable.player);
+		ConcreteTexture player, texture;
+		{
+			Bitmap bitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
+			Canvas canvas2 = new Canvas(bitmap);
+			tilesDrawable.setBounds(0, 0, 256, 256);
+			tilesDrawable.draw(canvas2);
+	        texture = new ConcreteTexture(bitmap);
         
-        m_master = new MasterController(context, m_input, texture);
+		}
+		{
+			Bitmap bitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
+	        Canvas canvas2 = new Canvas(bitmap);
+	        playerDrawable.setBounds(0, 0, 256, 256);
+	        playerDrawable.draw(canvas2);
+	        player = new ConcreteTexture(bitmap);
+		}
+        m_master = new MasterController(context, m_input, texture, player);
         
         
         m_sleepHandler.sleep(this, 100);

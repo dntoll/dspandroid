@@ -1,7 +1,6 @@
-package com.spellofplay.dsp;
+package com.spellofplay.dsp.view;
 
 import com.spellofplay.common.view.Mesh;
-import com.spellofplay.dsp.model.Soldier;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -9,9 +8,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 
-public class AndroidDraw implements com.spellofplay.dsp.view.IDraw {
+public class AndroidDraw  {
 	private final Paint m_guiText = new Paint();
 	private final Paint m_path = new Paint();
 	
@@ -27,14 +27,14 @@ public class AndroidDraw implements com.spellofplay.dsp.view.IDraw {
 		m_canvas = a_can;
 	}
 	
-	@Override
+	
 	public void drawText(String gameTitle, int i, int j) {
 		m_guiText.setColor(Color.WHITE);
 		
 		m_canvas.drawText(gameTitle, i, j, m_guiText );
 	}
 
-	@Override
+	
 	public void drawMeshToBackground(Mesh a_backgroundMeshBlocked, 
 						 int a_width, 
 						 int a_height, 
@@ -47,7 +47,7 @@ public class AndroidDraw implements com.spellofplay.dsp.view.IDraw {
 		
 		Canvas c = new Canvas(m_background);
 		c.drawARGB(255, 0, 0, 0);
-		
+		m_path.setColor(Color.WHITE);
 		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
 		
 		c.drawVertices(a_backgroundMeshBlocked.m_mode, 
@@ -65,17 +65,29 @@ public class AndroidDraw implements com.spellofplay.dsp.view.IDraw {
 		
 		return;
 	}
-	@Override
+	
 	public void drawBackground() {
 		m_canvas.drawBitmap(m_background, 0, 0.0f, m_guiText);
 	}
 
-	@Override
+	
 	public void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst) {
+		
 		
 		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
 		
 		m_canvas.drawBitmap((Bitmap)a_textureMap.getTexture(), src, dst, m_path);
+	}
+	
+	public void drawLine(ViewPosition vEpos, ViewPosition vsPos, int white) {
+	
+		m_canvas.drawLine(vEpos.m_x, vEpos.m_y, vsPos.m_x, vsPos.m_y, m_guiText);
+	}
+	
+	public void drawCircle(ViewPosition center, int radius, int color) {
+		RectF oval = new RectF(center.m_x - radius, center.m_y - radius, center.m_x + radius, center.m_y + radius);
+		
+		m_canvas.drawOval(oval, m_guiText);
 	}
 	
 

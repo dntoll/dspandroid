@@ -1,13 +1,12 @@
-package com.spellofplay.dsp;
+package com.spellofplay.dsp.view;
 
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.view.ViewPosition;
 
 import android.graphics.PointF;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-public class Input implements com.spellofplay.dsp.view.IInput {
+public class Input {
 	private PointF m_mousePosition = new PointF();
 	public PointF m_dragFrom = new PointF();
 	
@@ -27,14 +26,14 @@ public class Input implements com.spellofplay.dsp.view.IInput {
 		}
 	}
 	 
-	@Override
+	
 	public ViewPosition getClickPosition() {
 		// TODO Auto-generated method stub
 		return new ViewPosition(m_mousePosition.x, m_mousePosition.y);
 	}
 
 
-	@Override
+	
 	public boolean IsMouseClicked() {
 		if (m_dragClick) {
 			m_dragClick = false;
