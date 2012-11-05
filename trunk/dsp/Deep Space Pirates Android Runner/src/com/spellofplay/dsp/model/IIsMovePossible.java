@@ -4,4 +4,5 @@ public interface IIsMovePossible {
 
 	boolean isMovePossible(ModelPosition pos);
 
+	
 }
