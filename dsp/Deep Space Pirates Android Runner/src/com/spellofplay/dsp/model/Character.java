@@ -35,6 +35,10 @@ public class Character {
 		return 1;
 	}
 	
+	public int getHitpoints() {
+		return m_hitpoints;
+	}
+	
 	public int getTimeUnits() {
 		return m_timeUnits;
 	}

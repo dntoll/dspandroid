@@ -27,27 +27,7 @@ public class GameController {
 			a_model.updateEnemies();
 			
 		} else if (a_model.isSoldierTime()) {
-			com.spellofplay.dsp.model.Soldier selectedSoldier = a_view.getSelectedSoldier(a_input, a_model);
-			
-			if (selectedSoldier != null) {
-				//Everything that can be done with selected target
-				ModelPosition destination = a_view.getDestination(a_input);
-				
-				if (destination != null) {
-					a_model.doMoveTo(selectedSoldier, destination);
-				}
-				
-				Enemy fireTarget = a_view.getFireTarget(a_input);
-				
-				if (fireTarget != null) {
-					if (a_model.fireAt(selectedSoldier, fireTarget) == false) {
-						
-					}
-				}
-			}
-			
-			
-			a_model.updatePlayers();
+			doInteractWithSoldiers(a_model, a_view, a_input);
 			
 		} else  {
 			a_model.startNewRound();
@@ -64,6 +44,31 @@ public class GameController {
 			drawable.drawText("Enemy moving", 10, 100);
 		}
 		
+	}
+
+	private void doInteractWithSoldiers(ModelFacade a_model, GameView a_view,
+			Input a_input) {
+		com.spellofplay.dsp.model.Soldier selectedSoldier = a_view.getSelectedSoldier(a_input, a_model);
+		
+		if (selectedSoldier != null) {
+			//Everything that can be done with selected target
+			ModelPosition destination = a_view.getDestination(a_input);
+			
+			if (destination != null) {
+				a_model.doMoveTo(selectedSoldier, destination);
+			}
+			
+			Enemy fireTarget = a_view.getFireTarget(a_input);
+			
+			if (fireTarget != null) {
+				if (a_model.fireAt(selectedSoldier, fireTarget) == false) {
+					
+				}
+			}
+		}
+		
+		
+		a_model.updatePlayers();
 	}
 
 	

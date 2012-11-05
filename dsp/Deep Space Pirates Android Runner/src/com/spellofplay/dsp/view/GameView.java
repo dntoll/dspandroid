@@ -4,13 +4,13 @@ package com.spellofplay.dsp.view;
 import java.util.List;
 
 import android.graphics.Color;
-import android.graphics.PointF;
 import android.graphics.Rect;
 
 import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Soldier;
+import com.spellofplay.dsp.model.Character;
 
 public class GameView {
 
@@ -61,6 +61,7 @@ public class GameView {
 			
 			
 			drawable.drawText("" + s.getTimeUnits(), dst.left, dst.top);
+			drawable.drawText("" + s.getHitpoints(), dst.right, dst.top);
 		}
 		
 		for (Enemy e : a_model.getAliveEnemies()) {
@@ -87,6 +88,7 @@ public class GameView {
 			drawable.drawBitmap(m_texture, enemy, dst);
 			
 			drawable.drawText("" + e.getTimeUnits(), dst.left, dst.top);
+			drawable.drawText("" + e.getHitpoints(), dst.right, dst.top);
 		}
 		
 		drawable.drawText(a_model.getGameTitle(), 10, 10);
@@ -112,10 +114,8 @@ public class GameView {
 		
 		if (a_input.IsMouseClicked()) {
 			if (mouseOverSoldier != null) {
-				
-					m_selectedSoldier = mouseOverSoldier;
-					m_action = Action.SelectedSoldier;
-				
+				m_selectedSoldier = mouseOverSoldier;
+				m_action = Action.SelectedSoldier;
 			} else if (mouseOverEnemy != null) {
 				m_selectedEnemy = mouseOverEnemy;
 				m_action = Action.ClickedOnEnemy;
@@ -127,38 +127,36 @@ public class GameView {
 		
 	}
 	
+	
+	
 	private Soldier onSoldier(Input a_input, ModelFacade a_model) {
 		List<Soldier> soldiers = a_model.getAliveSoldiers();
 		ViewPosition clickpos = a_input.getClickPosition();
-		for (Soldier s : soldiers) {
-			ModelPosition soldierModelPos = s.getPosition();
-			
-			ViewPosition viewPosition = m_camera.toViewPos(soldierModelPos);
-			
-			float soldierViewRadius = m_camera.toViewScale(s.getRadius());
-			
-			if (viewPosition.sub(clickpos).length() < soldierViewRadius) {
-				return s;
-			}
-		}
-		return null;
+		return onCharacter(soldiers, clickpos);
 	}
+	
 	private Enemy onEnemy(Input a_input, ModelFacade a_model) {
 		List<Enemy> enemies = a_model.getAliveEnemies();
 		ViewPosition clickpos = a_input.getClickPosition();
-		for (Enemy s : enemies) {
-			ModelPosition enemyPosition = s.getPosition();
+		return onCharacter(enemies, clickpos);
+	}
+
+
+	private <T extends Character> T onCharacter(List<T> characters, ViewPosition clickpos) {
+		for (T s : characters) {
+			ModelPosition modelPos = s.getPosition();
 			
-			ViewPosition viewPosition = m_camera.toViewPos(enemyPosition);
+			ViewPosition viewPosition = m_camera.toViewPos(modelPos);
 			
-			float soldierViewRadius = m_camera.toViewScale(s.getRadius());
+			float viewRadius = m_camera.toViewScale(s.getRadius());
 			
-			if (viewPosition.sub(clickpos).length() < soldierViewRadius) {
+			if (viewPosition.sub(clickpos).length() < viewRadius) {
 				return s;
 			}
 		}
 		return null;
 	}
+	
 	
 	
 

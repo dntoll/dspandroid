@@ -11,4 +11,6 @@ public class Soldier extends Character {
 
 	
 
+	
+
 }

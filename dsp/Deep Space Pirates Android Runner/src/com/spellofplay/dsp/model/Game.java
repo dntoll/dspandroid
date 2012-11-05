@@ -17,21 +17,17 @@ public class Game implements IIsMovePossible {
 	}
 	
 	public List<Soldier> getAliveSoldiers() {
-		
-		List<Soldier> ret = new ArrayList<Soldier>();
-		for (Soldier s : m_soldiers) {
-			if (s != null) {
-				ret.add(s);
-			}
-		}
-		
-		return ret;
+		return getCharacters(m_soldiers);
 	}
 	
 	public List<Enemy>  getAliveEnemies() {
-		List<Enemy> ret = new ArrayList<Enemy>();
-		for (Enemy s : m_enemies) {
-			if (s != null) {
+		return getCharacters(m_enemies);
+	}
+
+	private <T extends Character> List<T> getCharacters(T[] a_list) {
+		List<T> ret = new ArrayList<T>();
+		for (T s : a_list) {
+			if (s != null  && s.m_hitpoints > 0) {
 				ret.add(s);
 			}
 		}
