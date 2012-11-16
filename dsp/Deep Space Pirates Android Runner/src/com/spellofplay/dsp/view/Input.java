@@ -1,11 +1,9 @@
 package com.spellofplay.dsp.view;
 
-import com.spellofplay.dsp.model.ModelPosition;
-
 import android.graphics.PointF;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-
+/*
 public class Input {
 	private PointF m_mousePosition = new PointF();
 	public PointF m_dragFrom = new PointF();
@@ -123,3 +121,4 @@ public class Input {
 
 	
 }
+*/

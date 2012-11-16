@@ -6,14 +6,13 @@ import java.util.List;
 public class Game implements IIsMovePossible {
 
 	public static final int MAX_SOLDIERS = 4;
-	public static final int MAX_ENEMIES = 20;
+	public static final int MAX_ENEMIES = 5;
 	Soldier[] m_soldiers = new Soldier[MAX_SOLDIERS];
 	Enemy[] m_enemies = new Enemy[MAX_ENEMIES];
 	Level m_level = new Level();
 	
 	public Game() {
-		m_soldiers[0] = new Soldier(new ModelPosition(5,5));
-		m_soldiers[1] = new Soldier(new ModelPosition(10,5));
+		startLevel(0);
 	}
 	
 	public List<Soldier> getAliveSoldiers() {
@@ -36,11 +35,17 @@ public class Game implements IIsMovePossible {
 	}
 
 	public void startLevel(int a_level) {
+		for (int i = 0; i < MAX_SOLDIERS; i++) {
+			m_soldiers[i] = new Soldier(new ModelPosition(5,5));
+		}
+		
 		
 		m_level.loadLevel(a_level);
 		for (int i = 0; i < MAX_SOLDIERS; i++) {
-			if (m_soldiers[i] != null) {
+			if (m_soldiers[i] != null && m_level.getStartLocation(i) != null) {
 				m_soldiers[i].reset(m_level.getStartLocation(i));
+			} else {
+				m_soldiers[i] = null;
 			}
 		}
 		
@@ -52,7 +57,7 @@ public class Game implements IIsMovePossible {
 
 	
 	public void doMoveTo(Soldier selectedSoldier, ModelPosition destination) {
-		selectedSoldier.setDestination(destination, this, 0.0f);
+		selectedSoldier.setDestination(destination, this, 0.0f, false);
 		
 	}
 
@@ -84,12 +89,14 @@ public class Game implements IIsMovePossible {
 	}
 
 	@Override
-	public boolean isMovePossible(ModelPosition pos) {
+	public boolean isMovePossible(ModelPosition pos, boolean a_canMoveThroughObstacles) {
 		if (m_level.isClear(pos) == false)
 			return false;
 		
-		if (isOccupied(pos)) {
-			return false;
+		if (a_canMoveThroughObstacles == false) {
+			if (isOccupied(pos)) {
+				return false;
+			}
 		}
 		
 		return true;

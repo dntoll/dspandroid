@@ -71,9 +71,9 @@ public class AndroidDraw  {
 	}
 
 	
-	public void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst) {
+	public void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst, int a_color) {
 		
-		
+		m_path.setColor(a_color);
 		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
 		
 		m_canvas.drawBitmap((Bitmap)a_textureMap.getTexture(), src, dst, m_path);
@@ -88,6 +88,20 @@ public class AndroidDraw  {
 		RectF oval = new RectF(center.m_x - radius, center.m_y - radius, center.m_x + radius, center.m_y + radius);
 		
 		m_canvas.drawOval(oval, m_guiText);
+	}
+
+	public void drawRect(int left, int top, int right, int bottom,
+			Paint paint) {
+		m_canvas.drawRect(left, top, right, bottom, paint);
+	}
+
+	public int getWindowWidth() {
+
+		return m_canvas.getWidth();
+	}
+	public int getWindowHeight() {
+
+		return m_canvas.getHeight();
 	}
 	
 

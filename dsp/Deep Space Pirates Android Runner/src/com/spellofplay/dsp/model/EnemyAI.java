@@ -14,6 +14,7 @@ public class EnemyAI {
 			if (e.isDoingSomething()) {
 				//if search or move failed remove timeunits...
 				if (e.update(a_checker) == false) {
+					
 					e.removeTimeUnit();
 				}
 				break;
@@ -25,7 +26,7 @@ public class EnemyAI {
 				float distance = e.m_position.sub(closest.getPosition()).length();
 				
 				if (distance > 1.0f) {
-					e.setDestination(closest.getPosition(), a_checker, 1.0f);
+					e.setDestination(closest.getPosition(), a_checker, 1.0f, true);
 				} else {
 					e.attack(closest);
 				}

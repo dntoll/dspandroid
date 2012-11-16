@@ -8,6 +8,8 @@ public class AStar {
 	
 	public List<ModelPosition> m_path;
 	public SearchResult m_state;
+	private boolean m_canMoveThroughObstacles = false;
+	//private boolean m_doingFirstSearchWithObstacles = true;
 	
 	public AStar(IIsMovePossible a_map) 
     {
@@ -32,10 +34,9 @@ public class AStar {
         {
             return m_state;
         }
-        if (m_doesNearSearch == false && m_map.isMovePossible(m_end) == false)
+        if (m_doesNearSearch == false && m_map.isMovePossible(m_end, m_canMoveThroughObstacles) == false)
         {
-            m_state = SearchResult.SearchFailedNoPath;
-            return SearchResult.SearchFailedNoPath;
+        	return doFailedSearch();
         }
         m_nVisitedNodes = 0;
 
@@ -52,12 +53,23 @@ public class AStar {
                 return result;
             }
         }
-        m_state = SearchResult.SearchFailedNoPath;
-        return SearchResult.SearchFailedNoPath;
+        return doFailedSearch();
     }
+
+	private SearchResult doFailedSearch() {
+		if (m_canMoveThroughObstacles) {
+			//reset
+			InitSearch(m_start, m_end, m_doesNearSearch, m_nearDistance, false);
+			m_canMoveThroughObstacles = false;
+			return SearchResult.SearchNotDone;
+		}
+		m_state = SearchResult.SearchFailedNoPath;
+		return SearchResult.SearchFailedNoPath;
+	}
     
-    public void InitSearch(ModelPosition a_start, ModelPosition a_end, boolean a_nearSearch, float a_distance)
+    public void InitSearch(ModelPosition a_start, ModelPosition a_end, boolean a_nearSearch, float a_distance, boolean a_canMoveThroughObstacles)
     {
+        m_canMoveThroughObstacles = a_canMoveThroughObstacles;
         
         m_path = new ArrayList<ModelPosition>();
         m_doesNearSearch = a_nearSearch;
@@ -176,14 +188,14 @@ public class AStar {
 			        // handle diagonal, should be like this in dungeon but not on trail...
 			        // on trail diagonal is ok 
 			        if (x == y || x == -y) {
-				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y)) == false)
+				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y), true) == false)
 					        continue;
-				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x, pNode.m_node.m_y + y)) == false)
+				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x, pNode.m_node.m_y + y), true) == false)
 					        continue;
 			        }
 
 
-                    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y + y)) == true)
+                    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y + y), m_canMoveThroughObstacles) == true)
                     {
 				        Node NewNode = new Node();
 				        
