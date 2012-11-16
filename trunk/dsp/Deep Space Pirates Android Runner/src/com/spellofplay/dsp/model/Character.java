@@ -48,11 +48,11 @@ public class Character {
 		m_pathFinder = null;
 	}
 	
-	public void setDestination(ModelPosition destination, IIsMovePossible a_map, float a_distance) {
+	public void setDestination(ModelPosition destination, IIsMovePossible a_map, float a_distance, boolean a_checkPathThroughOthers) {
 		m_pathFinder = new AStar(a_map);
 		
 		
-		m_pathFinder.InitSearch(m_position, destination, a_distance > 0.0f, a_distance);
+		m_pathFinder.InitSearch(m_position, destination, a_distance > 0.0f, a_distance, a_checkPathThroughOthers);
 	}
 
 	/**
@@ -66,11 +66,13 @@ public class Character {
 			SearchResult result = m_pathFinder.Update(100);
 			
 			if (result == SearchResult.SearchSucceded) {
+				
 				if (m_pathFinder.m_path.size() > 0) {
 					ModelPosition pos = m_pathFinder.m_path.get(0);
 					m_pathFinder.m_path.remove(0);
 					
-					if (check.isMovePossible(pos)) {
+					//kan vi verkligen gå igenom någon annan?
+					if (check.isMovePossible(pos, false)) {
 						m_position = pos;
 						m_timeUnits--; 
 					} else {

@@ -86,7 +86,7 @@ public class ModelFacade {
 
 
 	public boolean fireAt(Soldier selectedSoldier, Enemy fireTarget) {
-		boolean hasLineOfSight = m_game.m_level.lineOfSight(selectedSoldier.m_position.toVector(), fireTarget.m_position.toVector());
+		boolean hasLineOfSight = m_game.m_level.lineOfSight(selectedSoldier.m_position.toCenterTileVector(), fireTarget.m_position.toCenterTileVector());
 		return selectedSoldier.fireAt(fireTarget, hasLineOfSight);
 	}
 
@@ -97,13 +97,19 @@ public class ModelFacade {
 		List<Soldier> soldiersThatCanSee = new ArrayList<Soldier>();
 		
 		for (Soldier s : aliveSoldiers) {
-			if ( m_game.m_level.lineOfSight(s.getPosition().toVector(), e.getPosition().toVector())) {
+			if ( m_game.m_level.lineOfSight(s.getPosition().toCenterTileVector(), e.getPosition().toCenterTileVector())) {
 				soldiersThatCanSee.add(s);
 				
 			}
 		}
 		return soldiersThatCanSee;
 	}
+
+
+	public void doWait(Soldier selectedSoldier) {
+		selectedSoldier.m_timeUnits = 0;
+	}
+
 
 
 	

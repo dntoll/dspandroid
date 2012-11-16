@@ -16,7 +16,7 @@ public class ViewPosition {
 
 	public float length() {
 		
-		return (float) Math.sqrt(m_x * m_x + m_y * m_y);
+		return android.util.FloatMath.sqrt(m_x * m_x + m_y * m_y);
 	}
 
 }

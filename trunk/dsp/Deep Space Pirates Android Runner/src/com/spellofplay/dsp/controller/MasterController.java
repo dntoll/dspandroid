@@ -5,7 +5,7 @@ import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.GameView;
 import com.spellofplay.dsp.view.ITexture;
-import com.spellofplay.dsp.view.Input;
+import com.spellofplay.common.view.Input;
 
 import android.content.Context;
 import android.graphics.Paint;

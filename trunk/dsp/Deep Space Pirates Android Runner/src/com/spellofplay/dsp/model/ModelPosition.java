@@ -23,7 +23,7 @@ public class ModelPosition {
 
 	public float length() {
 		
-		return (float) Math.sqrt(m_x * m_x + m_y * m_y);
+		return android.util.FloatMath.sqrt(m_x * m_x + m_y * m_y);
 	}
 	
 	@Override 
@@ -35,8 +35,8 @@ public class ModelPosition {
 	}
 
 
-	public Vector2 toVector() {
-		return new Vector2(m_x, m_y);
+	public Vector2 toCenterTileVector() {
+		return new Vector2(m_x + 0.5f, m_y + 0.5f);
 	}
 
 }

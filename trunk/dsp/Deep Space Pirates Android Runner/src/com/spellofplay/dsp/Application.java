@@ -3,7 +3,7 @@ package com.spellofplay.dsp;
 
 import com.spellofplay.dsp.controller.MasterController;
 import com.spellofplay.dsp.view.AndroidDraw;
-import com.spellofplay.dsp.view.Input;
+import com.spellofplay.common.view.Input;
 
 import android.app.Activity;
 import android.content.Context;
