@@ -3,12 +3,12 @@ package com.spellofplay.dsp.model;
 import com.spellofplay.dsp.model.AStar.SearchResult;
 
 public class Character {
-	ModelPosition m_position;
+	private ModelPosition m_position;
 	public AStar m_pathFinder;
 	
-	int m_maxTimeUnits = 3;
-	int m_timeUnits = m_maxTimeUnits;
-	int m_hitpoints = 3;
+	protected int m_maxTimeUnits = 3;
+	protected int m_timeUnits = m_maxTimeUnits;
+	protected int m_hitpoints = 3;
 
 	public Character(ModelPosition startPosition, int a_maxTimeUnits) {
 		m_position = startPosition;

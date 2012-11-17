@@ -86,7 +86,7 @@ public class ModelFacade {
 
 
 	public boolean fireAt(Soldier selectedSoldier, Enemy fireTarget) {
-		boolean hasLineOfSight = m_game.m_level.lineOfSight(selectedSoldier.m_position.toCenterTileVector(), fireTarget.m_position.toCenterTileVector());
+		boolean hasLineOfSight = canSee(selectedSoldier, fireTarget);
 		return selectedSoldier.fireAt(fireTarget, hasLineOfSight);
 	}
 
@@ -97,18 +97,47 @@ public class ModelFacade {
 		List<Soldier> soldiersThatCanSee = new ArrayList<Soldier>();
 		
 		for (Soldier s : aliveSoldiers) {
-			if ( m_game.m_level.lineOfSight(s.getPosition().toCenterTileVector(), e.getPosition().toCenterTileVector())) {
+			if ( canSee(s, e) ) {
 				soldiersThatCanSee.add(s);
 				
 			}
 		}
 		return soldiersThatCanSee;
 	}
+	
+	public Enemy getClosestEnemyThatWeCanSee(Soldier selectedSoldier) {
+		float minDist = Float.MAX_VALUE;
+		Enemy target = null;
+		List<Enemy> aliveEnemies = m_game.getAliveEnemies();
+		for (Enemy e : aliveEnemies) {
+			if ( canSee(selectedSoldier, e) ) {
+				float distance = selectedSoldier.getPosition().sub(e.getPosition()).length();
+				if (distance < minDist) {
+					minDist = distance;
+					target = e;
+				}
+				
+			}
+		}
+		
+		return target;
+	}
+	
+	public boolean canSee(Soldier soldier, Enemy enemy) {
+		return m_game.m_level.lineOfSight(soldier.getPosition().toCenterTileVector(), 
+										    enemy.getPosition().toCenterTileVector() ) ;
+	}
 
 
 	public void doWait(Soldier selectedSoldier) {
 		selectedSoldier.m_timeUnits = 0;
 	}
+
+
+	
+
+
+	
 
 
 

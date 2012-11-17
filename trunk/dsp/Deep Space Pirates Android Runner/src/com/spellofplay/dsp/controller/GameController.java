@@ -62,21 +62,32 @@ public class GameController {
 		com.spellofplay.dsp.model.Soldier selectedSoldier = a_view.getSelectedSoldier(a_model);
 		
 		if (selectedSoldier != null) {
-			//Everything that can be done with selected target
-			ModelPosition destination = a_view.getDestination(a_input);
 			
-			if (destination != null) {
-				a_model.doMoveTo(selectedSoldier, destination);
-			} else if (a_view.isWaiting()){
+			
+			
+			
+			if (a_view.userWantsToMove()) {
+				//Everything that can be done with selected target
+				ModelPosition destination = a_view.getDestination();
+				
+				if (destination != null) {
+					
+					a_model.doMoveTo(selectedSoldier, destination);
+				}
+			} 
+			
+			if (a_view.userWantsToWait()){
 				a_model.doWait(selectedSoldier);
 			}
 			
 			
-			Enemy fireTarget = a_view.getFireTarget(a_input);
-			
-			if (fireTarget != null) {
-				if (a_model.fireAt(selectedSoldier, fireTarget) == false) {
-					
+			if (a_view.userWantsToFire()){ 
+				Enemy fireTarget = a_view.getFireTarget(a_model);
+				
+				if (fireTarget != null) {
+					if (a_model.fireAt(selectedSoldier, fireTarget) == false) {
+						
+					}
 				}
 			}
 		}
