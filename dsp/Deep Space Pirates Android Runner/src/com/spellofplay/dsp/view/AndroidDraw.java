@@ -66,8 +66,8 @@ public class AndroidDraw  {
 		return;
 	}
 	
-	public void drawBackground() {
-		m_canvas.drawBitmap(m_background, 0, 0.0f, m_guiText);
+	public void drawBackground(ViewPosition a_displacement) {
+		m_canvas.drawBitmap(m_background, a_displacement.m_x, a_displacement.m_y, m_guiText);
 	}
 
 	
@@ -79,12 +79,14 @@ public class AndroidDraw  {
 		m_canvas.drawBitmap((Bitmap)a_textureMap.getTexture(), src, dst, m_path);
 	}
 	
-	public void drawLine(ViewPosition vEpos, ViewPosition vsPos, int white) {
-	
+	public void drawLine(ViewPosition vEpos, ViewPosition vsPos, int color) {
+		m_guiText.setColor(color);
 		m_canvas.drawLine(vEpos.m_x, vEpos.m_y, vsPos.m_x, vsPos.m_y, m_guiText);
 	}
 	
 	public void drawCircle(ViewPosition center, int radius, int color) {
+		
+		m_guiText.setColor(color);
 		RectF oval = new RectF(center.m_x - radius, center.m_y - radius, center.m_x + radius, center.m_y + radius);
 		
 		m_canvas.drawOval(oval, m_guiText);

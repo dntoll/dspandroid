@@ -20,10 +20,10 @@ public class EnemyAI {
 				break;
 			} else if (e.getTimeUnits() > 0) {
 				//attack closest soldier
-				Soldier closest = getClosest(e.m_position, soldiers);
+				Soldier closest = getClosest(e.getPosition(), soldiers);
 				
 				
-				float distance = e.m_position.sub(closest.getPosition()).length();
+				float distance = e.getPosition().sub(closest.getPosition()).length();
 				
 				if (distance > 1.0f) {
 					e.setDestination(closest.getPosition(), a_checker, 1.0f, true);
@@ -36,12 +36,12 @@ public class EnemyAI {
 		
 	}
 
-	private Soldier getClosest(ModelPosition m_position, List<Soldier> soldiers) {
+	private Soldier getClosest(ModelPosition a_position, List<Soldier> soldiers) {
 		Soldier closest = null;
 		
 		float closestDistance = Float.MAX_VALUE;
 		for (Soldier s : soldiers) {
-			float distance  = s.m_position.sub(m_position).length();
+			float distance  = s.getPosition().sub(a_position).length();
 			if (distance < closestDistance) {
 				closestDistance = distance;
 				closest = s;
