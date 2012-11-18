@@ -26,13 +26,14 @@ public class GameView {
 	Soldier m_selectedSoldier;
 	Enemy   m_selectedEnemy;
 	Map<Enemy, ModelPosition> m_enemiesSeenThisRound = new HashMap<Enemy, ModelPosition>();
+	Map<Character, VisualCharacter> m_characters = new HashMap<Character, VisualCharacter>();
 	ModelPosition m_selectedDestination = null;
 	
 	SimpleGui m_gui = new SimpleGui();
 	
 	
 	Rect enemy = new Rect(0, 128, 32, 128 + 32);
-	Rect soldier = new Rect(0, 0, 255, 255);
+
 	private final int TRANSPARENT = Color.argb(128, 255, 255, 255);
 	
 	ITexture m_texture;
@@ -52,28 +53,28 @@ public class GameView {
 		}
 		drawable.drawBackground(m_camera.m_displacement);
 		
+		//TargetDestionation
 		if (getDestination() != null) {
 			drawable.drawCircle(m_camera.toViewPos(getDestination()), m_camera.getHalfScale(), Color.BLUE);
 		}
 		
+		Soldier selected = getSelectedSoldier(a_model);
+		//DRAW SELECTION
+		if (selected != null && a_model.isSoldierTime() && selected.getTimeUnits() > 0) {
+			ViewPosition vpos = m_camera.toViewPos(selected.getPosition());
+			drawable.drawCircle(vpos, m_camera.getHalfScale(), Color.GREEN);
+		}
+		//DRAW TARGET ENEMY
+		Enemy target = getFireTarget(a_model);
+		if (target != null) {
+			ViewPosition vEpos = m_camera.toViewPos(target.getPosition());
+			drawable.drawCircle(vEpos, m_camera.getHalfScale(), Color.RED);
+		}
+		
 		//DRAW SOLDIERS
-		for (Soldier s : a_model.getAliveSoldiers()) {
-			ViewPosition vpos = m_camera.toViewPos(s.getPosition());
-			
-			Rect dst = new Rect((int)vpos.m_x -m_camera.getHalfScale(), 
-					(int)vpos.m_y -m_camera.getHalfScale(),
-					(int)vpos.m_x + m_camera.getHalfScale(), 
-					(int)vpos.m_y + m_camera.getHalfScale());
-			
-			//DRAW SELECTION
-			if (s == getSelectedSoldier(a_model) && a_model.isSoldierTime() && s.getTimeUnits() > 0) {
-				drawable.drawCircle(vpos, m_camera.getHalfScale(), Color.GREEN);
-			}
-			drawable.drawBitmap(m_player, soldier, dst, Color.WHITE);
-			
-			//DRAW SOLDIER INFO
-			drawable.drawText("" + s.getTimeUnits(), dst.left, dst.top);
-			drawable.drawText("" + s.getHitpoints(), dst.right, dst.top);
+		for (Soldier soldier : a_model.getAliveSoldiers()) {
+			VisualCharacter vchar = m_characters.get(soldier);
+			vchar.drawSoldier(drawable, soldier, m_camera, m_player, selected == soldier ? target :  null);
 		}
 		
 		for (Enemy e : a_model.getAliveEnemies()) {
@@ -105,9 +106,7 @@ public class GameView {
 			
 			//DRAW SELECTION
 			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
-				if (e == getFireTarget(a_model)) {
-					drawable.drawCircle(vEpos, m_camera.getHalfScale(), Color.RED);
-				}
+				
 				for(Soldier s : soldiersWhoSpotsEnemy) {
 					ViewPosition vsPos = m_camera.toViewPos(s.getPosition());
 					
@@ -115,7 +114,6 @@ public class GameView {
 					
 				}
 			}
-			
 			
 			Rect dst = new Rect((int)vEpos.m_x -m_camera.getHalfScale(), 
 					(int)vEpos.m_y -m_camera.getHalfScale(),
@@ -125,16 +123,19 @@ public class GameView {
 			
 			//DRAW ENEMY INFO
 			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
-				drawable.drawText("" + e.getTimeUnits(), dst.left, dst.top);
-				drawable.drawText("" + e.getHitpoints(), dst.right, dst.top);
+				drawable.drawText("" + e.getTimeUnits(), dst.left, dst.top, drawable.m_guiText);
+				drawable.drawText("" + e.getHitpoints(), dst.right, dst.top, drawable.m_guiText);
 			}
 		}
 		
-		drawable.drawText(a_model.getGameTitle(), 10, 10);
+		drawable.drawText(a_model.getGameTitle(), 10, 10, drawable.m_guiText);
 		
 		
 		m_gui.DrawGui(drawable);
 	}
+
+
+	
 	
 	
 	enum Action {
@@ -281,6 +282,21 @@ public class GameView {
 
 	public void startNewRound() {
 		m_enemiesSeenThisRound.clear();
+	}
+	
+	public void startNewGame(ModelFacade a_model) {
+		m_selectedEnemy = null;
+		m_selectedSoldier = null;
+		m_selectedDestination = null;
+		m_characters.clear();
+		
+		for (Soldier soldier : a_model.getAliveSoldiers()) {
+			m_characters.put(soldier, new VisualCharacter(soldier));
+		}
+		
+		for (Enemy enemy : a_model.getAliveEnemies()) {
+			m_characters.put(enemy, new VisualCharacter(enemy));
+		}
 	}
 	
 	public boolean userWantsToWait() {

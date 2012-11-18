@@ -4,6 +4,7 @@ import com.spellofplay.dsp.model.AStar.SearchResult;
 
 public class Character {
 	private ModelPosition m_position;
+	
 	public AStar m_pathFinder;
 	
 	protected int m_maxTimeUnits = 3;

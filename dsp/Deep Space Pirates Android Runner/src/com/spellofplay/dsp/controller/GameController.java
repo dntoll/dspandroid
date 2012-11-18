@@ -17,25 +17,25 @@ public class GameController {
 		
 		if (a_model.enemyHasWon()) {
 			if (m_gui.DoButtonCentered(drawable.getWindowWidth()/2, drawable.getWindowHeight()/2, "restart", a_input, false)) {
-				a_model.startNewGame(0);
+				startNewGame(a_model, a_view);
 			}
 			
 			a_view.drawGame(drawable, a_model);
 			m_gui.DrawGui(drawable);
-			drawable.drawText("Game Over", 200, 10);
+			drawable.drawText("Game Over", 200, 10, drawable.m_guiText);
 		} else if (a_model.playerHasWon()) {
 			if (m_gui.DoButtonCentered(drawable.getWindowWidth()/2, drawable.getWindowHeight()/2, "restart", a_input, false)) {
-				a_model.startNewGame(0);
+				startNewGame(a_model, a_view);
 			}
 			
 			a_view.drawGame(drawable, a_model);
 			m_gui.DrawGui(drawable);
 			
-			drawable.drawText("Game Won", 200, 10);
+			drawable.drawText("Game Won", 200, 10, drawable.m_guiText);
 		} else if (a_model.isEnemyTime()) {
 			a_model.updateEnemies();
 			a_view.drawGame(drawable, a_model);
-			drawable.drawText("Enemy is moving", 200, 10);
+			drawable.drawText("Enemy is moving", 200, 10, drawable.m_guiText);
 			
 		} else if (a_model.isSoldierTime()) {
 		
@@ -55,6 +55,11 @@ public class GameController {
 		
 		
 		
+	}
+
+	void startNewGame(ModelFacade a_model, GameView a_view) {
+		a_model.startNewGame(0);
+		a_view.startNewGame(a_model);
 	}
 
 	private void doInteractWithSoldiers(ModelFacade a_model, GameView a_view,

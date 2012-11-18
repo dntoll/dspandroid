@@ -39,4 +39,9 @@ public class ModelPosition {
 		return new Vector2(m_x + 0.5f, m_y + 0.5f);
 	}
 
+
+	public float getRotation() {
+		return 90.0f +(float)(Math.atan2(m_y, m_x) * 180.0/Math.PI);
+	}
+
 }

@@ -30,7 +30,7 @@ public class LevelDrawer {
 						x*camera.getScale() + camera.getScale(), 
 						y*camera.getScale() + camera.getScale());
 				
-				int variation = 2;
+				int variation = 0;
 				RotatedTile rotTileBlocked = new RotatedTile(level.GetTile(x, y) != TileType.TileWall,
 													 		 level.GetTile(x +1, y) != TileType.TileWall,
 															 level.GetTile(x, y+1) != TileType.TileWall,
