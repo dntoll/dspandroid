@@ -12,7 +12,7 @@ import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 
 public class AndroidDraw  {
-	private final Paint m_guiText = new Paint();
+	public final Paint m_guiText = new Paint();
 	private final Paint m_path = new Paint();
 	
 	private Bitmap m_background;
@@ -28,10 +28,9 @@ public class AndroidDraw  {
 	}
 	
 	
-	public void drawText(String gameTitle, int i, int j) {
-		m_guiText.setColor(Color.WHITE);
+	public void drawText(String gameTitle, int i, int j, Paint guiText) {
 		
-		m_canvas.drawText(gameTitle, i, j, m_guiText );
+		m_canvas.drawText(gameTitle, i, j, guiText );
 	}
 
 	
@@ -67,16 +66,31 @@ public class AndroidDraw  {
 	}
 	
 	public void drawBackground(ViewPosition a_displacement) {
+		m_guiText.setColor(Color.WHITE);
 		m_canvas.drawBitmap(m_background, a_displacement.m_x, a_displacement.m_y, m_guiText);
 	}
 
 	
 	public void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst, int a_color) {
+		 
 		
 		m_path.setColor(a_color);
 		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
 		
 		m_canvas.drawBitmap((Bitmap)a_textureMap.getTexture(), src, dst, m_path);
+		
+	}
+	
+	public void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst, int a_color, float a_rotationDegrees) {
+		 
+		m_canvas.save();
+		m_canvas.rotate(a_rotationDegrees, dst.exactCenterX(), dst.exactCenterY()); //center
+		m_path.setColor(a_color);
+		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
+		
+		m_canvas.drawBitmap((Bitmap)a_textureMap.getTexture(), src, dst, m_path);
+		
+		m_canvas.restore();
 	}
 	
 	public void drawLine(ViewPosition vEpos, ViewPosition vsPos, int color) {

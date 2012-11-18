@@ -13,7 +13,7 @@ import android.graphics.Paint.Style;
 public class SimpleGui {
 	private static final int BORDER_WIDTH = 5;
 	public static final int BUTTON_HEIGHT = 32;
-	public static final int BUTTON_WIDTH = 96;
+	public static final int BUTTON_WIDTH = 64;
 	
 	private Paint m_guiText = new Paint();
 	private List<DrawCall> m_drawCalls = new ArrayList<DrawCall>();
@@ -111,10 +111,14 @@ public class SimpleGui {
 			m_guiText.setTextAlign(Align.CENTER);
 			
 			int textPosY = height / 2 - (int)m_guiText.getTextSize();
-			a_draw.drawText(text, x, y + textPosY);
-			m_guiText.setTextAlign(Align.LEFT);
+			
+			
+			a_draw.drawText(text, x, y + textPosY, m_guiText);
+			m_guiText.setColor(Color.WHITE);
+			m_guiText.setAlpha(255);
+			//m_guiText.setTextAlign(Align.LEFT);
 			//reset
-			m_guiText.setColor(Color.RED);
+			//m_guiText.setColor(Color.RED);
 		}
 	}
 	

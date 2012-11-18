@@ -22,8 +22,8 @@ public class MasterController {
 		m_view = new GameView(a_texture, a_player);
 		m_input = a_input;
 		
+		m_game.startNewGame(m_model, m_view);
 		
-		m_model.startNewGame(0);
 	}
 
 	
