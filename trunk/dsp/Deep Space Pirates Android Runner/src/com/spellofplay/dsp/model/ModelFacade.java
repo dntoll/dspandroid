@@ -134,6 +134,11 @@ public class ModelFacade {
 	}
 
 
+	public IIsMovePossible getMovePossible() {
+		return m_game;
+	}
+
+
 	
 
 

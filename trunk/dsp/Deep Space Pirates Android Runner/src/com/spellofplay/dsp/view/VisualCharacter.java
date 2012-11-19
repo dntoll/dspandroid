@@ -19,9 +19,11 @@ public class VisualCharacter {
 	}
 
 	void drawSoldier(AndroidDraw drawable, Soldier s, Camera camera, ITexture player, Enemy target ) {
+		//Did we move?
 		if (m_lastPosition.equals(s.getPosition()) == false) {
 			m_rotation = m_lastPosition.sub(s.getPosition()).getRotation();
 		} else if (target != null) {
+			//Rotate to face target
 			m_rotation = s.getPosition().sub(target.getPosition()).getRotation();
 		}
 		

@@ -8,6 +8,8 @@ import java.util.Map;
 import android.graphics.Color;
 import android.graphics.Rect;
 
+import com.spellofplay.dsp.model.AStar;
+import com.spellofplay.dsp.model.AStar.SearchResult;
 import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
@@ -27,6 +29,9 @@ public class GameView {
 	Enemy   m_selectedEnemy;
 	Map<Enemy, ModelPosition> m_enemiesSeenThisRound = new HashMap<Enemy, ModelPosition>();
 	Map<Character, VisualCharacter> m_characters = new HashMap<Character, VisualCharacter>();
+	
+	
+	AStar m_selectedPath = null;// = new AStar();
 	ModelPosition m_selectedDestination = null;
 	
 	SimpleGui m_gui = new SimpleGui();
@@ -55,7 +60,24 @@ public class GameView {
 		
 		//TargetDestionation
 		if (getDestination() != null) {
-			drawable.drawCircle(m_camera.toViewPos(getDestination()), m_camera.getHalfScale(), Color.BLUE);
+			
+			if (m_selectedPath != null) {
+				SearchResult result = m_selectedPath.Update(100);
+				boolean drawPath = false;
+				switch (result) {
+					case SearchSucceded : drawPath = true; break;
+					case SearchFailedNoPath : drawPath = false; break;
+				}
+				if (drawPath) {
+					
+					for (ModelPosition loc : m_selectedPath.m_path)  {
+						drawable.drawCircle(m_camera.toViewPos(loc), m_camera.getHalfScale()/2, Color.argb(128, 0, 0, 255));
+					}
+				}
+				
+			}
+			
+			drawable.drawCircle(m_camera.toViewPos(getDestination()), m_camera.getHalfScale(), Color.argb(128, 0, 0, 255));
 		}
 		
 		Soldier selected = getSelectedSoldier(a_model);
@@ -154,17 +176,17 @@ public class GameView {
 		Enemy mouseOverEnemy = onEnemy(a_input, a_model);
 		
 		if (getSelectedSoldier(a_model) != null) {
-			if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH, a_height - SimpleGui.BUTTON_HEIGHT-32, "Wait", a_input, false)) {
+			if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH, a_height - SimpleGui.BUTTON_HEIGHT-16, "Wait", a_input, false)) {
 				m_action = Action.Waiting;
 			}
 			
 			if (getDestination() != null) {
-				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*2, a_height - SimpleGui.BUTTON_HEIGHT-32, "Move", a_input, false)) {
+				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*2, a_height - SimpleGui.BUTTON_HEIGHT-16, "Move", a_input, false)) {
 					m_action = Action.Moveing;
 				}
 			}
 			if (getFireTarget(a_model) != null) {
-				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*3, a_height - SimpleGui.BUTTON_HEIGHT-32, "Fire", a_input, false)) {
+				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*3, a_height - SimpleGui.BUTTON_HEIGHT-16, "Fire", a_input, false)) {
 					m_action = Action.Attacking;
 				}
 			}
@@ -172,13 +194,17 @@ public class GameView {
 		
 		if (a_input.IsMouseClicked()) {
 			if (mouseOverSoldier != null) {
-				m_selectedSoldier = mouseOverSoldier;
+				selectSoldier(mouseOverSoldier);
 			} else if (mouseOverEnemy != null) {
 				m_selectedEnemy = mouseOverEnemy;
 			} else {
 				
 				ViewPosition clickpos = new ViewPosition(a_input.m_mousePosition.x, a_input.m_mousePosition.y);
-				m_selectedDestination = m_camera.toModelPos(clickpos);
+				ModelPosition clickOnLevelPosition = m_camera.toModelPos(clickpos);
+				
+				selectDestination(a_model, clickOnLevelPosition);
+				
+				
 			}
 		}
 		
@@ -191,6 +217,34 @@ public class GameView {
 			m_camera.StopScrolling();
 		}
 		
+	}
+
+
+	private void selectDestination(ModelFacade a_model, ModelPosition clickOnLevelPosition) {
+		Soldier soldier = getSelectedSoldier(a_model);
+		
+		if (soldier != null) {
+			if (a_model.getLevel().canMove(clickOnLevelPosition)) {
+				
+				float length = clickOnLevelPosition.sub( soldier.getPosition() ).length();
+				
+				if (length < soldier.getTimeUnits() * Math.sqrt(2.0)) {
+				
+					m_selectedDestination = clickOnLevelPosition;
+					
+					m_selectedPath = new AStar(a_model.getMovePossible());
+					
+					m_selectedPath.InitSearch(soldier.getPosition(), m_selectedDestination, false, 0, false);
+				}
+			}
+		}
+	}
+
+
+	private void selectSoldier(Soldier mouseOverSoldier) {
+		m_selectedSoldier = mouseOverSoldier;
+		m_selectedDestination = null;
+		m_selectedPath = null;
 	}
 	
 	
@@ -239,7 +293,7 @@ public class GameView {
 			//SELECT THE NEXT SOLDIER
 			for (Soldier s : a_model.getAliveSoldiers()) {
 				if (s.getTimeUnits() > 0) {
-					m_selectedSoldier = s;
+					selectSoldier(s);
 					break;
 				}
 			}
@@ -257,24 +311,32 @@ public class GameView {
 			return null;
 		}
 		
+		
+		
 		return m_selectedDestination;
 	}
 
 
 	public Enemy getFireTarget(ModelFacade a_model) {
-		if (getSelectedSoldier(a_model) == null) {
+		Soldier selected = getSelectedSoldier(a_model);
+		
+		if (selected == null) {
+			return null;
+		}
+		
+		if (selected.getTimeUnits() < selected.getFireCost()) {
 			return null;
 		}
 		
 			
 		//Can we see the one we clicked on
 		if (m_selectedEnemy != null && m_selectedEnemy.getHitpoints() > 0) {
-			if (a_model.canSee(getSelectedSoldier(a_model), m_selectedEnemy)) {
+			if (a_model.canSee(selected, m_selectedEnemy)) {
 				return m_selectedEnemy;
 			}
 		}
 		
-		m_selectedEnemy = a_model.getClosestEnemyThatWeCanSee(getSelectedSoldier(a_model));
+		m_selectedEnemy = a_model.getClosestEnemyThatWeCanSee(selected);
 
 		return m_selectedEnemy;
 		
@@ -288,6 +350,7 @@ public class GameView {
 		m_selectedEnemy = null;
 		m_selectedSoldier = null;
 		m_selectedDestination = null;
+		m_selectedPath = null;
 		m_characters.clear();
 		
 		for (Soldier soldier : a_model.getAliveSoldiers()) {
