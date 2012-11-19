@@ -61,19 +61,19 @@ public class Game implements IIsMovePossible {
 		
 	}
 
-	public void updatePlayers() {
+	public void updatePlayers(ICharacterListener clistener) {
 		List<Soldier> soldiers = getAliveSoldiers();
 		for (Soldier s : soldiers) {
-			s.update(this);
+			s.update(this, clistener);
 		}
 
 	}
 	
 	EnemyAI m_ai = new EnemyAI();
-	public void updateEnemies() {
+	public void updateEnemies(ICharacterListener clistener) {
 		List<Enemy> enemies = getAliveEnemies();
 		List<Soldier> soldiers = getAliveSoldiers();
-		m_ai.think(enemies, soldiers, this);
+		m_ai.think(enemies, soldiers, this, clistener);
 	}
 
 	public void startNewRound() {

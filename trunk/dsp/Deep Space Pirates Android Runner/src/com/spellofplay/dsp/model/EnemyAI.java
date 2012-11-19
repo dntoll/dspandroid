@@ -4,7 +4,7 @@ import java.util.List;
 
 public class EnemyAI {
 
-	public void think(List<Enemy> enemies, List<Soldier> soldiers, IIsMovePossible a_checker) {
+	public void think(List<Enemy> enemies, List<Soldier> soldiers, IIsMovePossible a_checker, ICharacterListener clistener) {
 		
 		
 		int index = 0;
@@ -13,7 +13,7 @@ public class EnemyAI {
 			//Is doing something
 			if (e.isDoingSomething()) {
 				//if search or move failed remove timeunits...
-				if (e.update(a_checker) == false) {
+				if (e.update(a_checker, clistener) == false) {
 					
 					e.removeTimeUnit();
 				}
