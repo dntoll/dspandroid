@@ -61,7 +61,7 @@ public class Character {
 	 * @param check
 	 * @return true if everything is ok but false if a search or move failed
 	 */
-	public boolean update(IIsMovePossible check) {
+	public boolean update(IIsMovePossible check, ICharacterListener clistener) {
 		
 		if (m_pathFinder != null && m_timeUnits > 0) {
 			SearchResult result = m_pathFinder.Update(100);
@@ -76,6 +76,7 @@ public class Character {
 					if (check.isMovePossible(pos, false)) {
 						m_position = pos;
 						m_timeUnits--; 
+						clistener.moveTo(this, m_position);
 					} else {
 						m_pathFinder = null; //this should in theory never happen...
 						return false;

@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import com.spellofplay.dsp.model.AStar;
 import com.spellofplay.dsp.model.AStar.SearchResult;
 import com.spellofplay.dsp.model.Enemy;
+import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Soldier;
@@ -18,7 +19,7 @@ import com.spellofplay.dsp.model.Character;
 import com.spellofplay.common.view.Input;
 //import com.spellofplay.common.view.ViewPosition;
 
-public class GameView {
+public class GameView implements ICharacterListener {
 
 	
 	
@@ -32,7 +33,7 @@ public class GameView {
 	
 	
 	AStar m_selectedPath = null;// = new AStar();
-	ModelPosition m_selectedDestination = null;
+	//ModelPosition m_selectedDestination = null;
 	
 	SimpleGui m_gui = new SimpleGui();
 	
@@ -59,14 +60,13 @@ public class GameView {
 		drawable.drawBackground(m_camera.m_displacement);
 		
 		//TargetDestionation
-		if (getDestination() != null) {
+		if (getDestination(a_model) != null) {
 			
 			if (m_selectedPath != null) {
-				SearchResult result = m_selectedPath.Update(100);
+				SearchResult result = m_selectedPath.Update(10);
 				boolean drawPath = false;
 				switch (result) {
 					case SearchSucceded : drawPath = true; break;
-					case SearchFailedNoPath : drawPath = false; break;
 				}
 				if (drawPath) {
 					
@@ -77,13 +77,13 @@ public class GameView {
 				
 			}
 			
-			drawable.drawCircle(m_camera.toViewPos(getDestination()), m_camera.getHalfScale(), Color.argb(128, 0, 0, 255));
+			drawable.drawCircle(m_camera.toViewPos(getDestination(a_model)), m_camera.getHalfScale(), Color.argb(128, 0, 0, 255));
 		}
 		
 		Soldier selected = getSelectedSoldier(a_model);
 		//DRAW SELECTION
 		if (selected != null && a_model.isSoldierTime() && selected.getTimeUnits() > 0) {
-			ViewPosition vpos = m_camera.toViewPos(selected.getPosition());
+			ViewPosition vpos = m_characters.get(selected).getVisualPosition(m_camera);//.toViewPos(selected.getPosition());
 			drawable.drawCircle(vpos, m_camera.getHalfScale(), Color.GREEN);
 		}
 		//DRAW TARGET ENEMY
@@ -96,7 +96,7 @@ public class GameView {
 		//DRAW SOLDIERS
 		for (Soldier soldier : a_model.getAliveSoldiers()) {
 			VisualCharacter vchar = m_characters.get(soldier);
-			vchar.drawSoldier(drawable, soldier, m_camera, m_player, selected == soldier ? target :  null);
+			vchar.drawSoldier(drawable, m_camera, m_player, selected == soldier ? target :  null);
 		}
 		
 		for (Enemy e : a_model.getAliveEnemies()) {
@@ -180,7 +180,7 @@ public class GameView {
 				m_action = Action.Waiting;
 			}
 			
-			if (getDestination() != null) {
+			if (getDestination(a_model) != null) {
 				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*2, a_height - SimpleGui.BUTTON_HEIGHT-16, "Move", a_input, false)) {
 					m_action = Action.Moveing;
 				}
@@ -230,11 +230,11 @@ public class GameView {
 				
 				if (length < soldier.getTimeUnits() * Math.sqrt(2.0)) {
 				
-					m_selectedDestination = clickOnLevelPosition;
+					//m_selectedDestination = clickOnLevelPosition;
 					
 					m_selectedPath = new AStar(a_model.getMovePossible());
 					
-					m_selectedPath.InitSearch(soldier.getPosition(), m_selectedDestination, false, 0, false);
+					m_selectedPath.InitSearch(soldier.getPosition(), clickOnLevelPosition, false, 0, false);
 				}
 			}
 		}
@@ -243,7 +243,7 @@ public class GameView {
 
 	private void selectSoldier(Soldier mouseOverSoldier) {
 		m_selectedSoldier = mouseOverSoldier;
-		m_selectedDestination = null;
+		//m_selectedDestination = null;
 		m_selectedPath = null;
 	}
 	
@@ -305,15 +305,24 @@ public class GameView {
 	}
 
 	
-	public ModelPosition getDestination() {
+	public ModelPosition getDestination(ModelFacade a_model) {
 		
-		if (m_selectedSoldier == null) {
+		Soldier selected = getSelectedSoldier(a_model);
+		if (selected == null) {
 			return null;
 		}
 		
+		if (m_selectedPath != null) {
+			if (m_selectedPath.Update(100) == SearchResult.SearchSucceded)
+			{
+				if (m_selectedPath.m_path.size() <= selected.getTimeUnits() ) 
+				{
+					return m_selectedPath.m_path.get(m_selectedPath.m_path.size()-1);
+				}
+			}
+		}
 		
-		
-		return m_selectedDestination;
+		return null;
 	}
 
 
@@ -349,7 +358,6 @@ public class GameView {
 	public void startNewGame(ModelFacade a_model) {
 		m_selectedEnemy = null;
 		m_selectedSoldier = null;
-		m_selectedDestination = null;
 		m_selectedPath = null;
 		m_characters.clear();
 		
@@ -381,5 +389,31 @@ public class GameView {
 		if (m_action == Action.Attacking)
 			return true;
 		return false;
+	}
+
+
+	public void doMoveTo() {
+		m_selectedPath = null;
+	}
+
+
+	public boolean doneAnimating(ModelFacade a_model, float a_elapsedTime) {
+		boolean doneAnimating = true;
+		for (Soldier soldier : a_model.getAliveSoldiers()) {
+			VisualCharacter vc =m_characters.get(soldier);
+			
+			if (vc.update(a_elapsedTime) == false) {
+				doneAnimating = false;
+			}
+		}
+		
+		return doneAnimating;
+	}
+
+
+	@Override
+	public void moveTo(Character character, ModelPosition m_position) {
+		m_characters.get(character).moveTo(m_position);
+		
 	}
 }

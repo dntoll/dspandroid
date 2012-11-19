@@ -33,7 +33,7 @@ public class GameController {
 			
 			drawable.drawText("Game Won", 200, 10, drawable.m_guiText);
 		} else if (a_model.isEnemyTime()) {
-			a_model.updateEnemies();
+			a_model.updateEnemies(a_view);
 			a_view.drawGame(drawable, a_model);
 			drawable.drawText("Enemy is moving", 200, 10, drawable.m_guiText);
 			
@@ -42,7 +42,7 @@ public class GameController {
 			
 			
 			a_view.setupInput(a_input, a_model, drawable.getWindowWidth(), drawable.getWindowHeight());
-			doInteractWithSoldiers(a_model, a_view, a_input);
+			doInteractWithSoldiers(a_model, a_view, a_input, elapsedTimeSeconds);
 			a_view.drawGame(drawable, a_model);	
 			
 		} else  {
@@ -62,8 +62,7 @@ public class GameController {
 		a_view.startNewGame(a_model);
 	}
 
-	private void doInteractWithSoldiers(ModelFacade a_model, GameView a_view,
-			Input a_input) {
+	private void doInteractWithSoldiers(ModelFacade a_model, GameView a_view, Input a_input, float a_elapsedTime) {
 		com.spellofplay.dsp.model.Soldier selectedSoldier = a_view.getSelectedSoldier(a_model);
 		
 		if (selectedSoldier != null) {
@@ -73,11 +72,12 @@ public class GameController {
 			
 			if (a_view.userWantsToMove()) {
 				//Everything that can be done with selected target
-				ModelPosition destination = a_view.getDestination();
+				ModelPosition destination = a_view.getDestination(a_model);
 				
 				if (destination != null) {
 					
 					a_model.doMoveTo(selectedSoldier, destination);
+					a_view.doMoveTo();
 				}
 			} 
 			
@@ -97,8 +97,9 @@ public class GameController {
 			}
 		}
 		
-		
-		a_model.updatePlayers();
+		if (a_view.doneAnimating(a_model, a_elapsedTime)) {
+			a_model.updatePlayers(a_view);
+		}
 	}
 
 	

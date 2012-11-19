@@ -42,12 +42,12 @@ public class ModelFacade {
 	}
 
 
-	public void updatePlayers() {
-		m_game.updatePlayers();
+	public void updatePlayers(ICharacterListener clistener) {
+		m_game.updatePlayers(clistener);
 	}
 	
-	public void updateEnemies() {
-		m_game.updateEnemies();
+	public void updateEnemies(ICharacterListener clistener) {
+		m_game.updateEnemies(clistener);
 	}
 
 

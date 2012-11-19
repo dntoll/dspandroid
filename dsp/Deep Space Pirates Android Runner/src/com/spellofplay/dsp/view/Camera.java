@@ -23,6 +23,11 @@ public class Camera {
 		return new ViewPosition(x * m_scale + m_displacement.m_x,
 				y * m_scale + m_displacement.m_y);
 	}
+	
+	public ViewPosition toViewPos(float x, float y) {
+		return new ViewPosition(x * m_scale + m_displacement.m_x,
+				y * m_scale + m_displacement.m_y);
+	}
 
 	public float toViewScale(float modelDistance) {
 		// TODO Auto-generated method stub
