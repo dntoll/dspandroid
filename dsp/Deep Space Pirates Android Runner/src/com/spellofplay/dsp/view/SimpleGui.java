@@ -100,7 +100,7 @@ public class SimpleGui {
 			} else {
 				m_guiText.setColor(Color.GRAY); 
 			}
-			a_draw.drawRect(left+2, top+2, right-2, bottom-2, m_guiText);
+			a_draw.drawRect(left+1, top+1, right-1, bottom-1, m_guiText);
 			
 			
 			if (disabled) {
