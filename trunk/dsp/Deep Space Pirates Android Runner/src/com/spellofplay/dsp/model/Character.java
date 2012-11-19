@@ -29,7 +29,7 @@ public class Character {
 	}
 	
 	public int getFireCost() {
-		return 5;
+		return 3;
 	}
 	
 	public int getDamage() {
@@ -76,7 +76,7 @@ public class Character {
 					if (check.isMovePossible(pos, false)) {
 						m_position = pos;
 						m_timeUnits--; 
-						clistener.moveTo(this, m_position);
+						clistener.moveTo(this);
 					} else {
 						m_pathFinder = null; //this should in theory never happen...
 						return false;

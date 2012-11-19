@@ -90,6 +90,45 @@ public class ModelFacade {
 		return selectedSoldier.fireAt(fireTarget, hasLineOfSight);
 	}
 
+	public boolean canSee(Soldier soldier, ModelPosition modelPosition) {
+		
+		
+		Vector2 soldierPos = soldier.getPosition().toCenterTileVector();
+		Vector2 targetPosition = modelPosition.toCenterTileVector();
+		
+		if ( m_game.m_level.lineOfSight(soldierPos, targetPosition ) ) {
+			return true;
+		}
+		
+		if ( m_game.m_level.lineOfSight(soldierPos.sub(0.3f, 0.0f), targetPosition.sub(0.0f, 0.3f) ) ) {
+			return true;
+		}
+		if ( m_game.m_level.lineOfSight(soldierPos.sub(0.0f, -0.3f), targetPosition.sub(-0.3f, 0.0f) ) ) {
+			return true;
+		}
+		
+		/*for (int x= 0; x < 3; x++) {
+			for (int y= 0; y < 3; y++) {
+				
+				if (x != y && x != -y) {
+				
+					Vector2 dist = new Vector2(x,y);
+					dist = dist.mul(0.3f);
+				
+					if ( m_game.m_level.lineOfSight(soldierPos.sub(dist), targetPosition)) {
+						return true;
+					}
+				}
+			}
+		}*/
+		
+		
+		return false;
+	}
+	
+	public boolean canSee(Soldier soldier, Enemy enemy) {
+		return canSee(soldier, enemy.getPosition());
+	}
 
 	public List<Soldier> canSee(Enemy e) {
 		List<Soldier> aliveSoldiers = m_game.getAliveSoldiers();
@@ -123,10 +162,7 @@ public class ModelFacade {
 		return target;
 	}
 	
-	public boolean canSee(Soldier soldier, Enemy enemy) {
-		return m_game.m_level.lineOfSight(soldier.getPosition().toCenterTileVector(), 
-										    enemy.getPosition().toCenterTileVector() ) ;
-	}
+	
 
 
 	public void doWait(Soldier selectedSoldier) {
@@ -137,6 +173,9 @@ public class ModelFacade {
 	public IIsMovePossible getMovePossible() {
 		return m_game;
 	}
+
+
+	
 
 
 	

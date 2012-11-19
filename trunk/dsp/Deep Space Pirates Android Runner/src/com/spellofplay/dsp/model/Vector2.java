@@ -20,6 +20,10 @@ public class Vector2 {
 		return new Vector2(m_x - other.m_x, m_y - other.m_y);
 	}
 	
+	public Vector2 mul(float a) {
+		return new Vector2(m_x * a, m_y  * a);
+	}
+	
 	public void normalize() {
 		float len = length();
 		if (len > 0.0f) {
@@ -40,6 +44,13 @@ public class Vector2 {
 		Vector2 other = (Vector2) aThat;
 		return other.m_x == m_x && other.m_y == m_y;
 		
+	}
+
+
+	public Vector2 sub(float f, float g) {
+		m_x -= f;
+		m_y -= g;
+		return this;
 	}
 
 }
