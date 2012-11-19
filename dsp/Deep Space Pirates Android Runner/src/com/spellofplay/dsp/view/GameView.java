@@ -58,6 +58,16 @@ public class GameView implements ICharacterListener {
 			hasInitatedBuffer = true;
 		}
 		drawable.drawBackground(m_camera.m_displacement);
+
+		//Visualize visibility
+		Soldier selected = getSelectedSoldier(a_model);
+		m_level.updateMoveMap(a_model.getMovePossible(), selected);
+		
+		m_level.drawPossibleMoveArea(drawable, m_camera, selected);
+		m_level.drawNotVisible(a_model, drawable, m_camera);
+		
+		
+		
 		
 		//TargetDestionation
 		if (getDestination(a_model) != null) {
@@ -80,9 +90,11 @@ public class GameView implements ICharacterListener {
 			drawable.drawCircle(m_camera.toViewPos(getDestination(a_model)), m_camera.getHalfScale(), Color.argb(128, 0, 0, 255));
 		}
 		
-		Soldier selected = getSelectedSoldier(a_model);
+		
+		
 		//DRAW SELECTION
 		if (selected != null && a_model.isSoldierTime() && selected.getTimeUnits() > 0) {
+			
 			ViewPosition vpos = m_characters.get(selected).getVisualPosition(m_camera);//.toViewPos(selected.getPosition());
 			drawable.drawCircle(vpos, m_camera.getHalfScale(), Color.GREEN);
 		}
@@ -243,7 +255,6 @@ public class GameView implements ICharacterListener {
 
 	private void selectSoldier(Soldier mouseOverSoldier) {
 		m_selectedSoldier = mouseOverSoldier;
-		//m_selectedDestination = null;
 		m_selectedPath = null;
 	}
 	
@@ -359,7 +370,9 @@ public class GameView implements ICharacterListener {
 		m_selectedEnemy = null;
 		m_selectedSoldier = null;
 		m_selectedPath = null;
+		m_level.startUpdateVisibility();
 		m_characters.clear();
+		
 		
 		for (Soldier soldier : a_model.getAliveSoldiers()) {
 			m_characters.put(soldier, new VisualCharacter(soldier));
@@ -412,8 +425,11 @@ public class GameView implements ICharacterListener {
 
 
 	@Override
-	public void moveTo(Character character, ModelPosition m_position) {
-		m_characters.get(character).moveTo(m_position);
+	public void moveTo(Character character) {
+		m_level.startUpdateVisibility();
+		
+		
+		m_characters.get(character).moveTo();
 		
 	}
 }

@@ -119,6 +119,16 @@ public class AndroidDraw  {
 
 		return m_canvas.getHeight();
 	}
+
+	public void drawFog(Rect dst) {
+		m_guiText.setColor(Color.argb(128, 0, 0, 0));
+		m_canvas.drawRect(dst, m_guiText);
+	}
+
+	public void drawRect(Rect dst, int color) {
+		m_guiText.setColor(color);
+		m_canvas.drawRect(dst, m_guiText);
+	}
 	
 
 }

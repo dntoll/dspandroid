@@ -120,7 +120,7 @@ public class VisualCharacter {
 		return difference;
 	}
 
-	public void moveTo(ModelPosition position) {
+	public void moveTo() {
 		m_animationTimer = 0.0f;
 	}
 }

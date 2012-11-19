@@ -4,7 +4,7 @@ public class Soldier extends Character {
 
 	
 	public Soldier(ModelPosition startPosition) {
-		super(startPosition, 10);
+		super(startPosition, 6);
 	}
 
 	
