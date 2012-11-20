@@ -9,9 +9,10 @@ import com.spellofplay.dsp.model.Character;
 
 public class VisualCharacter {
 	private static final Rect SOLDIER = new Rect(0, 0, 255, 255);
+	private static final Rect ENEMY = new Rect(0, 128, 32, 128 + 32);
 	private static final float MOVEMENT_TIME = 0.2f;
 	private static final float ROTATION_SPEED = 360.0f;
-	
+	private final int TRANSPARENT = Color.argb(128, 255, 255, 255);
 	
 	private float m_animationTimer = 0.0f;
 	private float m_rotation = 0;
@@ -26,10 +27,33 @@ public class VisualCharacter {
 		m_lastPosition.m_x = dude.getPosition().m_x;
 		m_lastPosition.m_y = dude.getPosition().m_y;
 	}
+	
+	void drawEnemy(AndroidDraw drawable, Camera camera, ITexture enemyTexture, boolean isSpotted, ModelPosition lastSeenPosition) {
+		boolean drawGui = true;
+		//Plats och färg för synliga fiender
+		ViewPosition vEpos = getVisualPosition(camera);//camera.toViewPos(m_modelCharacter.getPosition());
+		int color = Color.WHITE;
+		
+		//NOBODY CAN SEE THE ENEMY RIGHT NOW?
+		if (isSpotted == false) {
+			color =  TRANSPARENT;
+			//LAST KNOWN POSITION
+			vEpos = camera.toViewPos(lastSeenPosition); 
+			drawGui = false;
+		} 
+		
+
+		drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, drawGui);
+	}
+
+	private void drawGUI(AndroidDraw drawable, Rect dst) {
+		drawable.drawText("" + m_modelCharacter.getTimeUnits(), dst.left, dst.top, drawable.m_guiText);
+		drawable.drawText("" + m_modelCharacter.getHitpoints(), dst.right-16, dst.top, drawable.m_guiText);
+	}
 
 	void drawSoldier(AndroidDraw drawable, Camera camera, ITexture player, Enemy target ) {
 		//Did we move?
-		if (m_lastPosition.equals(m_modelCharacter.getPosition()) == false) {
+		/*if (m_lastPosition.equals(m_modelCharacter.getPosition()) == false) {
 			m_targetRotation = m_lastPosition.sub(m_modelCharacter.getPosition()).getRotation();
 		} else if (target != null) {
 			//Rotate to face target
@@ -46,9 +70,32 @@ public class VisualCharacter {
 		
 		drawable.drawBitmap(player, SOLDIER, dst, Color.WHITE, m_rotation);
 		
-		//DRAW SOLDIER INFO
-		drawable.drawText("" + m_modelCharacter.getTimeUnits(), dst.left, dst.top, drawable.m_guiText);
-		drawable.drawText("" + m_modelCharacter.getHitpoints(), dst.right, dst.top, drawable.m_guiText);
+		drawGUI(drawable, dst);*/
+		ViewPosition vpos = getVisualPosition(camera);
+		drawCharacter(vpos, drawable, camera, player, target != null ? target.getPosition() : null, SOLDIER, Color.WHITE, true);
+	}
+	
+	private void drawCharacter(ViewPosition vpos, AndroidDraw drawable, Camera camera, ITexture player, ModelPosition targetPosition, Rect source, int color, boolean drawgui) {
+		//Did we move?
+		if (m_lastPosition.equals(m_modelCharacter.getPosition()) == false) {
+			m_targetRotation = m_lastPosition.sub(m_modelCharacter.getPosition()).getRotation();
+		} else if (targetPosition != null) {
+			//Rotate to face target
+			m_targetRotation = m_modelCharacter.getPosition().sub(targetPosition).getRotation();
+		}
+		//
+		 
+		
+		Rect dst = new Rect((int)vpos.m_x -camera.getHalfScale(), 
+				(int)vpos.m_y -camera.getHalfScale(),
+				(int)vpos.m_x + camera.getHalfScale(), 
+				(int)vpos.m_y + camera.getHalfScale());
+		
+		
+		drawable.drawBitmap(player, source, dst, color, m_rotation);
+		if (drawgui) {
+			drawGUI(drawable, dst);
+		}
 	}
 
 	public ViewPosition getVisualPosition(Camera camera) {

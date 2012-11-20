@@ -33,16 +33,22 @@ public class GameController {
 			
 			drawable.drawText("Game Won", 200, 10, drawable.m_guiText);
 		} else if (a_model.isEnemyTime()) {
-			a_model.updateEnemies(a_view);
+			
+			if (a_view.updateAnimations(a_model, elapsedTimeSeconds)) {
+				a_model.updateEnemies(a_view);
+			}
 			a_view.drawGame(drawable, a_model);
+			
 			drawable.drawText("Enemy is moving", 200, 10, drawable.m_guiText);
 			
 		} else if (a_model.isSoldierTime()) {
 		
-			
-			
 			a_view.setupInput(a_input, a_model, drawable.getWindowWidth(), drawable.getWindowHeight());
 			doInteractWithSoldiers(a_model, a_view, a_input, elapsedTimeSeconds);
+			
+			if (a_view.updateAnimations(a_model, elapsedTimeSeconds)) {
+				a_model.updatePlayers(a_view);
+			}
 			a_view.drawGame(drawable, a_model);	
 			
 		} else  {
@@ -97,9 +103,7 @@ public class GameController {
 			}
 		}
 		
-		if (a_view.doneAnimating(a_model, a_elapsedTime)) {
-			a_model.updatePlayers(a_view);
-		}
+		
 	}
 
 	
