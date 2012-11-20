@@ -138,7 +138,7 @@ public class LevelDrawer {
 		}
 	}
 	
-	public void updateMoveMap(IIsMovePossible a_checker, Soldier selected) {
+	private void updateMoveMap(IIsMovePossible a_checker, Soldier selected) {
 		
 		for (int x = 0; x < Level.Width; x++) {
 			for (int y = 0; y < Level.Height; y++) {
@@ -198,7 +198,8 @@ public class LevelDrawer {
 	}
 	
 	
-	public void drawPossibleMoveArea(AndroidDraw drawable, Camera camera, Soldier selected) {
+	public void drawPossibleMoveArea(IIsMovePossible a_checker, AndroidDraw drawable, Camera camera, Soldier selected) {
+		updateMoveMap(a_checker, selected);
 		if (selected == null)
 			return;
 		

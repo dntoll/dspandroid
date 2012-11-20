@@ -38,7 +38,7 @@ public class GameView implements ICharacterListener {
 	SimpleGui m_gui = new SimpleGui();
 	
 	
-	Rect enemy = new Rect(0, 128, 32, 128 + 32);
+	
 
 	private final int TRANSPARENT = Color.argb(128, 255, 255, 255);
 	
@@ -61,43 +61,31 @@ public class GameView implements ICharacterListener {
 
 		//Visualize visibility
 		Soldier selected = getSelectedSoldier(a_model);
-		m_level.updateMoveMap(a_model.getMovePossible(), selected);
-		
-		m_level.drawPossibleMoveArea(drawable, m_camera, selected);
+
+		m_level.drawPossibleMoveArea(a_model.getMovePossible(), drawable, m_camera, selected);
 		m_level.drawNotVisible(a_model, drawable, m_camera);
-		
-		
-		
 		
 		//TargetDestionation
 		if (getDestination(a_model) != null) {
-			
+
+			//Vi har en vald path
 			if (m_selectedPath != null) {
-				SearchResult result = m_selectedPath.Update(10);
-				boolean drawPath = false;
-				switch (result) {
-					case SearchSucceded : drawPath = true; break;
-				}
-				if (drawPath) {
+				if (m_selectedPath.Update(10) == SearchResult.SearchSucceded) {
 					
 					for (ModelPosition loc : m_selectedPath.m_path)  {
 						drawable.drawCircle(m_camera.toViewPos(loc), m_camera.getHalfScale()/2, Color.argb(128, 0, 0, 255));
 					}
 				}
-				
 			}
-			
 			drawable.drawCircle(m_camera.toViewPos(getDestination(a_model)), m_camera.getHalfScale(), Color.argb(128, 0, 0, 255));
 		}
 		
-		
-		
 		//DRAW SELECTION
 		if (selected != null && a_model.isSoldierTime() && selected.getTimeUnits() > 0) {
-			
 			ViewPosition vpos = m_characters.get(selected).getVisualPosition(m_camera);//.toViewPos(selected.getPosition());
 			drawable.drawCircle(vpos, m_camera.getHalfScale(), Color.GREEN);
 		}
+		
 		//DRAW TARGET ENEMY
 		Enemy target = getFireTarget(a_model);
 		if (target != null) {
@@ -105,61 +93,46 @@ public class GameView implements ICharacterListener {
 			drawable.drawCircle(vEpos, m_camera.getHalfScale(), Color.RED);
 		}
 		
+		//DRAW SIGHT LINES
+		for (Enemy e : a_model.getAliveEnemies()) {
+			List<Soldier> soldiersWhoSpotsEnemy = a_model.canSee(e);
+			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
+				for(Soldier s : soldiersWhoSpotsEnemy) {
+					ViewPosition vsPos = m_camera.toViewPos(s.getPosition());
+					ViewPosition vEpos = m_camera.toViewPos(e.getPosition());
+					drawable.drawLine(vEpos, vsPos, Color.WHITE);
+				}
+			}
+		}
+		
+		
 		//DRAW SOLDIERS
 		for (Soldier soldier : a_model.getAliveSoldiers()) {
 			VisualCharacter vchar = m_characters.get(soldier);
 			vchar.drawSoldier(drawable, m_camera, m_player, selected == soldier ? target :  null);
 		}
 		
-		for (Enemy e : a_model.getAliveEnemies()) {
+		for (Enemy enemy : a_model.getAliveEnemies()) {
 			
-			List<Soldier> soldiersWhoSpotsEnemy = a_model.canSee(e);
+			boolean isSpotted = !a_model.canSee(enemy).isEmpty();
 			
-			//HAS THIS ENEMY HAS BEEN SEEN THIS ROUND
-			if (soldiersWhoSpotsEnemy.isEmpty() ) {
-				if (m_enemiesSeenThisRound.containsKey(e) == false) {
+			//HAS THIS ENEMY HAS BEEN SEEN THIS ROUND?
+			if (isSpotted == false) {
+				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
+					//not seen at all this round...
 					continue;
 				}
 			} else {
-				if (m_enemiesSeenThisRound.containsKey(e) == false) {
-					m_enemiesSeenThisRound.put(e, e.getPosition());
+				//add it to the list of enemies seen this round
+				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
+					m_enemiesSeenThisRound.put(enemy, enemy.getPosition());
 				}
 			}
+			VisualCharacter vchar = m_characters.get(enemy);
+			vchar.drawEnemy(drawable, m_camera, m_texture, isSpotted, m_enemiesSeenThisRound.get(enemy));
 			
-			//Plats och färg för synliga fiender
-			ViewPosition vEpos = m_camera.toViewPos(e.getPosition());
-			int color = Color.WHITE;
 			
-			//NOBODY CAN SEE THE ENEMY RIGHT `KNOW
-			if (soldiersWhoSpotsEnemy.isEmpty() ) {
-				//TRANSPARENT
-				color =  TRANSPARENT;
-				//LAST KNOWN POSITION
-				vEpos = m_camera.toViewPos(m_enemiesSeenThisRound.get(e)); 
-			} 
 			
-			//DRAW SELECTION
-			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
-				
-				for(Soldier s : soldiersWhoSpotsEnemy) {
-					ViewPosition vsPos = m_camera.toViewPos(s.getPosition());
-					
-					drawable.drawLine(vEpos, vsPos, TRANSPARENT);
-					
-				}
-			}
-			
-			Rect dst = new Rect((int)vEpos.m_x -m_camera.getHalfScale(), 
-					(int)vEpos.m_y -m_camera.getHalfScale(),
-					(int)vEpos.m_x + m_camera.getHalfScale(), 
-					(int)vEpos.m_y + m_camera.getHalfScale());
-			drawable.drawBitmap(m_texture, enemy, dst, color);
-			
-			//DRAW ENEMY INFO
-			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
-				drawable.drawText("" + e.getTimeUnits(), dst.left, dst.top, drawable.m_guiText);
-				drawable.drawText("" + e.getHitpoints(), dst.right, dst.top, drawable.m_guiText);
-			}
 		}
 		
 		drawable.drawText(a_model.getGameTitle(), 10, 10, drawable.m_guiText);
@@ -178,6 +151,27 @@ public class GameView implements ICharacterListener {
 	
 	Action m_action = Action.None;
 	
+	
+	public boolean userWantsToWait() {
+		if (m_action == Action.Waiting)
+			return true;
+		return false;
+	}
+
+
+	public boolean userWantsToMove() {
+		if (m_action == Action.Moveing)
+			return true;
+		return false;
+	}
+
+
+	public boolean userWantsToFire() {
+		
+		if (m_action == Action.Attacking)
+			return true;
+		return false;
+	}
 	
 	public void setupInput(Input a_input, ModelFacade a_model, int a_width, int a_height) {
 		
@@ -383,26 +377,7 @@ public class GameView implements ICharacterListener {
 		}
 	}
 	
-	public boolean userWantsToWait() {
-		if (m_action == Action.Waiting)
-			return true;
-		return false;
-	}
-
-
-	public boolean userWantsToMove() {
-		if (m_action == Action.Moveing)
-			return true;
-		return false;
-	}
-
-
-	public boolean userWantsToFire() {
-		
-		if (m_action == Action.Attacking)
-			return true;
-		return false;
-	}
+	
 
 
 	public void doMoveTo() {
@@ -410,15 +385,15 @@ public class GameView implements ICharacterListener {
 	}
 
 
-	public boolean doneAnimating(ModelFacade a_model, float a_elapsedTime) {
+	public boolean updateAnimations(ModelFacade a_model, float a_elapsedTime) {
 		boolean doneAnimating = true;
-		for (Soldier soldier : a_model.getAliveSoldiers()) {
-			VisualCharacter vc =m_characters.get(soldier);
-			
+		
+		for (VisualCharacter vc : m_characters.values()) {
 			if (vc.update(a_elapsedTime) == false) {
 				doneAnimating = false;
 			}
 		}
+		
 		
 		return doneAnimating;
 	}
