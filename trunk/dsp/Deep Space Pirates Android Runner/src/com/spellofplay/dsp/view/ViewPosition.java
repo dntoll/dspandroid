@@ -1,5 +1,7 @@
 package com.spellofplay.dsp.view;
 
+import com.spellofplay.dsp.model.Vector2;
+
 public class ViewPosition {
 
 	public float m_x;
@@ -17,6 +19,10 @@ public class ViewPosition {
 	public float length() {
 		
 		return android.util.FloatMath.sqrt(m_x * m_x + m_y * m_y);
+	}
+	
+	public Vector2 toVector2()  {
+		return new Vector2(m_x, m_y);
 	}
 
 }

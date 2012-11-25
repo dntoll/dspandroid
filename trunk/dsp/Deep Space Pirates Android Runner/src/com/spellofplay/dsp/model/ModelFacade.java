@@ -107,22 +107,6 @@ public class ModelFacade {
 			return true;
 		}
 		
-		/*for (int x= 0; x < 3; x++) {
-			for (int y= 0; y < 3; y++) {
-				
-				if (x != y && x != -y) {
-				
-					Vector2 dist = new Vector2(x,y);
-					dist = dist.mul(0.3f);
-				
-					if ( m_game.m_level.lineOfSight(soldierPos.sub(dist), targetPosition)) {
-						return true;
-					}
-				}
-			}
-		}*/
-		
-		
 		return false;
 	}
 	

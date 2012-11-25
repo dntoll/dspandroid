@@ -52,25 +52,7 @@ public class VisualCharacter {
 	}
 
 	void drawSoldier(AndroidDraw drawable, Camera camera, ITexture player, Enemy target ) {
-		//Did we move?
-		/*if (m_lastPosition.equals(m_modelCharacter.getPosition()) == false) {
-			m_targetRotation = m_lastPosition.sub(m_modelCharacter.getPosition()).getRotation();
-		} else if (target != null) {
-			//Rotate to face target
-			m_targetRotation = m_modelCharacter.getPosition().sub(target.getPosition()).getRotation();
-		}
-		ViewPosition vpos = getVisualPosition(camera);
-		 
 		
-		Rect dst = new Rect((int)vpos.m_x -camera.getHalfScale(), 
-				(int)vpos.m_y -camera.getHalfScale(),
-				(int)vpos.m_x + camera.getHalfScale(), 
-				(int)vpos.m_y + camera.getHalfScale());
-		
-		
-		drawable.drawBitmap(player, SOLDIER, dst, Color.WHITE, m_rotation);
-		
-		drawGUI(drawable, dst);*/
 		ViewPosition vpos = getVisualPosition(camera);
 		drawCharacter(vpos, drawable, camera, player, target != null ? target.getPosition() : null, SOLDIER, Color.WHITE, true);
 	}

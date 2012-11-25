@@ -2,7 +2,7 @@ package com.spellofplay.dsp.model;
 
 import com.spellofplay.dsp.model.AStar.SearchResult;
 
-public class Character {
+public abstract class Character {
 	private ModelPosition m_position;
 	
 	public AStar m_pathFinder;
@@ -101,11 +101,7 @@ public class Character {
 	}
 	
 	public boolean fireAt(Character fireTarget, boolean hasLineOfSight) {
-		/*if (m_level.lineOfSight(selectedSoldier.getPosition().toVector(), 
-								fireTarget.getPosition().toVector()) == false) {
-			return false;
-		}*/
-		
+				
 		if (hasLineOfSight == false)
 			return false;
 		
@@ -115,10 +111,19 @@ public class Character {
 		
 		m_timeUnits -= getFireCost();
 		
+		//Determine success
+		if (RuleBook.DetermineFireSuccess(this, fireTarget)) {
+			fireTarget.m_hitpoints -= getDamage();
+			return true;
+		}
 		
 		
-		fireTarget.m_hitpoints -= getDamage();
-		return true;
+		
+		return false;
 		
 	}
+
+	public abstract float getFireSkill();
+
+	public abstract float getDodgeSkill();
 }
