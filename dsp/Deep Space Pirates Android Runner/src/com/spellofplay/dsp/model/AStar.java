@@ -11,7 +11,7 @@ public class AStar {
 	private boolean m_canMoveThroughObstacles = false;
 	//private boolean m_doingFirstSearchWithObstacles = true;
 	
-	public AStar(IIsMovePossible a_map) 
+	public AStar(IMoveAndVisibility a_map) 
     {
         m_map = a_map;
         m_path = new ArrayList<ModelPosition>();
@@ -138,7 +138,7 @@ public class AStar {
     private List<Node> m_listOpen;
     private List<Node> m_listClosed;
 	
-    private IIsMovePossible m_map;
+    private IMoveAndVisibility m_map;
     private ModelPosition m_start, m_end;
 	     
 	private float TraverseCost(ModelPosition a_a, ModelPosition a_b) {

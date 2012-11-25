@@ -4,7 +4,7 @@ import java.util.List;
 
 public class EnemyAI {
 
-	public void think(List<Enemy> enemies, List<Soldier> soldiers, IIsMovePossible a_checker, ICharacterListener clistener) {
+	public void think(List<Enemy> enemies, List<Soldier> soldiers, IMoveAndVisibility a_checker, ICharacterListener clistener) {
 		
 		
 		int index = 0;
@@ -28,7 +28,7 @@ public class EnemyAI {
 				if (distance > 1.0f) {
 					e.setDestination(closest.getPosition(), a_checker, 1.0f, true);
 				} else {
-					if (e.fireAt(closest, true) == false) {
+					if (e.fireAt(closest, a_checker) == false) {
 						e.removeTimeUnit();
 					}
 				}

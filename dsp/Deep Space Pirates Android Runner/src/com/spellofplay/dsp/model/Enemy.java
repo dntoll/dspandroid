@@ -24,7 +24,7 @@ public class Enemy extends Character{
 	}
 
 	public float getDodgeSkill() {
-		return 0.1f;
+		return 0.3f;
 	}
 
 	

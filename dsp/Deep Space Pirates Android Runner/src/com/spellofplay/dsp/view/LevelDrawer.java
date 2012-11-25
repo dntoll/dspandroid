@@ -8,7 +8,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 
 import com.spellofplay.common.view.Mesh;
-import com.spellofplay.dsp.model.IIsMovePossible;
+import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.Level;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
@@ -48,6 +48,7 @@ public class LevelDrawer {
 	public void draw(Level level, AndroidDraw drawable, Camera camera) {
 		
 		Mesh backgroundMeshBlocked = new Mesh(Level.Width, Level.Height);
+		Mesh crates = new Mesh(Level.Width, Level.Height);
 		
 		
 		for (int x = 0; x < Level.Width; x++) {
@@ -59,7 +60,7 @@ public class LevelDrawer {
 						x*camera.getScale() + camera.getScale(), 
 						y*camera.getScale() + camera.getScale());
 				
-				int variation = 0;
+				int variation = (x+y)%2 ;
 				RotatedTile rotTileBlocked = new RotatedTile(level.GetTile(x, y) != TileType.TileWall,
 													 		 level.GetTile(x +1, y) != TileType.TileWall,
 															 level.GetTile(x, y+1) != TileType.TileWall,
@@ -73,10 +74,25 @@ public class LevelDrawer {
 					backgroundMeshBlocked.AddRectangle(rotTileBlocked.getSrcRect(variation, 32), dst, rotTileBlocked.rotation);
 					
 				}
+				
+				variation = 2;
+				rotTileBlocked = new RotatedTile(level.GetTile(x, y) == TileType.TilePit,
+													 		 level.GetTile(x +1, y) == TileType.TilePit,
+															 level.GetTile(x, y+1) == TileType.TilePit,
+															 level.GetTile(x +1, y + 1) == TileType.TilePit);
+				
+				if (rotTileBlocked.isEmpty()) 
+				{
+					
+					crates.AddRectangle(rotTileBlocked.getSrcRect(variation, 32), dst, rotTileBlocked.rotation);
+					
+				}
 	
 			}	
 		}
 		drawable.drawMeshToBackground(backgroundMeshBlocked, Level.Width, Level.Height, camera.getScale(), m_theTextureMap);
+		drawable.drawMeshToBackground(crates, Level.Width, Level.Height, camera.getScale(), m_theTextureMap);
+		
 		
 		
 	}
@@ -102,7 +118,7 @@ public class LevelDrawer {
 					if (a_model.getLevel().m_tiles[x][y] == TileType.TileEmpty) {
 						m_visibilityMap[x][y] = false;
 						
-						if (a_model.canSee(s, new ModelPosition(x, y))) {
+						if (a_model.canSeeMapPosition(s, new ModelPosition(x, y))) {
 							m_visibilityMap[x][y] = true;
 							break;
 						}
@@ -138,7 +154,7 @@ public class LevelDrawer {
 		}
 	}
 	
-	private void updateMoveMap(IIsMovePossible a_checker, Soldier selected) {
+	private void updateMoveMap(IMoveAndVisibility a_checker, Soldier selected) {
 		
 		for (int x = 0; x < Level.Width; x++) {
 			for (int y = 0; y < Level.Height; y++) {
@@ -198,7 +214,7 @@ public class LevelDrawer {
 	}
 	
 	
-	public void drawPossibleMoveArea(IIsMovePossible a_checker, AndroidDraw drawable, Camera camera, Soldier selected) {
+	public void drawPossibleMoveArea(IMoveAndVisibility a_checker, AndroidDraw drawable, Camera camera, Soldier selected) {
 		updateMoveMap(a_checker, selected);
 		if (selected == null)
 			return;

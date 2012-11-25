@@ -86,32 +86,25 @@ public class ModelFacade {
 
 
 	public boolean fireAt(Soldier selectedSoldier, Enemy fireTarget) {
-		boolean hasLineOfSight = canSee(selectedSoldier, fireTarget);
-		return selectedSoldier.fireAt(fireTarget, hasLineOfSight);
+		
+		return selectedSoldier.fireAt(fireTarget, m_game);
 	}
 
-	public boolean canSee(Soldier soldier, ModelPosition modelPosition) {
+	public boolean canShoot(Soldier soldier, Enemy enemy) {
+		return m_game.lineOfSight(soldier, enemy);
+	}
+	
+	public boolean canSeeMapPosition(Soldier soldier, ModelPosition modelPosition) {
 		
 		
-		Vector2 soldierPos = soldier.getPosition().toCenterTileVector();
-		Vector2 targetPosition = modelPosition.toCenterTileVector();
+		ModelPosition soldierPos = soldier.getPosition();
+		ModelPosition targetPosition = modelPosition;
 		
-		if ( m_game.m_level.lineOfSight(soldierPos, targetPosition ) ) {
-			return true;
-		}
-		
-		if ( m_game.m_level.lineOfSight(soldierPos.sub(0.3f, 0.0f), targetPosition.sub(0.0f, 0.3f) ) ) {
-			return true;
-		}
-		if ( m_game.m_level.lineOfSight(soldierPos.sub(0.0f, -0.3f), targetPosition.sub(-0.3f, 0.0f) ) ) {
-			return true;
-		}
-		
-		return false;
+		return m_game.m_level.lineOfSight(soldierPos, targetPosition );
 	}
 	
 	public boolean canSee(Soldier soldier, Enemy enemy) {
-		return canSee(soldier, enemy.getPosition());
+		return canSeeMapPosition(soldier, enemy.getPosition());
 	}
 
 	public List<Soldier> canSee(Enemy e) {
@@ -128,12 +121,12 @@ public class ModelFacade {
 		return soldiersThatCanSee;
 	}
 	
-	public Enemy getClosestEnemyThatWeCanSee(Soldier selectedSoldier) {
+	public Enemy getClosestEnemyThatWeCanShoot(Soldier selectedSoldier) {
 		float minDist = Float.MAX_VALUE;
 		Enemy target = null;
 		List<Enemy> aliveEnemies = m_game.getAliveEnemies();
 		for (Enemy e : aliveEnemies) {
-			if ( canSee(selectedSoldier, e) ) {
+			if ( canShoot(selectedSoldier, e) ) {
 				float distance = selectedSoldier.getPosition().sub(e.getPosition()).length();
 				if (distance < minDist) {
 					minDist = distance;
@@ -154,7 +147,7 @@ public class ModelFacade {
 	}
 
 
-	public IIsMovePossible getMovePossible() {
+	public IMoveAndVisibility getMovePossible() {
 		return m_game;
 	}
 

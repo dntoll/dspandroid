@@ -1,6 +1,7 @@
 package com.spellofplay.dsp.controller;
 
 
+import com.spellofplay.dsp.model.Line;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.GameView;
@@ -23,6 +24,9 @@ public class MasterController {
 		m_input = a_input;
 		
 		m_game.startNewGame(m_model, m_view);
+		
+		
+		Line.test();
 		
 	}
 
