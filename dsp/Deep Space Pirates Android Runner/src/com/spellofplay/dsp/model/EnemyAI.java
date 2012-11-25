@@ -28,7 +28,9 @@ public class EnemyAI {
 				if (distance > 1.0f) {
 					e.setDestination(closest.getPosition(), a_checker, 1.0f, true);
 				} else {
-					e.attack(closest);
+					if (e.fireAt(closest, true) == false) {
+						e.removeTimeUnit();
+					}
 				}
 				break; //en i taget
 			}

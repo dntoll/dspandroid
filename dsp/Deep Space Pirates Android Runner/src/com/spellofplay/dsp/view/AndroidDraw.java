@@ -32,6 +32,11 @@ public class AndroidDraw  {
 		
 		m_canvas.drawText(gameTitle, i, j, guiText );
 	}
+	
+public void drawText(String gameTitle, int i, int j) {
+		m_guiText.setColor(Color.WHITE);
+		m_canvas.drawText(gameTitle, i, j, m_guiText );
+	}
 
 	
 	public void drawMeshToBackground(Mesh a_backgroundMeshBlocked, 

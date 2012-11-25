@@ -12,14 +12,19 @@ public class Enemy extends Character{
 		return m_pathFinder != null;
 	}
 
-	public void attack(Soldier closest) {
-		
-		closest.m_hitpoints = 0;
-	}
+	
 
 	public void removeTimeUnit() {
 		m_timeUnits--;
 		
+	}
+	
+	public float getFireSkill() {
+		return 0.7f;
+	}
+
+	public float getDodgeSkill() {
+		return 0.1f;
 	}
 
 	

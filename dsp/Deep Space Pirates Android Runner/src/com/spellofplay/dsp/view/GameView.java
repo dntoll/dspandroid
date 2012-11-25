@@ -14,8 +14,10 @@ import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.RuleBook;
 import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.model.Character;
+import com.spellofplay.dsp.model.Vector2;
 import com.spellofplay.common.view.Input;
 //import com.spellofplay.common.view.ViewPosition;
 
@@ -93,17 +95,7 @@ public class GameView implements ICharacterListener {
 			drawable.drawCircle(vEpos, m_camera.getHalfScale(), Color.RED);
 		}
 		
-		//DRAW SIGHT LINES
-		for (Enemy e : a_model.getAliveEnemies()) {
-			List<Soldier> soldiersWhoSpotsEnemy = a_model.canSee(e);
-			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
-				for(Soldier s : soldiersWhoSpotsEnemy) {
-					ViewPosition vsPos = m_camera.toViewPos(s.getPosition());
-					ViewPosition vEpos = m_camera.toViewPos(e.getPosition());
-					drawable.drawLine(vEpos, vsPos, Color.WHITE);
-				}
-			}
-		}
+		
 		
 		
 		//DRAW SOLDIERS
@@ -137,6 +129,30 @@ public class GameView implements ICharacterListener {
 		
 		drawable.drawText(a_model.getGameTitle(), 10, 10, drawable.m_guiText);
 		
+		
+		//DRAW SIGHT LINES
+		for (Enemy e : a_model.getAliveEnemies()) {
+			List<Soldier> soldiersWhoSpotsEnemy = a_model.canSee(e);
+			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
+				for(Soldier s : soldiersWhoSpotsEnemy) {
+					ViewPosition vsPos = m_camera.toViewPos(s.getPosition());
+					ViewPosition vEpos = m_camera.toViewPos(e.getPosition());
+					drawable.drawLine(vEpos, vsPos, Color.WHITE);
+					
+					if (m_selectedSoldier == s) {
+						
+						Vector2 direction = vEpos.sub(vsPos).toVector2();
+						direction.normalize();
+						direction = direction.mul((float)m_camera.getScale() * 0.65f);
+						
+						Vector2 textAt = vEpos.toVector2().sub(direction);
+						
+						drawable.drawText( " " + (int)(100.0f * RuleBook.getToHitChance(s, e)) + "%", (int)textAt.m_x, (int)textAt.m_y);
+						
+					}
+				}
+			}
+		}
 		
 		m_gui.DrawGui(drawable);
 	}

@@ -8,7 +8,13 @@ public class Soldier extends Character {
 	}
 
 	
+	public float getFireSkill() {
+		return 0.5f;
+	}
 
+	public float getDodgeSkill() {
+		return 0.5f;
+	}
 	
 
 	
