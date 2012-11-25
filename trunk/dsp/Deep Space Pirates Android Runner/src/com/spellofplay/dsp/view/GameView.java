@@ -104,6 +104,8 @@ public class GameView implements ICharacterListener {
 			vchar.drawSoldier(drawable, m_camera, m_player, selected == soldier ? target :  null);
 		}
 		
+		
+		
 		for (Enemy enemy : a_model.getAliveEnemies()) {
 			
 			boolean isSpotted = !a_model.canSee(enemy).isEmpty();
@@ -134,21 +136,25 @@ public class GameView implements ICharacterListener {
 		for (Enemy e : a_model.getAliveEnemies()) {
 			List<Soldier> soldiersWhoSpotsEnemy = a_model.canSee(e);
 			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
+				
 				for(Soldier s : soldiersWhoSpotsEnemy) {
-					ViewPosition vsPos = m_camera.toViewPos(s.getPosition());
-					ViewPosition vEpos = m_camera.toViewPos(e.getPosition());
-					drawable.drawLine(vEpos, vsPos, Color.WHITE);
 					
-					if (m_selectedSoldier == s) {
+					if (a_model.canShoot(s, e)) {
+						ViewPosition vsPos = m_characters.get(s).getVisualPosition(m_camera);
+						ViewPosition vEpos = m_characters.get(e).getVisualPosition(m_camera);
+						drawable.drawLine(vEpos, vsPos, Color.WHITE);
 						
-						Vector2 direction = vEpos.sub(vsPos).toVector2();
-						direction.normalize();
-						direction = direction.mul((float)m_camera.getScale() * 0.65f);
-						
-						Vector2 textAt = vEpos.toVector2().sub(direction);
-						
-						drawable.drawText( " " + (int)(100.0f * RuleBook.getToHitChance(s, e)) + "%", (int)textAt.m_x, (int)textAt.m_y);
-						
+						if (m_selectedSoldier == s) {
+							
+							Vector2 direction = vEpos.sub(vsPos).toVector2();
+							direction.normalize();
+							direction = direction.mul((float)m_camera.getScale() * 0.65f);
+							
+							Vector2 textAt = vEpos.toVector2().sub(direction);
+							
+							drawable.drawText( " " + (int)(100.0f * RuleBook.getToHitChance(s, e)) + "%", (int)textAt.m_x, (int)textAt.m_y);
+							
+						}
 					}
 				}
 			}
@@ -361,12 +367,13 @@ public class GameView implements ICharacterListener {
 			
 		//Can we see the one we clicked on
 		if (m_selectedEnemy != null && m_selectedEnemy.getHitpoints() > 0) {
-			if (a_model.canSee(selected, m_selectedEnemy)) {
+
+			if (a_model.canShoot(selected, m_selectedEnemy)) {
 				return m_selectedEnemy;
 			}
 		}
 		
-		m_selectedEnemy = a_model.getClosestEnemyThatWeCanSee(selected);
+		m_selectedEnemy = a_model.getClosestEnemyThatWeCanShoot(selected);
 
 		return m_selectedEnemy;
 		

@@ -49,7 +49,7 @@ public abstract class Character {
 		m_pathFinder = null;
 	}
 	
-	public void setDestination(ModelPosition destination, IIsMovePossible a_map, float a_distance, boolean a_checkPathThroughOthers) {
+	public void setDestination(ModelPosition destination, IMoveAndVisibility a_map, float a_distance, boolean a_checkPathThroughOthers) {
 		m_pathFinder = new AStar(a_map);
 		
 		
@@ -61,7 +61,7 @@ public abstract class Character {
 	 * @param check
 	 * @return true if everything is ok but false if a search or move failed
 	 */
-	public boolean update(IIsMovePossible check, ICharacterListener clistener) {
+	public boolean update(IMoveAndVisibility check, ICharacterListener clistener) {
 		
 		if (m_pathFinder != null && m_timeUnits > 0) {
 			SearchResult result = m_pathFinder.Update(100);
@@ -100,14 +100,11 @@ public abstract class Character {
 		return true;
 	}
 	
-	public boolean fireAt(Character fireTarget, boolean hasLineOfSight) {
+	public boolean fireAt(Character fireTarget, IMoveAndVisibility moveAndVisibility) {
 				
-		if (hasLineOfSight == false)
+		if (RuleBook.canFireAt(this, fireTarget, moveAndVisibility) == false)
 			return false;
-		
-		if (m_timeUnits < getFireCost()) {
-			return false;
-		}
+			
 		
 		m_timeUnits -= getFireCost();
 		

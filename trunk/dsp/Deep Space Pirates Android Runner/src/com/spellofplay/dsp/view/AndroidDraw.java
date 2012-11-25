@@ -50,7 +50,7 @@ public void drawText(String gameTitle, int i, int j) {
 		}
 		
 		Canvas c = new Canvas(m_background);
-		c.drawARGB(255, 0, 0, 0);
+		//c.drawARGB(255, 0, 0, 0);
 		m_path.setColor(Color.WHITE);
 		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
 		

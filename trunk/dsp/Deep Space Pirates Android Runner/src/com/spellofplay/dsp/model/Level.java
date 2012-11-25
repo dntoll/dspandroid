@@ -41,7 +41,7 @@ public class Level {
 					"XOOOOOOOXOOOOOOX" +
 					"XOOOOOOEXOOOOOOX" +
 					"XOOOOOOOXOOOOOOX" + 
-					"XXXOOXXXXXXOXXXX" +
+					"XXXCCXXXXXXOXXXX" +
 					"XOOOOOOOOOOOOOXX" +
 					"XEEEEEEEEEEEEEXX" +
 					"XOOOOOOOOOOOOOXX" +
@@ -69,6 +69,7 @@ public class Level {
 				switch (c) {
 					case 'X' : m_tiles[x][y] = TileType.TileWall; break;
 					case 'O' : m_tiles[x][y] = TileType.TileEmpty; break;
+					case 'C' : m_tiles[x][y] = TileType.TilePit; break;
 					case 'E' : m_tiles[x][y] = TileType.TileEmpty;
 							   if (enemy < Game.MAX_ENEMIES) 
 								   m_enemyPositions[enemy] = new ModelPosition(x,y);
@@ -107,11 +108,14 @@ public class Level {
 		if (GetTile(a_end.m_x, a_end.m_y) == TileType.TileEmpty) {
 			return true;
 		}
+		if (GetTile(a_end.m_x, a_end.m_y) == TileType.TilePit) {
+			return true;
+		}
 		
 		return false;
 	}
 	
-	 private boolean isBlocked(float a_x, float a_y, float a_dx, float a_dy)
+	 private boolean isLosBlocked(float a_x, float a_y, float a_dx, float a_dy)
      {
          if (isClear(new ModelPosition((int)a_x, (int)a_y)) == false)
          {
@@ -124,8 +128,32 @@ public class Level {
 
          return false;
      }
+	 
+	 public boolean lineOfSight(ModelPosition pos1, ModelPosition pos2) {
+		Vector2 fromPos = pos1.toCenterTileVector();
+		Vector2 targetPosition = pos2.toCenterTileVector();
+		if ( lineOfSight(fromPos, targetPosition) ) {
+			return true;
+		}
+		
+		if ( lineOfSight(fromPos.sub(0.3f, 0.3f), targetPosition ) ) {
+			return true;
+		}
+		if ( lineOfSight(fromPos.sub(-0.3f, 0.3f), targetPosition ) ) {
+			return true;
+		}
+		
+		if ( lineOfSight(fromPos.sub(-0.3f, -0.3f), targetPosition ) ) {
+			return true;
+		}
+		if ( lineOfSight(fromPos.sub(0.3f, -0.3f), targetPosition ) ) {
+			return true;
+		}
+		
+		return false;
+	}
 
-	public boolean lineOfSight(Vector2 a_from, Vector2 a_to) {
+	private boolean lineOfSight(Vector2 a_from, Vector2 a_to) {
 		Vector2 dir = a_to.sub(a_from);
         dir.normalize();
 
@@ -133,7 +161,7 @@ public class Level {
 	        for (int x = (int)a_from.m_x+1; (float)x < a_to.m_x; x++) {
 		        float u = ((float)x - a_from.m_x) / dir.m_x;
 		        float y = a_from.m_y + dir.m_y * u;
-                if (isBlocked(x, y, 0.01f, 0.0f)) {
+                if (isLosBlocked(x, y, 0.01f, 0.0f)) {
                     return false;
                 }
 		
@@ -142,7 +170,7 @@ public class Level {
 	        for (int x = (int)a_from.m_x; (float)x > a_to.m_x; x--) {
 		        float u = ((float)x - a_from.m_x) / dir.m_x;
 		        float y = a_from.m_y + dir.m_y * u;
-                if (isBlocked(x, y, 0.01f, 0.0f)) {
+                if (isLosBlocked(x, y, 0.01f, 0.0f)) {
                     return false;
                 }
 	        }
@@ -153,7 +181,7 @@ public class Level {
 	        for (int y = (int)a_from.m_y+1; (float)y < a_to.m_y; y++) {
 		        float u = ((float)y - a_from.m_y) / dir.m_y;
 		        float x = a_from.m_x + dir.m_x * u;
-                if (isBlocked(x, y, 0.0f, 0.01f)) {
+                if (isLosBlocked(x, y, 0.0f, 0.01f)) {
                     return false;
                 }
     			
@@ -162,7 +190,7 @@ public class Level {
 	        for (int y = (int)a_from.m_y; (float)y > a_to.m_y; y--) {
 		        float u = ((float)y - a_from.m_y) / dir.m_y;
 		        float x = a_from.m_x + dir.m_x * u;
-                if (isBlocked(x, y, 0.0f, 0.01f)) {
+                if (isLosBlocked(x, y, 0.0f, 0.01f)) {
                     return false;
                 }
 	        }
@@ -170,6 +198,8 @@ public class Level {
 
         return true;
     }
+
+	
 
 	
 		

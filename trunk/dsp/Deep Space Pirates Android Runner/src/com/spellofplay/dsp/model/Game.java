@@ -3,7 +3,7 @@ package com.spellofplay.dsp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game implements IIsMovePossible {
+public class Game implements IMoveAndVisibility {
 
 	public static final int MAX_SOLDIERS = 4;
 	public static final int MAX_ENEMIES = 5;
@@ -90,7 +90,7 @@ public class Game implements IIsMovePossible {
 
 	@Override
 	public boolean isMovePossible(ModelPosition pos, boolean a_canMoveThroughObstacles) {
-		if (m_level.isClear(pos) == false)
+		if (m_level.canMove(pos) == false)
 			return false;
 		
 		if (a_canMoveThroughObstacles == false) {
@@ -116,6 +116,37 @@ public class Game implements IIsMovePossible {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public boolean lineOfSight(Character cha1, Character cha2) {
+		if (m_level.lineOfSight(cha1.getPosition(), cha2.getPosition()) == false) {
+			return false;
+		}
+		
+		Line line = new Line(cha1.getPosition().toCenterTileVector(), cha2.getPosition().toCenterTileVector());
+		
+		List<Soldier> soldiers = getAliveSoldiers();
+		for (Soldier s : soldiers) {
+			if (s == cha1 || s == cha2)
+				continue;
+			
+			if (line.distance(s.getPosition().toCenterTileVector()) < s.getRadius() * 0.8f) { 
+				return false;
+			}
+		}
+		
+		List<Enemy> enemies = getAliveEnemies();
+		for (Enemy s : enemies) {
+			if (s == cha1 || s == cha2)
+				continue;
+			
+			if (line.distance(s.getPosition().toCenterTileVector()) < s.getRadius() * 0.8f) { 
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	

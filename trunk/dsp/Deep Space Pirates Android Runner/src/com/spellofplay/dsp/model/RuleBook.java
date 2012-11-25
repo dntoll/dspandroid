@@ -19,6 +19,18 @@ public class RuleBook {
 		
 	}
 	
+	public static boolean canFireAt(Character character, Character fireTarget, IMoveAndVisibility level) {
+		if (level.lineOfSight(character, fireTarget) == false)
+			return false;
+		
+		
+		
+		if (character.getTimeUnits() < character.getFireCost()) {
+			return false;
+		}
+		return true;
+	}
+	
 	public static float getToHitChance(Character character, Character fireTarget) {
 		 float toHitChance = 0.5f + character.getFireSkill() - fireTarget.getDodgeSkill();
 		 

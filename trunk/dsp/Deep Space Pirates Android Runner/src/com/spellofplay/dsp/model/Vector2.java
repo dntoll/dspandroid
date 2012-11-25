@@ -53,4 +53,9 @@ public class Vector2 {
 		return this;
 	}
 
+
+	public float dot(Vector2 toP) {
+		return m_x * toP.m_x + m_y + toP.m_y;
+	}
+
 }
