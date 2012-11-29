@@ -58,4 +58,9 @@ public class Vector2 {
 		return m_x * toP.m_x + m_y + toP.m_y;
 	}
 
+
+	public float getRotation() {
+		return 90.0f +(float)(Math.atan2(m_y, m_x) * 180.0/Math.PI);
+	}
+
 }

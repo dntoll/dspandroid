@@ -188,9 +188,9 @@ public class AStar {
 			        // handle diagonal, should be like this in dungeon but not on trail...
 			        // on trail diagonal is ok 
 			        if (x == y || x == -y) {
-				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y), true) == false)
+				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y), m_canMoveThroughObstacles) == false)
 					        continue;
-				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x, pNode.m_node.m_y + y), true) == false)
+				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x, pNode.m_node.m_y + y), m_canMoveThroughObstacles) == false)
 					        continue;
 			        }
 

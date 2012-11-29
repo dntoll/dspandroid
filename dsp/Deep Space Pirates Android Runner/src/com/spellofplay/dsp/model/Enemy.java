@@ -3,7 +3,7 @@ package com.spellofplay.dsp.model;
 public class Enemy extends Character{
 
 	public Enemy(ModelPosition startPosition) {
-		super(startPosition, 3);
+		super(startPosition, 5);
 
 	}
 

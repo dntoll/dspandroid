@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import android.graphics.Color;
-import android.graphics.Rect;
-
 import com.spellofplay.dsp.model.AStar;
 import com.spellofplay.dsp.model.AStar.SearchResult;
 import com.spellofplay.dsp.model.Enemy;
@@ -19,7 +17,7 @@ import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.model.Character;
 import com.spellofplay.dsp.model.Vector2;
 import com.spellofplay.common.view.Input;
-//import com.spellofplay.common.view.ViewPosition;
+
 
 public class GameView implements ICharacterListener {
 
@@ -30,22 +28,16 @@ public class GameView implements ICharacterListener {
 	Camera  m_camera = new Camera();
 	Soldier m_selectedSoldier;
 	Enemy   m_selectedEnemy;
+	AStar m_selectedPath = null;
+	
 	Map<Enemy, ModelPosition> m_enemiesSeenThisRound = new HashMap<Enemy, ModelPosition>();
 	Map<Character, VisualCharacter> m_characters = new HashMap<Character, VisualCharacter>();
-	
-	
-	AStar m_selectedPath = null;// = new AStar();
-	//ModelPosition m_selectedDestination = null;
-	
 	SimpleGui m_gui = new SimpleGui();
-	
-	
-	
-
-	private final int TRANSPARENT = Color.argb(128, 255, 255, 255);
 	
 	ITexture m_texture;
 	ITexture m_player;
+	
+	
 	public GameView(ITexture a_texture, ITexture a_player) {
 		m_level = new LevelDrawer(a_texture);
 		m_texture = a_texture;
@@ -142,9 +134,11 @@ public class GameView implements ICharacterListener {
 					if (a_model.canShoot(s, e)) {
 						ViewPosition vsPos = m_characters.get(s).getVisualPosition(m_camera);
 						ViewPosition vEpos = m_characters.get(e).getVisualPosition(m_camera);
-						drawable.drawLine(vEpos, vsPos, Color.WHITE);
+						boolean hasCover = a_model.getMovePossible().targetHasCover(s, e);
 						
-						if (m_selectedSoldier == s) {
+						drawable.drawLine(vEpos, vsPos, hasCover ? Color.LTGRAY : Color.WHITE);
+						
+						if (getSelectedSoldier(a_model) == s) {
 							
 							Vector2 direction = vEpos.sub(vsPos).toVector2();
 							direction.normalize();
@@ -152,7 +146,8 @@ public class GameView implements ICharacterListener {
 							
 							Vector2 textAt = vEpos.toVector2().sub(direction);
 							
-							drawable.drawText( " " + (int)(100.0f * RuleBook.getToHitChance(s, e)) + "%", (int)textAt.m_x, (int)textAt.m_y);
+							float chance = RuleBook.getToHitChance(s, e, hasCover);
+							drawable.drawText( " " + (int)(100.0f * chance) + "%", (int)textAt.m_x, (int)textAt.m_y);
 							
 						}
 					}
@@ -312,11 +307,9 @@ public class GameView implements ICharacterListener {
 		if (a_model.isSoldierTime() == false)
 			return null;
 		
-		if (m_selectedSoldier == null) {
-			return null;
-		}
 		
-		if (m_selectedSoldier.getTimeUnits() == 0) {
+		
+		if (m_selectedSoldier == null || m_selectedSoldier.getTimeUnits() == 0) {
 			//SELECT THE NEXT SOLDIER
 			for (Soldier s : a_model.getAliveSoldiers()) {
 				if (s.getTimeUnits() > 0) {
@@ -428,6 +421,24 @@ public class GameView implements ICharacterListener {
 		
 		
 		m_characters.get(character).moveTo();
+		
+	}
+
+
+	@Override
+	public void fireAt(Character attacker, Character fireTarget, boolean didHit) {
+		m_characters.get(attacker).attack();
+		
+		if (didHit) {
+			m_characters.get(fireTarget).takeDamage();
+		}
+		
+	}
+
+
+	@Override
+	public void cannotFireAt(Character character, Character fireTarget) {
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -100,19 +100,25 @@ public abstract class Character {
 		return true;
 	}
 	
-	public boolean fireAt(Character fireTarget, IMoveAndVisibility moveAndVisibility) {
+	public boolean fireAt(Character fireTarget, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
 				
-		if (RuleBook.canFireAt(this, fireTarget, moveAndVisibility) == false)
+		if (RuleBook.canFireAt(this, fireTarget, moveAndVisibility) == false) {
+			a_listener.cannotFireAt(this, fireTarget);
 			return false;
+		}
 			
 		
 		m_timeUnits -= getFireCost();
 		
 		//Determine success
-		if (RuleBook.DetermineFireSuccess(this, fireTarget)) {
+		if (RuleBook.DetermineFireSuccess(this, fireTarget, moveAndVisibility.targetHasCover(this, fireTarget))) {
 			fireTarget.m_hitpoints -= getDamage();
+			
+			
+			a_listener.fireAt(this, fireTarget, true);
 			return true;
 		}
+		a_listener.fireAt(this, fireTarget, false);
 		
 		
 		

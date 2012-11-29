@@ -11,7 +11,6 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 
 public class SimpleGui {
-	private static final int BORDER_WIDTH = 5;
 	public static final int BUTTON_HEIGHT = 32;
 	public static final int BUTTON_WIDTH = 64;
 	

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class EnemyAI {
 
-	public void think(List<Enemy> enemies, List<Soldier> soldiers, IMoveAndVisibility a_checker, ICharacterListener clistener) {
+	public void think(List<Enemy> enemies, List<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility, ICharacterListener a_clistener) {
 		
 		
 		int index = 0;
@@ -13,7 +13,7 @@ public class EnemyAI {
 			//Is doing something
 			if (e.isDoingSomething()) {
 				//if search or move failed remove timeunits...
-				if (e.update(a_checker, clistener) == false) {
+				if (e.update(a_moveAndVisibility, a_clistener) == false) {
 					
 					e.removeTimeUnit();
 				}
@@ -25,12 +25,10 @@ public class EnemyAI {
 				
 				float distance = e.getPosition().sub(closest.getPosition()).length();
 				
-				if (distance > 1.0f) {
-					e.setDestination(closest.getPosition(), a_checker, 1.0f, true);
+				if (RuleBook.canFireAt(e, closest, a_moveAndVisibility) == false) {
+					e.setDestination(closest.getPosition(), a_moveAndVisibility, 1.0f, true);
 				} else {
-					if (e.fireAt(closest, a_checker) == false) {
-						e.removeTimeUnit();
-					}
+					e.fireAt(closest, a_moveAndVisibility, a_clistener);
 				}
 				break; //en i taget
 			}

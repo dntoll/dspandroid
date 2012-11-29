@@ -14,7 +14,9 @@ public class VisualCharacter {
 	private static final float ROTATION_SPEED = 360.0f;
 	private final int TRANSPARENT = Color.argb(128, 255, 255, 255);
 	
-	private float m_animationTimer = 0.0f;
+	private float m_movementTimer = 0.0f;
+	private float m_attackTimer = 0.0f;
+	private float m_damageTimer = 0.0f;
 	private float m_rotation = 0;
 	private float m_targetRotation = 0;
 		
@@ -42,11 +44,20 @@ public class VisualCharacter {
 			drawGui = false;
 		} 
 		
-
 		drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, drawGui);
 	}
 
 	private void drawGUI(AndroidDraw drawable, Rect dst) {
+		
+		drawable.m_guiText.setColor(Color.WHITE);
+		if (m_attackTimer > 0) {
+			drawable.m_guiText.setColor(Color.BLACK);
+		}
+		if (m_damageTimer > 0) {
+			drawable.m_guiText.setColor(Color.RED);
+		}
+		
+		
 		drawable.drawText("" + m_modelCharacter.getTimeUnits(), dst.left, dst.top, drawable.m_guiText);
 		drawable.drawText("" + m_modelCharacter.getHitpoints(), dst.right-16, dst.top, drawable.m_guiText);
 	}
@@ -68,10 +79,13 @@ public class VisualCharacter {
 		//
 		 
 		
+		
 		Rect dst = new Rect((int)vpos.m_x -camera.getHalfScale(), 
 				(int)vpos.m_y -camera.getHalfScale(),
 				(int)vpos.m_x + camera.getHalfScale(), 
 				(int)vpos.m_y + camera.getHalfScale());
+		
+		
 		
 		
 		drawable.drawBitmap(player, source, dst, color, m_rotation);
@@ -83,12 +97,12 @@ public class VisualCharacter {
 	public ViewPosition getVisualPosition(Camera camera) {
 		ViewPosition vpos = null;//camera.toViewPos(m_modelCharacter.getPosition());
 		
-		if (m_animationTimer < MOVEMENT_TIME) {
+		if (m_movementTimer > 0) {
 			//interpolate
-			float vmxpos = (float)m_lastPosition.m_x * (1.0f - m_animationTimer/MOVEMENT_TIME) +   
-			               (float)m_modelCharacter.getPosition().m_x * m_animationTimer / MOVEMENT_TIME;
-			float vmypos = (float)m_lastPosition.m_y * (1.0f - m_animationTimer/MOVEMENT_TIME) +   
-            			   (float)m_modelCharacter.getPosition().m_y * m_animationTimer / MOVEMENT_TIME;
+			float vmxpos = (float)m_lastPosition.m_x * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
+			               (float)m_modelCharacter.getPosition().m_x * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
+			float vmypos = (float)m_lastPosition.m_y * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
+            			   (float)m_modelCharacter.getPosition().m_y * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
 			
 			vpos = camera.toViewPos(vmxpos, vmypos);
 					
@@ -117,12 +131,15 @@ public class VisualCharacter {
 		if (m_rotation != m_targetRotation)
 			return false;
 		
-		m_animationTimer += a_elapsedTime;
-		if (m_animationTimer >= MOVEMENT_TIME) {
+		m_movementTimer -= a_elapsedTime;
+		if (m_movementTimer < 0) {
 			m_lastPosition = m_modelCharacter.getPosition();
-			return true;
 		}
-		return false;
+		
+		m_attackTimer -= a_elapsedTime;
+		m_damageTimer -= a_elapsedTime;
+		
+		return m_movementTimer < 0.0f && m_attackTimer < 0.0f && m_damageTimer < 0.0f;
 	}
 
 	private float fixAngle(float a_rotation) {
@@ -150,7 +167,15 @@ public class VisualCharacter {
 	}
 
 	public void moveTo() {
-		m_animationTimer = 0.0f;
+		m_movementTimer = MOVEMENT_TIME;
+	}
+
+	public void attack() {
+		m_attackTimer = 0.5f;
+	}
+
+	public void takeDamage() {
+		m_damageTimer = 0.5f;
 	}
 }
 

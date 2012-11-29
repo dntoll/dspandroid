@@ -7,4 +7,8 @@ public interface IMoveAndVisibility {
 	
 
 	boolean lineOfSight(Character cha1, Character cha2);
+
+
+
+	boolean targetHasCover(Character attacker, Character target);
 }
