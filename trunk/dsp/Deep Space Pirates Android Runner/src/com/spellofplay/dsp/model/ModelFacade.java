@@ -85,9 +85,9 @@ public class ModelFacade {
 	}
 
 
-	public boolean fireAt(Soldier selectedSoldier, Enemy fireTarget) {
+	public boolean fireAt(Soldier selectedSoldier, Enemy fireTarget, ICharacterListener listener) {
 		
-		return selectedSoldier.fireAt(fireTarget, m_game);
+		return selectedSoldier.fireAt(fireTarget, m_game, listener);
 	}
 
 	public boolean canShoot(Soldier soldier, Enemy enemy) {

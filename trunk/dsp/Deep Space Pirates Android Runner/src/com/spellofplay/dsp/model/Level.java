@@ -36,14 +36,14 @@ public class Level {
 			        "XXXXXXXXXXXXXXXX" +
 					"X4123XXXXXXXXXXX" + 
 					"XOOOOXEOOOOOXXXX" +
-					"XOOOOXOOOOOOXXXX" +
-					"XXOXXXOXXXXOXXXX" +
+					"XOOPOXOOOOOOXXXX" +
+					"XOOOXXOXXXXOXXXX" +
 					"XOOOOOOOXOOOOOOX" +
-					"XOOOOOOEXOOOOOOX" +
+					"XOOOOOOECOOOOOOX" +
 					"XOOOOOOOXOOOOOOX" + 
-					"XXXCCXXXXXXOXXXX" +
+					"XXCOOXXXXXCOCXXX" +
+					"XOEEEOOOOOOOOOXX" +
 					"XOOOOOOOOOOOOOXX" +
-					"XEEEEEEEEEEEEEXX" +
 					"XOOOOOOOOOOOOOXX" +
 					"XOOOOOOOOOOOOOXX" +
 					"XXXXXXOOOXXXXXXX" + 
@@ -69,7 +69,8 @@ public class Level {
 				switch (c) {
 					case 'X' : m_tiles[x][y] = TileType.TileWall; break;
 					case 'O' : m_tiles[x][y] = TileType.TileEmpty; break;
-					case 'C' : m_tiles[x][y] = TileType.TilePit; break;
+					case 'P' : m_tiles[x][y] = TileType.TilePit; break;
+					case 'C' : m_tiles[x][y] = TileType.TileCover; break;
 					case 'E' : m_tiles[x][y] = TileType.TileEmpty;
 							   if (enemy < Game.MAX_ENEMIES) 
 								   m_enemyPositions[enemy] = new ModelPosition(x,y);
@@ -111,6 +112,11 @@ public class Level {
 		if (GetTile(a_end.m_x, a_end.m_y) == TileType.TilePit) {
 			return true;
 		}
+		if (GetTile(a_end.m_x, a_end.m_y) == TileType.TileCover) {
+			return true;
+		}
+		
+		
 		
 		return false;
 	}
@@ -198,6 +204,24 @@ public class Level {
 
         return true;
     }
+
+	public boolean hasCoverFrom(ModelPosition position, Vector2 sub) {
+		
+		
+		sub.normalize();
+		
+		int dx = sub.m_x > 0 ? 1 : (sub.m_x < 0 ? -1 : 0);
+		int dy = sub.m_y > 0 ? 1 : (sub.m_y < 0 ? -1 : 0);
+		
+		if (GetTile(position.m_x + dx, position.m_y) == TileType.TileCover) {
+			return true;
+		}
+		if (GetTile(position.m_x, position.m_y + dy) == TileType.TileCover) {
+			return true;
+		}
+		
+		return false;
+	}
 
 	
 

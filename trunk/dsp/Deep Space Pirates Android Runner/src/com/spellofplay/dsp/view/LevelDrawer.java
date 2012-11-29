@@ -49,6 +49,7 @@ public class LevelDrawer {
 		
 		Mesh backgroundMeshBlocked = new Mesh(Level.Width, Level.Height);
 		Mesh crates = new Mesh(Level.Width, Level.Height);
+		Mesh pits = new Mesh(Level.Width, Level.Height);
 		
 		
 		for (int x = 0; x < Level.Width; x++) {
@@ -76,6 +77,19 @@ public class LevelDrawer {
 				}
 				
 				variation = 2;
+				rotTileBlocked = new RotatedTile(level.GetTile(x, y) == TileType.TileCover,
+													 		 level.GetTile(x +1, y) == TileType.TileCover,
+															 level.GetTile(x, y+1) == TileType.TileCover,
+															 level.GetTile(x +1, y + 1) == TileType.TileCover);
+				
+				if (rotTileBlocked.isEmpty()) 
+				{
+					
+					crates.AddRectangle(rotTileBlocked.getSrcRect(variation, 32), dst, rotTileBlocked.rotation);
+					
+				}
+				
+				variation = 2;
 				rotTileBlocked = new RotatedTile(level.GetTile(x, y) == TileType.TilePit,
 													 		 level.GetTile(x +1, y) == TileType.TilePit,
 															 level.GetTile(x, y+1) == TileType.TilePit,
@@ -84,7 +98,7 @@ public class LevelDrawer {
 				if (rotTileBlocked.isEmpty()) 
 				{
 					
-					crates.AddRectangle(rotTileBlocked.getSrcRect(variation, 32), dst, rotTileBlocked.rotation);
+					pits.AddRectangle(rotTileBlocked.getSrcRect(variation, 32), dst, rotTileBlocked.rotation);
 					
 				}
 	
@@ -92,6 +106,7 @@ public class LevelDrawer {
 		}
 		drawable.drawMeshToBackground(backgroundMeshBlocked, Level.Width, Level.Height, camera.getScale(), m_theTextureMap);
 		drawable.drawMeshToBackground(crates, Level.Width, Level.Height, camera.getScale(), m_theTextureMap);
+		drawable.drawMeshToBackground(pits, Level.Width, Level.Height, camera.getScale(), m_theTextureMap);
 		
 		
 		
@@ -178,28 +193,35 @@ public class LevelDrawer {
 						if (m_movementMap[x][y] < selected.getTimeUnits()) {
 							
 							int travelCost = m_movementMap[x][y] + 1;
+							
 							//check the neighbours
 							for (int dx = -1; dx < 2; dx++) {
 								for (int dy = -1; dy < 2; dy++) { 
 									if (dx == 0 && dy == 0) {
 										continue;
 									}
+									//Stay inside level
 									if (x+dx >= Level.Width || y+dy >= Level.Height) {
 										continue;
 									}
 									if (x+dx < 0 || y+dy < 0) {
 										continue;
 									}
+									
+
 									if (a_checker.isMovePossible(new ModelPosition(x+dx, y+dy), false) == false) {
 										continue;
 									}
+									
+									//Diagonala moves
 									if (dx == dy || dx == -dy) {
-								        if (a_checker.isMovePossible(new ModelPosition(x + x, y), false) == false)
+								        if (a_checker.isMovePossible(new ModelPosition(x + dx, y), false) == false)
 									        continue;
-								        if (a_checker.isMovePossible(new ModelPosition(x, y + y), false) == false)
+								        if (a_checker.isMovePossible(new ModelPosition(x, y + dy), false) == false)
 									        continue;
 							        }
 									
+									//har vi redan en högre movementcost där ?
 									if (m_movementMap[x+dx][y+dy] > travelCost ) {
 										m_movementMap[x+dx][y+dy] = travelCost;
 										hasAddedNewNodes = true;
@@ -235,6 +257,8 @@ public class LevelDrawer {
 						drawable.drawRect(dst, Color.argb(48, 0, 255, 0));
 					else
 						drawable.drawRect(dst, Color.argb(32, 0, 255, 128));
+					
+					drawable.drawText("" + m_movementMap[x][y], (int)vp.m_x, (int)vp.m_y);
 				}
 			}	
 		}

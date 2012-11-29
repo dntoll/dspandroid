@@ -6,9 +6,9 @@ public class RuleBook {
 
 	private static Random m_die = new Random();
 	
-	public static boolean DetermineFireSuccess(Character character, Character fireTarget) {
+	public static boolean DetermineFireSuccess(Character character, Character fireTarget, boolean targetHasCover) {
 
-		float toHitChance = getToHitChance(character, fireTarget);
+		float toHitChance = getToHitChance(character, fireTarget, targetHasCover);
 		
 		if (m_die.nextDouble() < toHitChance)
 			return true;
@@ -31,8 +31,16 @@ public class RuleBook {
 		return true;
 	}
 	
-	public static float getToHitChance(Character character, Character fireTarget) {
+	
+	public static float getToHitChance(Character character, Character fireTarget, boolean targetHasCover) {
 		 float toHitChance = 0.5f + character.getFireSkill() - fireTarget.getDodgeSkill();
+		 
+		 float length = character.getPosition().sub(fireTarget.getPosition()).length();
+		 
+		 toHitChance -= length / 20.0f;
+		 
+		 if (targetHasCover)
+			 toHitChance -= 0.3f;
 		 
 		 if (toHitChance < 0.1f)
 			 toHitChance = 0.1f;

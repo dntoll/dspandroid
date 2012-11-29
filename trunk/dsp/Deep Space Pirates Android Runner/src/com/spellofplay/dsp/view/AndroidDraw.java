@@ -100,6 +100,7 @@ public void drawText(String gameTitle, int i, int j) {
 	
 	public void drawLine(ViewPosition vEpos, ViewPosition vsPos, int color) {
 		m_guiText.setColor(color);
+		
 		m_canvas.drawLine(vEpos.m_x, vEpos.m_y, vsPos.m_x, vsPos.m_y, m_guiText);
 	}
 	
@@ -133,6 +134,7 @@ public void drawText(String gameTitle, int i, int j) {
 	public void drawRect(Rect dst, int color) {
 		m_guiText.setColor(color);
 		m_canvas.drawRect(dst, m_guiText);
+		
 	}
 	
 

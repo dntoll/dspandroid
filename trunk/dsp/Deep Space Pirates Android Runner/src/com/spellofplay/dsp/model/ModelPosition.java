@@ -16,8 +16,8 @@ public class ModelPosition {
 	}
 
 
-	public ModelPosition sub(ModelPosition other) {
-		return new ModelPosition(m_x - other.m_x, m_y - other.m_y);
+	public Vector2 sub(ModelPosition other) {
+		return new Vector2(m_x - other.m_x, m_y - other.m_y);
 	}
 
 
@@ -40,8 +40,6 @@ public class ModelPosition {
 	}
 
 
-	public float getRotation() {
-		return 90.0f +(float)(Math.atan2(m_y, m_x) * 180.0/Math.PI);
-	}
+	
 
 }
