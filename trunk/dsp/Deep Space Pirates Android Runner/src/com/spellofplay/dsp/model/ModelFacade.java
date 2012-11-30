@@ -43,7 +43,7 @@ public class ModelFacade {
 
 
 	public void updatePlayers(ICharacterListener clistener) {
-		m_game.updatePlayers(clistener);
+		m_game.movePlayers(clistener);
 	}
 	
 	public void updateEnemies(ICharacterListener clistener) {
@@ -91,7 +91,7 @@ public class ModelFacade {
 	}
 
 	public boolean canShoot(Soldier soldier, Enemy enemy) {
-		return m_game.lineOfSight(soldier, enemy);
+		return RuleBook.canFireAt(soldier, enemy, m_game);
 	}
 	
 	public boolean canSeeMapPosition(Soldier soldier, ModelPosition modelPosition) {

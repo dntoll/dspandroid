@@ -1,5 +1,7 @@
 package com.spellofplay.dsp.model;
 
+import com.spellofplay.dsp.model.AStar.SearchResult;
+
 public class Enemy extends Character{
 
 	public Enemy(ModelPosition startPosition) {
@@ -26,6 +28,28 @@ public class Enemy extends Character{
 	public float getDodgeSkill() {
 		return 0.3f;
 	}
+	
+	@Override
+	public float getRange() {
+		return 3.0f;
+	}
+
+	public boolean isSearching() {
+		return m_pathFinder != null && m_pathFinder.isSearching();
+		
+	}
+
+	public boolean isMoving() {
+		return m_pathFinder != null && m_pathFinder.m_path.size() > 0;
+	}
+
+	public boolean didSearchFail() {
+		return m_pathFinder != null && m_pathFinder.didSearchFail();
+	}
+
+	
+
+	
 
 	
 }

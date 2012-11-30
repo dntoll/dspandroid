@@ -16,6 +16,11 @@ public class Soldier extends Character {
 		return 0.5f;
 	}
 	
+	@Override
+	public float getRange() {
+		return 5.0f;
+	}
+	
 
 	
 

@@ -15,18 +15,27 @@ public class AStar {
     {
         m_map = a_map;
         m_path = new ArrayList<ModelPosition>();
-        m_state = SearchResult.SearchNotStarted;
+        m_state = SearchResult.SearchNotDone;
     }
 
     public enum SearchResult
     {
-        SearchNotStarted,
+    	SearchNotDone,
         SearchFailedNoPath,
-        SearchNotDone,
         SearchSucceded
     };
     
+    public boolean isSearchDone() {
+    	return m_state == SearchResult.SearchSucceded;
+	}
     
+    public boolean isSearching() {
+		return m_state == SearchResult.SearchNotDone;
+	}
+    
+    public boolean didSearchFail() {
+    	return m_state == SearchResult.SearchFailedNoPath;
+	}
     
     public SearchResult Update(int a_maxNodes)
     {
@@ -355,6 +364,12 @@ public class AStar {
         }
         return foundImprovment;
     }
+
+	
+
+	
+
+	
 
     
 }

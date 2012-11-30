@@ -64,7 +64,7 @@ public class GameController {
 				if (destination != null) {
 					
 					a_model.doMoveTo(selectedSoldier, destination);
-					a_view.doMoveTo();
+					a_view.unselectPath();
 				}
 			} 
 			

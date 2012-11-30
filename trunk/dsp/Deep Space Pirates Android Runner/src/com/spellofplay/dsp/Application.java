@@ -34,22 +34,9 @@ public class Application extends View   implements IUpdateable {
         Resources r = context.getResources();
 		Drawable tilesDrawable = r.getDrawable(R.drawable.sprites);
 		Drawable playerDrawable = r.getDrawable(R.drawable.player);
-		ConcreteTexture player, texture;
-		{
-			Bitmap bitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
-			Canvas canvas2 = new Canvas(bitmap);
-			tilesDrawable.setBounds(0, 0, 256, 256);
-			tilesDrawable.draw(canvas2);
-	        texture = new ConcreteTexture(bitmap);
-        
-		}
-		{
-			Bitmap bitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
-	        Canvas canvas2 = new Canvas(bitmap);
-	        playerDrawable.setBounds(0, 0, 256, 256);
-	        playerDrawable.draw(canvas2);
-	        player = new ConcreteTexture(bitmap);
-		}
+		
+		ConcreteTexture texture = new ConcreteTexture(getBitmapFromDrawable(tilesDrawable));
+		ConcreteTexture player = new ConcreteTexture(getBitmapFromDrawable(playerDrawable));
         m_master = new MasterController(context, m_input, texture, player);
         
         
@@ -59,6 +46,16 @@ public class Application extends View   implements IUpdateable {
         m_activity = cfTimerActivity;
         
    }
+
+	private Bitmap getBitmapFromDrawable(Drawable drawable) {
+		int width = drawable.getMinimumWidth();
+		int height = drawable.getMinimumHeight();
+		Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		Canvas canvas2 = new Canvas(bitmap);
+		drawable.setBounds(0, 0, width, height);
+		drawable.draw(canvas2);
+		return bitmap;
+	}
 	
 	@Override
 	public boolean onTouchEvent (MotionEvent event) {
@@ -117,7 +114,7 @@ public class Application extends View   implements IUpdateable {
         
         super.onDraw(canvas);
         
-        m_draw.preDraw(canvas);
+        m_draw.setDrawTarget(canvas);
         if (m_master.onDraw(m_draw, elapsedTimeSeconds) == false ) {
         	m_activity.finish();
         }

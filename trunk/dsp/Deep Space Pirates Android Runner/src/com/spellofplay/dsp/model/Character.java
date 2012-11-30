@@ -61,43 +61,31 @@ public abstract class Character {
 	 * @param check
 	 * @return true if everything is ok but false if a search or move failed
 	 */
-	public boolean update(IMoveAndVisibility check, ICharacterListener clistener) {
+	public void move(ICharacterListener clistener) {
 		
 		if (m_pathFinder != null && m_timeUnits > 0) {
-			SearchResult result = m_pathFinder.Update(100);
-			
-			if (result == SearchResult.SearchSucceded) {
-				
-				if (m_pathFinder.m_path.size() > 0) {
-					ModelPosition pos = m_pathFinder.m_path.get(0);
-					m_pathFinder.m_path.remove(0);
-					
-					//kan vi verkligen gå igenom någon annan?
-					if (check.isMovePossible(pos, false)) {
-						m_position = pos;
-						m_timeUnits--; 
-						clistener.moveTo(this);
-					} else {
-						m_pathFinder = null; //this should in theory never happen...
-						return false;
-					}
-				} else {
-					m_pathFinder = null;
-				}
-			} else if (result == SearchResult.SearchNotDone || result == SearchResult.SearchNotStarted) {
-				//do nothing
-			} else if (result == SearchResult.SearchFailedNoPath) {
-				//do nothing
-				m_pathFinder = null;
-				return false;
-			}
+			if (m_pathFinder.isSearchDone()) {
+				MoveToNextPosition(clistener);
+			} 
 		}
+	}
+	
+	public void search() {
+		if (m_pathFinder != null)
+			m_pathFinder.Update(100);
+	}
+
+	private void MoveToNextPosition(ICharacterListener clistener) {
 		
-		if (m_timeUnits <= 0) {
+		ModelPosition pos = m_pathFinder.m_path.get(0);
+		m_pathFinder.m_path.remove(0);
+		m_position = pos;
+		m_timeUnits--;
+		
+		if (m_pathFinder.m_path.size() == 0 || m_timeUnits <= 0) {
 			m_pathFinder = null;
 		}
-		
-		return true;
+		clistener.moveTo(this);
 	}
 	
 	public boolean fireAt(Character fireTarget, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
@@ -129,4 +117,10 @@ public abstract class Character {
 	public abstract float getFireSkill();
 
 	public abstract float getDodgeSkill();
+
+	public float distance(Character other) {
+		return m_position.sub(other.getPosition()).length();
+	}
+
+	public abstract float getRange();
 }

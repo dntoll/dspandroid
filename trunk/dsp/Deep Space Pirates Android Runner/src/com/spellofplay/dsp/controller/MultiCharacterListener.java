@@ -36,4 +36,11 @@ public class MultiCharacterListener implements ICharacterListener{
 		}
 	}
 
+	@Override
+	public void enemyAILog(String string) {
+		for (ICharacterListener l : m_listeners) {
+			l.enemyAILog(string);
+		}
+	}
+
 }

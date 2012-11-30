@@ -19,10 +19,21 @@ public class RuleBook {
 		
 	}
 	
-	public static boolean canFireAt(Character character, Character fireTarget, IMoveAndVisibility level) {
-		if (level.lineOfSight(character, fireTarget) == false)
+	public static boolean couldFireIfHadTime(Character character, Character fireTarget, IMoveAndVisibility a_moveAndVisibility) {
+		if (a_moveAndVisibility.lineOfSight(character, fireTarget) == false)
 			return false;
 		
+		float distance = character.distance(fireTarget);
+		if (distance > character.getRange())
+			return false;
+		
+		return true;
+	}
+	
+	public static boolean canFireAt(Character character, Character fireTarget, IMoveAndVisibility a_moveAndVisibility) {
+		
+		if (couldFireIfHadTime(character, fireTarget, a_moveAndVisibility) == false)
+			return false;
 		
 		
 		if (character.getTimeUnits() < character.getFireCost()) {
@@ -35,7 +46,7 @@ public class RuleBook {
 	public static float getToHitChance(Character character, Character fireTarget, boolean targetHasCover) {
 		 float toHitChance = 0.5f + character.getFireSkill() - fireTarget.getDodgeSkill();
 		 
-		 float length = character.getPosition().sub(fireTarget.getPosition()).length();
+		 float length = character.distance(fireTarget);
 		 
 		 toHitChance -= length / 20.0f;
 		 
@@ -49,5 +60,7 @@ public class RuleBook {
 		 
 		 return toHitChance;
 	}
+
+	
 
 }
