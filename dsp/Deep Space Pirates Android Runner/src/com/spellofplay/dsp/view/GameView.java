@@ -46,85 +46,31 @@ public class GameView implements ICharacterListener {
 	
 	
 	public void drawGame(AndroidDraw drawable, ModelFacade a_model) {
-		if (hasInitatedBuffer == false) 
-		{
-			m_level.draw(a_model.getLevel(), drawable, m_camera);
-			hasInitatedBuffer = true;
-		}
+		redrawLevelBuffer(drawable, a_model);
+		
 		drawable.drawBackground(m_camera.m_displacement);
 
-		//Visualize visibility
 		Soldier selected = getSelectedSoldier(a_model);
+		drawMovementAndVisibilityHelp(drawable, a_model, selected);
+		drawMovementPath(drawable, a_model);
+		drawSoldierSelection(drawable, a_model, selected);
+		drawSoldiers(drawable, a_model, selected);
+		drawEnemies(drawable, a_model);
+		drawable.drawText(a_model.getGameTitle(), 10, 10, drawable.m_guiText);
+		drawSightLines(drawable, a_model);
+		
+		m_gui.DrawGui(drawable);
+	}
 
+
+	private void drawMovementAndVisibilityHelp(AndroidDraw drawable,
+			ModelFacade a_model, Soldier selected) {
 		m_level.drawPossibleMoveArea(a_model.getMovePossible(), drawable, m_camera, selected);
 		m_level.drawNotVisible(a_model, drawable, m_camera);
-		
-		//TargetDestionation
-		if (getDestination(a_model) != null) {
+	}
 
-			//Vi har en vald path
-			if (m_selectedPath != null) {
-				if (m_selectedPath.Update(10) == SearchResult.SearchSucceded) {
-					
-					for (ModelPosition loc : m_selectedPath.m_path)  {
-						drawable.drawCircle(m_camera.toViewPos(loc), m_camera.getHalfScale()/2, Color.argb(128, 0, 0, 255));
-					}
-				}
-			}
-			drawable.drawCircle(m_camera.toViewPos(getDestination(a_model)), m_camera.getHalfScale(), Color.argb(128, 0, 0, 255));
-		}
-		
-		//DRAW SELECTION
-		if (selected != null && a_model.isSoldierTime() && selected.getTimeUnits() > 0) {
-			ViewPosition vpos = m_characters.get(selected).getVisualPosition(m_camera);//.toViewPos(selected.getPosition());
-			drawable.drawCircle(vpos, m_camera.getHalfScale(), Color.GREEN);
-		}
-		
-		//DRAW TARGET ENEMY
-		Enemy target = getFireTarget(a_model);
-		if (target != null) {
-			ViewPosition vEpos = m_camera.toViewPos(target.getPosition());
-			drawable.drawCircle(vEpos, m_camera.getHalfScale(), Color.RED);
-		}
-		
-		
-		
-		
-		//DRAW SOLDIERS
-		for (Soldier soldier : a_model.getAliveSoldiers()) {
-			VisualCharacter vchar = m_characters.get(soldier);
-			vchar.drawSoldier(drawable, m_camera, m_player, selected == soldier ? target :  null);
-		}
-		
-		
-		
-		for (Enemy enemy : a_model.getAliveEnemies()) {
-			
-			boolean isSpotted = !a_model.canSee(enemy).isEmpty();
-			
-			//HAS THIS ENEMY HAS BEEN SEEN THIS ROUND?
-			if (isSpotted == false) {
-				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
-					//not seen at all this round...
-					continue;
-				}
-			} else {
-				//add it to the list of enemies seen this round
-				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
-					m_enemiesSeenThisRound.put(enemy, enemy.getPosition());
-				}
-			}
-			VisualCharacter vchar = m_characters.get(enemy);
-			vchar.drawEnemy(drawable, m_camera, m_texture, isSpotted, m_enemiesSeenThisRound.get(enemy));
-			
-			
-			
-		}
-		
-		drawable.drawText(a_model.getGameTitle(), 10, 10, drawable.m_guiText);
-		
-		
-		//DRAW SIGHT LINES
+
+	private void drawSightLines(AndroidDraw drawable, ModelFacade a_model) {
 		for (Enemy e : a_model.getAliveEnemies()) {
 			List<Soldier> soldiersWhoSpotsEnemy = a_model.canSee(e);
 			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
@@ -154,8 +100,87 @@ public class GameView implements ICharacterListener {
 				}
 			}
 		}
-		
-		m_gui.DrawGui(drawable);
+	}
+
+
+	private void drawEnemies(AndroidDraw drawable, ModelFacade a_model) {
+		for (Enemy enemy : a_model.getAliveEnemies()) {
+			
+			boolean isSpotted = !a_model.canSee(enemy).isEmpty();
+			
+			//HAS THIS ENEMY HAS BEEN SEEN THIS ROUND?
+			if (isSpotted == false) {
+				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
+					//not seen at all this round...
+					continue;
+				}
+			} else {
+				//add it to the list of enemies seen this round
+				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
+					m_enemiesSeenThisRound.put(enemy, enemy.getPosition());
+				}
+			}
+			VisualCharacter vchar = m_characters.get(enemy);
+			vchar.drawEnemy(drawable, m_camera, m_texture, isSpotted, m_enemiesSeenThisRound.get(enemy));
+			
+			
+			
+		}
+	}
+
+
+	private void drawSoldiers(AndroidDraw drawable, ModelFacade a_model,
+			Soldier selected) {
+		Enemy target = drawTargetSelection(drawable, a_model);
+		for (Soldier soldier : a_model.getAliveSoldiers()) {
+			VisualCharacter vchar = m_characters.get(soldier);
+			vchar.drawSoldier(drawable, m_camera, m_player, selected == soldier ? target :  null);
+		}
+	}
+
+
+	private Enemy drawTargetSelection(AndroidDraw drawable, ModelFacade a_model) {
+		Enemy target = getFireTarget(a_model);
+		if (target != null) {
+			ViewPosition vEpos = m_camera.toViewPos(target.getPosition());
+			drawable.drawCircle(vEpos, m_camera.getHalfScale(), Color.RED);
+		}
+		return target;
+	}
+
+
+	private void drawSoldierSelection(AndroidDraw drawable,
+			ModelFacade a_model, Soldier selected) {
+		if (selected != null && a_model.isSoldierTime() && selected.getTimeUnits() > 0) {
+			ViewPosition vpos = m_characters.get(selected).getVisualPosition(m_camera);//.toViewPos(selected.getPosition());
+			drawable.drawCircle(vpos, m_camera.getHalfScale(), Color.GREEN);
+		}
+	}
+
+
+	private void drawMovementPath(AndroidDraw drawable, ModelFacade a_model) {
+		if (getDestination(a_model) != null) {
+
+			//Vi har en vald path
+			if (m_selectedPath != null) {
+				if (m_selectedPath.Update(10) == SearchResult.SearchSucceded) {
+					
+					for (ModelPosition loc : m_selectedPath.m_path)  {
+						drawable.drawCircle(m_camera.toViewPos(loc), m_camera.getHalfScale()/2, Color.argb(128, 0, 0, 255));
+					}
+				}
+			}
+			drawable.drawCircle(m_camera.toViewPos(getDestination(a_model)), m_camera.getHalfScale(), Color.argb(128, 0, 0, 255));
+		}
+	}
+
+
+	private void redrawLevelBuffer(AndroidDraw drawable, ModelFacade a_model) {
+		if (hasInitatedBuffer == false) 
+		{
+			m_level.draw(a_model.getLevel(), drawable, m_camera);
+			hasInitatedBuffer = true;
+		}
 	}
 
 
@@ -248,15 +273,10 @@ public class GameView implements ICharacterListener {
 		
 		if (soldier != null) {
 			if (a_model.getLevel().canMove(clickOnLevelPosition)) {
-				
 				float length = clickOnLevelPosition.sub( soldier.getPosition() ).length();
-				
-				if (length < soldier.getTimeUnits() * Math.sqrt(2.0)) {
-				
-					//m_selectedDestination = clickOnLevelPosition;
-					
+				boolean moveIsPossible = length < soldier.getTimeUnits() * Math.sqrt(2.0);
+				if (moveIsPossible) {
 					m_selectedPath = new AStar(a_model.getMovePossible());
-					
 					m_selectedPath.InitSearch(soldier.getPosition(), clickOnLevelPosition, false, 0, false);
 				}
 			}
@@ -396,7 +416,7 @@ public class GameView implements ICharacterListener {
 	
 
 
-	public void doMoveTo() {
+	public void unselectPath() {
 		m_selectedPath = null;
 	}
 
@@ -438,6 +458,13 @@ public class GameView implements ICharacterListener {
 
 	@Override
 	public void cannotFireAt(Character character, Character fireTarget) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void enemyAILog(String string) {
 		// TODO Auto-generated method stub
 		
 	}

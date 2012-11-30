@@ -8,4 +8,6 @@ public interface ICharacterListener {
 
 	void cannotFireAt(Character character, Character fireTarget);
 
+	void enemyAILog(String string);
+
 }

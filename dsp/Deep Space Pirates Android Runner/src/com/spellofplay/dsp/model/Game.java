@@ -61,10 +61,11 @@ public class Game implements IMoveAndVisibility {
 		
 	}
 
-	public void updatePlayers(ICharacterListener clistener) {
+	public void movePlayers(ICharacterListener clistener) {
 		List<Soldier> soldiers = getAliveSoldiers();
 		for (Soldier s : soldiers) {
-			s.update(this, clistener);
+			s.search();
+			s.move(clistener);
 		}
 
 	}

@@ -12,6 +12,7 @@ import android.graphics.Rect;
 public class LogView implements ICharacterListener {
 
 	List<String> m_log = new ArrayList<String>();
+	String m_logMessage = "";
 	
 	public void draw(AndroidDraw drawable) {
 		
@@ -19,7 +20,7 @@ public class LogView implements ICharacterListener {
 		Rect dst = new Rect(0, top, drawable.getWindowWidth() / 2, drawable.getWindowHeight());
 		drawable.drawRect(dst, Color.BLACK);
 		drawable.m_guiText.setColor(Color.WHITE);
-		drawable.drawText("Log " + m_log.size(), 20, top + 32 , drawable.m_guiText);
+		drawable.drawText("Log " + m_log.size() + " " + m_logMessage, 20, top + 32 , drawable.m_guiText);
 		
 		int item = 0;
 		for (String s : m_log) {
@@ -52,5 +53,10 @@ public class LogView implements ICharacterListener {
 	public void cannotFireAt(Character character, Character fireTarget) {
 		m_log.add("character could not fire at");
 		
+	}
+
+	@Override
+	public void enemyAILog(String string) {
+		m_logMessage = string;
 	}
 }
