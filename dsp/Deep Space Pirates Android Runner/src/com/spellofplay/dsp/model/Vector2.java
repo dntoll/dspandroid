@@ -20,9 +20,14 @@ public class Vector2 {
 		return new Vector2(m_x - other.m_x, m_y - other.m_y);
 	}
 	
+	public Vector2 add(Vector2 other) {
+		return new Vector2(m_x + other.m_x, m_y + other.m_y);
+	}
+	
 	public Vector2 mul(float a) {
 		return new Vector2(m_x * a, m_y  * a);
 	}
+	
 	
 	public void normalize() {
 		float len = length();
@@ -52,6 +57,8 @@ public class Vector2 {
 		m_y -= g;
 		return this;
 	}
+	
+	
 
 
 	public float dot(Vector2 toP) {
@@ -62,5 +69,8 @@ public class Vector2 {
 	public float getRotation() {
 		return 90.0f +(float)(Math.atan2(m_y, m_x) * 180.0/Math.PI);
 	}
+
+
+	
 
 }

@@ -4,6 +4,7 @@ import android.graphics.Point;
 
 import com.spellofplay.dsp.model.Level;
 import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.Vector2;
 
 public class Camera {
 
@@ -11,12 +12,18 @@ public class Camera {
 	
 	public ViewPosition m_displacement = new ViewPosition(0,0);
 
-	public ViewPosition toViewPos(ModelPosition soldierModelPos) {
+	
+	public ViewPosition toViewPos(Vector2 modelPos) {
+		return new ViewPosition(modelPos.m_x * m_scale + m_displacement.m_x,
+				modelPos.m_y * m_scale + m_displacement.m_y);
+	}
+	
+	public ViewPosition toViewPos(ModelPosition modelPos) {
 		
 		
 		
-		return new ViewPosition(soldierModelPos.m_x * m_scale + m_displacement.m_x,
-								soldierModelPos.m_y * m_scale + m_displacement.m_y);
+		return new ViewPosition(modelPos.m_x * m_scale + m_displacement.m_x,
+								modelPos.m_y * m_scale + m_displacement.m_y);
 	}
 	
 	public ViewPosition toViewPos(int x, int y) {
@@ -96,6 +103,8 @@ public class Camera {
 		m_isScrolling = false;
 		
 	}
+
+	
 
 	
 

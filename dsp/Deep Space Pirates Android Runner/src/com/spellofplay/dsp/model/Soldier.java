@@ -18,7 +18,7 @@ public class Soldier extends Character {
 	
 	@Override
 	public float getRange() {
-		return 5.0f;
+		return 10.0f;
 	}
 	
 
