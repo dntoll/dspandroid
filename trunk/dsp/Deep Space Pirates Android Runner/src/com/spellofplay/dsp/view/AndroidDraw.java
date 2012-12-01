@@ -1,6 +1,7 @@
 package com.spellofplay.dsp.view;
 
 import com.spellofplay.common.view.Mesh;
+import com.spellofplay.dsp.model.Vector2;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -99,6 +100,8 @@ public class AndroidDraw  {
 		m_drawTarget.drawLine(vEpos.m_x, vEpos.m_y, vsPos.m_x, vsPos.m_y, m_guiText);
 	}
 	
+	
+	
 	public void drawCircle(ViewPosition center, int radius, int color) {
 		
 		m_guiText.setColor(color);
@@ -106,6 +109,8 @@ public class AndroidDraw  {
 		
 		m_drawTarget.drawOval(oval, m_guiText);
 	}
+	
+	
 
 	public void drawRect(int left, int top, int right, int bottom,
 			Paint paint) {
@@ -131,6 +136,10 @@ public class AndroidDraw  {
 		m_drawTarget.drawRect(dst, m_guiText);
 		
 	}
+
+	
+
+	
 	
 
 }

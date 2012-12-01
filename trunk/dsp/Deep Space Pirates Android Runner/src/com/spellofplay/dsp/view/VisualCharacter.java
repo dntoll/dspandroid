@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Character;
+import com.spellofplay.dsp.model.Vector2;
 
 public class VisualCharacter {
 	private static final Rect SOLDIER = new Rect(0, 0, 255, 255);
@@ -98,18 +99,26 @@ public class VisualCharacter {
 		ViewPosition vpos = null;//camera.toViewPos(m_modelCharacter.getPosition());
 		
 		if (m_movementTimer > 0) {
-			//interpolate
-			float vmxpos = (float)m_lastPosition.m_x * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
-			               (float)m_modelCharacter.getPosition().m_x * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
-			float vmypos = (float)m_lastPosition.m_y * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
-            			   (float)m_modelCharacter.getPosition().m_y * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
 			
-			vpos = camera.toViewPos(vmxpos, vmypos);
+			
+			//interpolate
+			Vector2 modelInterPolatedPosition = getInterpolatedModelPosition();
+			vpos = camera.toViewPos(modelInterPolatedPosition);
 					
 		} else {
 			vpos = camera.toViewPos(m_modelCharacter.getPosition());
 		}
 		return vpos;
+	}
+
+	public Vector2 getInterpolatedModelPosition() {
+		float vmxpos = (float)m_lastPosition.m_x * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
+		               (float)m_modelCharacter.getPosition().m_x * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
+		float vmypos = (float)m_lastPosition.m_y * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
+					   (float)m_modelCharacter.getPosition().m_y * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
+		
+		Vector2 modelInterPolatedPosition = new Vector2(vmxpos, vmypos);
+		return modelInterPolatedPosition;
 	}
 
 	public boolean update(float a_elapsedTime) {

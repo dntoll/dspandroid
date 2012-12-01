@@ -24,6 +24,8 @@ public class GameView implements ICharacterListener {
 	
 	
 	LevelDrawer m_level;// = new LevelDrawer();
+	
+	ShotAnimation m_shotAnimation = new ShotAnimation();
 	boolean hasInitatedBuffer = false;
 	Camera  m_camera = new Camera();
 	Soldier m_selectedSoldier;
@@ -58,6 +60,7 @@ public class GameView implements ICharacterListener {
 		drawEnemies(drawable, a_model);
 		drawable.drawText(a_model.getGameTitle(), 10, 10, drawable.m_guiText);
 		drawSightLines(drawable, a_model);
+		m_shotAnimation.draw(drawable, m_camera);
 		
 		m_gui.DrawGui(drawable);
 	}
@@ -431,6 +434,12 @@ public class GameView implements ICharacterListener {
 		}
 		
 		
+		m_shotAnimation.update(a_elapsedTime);
+		if (m_shotAnimation.isActive()) {
+			doneAnimating = false;
+		}
+		
+		
 		return doneAnimating;
 	}
 
@@ -451,6 +460,9 @@ public class GameView implements ICharacterListener {
 		
 		if (didHit) {
 			m_characters.get(fireTarget).takeDamage();
+			m_shotAnimation.addHit(m_characters.get(attacker).getInterpolatedModelPosition(), m_characters.get(fireTarget).getInterpolatedModelPosition());
+		} else {
+			m_shotAnimation.addMiss(m_characters.get(attacker).getInterpolatedModelPosition(), m_characters.get(fireTarget).getInterpolatedModelPosition());
 		}
 		
 	}
