@@ -142,7 +142,7 @@ public class ModelFacade {
 	
 
 
-	public void doWait(Soldier selectedSoldier) {
+	public void doWatch(Soldier selectedSoldier) {
 		selectedSoldier.doWatch();
 	}
 

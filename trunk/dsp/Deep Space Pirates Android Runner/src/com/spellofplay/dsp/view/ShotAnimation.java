@@ -171,4 +171,8 @@ public class ShotAnimation {
 		return false;
 	}
 
+	public void removeAnimations() {
+		activeShots.clear();
+	}
+
 }

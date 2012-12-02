@@ -6,76 +6,110 @@ import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.MultiCharacterListener;
 import com.spellofplay.dsp.view.AndroidDraw;
-import com.spellofplay.dsp.view.GameView;
+import com.spellofplay.dsp.view.InteractionView;
 import com.spellofplay.dsp.view.LogView;
+import com.spellofplay.dsp.view.MasterView;
 import com.spellofplay.common.view.Input;
 
 public class GameController {
 	
+	
+	MasterView m_masterView;
 	private LogView m_log = new LogView();
 	
-	public void update(AndroidDraw drawable, ModelFacade a_model, GameView a_view, Input a_input, float elapsedTimeSeconds) {
+	public GameController(MasterView m_masterView) {
+		this.m_masterView = m_masterView;
+	}
+
+
+
+	public void update(AndroidDraw drawable, ModelFacade a_model, Input a_input, float elapsedTimeSeconds) {
 		
 		MultiCharacterListener mcl = new MultiCharacterListener();
-		mcl.addListener(a_view);
+		mcl.addListener(m_masterView);
 		mcl.addListener(m_log);
 		
 		if (a_model.isEnemyTime()) {
-			
-			if (a_view.updateAnimations(a_model, elapsedTimeSeconds)) {
-				a_model.updateEnemies(mcl);
-			}
-			a_view.drawGame(drawable, a_model);
-			
-			drawable.drawText("Enemy is moving", 200, 10, drawable.m_guiText);
-			
+			updateEnemies(drawable, a_model, elapsedTimeSeconds, mcl);
 		} else if (a_model.isSoldierTime()) {
-		
-			a_view.setupInput(a_input, a_model, drawable.getWindowWidth(), drawable.getWindowHeight());
-			doInteractWithSoldiers(a_model, a_view, a_input, elapsedTimeSeconds, mcl);
-			
-			if (a_view.updateAnimations(a_model, elapsedTimeSeconds)) {
-				a_model.updatePlayers(mcl);
-			}
-			a_view.drawGame(drawable, a_model);	
-			
+			updateSoldiers(drawable, a_model, a_input,
+					elapsedTimeSeconds, mcl);	
 		} else  {
-			
-			a_model.startNewRound();
-			a_view.startNewRound();
-			
-			a_view.drawGame(drawable, a_model);
-			m_log.doLog("start new round");
+			startNewRound(drawable, a_model);
 		}
 		
 		m_log.draw(drawable);
 		
 	}
+	
+	
+
+
+
+	public void startNewRound(AndroidDraw drawable, ModelFacade a_model) {
+		a_model.startNewRound();
+		m_masterView.startNewRound();
+		
+		m_masterView.drawGame(drawable, a_model);
+		m_log.doLog("start new round");
+	}
+
+
+
+	public void updateSoldiers(AndroidDraw drawable, ModelFacade a_model, Input a_input, float elapsedTimeSeconds, MultiCharacterListener mcl) {
+		
+		doInteractWithSoldiers(drawable, a_model, a_input, elapsedTimeSeconds, mcl);
+		
+		if (m_masterView.updateAnimations(a_model, elapsedTimeSeconds)) {
+			a_model.updatePlayers(mcl);
+		}
+		m_masterView.drawGame(drawable, a_model);
+	}
+
+
+
+	public void updateEnemies(AndroidDraw drawable, ModelFacade a_model, float elapsedTimeSeconds, MultiCharacterListener mcl) {
+		if (m_masterView.updateAnimations(a_model, elapsedTimeSeconds)) {
+			a_model.updateEnemies(mcl);
+		}
+		m_masterView.drawGame(drawable, a_model);
+		
+		drawable.drawText("Enemy is moving", 200, 10, drawable.m_guiText);
+	}
 
 	
 
-	private void doInteractWithSoldiers(ModelFacade a_model, GameView a_view, Input a_input, float a_elapsedTime, MultiCharacterListener a_mcl) {
-		com.spellofplay.dsp.model.Soldier selectedSoldier = a_view.getSelectedSoldier(a_model);
+	private void doInteractWithSoldiers(AndroidDraw drawable, 
+										ModelFacade a_model, 
+										Input a_input, 
+										float a_elapsedTime, 
+										MultiCharacterListener a_mcl) {
+		
+		InteractionView actionView = m_masterView.getInteractionView();
+		
+		actionView.setupInput(a_input, a_model, drawable.getWindowWidth(), drawable.getWindowHeight());
+		
+		com.spellofplay.dsp.model.Soldier selectedSoldier = actionView.getSelectedSoldier(a_model);
 		
 		if (selectedSoldier != null) {
-			if (a_view.userWantsToMove()) {
+			if (actionView.userWantsToMove()) {
 				//Everything that can be done with selected target
-				ModelPosition destination = a_view.getDestination(a_model);
+				ModelPosition destination = actionView.getDestination(a_model);
 				
 				if (destination != null) {
 					
 					a_model.doMoveTo(selectedSoldier, destination);
-					a_view.unselectPath();
+					actionView.unselectPath();
 				}
 			} 
 			
-			if (a_view.userWantsToWait()){
-				a_model.doWait(selectedSoldier);
+			if (actionView.userWantsToWatch()){
+				a_model.doWatch(selectedSoldier);
 			}
 			
 			
-			if (a_view.userWantsToFire()){ 
-				Enemy fireTarget = a_view.getFireTarget(a_model);
+			if (actionView.userWantsToFire()){ 
+				Enemy fireTarget = actionView.getFireTarget(a_model);
 				
 				if (fireTarget != null) {
 					if (a_model.fireAt(selectedSoldier, fireTarget, a_mcl) == false) {
@@ -84,9 +118,11 @@ public class GameController {
 				}
 			}
 		}
-		
-		
 	}
+
+
+
+	
 
 	
 
