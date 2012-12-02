@@ -29,25 +29,24 @@ public class GameController {
 		mcl.addListener(m_masterView);
 		mcl.addListener(m_log);
 		
-		if (a_model.isEnemyTime()) {
+		if (a_model.isSoldierTime()) {
+			updateSoldiers(drawable, a_model, a_input, elapsedTimeSeconds, mcl);
+			if (a_model.isSoldierTime() == false) {
+				a_model.startNewEnemyRound();
+			}
+		} else if (a_model.isEnemyTime()) {
 			updateEnemies(drawable, a_model, elapsedTimeSeconds, mcl);
-		} else if (a_model.isSoldierTime()) {
-			updateSoldiers(drawable, a_model, a_input,
-					elapsedTimeSeconds, mcl);	
 		} else  {
-			startNewRound(drawable, a_model);
+			startNewSoldierRound(drawable, a_model);
 		}
 		
 		m_log.draw(drawable);
 		
 	}
 	
-	
 
-
-
-	public void startNewRound(AndroidDraw drawable, ModelFacade a_model) {
-		a_model.startNewRound();
+	public void startNewSoldierRound(AndroidDraw drawable, ModelFacade a_model) {
+		a_model.startNewSoldierRound();
 		m_masterView.startNewRound();
 		
 		m_masterView.drawGame(drawable, a_model);

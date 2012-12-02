@@ -41,7 +41,7 @@ public class Level {
 					"XOOOOOOOXOOOOOOX" +
 					"XOOOOOOECOOOOOOX" +
 					"XOOOOOOOXOOOOOOX" + 
-					"XXCOOXXXXXCOCXXX" +
+					"XXXXXXXXXXCOCXXX" +
 					"XOEEEOOOOOOOOOXX" +
 					"XOOOOOOOOOOOOOXX" +
 					"XOOOOOOOOOOOOOXX" +
@@ -222,13 +222,4 @@ public class Level {
 		
 		return false;
 	}
-
-	
-
-	
-		
-
-	
-	
-
 }
