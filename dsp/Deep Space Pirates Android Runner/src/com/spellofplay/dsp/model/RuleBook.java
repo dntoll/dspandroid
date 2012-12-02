@@ -32,6 +32,10 @@ public class RuleBook {
 	
 	public static boolean canFireAt(Character character, Character fireTarget, IMoveAndVisibility a_moveAndVisibility) {
 		
+		if (fireTarget.getHitpoints() <= 0) {
+			return false;
+		}
+		
 		if (couldFireIfHadTime(character, fireTarget, a_moveAndVisibility) == false)
 			return false;
 		

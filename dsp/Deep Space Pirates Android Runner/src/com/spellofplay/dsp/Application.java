@@ -37,7 +37,7 @@ public class Application extends View   implements IUpdateable {
 		
 		ConcreteTexture texture = new ConcreteTexture(getBitmapFromDrawable(tilesDrawable));
 		ConcreteTexture player = new ConcreteTexture(getBitmapFromDrawable(playerDrawable));
-        m_master = new MasterController(context, m_input, texture, player);
+        m_master = new MasterController(m_input, texture, player);
         
         
         m_sleepHandler.sleep(this, 100);
