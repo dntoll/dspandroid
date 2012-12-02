@@ -69,11 +69,16 @@ public class ModelFacade {
 		m_game.startLevel(a_level);
 		
 	}
-
-	public void startNewRound() {
-		m_game.startNewRound();
+	
+	public void startNewEnemyRound() {
+		m_game.startNewEnemyRound();	
 	}
-
+	
+	public void startNewSoldierRound() {
+		m_game.startNewSoldierRound();	
+	}
+		
+	
 	public boolean enemyHasWon() {
 		// TODO Auto-generated method stub
 		return m_game.getAliveSoldiers().size() == 0;
@@ -153,13 +158,6 @@ public class ModelFacade {
 
 
 	
-
-
-	
-
-
-	
-
 
 
 	

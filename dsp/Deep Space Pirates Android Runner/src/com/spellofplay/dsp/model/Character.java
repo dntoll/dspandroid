@@ -47,6 +47,9 @@ public abstract class Character   {
 	public int getTimeUnits() {
 		return m_timeUnits;
 	}
+	public int getWatchTimeUnits() {
+		return m_watchTimeUnits;
+	}
 
 	public void startNewRound() {
 		m_timeUnits = m_maxTimeUnits;
@@ -55,7 +58,7 @@ public abstract class Character   {
 	}
 	
 	public boolean hasWatch() {
-		return m_watchTimeUnits > getFireCost();
+		return m_watchTimeUnits >= getFireCost();
 	}
 	
 	public void setDestination(ModelPosition destination, IMoveAndVisibility a_map, float a_distance, boolean a_checkPathThroughOthers) {
@@ -151,4 +154,6 @@ public abstract class Character   {
 	public boolean hasTimeToFire() {
 		return m_timeUnits + m_watchTimeUnits >= getFireCost(); 
 	}
+
+	
 }

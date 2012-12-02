@@ -60,6 +60,7 @@ public class VisualCharacter {
 		
 		
 		drawable.drawText("" + m_modelCharacter.getTimeUnits(), dst.left, dst.top, drawable.m_guiText);
+		drawable.drawText("" + m_modelCharacter.getWatchTimeUnits(), dst.left + 16, dst.top, drawable.m_guiText);
 		drawable.drawText("" + m_modelCharacter.getHitpoints(), dst.right-16, dst.top, drawable.m_guiText);
 	}
 

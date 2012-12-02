@@ -105,14 +105,13 @@ public class Game implements IMoveAndVisibility {
 		m_ai.think(enemies, soldiers, this, clistener, multiListener);
 	}
 
-	
-
-	public void startNewRound() {
+	public void startNewSoldierRound() {
 		List<Soldier> soldiers = getAliveSoldiers();
 		for (Soldier s : soldiers) {
 			s.startNewRound();
 		}
-		
+	}
+	public void startNewEnemyRound() {	
 		List<Enemy> enemies = getAliveEnemies();
 		for (Enemy s : enemies) {
 			s.startNewRound();
@@ -185,6 +184,8 @@ public class Game implements IMoveAndVisibility {
 		
 		return m_level.hasCoverFrom(target.getPosition(), attacker.getPosition().sub(target.getPosition()));
 	}
+
+	
 
 	
 

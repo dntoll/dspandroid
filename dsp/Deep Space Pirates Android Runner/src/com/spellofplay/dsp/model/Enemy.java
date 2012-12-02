@@ -29,7 +29,7 @@ public class Enemy extends Character{
 	
 	@Override
 	public float getRange() {
-		return 3.0f;
+		return 6.0f;
 	}
 
 	public boolean isSearching() {
