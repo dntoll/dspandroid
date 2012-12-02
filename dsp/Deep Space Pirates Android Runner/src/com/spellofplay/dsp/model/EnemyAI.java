@@ -4,7 +4,7 @@ import java.util.List;
 
 public class EnemyAI {
 
-	public void think(List<Enemy> enemies, List<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility, ICharacterListener a_clistener) {
+	public void think(List<Enemy> enemies, List<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility, MultiCharacterListener a_clistener, MultiMovementListeners movementListeners) {
 		
 		
 		int index = 0;
@@ -18,7 +18,7 @@ public class EnemyAI {
 					break;
 				} else if (e.isMoving()) {
 					//if search or move failed remove timeunits...
-					e.move(a_clistener);
+					e.move(a_clistener, movementListeners, a_moveAndVisibility);
 					a_clistener.enemyAILog("is moving");
 					break;
 				} else if (e.didSearchFail()) {

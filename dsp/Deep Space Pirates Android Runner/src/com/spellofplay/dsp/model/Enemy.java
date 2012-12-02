@@ -1,7 +1,5 @@
 package com.spellofplay.dsp.model;
 
-import com.spellofplay.dsp.model.AStar.SearchResult;
-
 public class Enemy extends Character{
 
 	public Enemy(ModelPosition startPosition) {
@@ -46,6 +44,10 @@ public class Enemy extends Character{
 	public boolean didSearchFail() {
 		return m_pathFinder != null && m_pathFinder.didSearchFail();
 	}
+
+	
+
+	
 
 	
 

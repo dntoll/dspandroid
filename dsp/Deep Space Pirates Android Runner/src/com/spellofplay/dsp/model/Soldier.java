@@ -20,6 +20,9 @@ public class Soldier extends Character {
 	public float getRange() {
 		return 10.0f;
 	}
+
+
+	
 	
 
 	
