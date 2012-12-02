@@ -11,7 +11,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 
 public class SimpleGui {
-	public static final int BUTTON_HEIGHT = 64;
+	public static final int BUTTON_HEIGHT = 32;
 	public static final int BUTTON_WIDTH = 64;
 	
 	private Paint m_guiText = new Paint();

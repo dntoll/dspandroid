@@ -36,7 +36,7 @@ public class RuleBook {
 			return false;
 		
 		
-		if (character.getTimeUnits() < character.getFireCost()) {
+		if (character.hasTimeToFire() == false) {
 			return false;
 		}
 		return true;

@@ -61,21 +61,51 @@ public class Game implements IMoveAndVisibility {
 		
 	}
 
-	public void movePlayers(ICharacterListener clistener) {
+	public void movePlayers(MultiCharacterListener clistener) {
+		
+		
+		MultiMovementListeners multiListener= getSoldierListeners();
+		
 		List<Soldier> soldiers = getAliveSoldiers();
 		for (Soldier s : soldiers) {
 			s.search();
-			s.move(clistener);
+			s.move(clistener, multiListener, this);
 		}
 
 	}
 	
+	private MultiMovementListeners getSoldierListeners() {
+		
+		MultiMovementListeners multiListener = new MultiMovementListeners();
+		List<Enemy> enemies = getAliveEnemies();
+		for (Enemy enemy : enemies) {
+			if (enemy.hasWatch()) {
+				multiListener.addListener( enemy );
+			}
+		}
+		return multiListener;
+	}
+	
+	private MultiMovementListeners getEnemyListeners() {
+		MultiMovementListeners multiListener = new MultiMovementListeners();
+		List<Soldier> soldiers = getAliveSoldiers();
+		for (Soldier soldier : soldiers) {
+			if (soldier.hasWatch()) {
+				multiListener.addListener( soldier );
+			}
+		}
+		return multiListener;
+	}
+
 	EnemyAI m_ai = new EnemyAI();
-	public void updateEnemies(ICharacterListener clistener) {
+	public void updateEnemies(MultiCharacterListener clistener) {
 		List<Enemy> enemies = getAliveEnemies();
 		List<Soldier> soldiers = getAliveSoldiers();
-		m_ai.think(enemies, soldiers, this, clistener);
+		MultiMovementListeners multiListener= getEnemyListeners();
+		m_ai.think(enemies, soldiers, this, clistener, multiListener);
 	}
+
+	
 
 	public void startNewRound() {
 		List<Soldier> soldiers = getAliveSoldiers();

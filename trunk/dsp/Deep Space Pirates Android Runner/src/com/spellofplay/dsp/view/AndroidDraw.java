@@ -96,7 +96,7 @@ public class AndroidDraw  {
 	
 	public void drawLine(ViewPosition vEpos, ViewPosition vsPos, int color) {
 		m_guiText.setColor(color);
-		
+		m_guiText.setStrokeWidth(2.0f);
 		m_drawTarget.drawLine(vEpos.m_x, vEpos.m_y, vsPos.m_x, vsPos.m_y, m_guiText);
 	}
 	

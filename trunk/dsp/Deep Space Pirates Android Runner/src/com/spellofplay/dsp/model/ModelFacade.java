@@ -42,11 +42,11 @@ public class ModelFacade {
 	}
 
 
-	public void updatePlayers(ICharacterListener clistener) {
+	public void updatePlayers(MultiCharacterListener clistener) {
 		m_game.movePlayers(clistener);
 	}
 	
-	public void updateEnemies(ICharacterListener clistener) {
+	public void updateEnemies(MultiCharacterListener clistener) {
 		m_game.updateEnemies(clistener);
 	}
 
@@ -85,7 +85,7 @@ public class ModelFacade {
 	}
 
 
-	public boolean fireAt(Soldier selectedSoldier, Enemy fireTarget, ICharacterListener listener) {
+	public boolean fireAt(Soldier selectedSoldier, Enemy fireTarget, MultiCharacterListener listener) {
 		
 		return selectedSoldier.fireAt(fireTarget, m_game, listener);
 	}
@@ -143,7 +143,7 @@ public class ModelFacade {
 
 
 	public void doWait(Soldier selectedSoldier) {
-		selectedSoldier.m_timeUnits = 0;
+		selectedSoldier.doWatch();
 	}
 
 

@@ -4,6 +4,7 @@ package com.spellofplay.dsp.view;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import android.graphics.Color;
 import com.spellofplay.dsp.model.AStar;
@@ -458,11 +459,22 @@ public class GameView implements ICharacterListener {
 	public void fireAt(Character attacker, Character fireTarget, boolean didHit) {
 		m_characters.get(attacker).attack();
 		
-		if (didHit) {
+		Random rand = new Random();
+		
+		Vector2 attackerPos = m_characters.get(attacker).getInterpolatedModelPosition();
+		Vector2 targetPos = m_characters.get(fireTarget).getInterpolatedModelPosition();
+		
+		if (didHit)
 			m_characters.get(fireTarget).takeDamage();
-			m_shotAnimation.addHit(m_characters.get(attacker).getInterpolatedModelPosition(), m_characters.get(fireTarget).getInterpolatedModelPosition());
-		} else {
-			m_shotAnimation.addMiss(m_characters.get(attacker).getInterpolatedModelPosition(), m_characters.get(fireTarget).getInterpolatedModelPosition());
+		
+
+		for (int i = 0; i< 3;i++) {
+			float delay = 0.2f * (float)i;
+			if (didHit) {
+				m_shotAnimation.addHit(attackerPos, targetPos, rand, delay);
+			} else {
+				m_shotAnimation.addMiss(attackerPos, targetPos, rand, delay);
+			}
 		}
 		
 	}
