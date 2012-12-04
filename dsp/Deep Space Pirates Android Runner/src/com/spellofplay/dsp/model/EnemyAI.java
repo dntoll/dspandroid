@@ -1,7 +1,5 @@
 package com.spellofplay.dsp.model;
 
-import java.util.List;
-
 public class EnemyAI {
 
 	

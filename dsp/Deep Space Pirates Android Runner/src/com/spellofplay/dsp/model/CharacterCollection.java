@@ -17,7 +17,7 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		return characters.size();
 	}
 	
-	public boolean isSoldierTime() {
+	public boolean isTime() {
 		for (T s : characters) {
 			if (s.getTimeUnits() > 0) {
 				return true;

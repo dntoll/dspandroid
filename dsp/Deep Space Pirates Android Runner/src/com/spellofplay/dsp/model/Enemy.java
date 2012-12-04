@@ -1,7 +1,6 @@
 package com.spellofplay.dsp.model;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Enemy extends Character{
@@ -95,15 +94,4 @@ public class Enemy extends Character{
 		return m_pathFinder != null && m_pathFinder.didSearchFail();
 	}
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 }

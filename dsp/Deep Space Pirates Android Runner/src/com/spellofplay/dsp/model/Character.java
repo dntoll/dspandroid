@@ -142,12 +142,8 @@ public abstract class Character   {
 
 	public void watchMovement(Character mover,
 			IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
-		
-		//a_listener.enemyAILog("watches Movement ");
-		
 		if (RuleBook.canFireAt(this, mover, moveAndVisibility) == true) {
 			fireAt(mover, moveAndVisibility, a_listener);
-			//a_listener.enemyAILog("on watch fire ");
 		}
 	}
 

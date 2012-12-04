@@ -181,13 +181,5 @@ public class Game implements IMoveAndVisibility {
 		return m_level.hasCoverFrom(target.getPosition(), attacker.getPosition().sub(target.getPosition()));
 	}
 
-	
-
-	
-
-	
-
-	
-
-	
+		
 }
