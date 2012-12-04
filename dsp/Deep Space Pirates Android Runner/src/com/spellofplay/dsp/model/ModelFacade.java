@@ -20,13 +20,12 @@ public class ModelFacade {
 		return m_game.m_level;
 	}
 	public boolean isSoldierTime() {
-		for (Soldier s : m_game.getAliveSoldiers()) {
-			if (s.getTimeUnits() > 0) {
-				return true;
-			}
-		}
-		return false;
+		
+		return m_game.getAliveSoldiers().isSoldierTime();
+		
 	}
+	
+	
 
 
 	public boolean isEnemyTime() {
@@ -56,11 +55,11 @@ public class ModelFacade {
 	}
 
 
-	public List<Soldier> getAliveSoldiers() {
+	public CharacterCollection<Soldier> getAliveSoldiers() {
 		return m_game.getAliveSoldiers();
 	}
 	
-	public List<Enemy> getAliveEnemies() {
+	public CharacterCollection<Enemy> getAliveEnemies() {
 		return m_game.getAliveEnemies();
 	}
 
@@ -112,35 +111,17 @@ public class ModelFacade {
 		return canSeeMapPosition(soldier, enemy.getPosition());
 	}
 
-	public List<Soldier> canSee(Enemy e) {
-		List<Soldier> aliveSoldiers = m_game.getAliveSoldiers();
-		
-		List<Soldier> soldiersThatCanSee = new ArrayList<Soldier>();
-		
-		for (Soldier s : aliveSoldiers) {
-			if ( canSee(s, e) ) {
-				soldiersThatCanSee.add(s);
-				
-			}
-		}
-		return soldiersThatCanSee;
+	public CharacterCollection<Soldier> canSee(Enemy enemy) {
+		CharacterCollection<Soldier> aliveSoldiers = m_game.getAliveSoldiers();
+		return aliveSoldiers.thatCanSee(m_game, enemy);
 	}
 	
 	public Enemy getClosestEnemyThatWeCanShoot(Soldier selectedSoldier) {
-		float minDist = Float.MAX_VALUE;
-		Enemy target = null;
-		List<Enemy> aliveEnemies = m_game.getAliveEnemies();
-		for (Enemy e : aliveEnemies) {
-			if ( canShoot(selectedSoldier, e) ) {
-				float distance = selectedSoldier.getPosition().sub(e.getPosition()).length();
-				if (distance < minDist) {
-					minDist = distance;
-					target = e;
-				}
-			}
-		}
+		CharacterCollection<Enemy> aliveEnemies = m_game.getAliveEnemies();
 		
-		return target;
+		CharacterCollection<Enemy> enemiesWeCanShoot = aliveEnemies.canBeShotBy(selectedSoldier, m_game);
+		
+		return enemiesWeCanShoot.getClosest(selectedSoldier.getPosition());
 	}
 	
 	

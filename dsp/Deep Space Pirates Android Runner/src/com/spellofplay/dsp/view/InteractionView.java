@@ -12,6 +12,7 @@ import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.model.AStar.SearchResult;
+import com.spellofplay.dsp.model.CharacterCollection;
 
 
 public class InteractionView {
@@ -59,15 +60,30 @@ public class InteractionView {
 	}
 	
 	private Soldier onSoldier(Input a_input, ModelFacade a_model) {
-		List<Soldier> soldiers = a_model.getAliveSoldiers();
+		CharacterCollection<Soldier> soldiers = a_model.getAliveSoldiers();
 		ViewPosition clickpos = new ViewPosition(a_input.m_mousePosition.x, a_input.m_mousePosition.y);
 		return onCharacter(soldiers, clickpos);
 	}
 	
 	private Enemy onEnemy(Input a_input, ModelFacade a_model) {
-		List<Enemy> enemies = a_model.getAliveEnemies();
+		CharacterCollection<Enemy> enemies = a_model.getAliveEnemies();
 		ViewPosition clickpos = new ViewPosition(a_input.m_mousePosition.x, a_input.m_mousePosition.y);
 		return onCharacter(enemies, clickpos);
+	}
+	
+	private <T extends Character> T onCharacter(CharacterCollection<T> soldiers, ViewPosition clickpos) {
+		for (T s : soldiers) {
+			ModelPosition modelPos = s.getPosition();
+			
+			ViewPosition viewPosition = m_camera.toViewPos(modelPos);
+			
+			float viewRadius = m_camera.toViewScale(s.getRadius());
+			
+			if (viewPosition.sub(clickpos).length() < viewRadius) {
+				return s;
+			}
+		}
+		return null;
 	}
 	
 	public void setupInput(Input a_input, ModelFacade a_model, int a_width, int a_height) {
@@ -215,20 +231,7 @@ public class InteractionView {
 	
 	
 	
-	private <T extends Character> T onCharacter(List<T> characters, ViewPosition clickpos) {
-		for (T s : characters) {
-			ModelPosition modelPos = s.getPosition();
-			
-			ViewPosition viewPosition = m_camera.toViewPos(modelPos);
-			
-			float viewRadius = m_camera.toViewScale(s.getRadius());
-			
-			if (viewPosition.sub(clickpos).length() < viewRadius) {
-				return s;
-			}
-		}
-		return null;
-	}
+	
 
 	public void Draw(AndroidDraw drawable) {
 		m_gui.DrawGui(drawable);
