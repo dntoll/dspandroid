@@ -1,7 +1,10 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.spellofplay.dsp.model.Character;
+import com.spellofplay.dsp.model.ICharacterListener;
 
 
 public class MultiCharacterListener implements ICharacterListener{

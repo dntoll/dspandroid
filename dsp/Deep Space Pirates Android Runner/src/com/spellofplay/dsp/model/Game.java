@@ -61,7 +61,7 @@ public class Game implements IMoveAndVisibility {
 		
 	}
 
-	public void movePlayers(MultiCharacterListener clistener) {
+	public void movePlayers(ICharacterListener clistener) {
 		
 		
 		MultiMovementListeners multiListener= getSoldierListeners();
@@ -72,8 +72,18 @@ public class Game implements IMoveAndVisibility {
 			s.move(clistener, multiListener, this);
 		}
 
+		updateEnemySights(this);
 	}
 	
+	
+	private void updateEnemySights(IMoveAndVisibility moveAndVisibility) {
+		List<Enemy> enemies = getAliveEnemies();
+		List<Soldier> soldiers = getAliveSoldiers();
+		for (Enemy enemy : enemies) {
+			enemy.updateSights(soldiers, moveAndVisibility);
+		}
+	}
+
 	private MultiMovementListeners getSoldierListeners() {
 		
 		MultiMovementListeners multiListener = new MultiMovementListeners();
@@ -98,7 +108,7 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	EnemyAI m_ai = new EnemyAI();
-	public void updateEnemies(MultiCharacterListener clistener) {
+	public void updateEnemies(ICharacterListener clistener) {
 		List<Enemy> enemies = getAliveEnemies();
 		List<Soldier> soldiers = getAliveSoldiers();
 		MultiMovementListeners multiListener= getEnemyListeners();
@@ -147,6 +157,14 @@ public class Game implements IMoveAndVisibility {
 		
 		return false;
 	}
+	
+	@Override
+	public boolean lineOfSight(ModelPosition pos1, ModelPosition pos2) {
+		if (m_level.lineOfSight(pos1, pos2) == false) {
+			return false;
+		}
+		return true;
+	}
 
 	@Override
 	public boolean lineOfSight(Character cha1, Character cha2) {
@@ -184,6 +202,8 @@ public class Game implements IMoveAndVisibility {
 		
 		return m_level.hasCoverFrom(target.getPosition(), attacker.getPosition().sub(target.getPosition()));
 	}
+
+	
 
 	
 

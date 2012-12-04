@@ -142,8 +142,6 @@ public class AStar {
     private boolean m_doesNearSearch;
     private float m_nearDistance;
     private int m_nVisitedNodes;
-    private float m_fTravelDistant;
-	        
     private List<Node> m_listOpen;
     private List<Node> m_listClosed;
 	
@@ -182,8 +180,6 @@ public class AStar {
         if (IsAGoalNode(pNode)) {
         	m_path = new ArrayList<ModelPosition>();
 	        CreatePath(pNode);
-	        m_fTravelDistant = pNode.m_nCostFromstart;
-
 	        return SearchResult.SearchSucceded;
         } else {
 	        //Stega igenom nodens barn
@@ -272,7 +268,8 @@ public class AStar {
         }
         else
         {
-            return pNode.m_node.sub(m_end).length() <= m_nearDistance;
+            return pNode.m_node.sub(m_end).length() <= m_nearDistance &&
+            m_map.lineOfSight(pNode.m_node, m_end);
         }
     }
 

@@ -7,6 +7,7 @@ public interface IMoveAndVisibility {
 	
 
 	boolean lineOfSight(Character cha1, Character cha2);
+	boolean lineOfSight(ModelPosition cha1, ModelPosition cha2);
 
 
 
