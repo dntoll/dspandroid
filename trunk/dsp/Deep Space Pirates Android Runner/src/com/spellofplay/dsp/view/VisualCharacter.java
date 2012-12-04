@@ -70,7 +70,12 @@ public class VisualCharacter {
 		drawCharacter(vpos, drawable, camera, player, target != null ? target.getPosition() : null, SOLDIER, Color.WHITE, true);
 	}
 	
-	private void drawCharacter(ViewPosition vpos, AndroidDraw drawable, Camera camera, ITexture player, ModelPosition targetPosition, Rect source, int color, boolean drawgui) {
+	private void drawCharacter(ViewPosition vpos, 
+							  AndroidDraw drawable, 
+							  Camera camera, 
+							  ITexture player, 
+							  ModelPosition targetPosition, 
+							  Rect source, int color, boolean drawgui) {
 		//Did we move?
 		if (m_lastPosition.equals(m_modelCharacter.getPosition()) == false) {
 			m_targetRotation = m_lastPosition.sub(m_modelCharacter.getPosition()).getRotation();

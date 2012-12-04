@@ -26,12 +26,12 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		return false;
 	}
 
-	public CharacterCollection<T> thatCanSee(IMoveAndVisibility visibility, Enemy enemy) {
+	public CharacterCollection<T> thatCanSee(IMoveAndVisibility visibility, Character target) {
 		List<T> soldiersThatCanSee = new ArrayList<T>();
 		
-		for (T soldier : characters) {
-			if ( visibility.lineOfSight(soldier, enemy) ) {
-				soldiersThatCanSee.add(soldier);
+		for (T character : characters) {
+			if ( visibility.lineOfSight(character, target) ) {
+				soldiersThatCanSee.add(character);
 			}
 		}
 		return new CharacterCollection<T>(soldiersThatCanSee);
@@ -48,9 +48,9 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 
 	public MultiMovementListeners getMovementListeners() {
 		MultiMovementListeners multiListener = new MultiMovementListeners();
-		for (T soldier : characters) {
-			if (soldier.hasWatch()) {
-				multiListener.addListener( soldier );
+		for (T character : characters) {
+			if (character.hasWatch()) {
+				multiListener.addListener( character );
 			}
 		}
 		return multiListener;
