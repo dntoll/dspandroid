@@ -9,14 +9,16 @@ public class Enemy extends Character{
 	class EnemyMemory {
 		private Map<Soldier, ModelPosition> m_soldiersLastPositions = new HashMap<Soldier, ModelPosition>(); 
 		
-		public void updateSights(List<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility) { 
-			for (Soldier soldier : soldiers) {
-				if (a_moveAndVisibility.lineOfSight(Enemy.this, soldier)) {
-					m_soldiersLastPositions.put(soldier, soldier.getPosition() );
-				}
+		public void updateSights(CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility) { 
+			
+			CharacterCollection<Soldier> soldiersThatEnemyCanSee = soldiers.thatCanSee(a_moveAndVisibility, Enemy.this);
+			
+			for (Soldier soldier : soldiersThatEnemyCanSee) {
+				m_soldiersLastPositions.put(soldier, soldier.getPosition() );
 			}
 		}
 
+		//TODO yet another distance calculationon a soldier array
 		public Soldier getClosestSoldierSpotted() {
 			float distance = Float.MAX_VALUE;
 			Soldier closest = null;
@@ -41,11 +43,11 @@ public class Enemy extends Character{
 
 	}
 	
-	public void updateSights(List<Soldier> soldiers, IMoveAndVisibility moveAndVisibility) { 
+	public void updateSights(CharacterCollection<Soldier> soldiers, IMoveAndVisibility moveAndVisibility) { 
 		m_memory.updateSights(soldiers, moveAndVisibility);
 	}
 	
-	public Soldier getClosestSoldierSpotted(List<Soldier> soldiers) {
+	public Soldier getClosestSoldierSpotted() {
 		return m_memory.getClosestSoldierSpotted();
 	}
 

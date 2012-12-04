@@ -15,12 +15,12 @@ public class Game implements IMoveAndVisibility {
 		startLevel(0);
 	}
 	
-	public List<Soldier> getAliveSoldiers() {
-		return getCharacters(m_soldiers);
+	public CharacterCollection<Soldier> getAliveSoldiers() {
+		return new CharacterCollection<Soldier>(getCharacters(m_soldiers));
 	}
 	
-	public List<Enemy>  getAliveEnemies() {
-		return getCharacters(m_enemies);
+	public CharacterCollection<Enemy>  getAliveEnemies() {
+		return new CharacterCollection<Enemy>(getCharacters(m_enemies));
 	}
 
 	private <T extends Character> List<T> getCharacters(T[] a_list) {
@@ -66,7 +66,7 @@ public class Game implements IMoveAndVisibility {
 		
 		MultiMovementListeners multiListener= getSoldierListeners();
 		
-		List<Soldier> soldiers = getAliveSoldiers();
+		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		for (Soldier s : soldiers) {
 			s.search();
 			s.move(clistener, multiListener, this);
@@ -77,55 +77,42 @@ public class Game implements IMoveAndVisibility {
 	
 	
 	private void updateEnemySights(IMoveAndVisibility moveAndVisibility) {
-		List<Enemy> enemies = getAliveEnemies();
-		List<Soldier> soldiers = getAliveSoldiers();
+		CharacterCollection<Enemy> enemies = getAliveEnemies();
+		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		for (Enemy enemy : enemies) {
 			enemy.updateSights(soldiers, moveAndVisibility);
 		}
 	}
 
 	private MultiMovementListeners getSoldierListeners() {
-		
-		MultiMovementListeners multiListener = new MultiMovementListeners();
-		List<Enemy> enemies = getAliveEnemies();
-		for (Enemy enemy : enemies) {
-			if (enemy.hasWatch()) {
-				multiListener.addListener( enemy );
-			}
-		}
-		return multiListener;
+		CharacterCollection<Enemy> enemies = getAliveEnemies();
+		return enemies.getMovementListeners();
 	}
 	
 	private MultiMovementListeners getEnemyListeners() {
-		MultiMovementListeners multiListener = new MultiMovementListeners();
-		List<Soldier> soldiers = getAliveSoldiers();
-		for (Soldier soldier : soldiers) {
-			if (soldier.hasWatch()) {
-				multiListener.addListener( soldier );
-			}
-		}
-		return multiListener;
+		
+		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
+		return soldiers.getMovementListeners();
+		
+		
 	}
 
 	EnemyAI m_ai = new EnemyAI();
 	public void updateEnemies(ICharacterListener clistener) {
-		List<Enemy> enemies = getAliveEnemies();
-		List<Soldier> soldiers = getAliveSoldiers();
+		CharacterCollection<Enemy> enemies = getAliveEnemies();
+		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		MultiMovementListeners multiListener= getEnemyListeners();
 		m_ai.think(enemies, soldiers, this, clistener, multiListener);
 	}
 
 	public void startNewSoldierRound() {
-		List<Soldier> soldiers = getAliveSoldiers();
-		for (Soldier s : soldiers) {
-			s.startNewRound();
-		}
+		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
+		soldiers.startNewRound();
+		
 	}
 	public void startNewEnemyRound() {	
-		List<Enemy> enemies = getAliveEnemies();
-		for (Enemy s : enemies) {
-			s.startNewRound();
-		}
+		CharacterCollection<Enemy> enemies = getAliveEnemies();
+		enemies.startNewRound();
 	}
 
 	@Override
@@ -143,18 +130,14 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	private boolean isOccupied(ModelPosition pos) {
-		List<Soldier> soldiers = getAliveSoldiers();
-		for (Soldier s : soldiers) {
-			if (s.getPosition().equals(pos))
-				return true;
+		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
+		if (soldiers.occupies(pos)) {
+			return true;
 		}
-		
-		List<Enemy> enemies = getAliveEnemies();
-		for (Enemy s : enemies) {
-			if (s.getPosition().equals(pos))
-				return true;
+		CharacterCollection<Enemy> enemies = getAliveEnemies();
+		if (enemies.occupies(pos)) {
+			return true;
 		}
-		
 		return false;
 	}
 	
@@ -174,25 +157,20 @@ public class Game implements IMoveAndVisibility {
 		
 		Line line = new Line(cha1.getPosition().toCenterTileVector(), cha2.getPosition().toCenterTileVector());
 		
-		List<Soldier> soldiers = getAliveSoldiers();
-		for (Soldier s : soldiers) {
-			if (s == cha1 || s == cha2)
-				continue;
-			
-			if (line.distance(s.getPosition().toCenterTileVector()) < s.getRadius() * 0.8f) { 
-				return false;
-			}
-		}
+		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
+		soldiers.remove(cha1);
+		soldiers.remove(cha2);
 		
-		List<Enemy> enemies = getAliveEnemies();
-		for (Enemy s : enemies) {
-			if (s == cha1 || s == cha2)
-				continue;
-			
-			if (line.distance(s.getPosition().toCenterTileVector()) < s.getRadius() * 0.8f) { 
-				return false;
-			}
-		}
+		if (soldiers.blocks(line))
+			return false;
+		
+		CharacterCollection<Enemy> enemies = getAliveEnemies();
+		enemies.remove(cha1);
+		enemies.remove(cha2);
+		
+		if (enemies.blocks(line))
+			return false;
+		
 		
 		return true;
 	}

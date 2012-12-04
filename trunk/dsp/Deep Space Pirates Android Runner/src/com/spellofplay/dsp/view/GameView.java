@@ -9,6 +9,7 @@ import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.RuleBook;
 import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.model.Character;
+import com.spellofplay.dsp.model.CharacterCollection;
 import com.spellofplay.dsp.model.Vector2;
 
 
@@ -48,32 +49,27 @@ public class GameView implements ICharacterListener {
 
 
 	public void drawSightLines(AndroidDraw drawable, ModelFacade a_model, Soldier selected) {
-		for (Enemy e : a_model.getAliveEnemies()) {
-			List<Soldier> soldiersWhoSpotsEnemy = a_model.canSee(e);
-			if (soldiersWhoSpotsEnemy.isEmpty() == false) {
+		for (Enemy enemy : a_model.getAliveEnemies()) {
+			CharacterCollection<Soldier> soldiersWhoSpotsEnemy = a_model.canSee(enemy);
+			CharacterCollection<Soldier> canShootEnemy = soldiersWhoSpotsEnemy.canShoot(enemy, a_model.getMovePossible());
+			
+			for(Soldier s : canShootEnemy) {
+
+				ViewPosition vsPos = getCharacterDrawer().getVisualPosition(s, m_camera);
+				ViewPosition vEpos = getCharacterDrawer().getVisualPosition(enemy, m_camera);
+				boolean hasCover = a_model.getMovePossible().targetHasCover(s, enemy);
 				
-				for(Soldier s : soldiersWhoSpotsEnemy) {
+				drawable.drawLine(vEpos, vsPos, hasCover ? Color.LTGRAY : Color.WHITE);
+				
+				if (selected == s) {
+					Vector2 direction = vEpos.sub(vsPos).toVector2();
+					direction.normalize();
+					direction = direction.mul((float)m_camera.getScale() * 0.65f);
 					
-					if (a_model.canShoot(s, e)) {
-						ViewPosition vsPos = getCharacterDrawer().getVisualPosition(s, m_camera);
-						ViewPosition vEpos = getCharacterDrawer().getVisualPosition(e, m_camera);
-						boolean hasCover = a_model.getMovePossible().targetHasCover(s, e);
-						
-						drawable.drawLine(vEpos, vsPos, hasCover ? Color.LTGRAY : Color.WHITE);
-						
-						if (selected == s) {
-							
-							Vector2 direction = vEpos.sub(vsPos).toVector2();
-							direction.normalize();
-							direction = direction.mul((float)m_camera.getScale() * 0.65f);
-							
-							Vector2 textAt = vEpos.toVector2().sub(direction);
-							
-							float chance = RuleBook.getToHitChance(s, e, hasCover);
-							drawable.drawText( " " + (int)(100.0f * chance) + "%", (int)textAt.m_x, (int)textAt.m_y);
-							
-						}
-					}
+					Vector2 textAt = vEpos.toVector2().sub(direction);
+					
+					float chance = RuleBook.getToHitChance(s, enemy, hasCover);
+					drawable.drawText( " " + (int)(100.0f * chance) + "%", (int)textAt.m_x, (int)textAt.m_y);
 				}
 			}
 		}

@@ -13,6 +13,7 @@ import com.spellofplay.dsp.model.Level;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Soldier;
+import com.spellofplay.dsp.model.CharacterCollection;
 import com.spellofplay.dsp.model.TileType;
 import com.spellofplay.common.view.RotatedTile;
 
@@ -122,7 +123,7 @@ public class LevelDrawer {
 	
 	private void updateVisibility(ModelFacade a_model) {
 
-		List<Soldier> soldiers = a_model.getAliveSoldiers();
+		CharacterCollection<Soldier> soldiers = a_model.getAliveSoldiers();
 		//for (int x = 0; x < Level.Width; x++) {
 		int x = m_updateX;
 		

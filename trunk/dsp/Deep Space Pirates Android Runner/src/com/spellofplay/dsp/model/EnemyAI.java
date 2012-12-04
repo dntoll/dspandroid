@@ -6,14 +6,10 @@ public class EnemyAI {
 
 	
 
-	public void think(List<Enemy> enemies, List<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility, ICharacterListener a_clistener, MultiMovementListeners movementListeners) {
+	public void think(CharacterCollection<Enemy> enemies, CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility, ICharacterListener a_clistener, MultiMovementListeners movementListeners) {
 		
 		
 		for (Enemy enemy : enemies) {
-			
-			
-			
-			
 			
 			if (enemy.getTimeUnits() > 0) {
 				if (enemy.isSearching() ) {
@@ -40,7 +36,7 @@ public class EnemyAI {
 		
 	}
 
-	public void stopIfSoldierInSight(List<Soldier> soldiers,
+	public void stopIfSoldierInSight(CharacterCollection<Soldier> soldiers,
 			IMoveAndVisibility a_moveAndVisibility, Enemy enemy) {
 		Soldier closestThatWeCanSee = getClosestSoldierThatWeCanSee(enemy, soldiers, a_moveAndVisibility);
 		if (closestThatWeCanSee != null) {
@@ -50,7 +46,7 @@ public class EnemyAI {
 		}
 	}
 
-	public void decideWhatToDo(List<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility,	ICharacterListener a_clistener, Enemy enemy) {
+	public void decideWhatToDo(CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility,	ICharacterListener a_clistener, Enemy enemy) {
 		
 		Soldier closestThatWeCanSee = getClosestSoldierThatWeCanSee(enemy, soldiers, a_moveAndVisibility);
 		
@@ -70,7 +66,7 @@ public class EnemyAI {
 			}
 		} else {
 			
-			Soldier closestThatWeHaveSeen = enemy.getClosestSoldierSpotted(soldiers);
+			Soldier closestThatWeHaveSeen = enemy.getClosestSoldierSpotted();
 			
 			if (closestThatWeHaveSeen != null) {
 				enemy.setDestination(closestThatWeHaveSeen.getPosition(), a_moveAndVisibility, 1, false);
@@ -84,22 +80,10 @@ public class EnemyAI {
 
 	
 
-	private Soldier getClosestSoldierThatWeCanSee(Enemy enemy, List<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility) {
-		Soldier closest = null;
+	private Soldier getClosestSoldierThatWeCanSee(Enemy enemy, CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility) {
+		CharacterCollection<Soldier> soldiersThatEnemyCanSee = soldiers.thatCanSee(a_moveAndVisibility, enemy);
+		return soldiersThatEnemyCanSee.getClosest(enemy.getPosition());
 		
-		float closestDistance = Float.MAX_VALUE;
-		for (Soldier s : soldiers) {
-			if (a_moveAndVisibility.lineOfSight(enemy, s)) 
-			{
-				float distance  = s.getPosition().sub(enemy.getPosition()).length();
-				if (distance < closestDistance) {
-					closestDistance = distance;
-					closest = s;
-				}
-			}
-		}
-				
-		return closest;
 	}
 
 }

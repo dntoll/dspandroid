@@ -7,6 +7,7 @@ import java.util.Random;
 import android.graphics.Color;
 
 import com.spellofplay.dsp.model.Character;
+import com.spellofplay.dsp.model.CharacterCollection;
 import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
@@ -33,8 +34,8 @@ public class CharacterDrawer {
 	public void startNewGame(ModelFacade a_model) {
 		m_characters.clear();
 		
-		
-		for (Soldier soldier : a_model.getAliveSoldiers()) {
+		CharacterCollection<Soldier> soldiers = a_model.getAliveSoldiers(); 
+		for (Soldier soldier : soldiers) {
 			m_characters.put(soldier, new VisualCharacter(soldier));
 		}
 		
