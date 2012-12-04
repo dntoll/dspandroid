@@ -4,7 +4,6 @@ package com.spellofplay.dsp.controller;
 import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.MultiCharacterListener;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.InteractionView;
 import com.spellofplay.dsp.view.LogView;

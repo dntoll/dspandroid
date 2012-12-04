@@ -52,6 +52,7 @@ public class RuleBook {
 		 
 		 float length = character.distance(fireTarget);
 		 
+		 //TODO magic numbers into constants
 		 toHitChance -= length / 20.0f;
 		 
 		 if (targetHasCover)
