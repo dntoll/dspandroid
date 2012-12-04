@@ -4,6 +4,7 @@ package com.spellofplay.dsp.controller;
 import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.InteractionView;
 import com.spellofplay.dsp.view.LogView;
@@ -87,7 +88,7 @@ public class GameController {
 		
 		actionView.setupInput(a_input, a_model, drawable.getWindowWidth(), drawable.getWindowHeight());
 		
-		com.spellofplay.dsp.model.Soldier selectedSoldier = actionView.getSelectedSoldier(a_model);
+		Soldier selectedSoldier = actionView.getSelectedSoldier(a_model);
 		
 		if (selectedSoldier != null) {
 			if (actionView.userWantsToMove()) {

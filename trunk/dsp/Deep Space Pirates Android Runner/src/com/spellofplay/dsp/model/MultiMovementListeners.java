@@ -3,6 +3,8 @@ package com.spellofplay.dsp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//TODO maybe this is also a charactercollection?
 public class MultiMovementListeners {
 
 	List<Character> listeners = new ArrayList<Character>();

@@ -1,8 +1,5 @@
 package com.spellofplay.dsp.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class ModelFacade {
 	
@@ -21,7 +18,7 @@ public class ModelFacade {
 	}
 	public boolean isSoldierTime() {
 		
-		return m_game.getAliveSoldiers().isSoldierTime();
+		return m_game.getAliveSoldiers().isTime();
 		
 	}
 	
@@ -32,12 +29,7 @@ public class ModelFacade {
 		if (isSoldierTime())
 			return false;
 		
-		for (Enemy e : m_game.getAliveEnemies()) {
-			if (e.getTimeUnits() > 0) {
-				return true;
-			}
-		}
-		return false;
+		return m_game.getAliveEnemies().isTime();
 	}
 
 
@@ -79,18 +71,15 @@ public class ModelFacade {
 		
 	
 	public boolean enemyHasWon() {
-		// TODO Auto-generated method stub
 		return m_game.getAliveSoldiers().size() == 0;
 	}
 
 	public boolean playerHasWon() {
-		// TODO Auto-generated method stub
 		return m_game.getAliveEnemies().size() == 0 && m_game.getAliveSoldiers().size() > 0;
 	}
 
 
 	public boolean fireAt(Soldier selectedSoldier, Enemy fireTarget, ICharacterListener listener) {
-		
 		return selectedSoldier.fireAt(fireTarget, m_game, listener);
 	}
 
