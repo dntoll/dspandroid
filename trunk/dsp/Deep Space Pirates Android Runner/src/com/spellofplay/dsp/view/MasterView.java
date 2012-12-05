@@ -22,7 +22,12 @@ public class MasterView implements ICharacterListener {
 		m_actionView.startNewGame();
 	}
 	
-	public void drawGame(AndroidDraw drawable, ModelFacade model) {
+	public void drawGame(AndroidDraw drawable, ModelFacade model, float elapsedTimeSeconds) {
+		
+		m_camera.setScreenSize(drawable.getWindowWidth(), drawable.getWindowHeight());
+		
+		m_actionView.updateSoldierSelection(model, m_camera, drawable.getWindowWidth(), drawable.getWindowHeight());
+		m_camera.update(elapsedTimeSeconds);
 		
 		m_view.redrawLevelBuffer(drawable, model);
 		drawable.drawBackground(m_camera.m_displacement);
@@ -42,17 +47,20 @@ public class MasterView implements ICharacterListener {
 
 	public void startNewRound() {
 		m_view.startNewRound();
+		m_actionView.startNewRound();
 	}
 
 	@Override
 	public void moveTo(Character character) {
 		m_view.moveTo(character);
+		m_camera.focusOn(character.getPosition());
 		
 	}
 
 	@Override
 	public void fireAt(Character attacker, Character fireTarget, boolean didHit) {
 		m_view.fireAt(attacker, fireTarget, didHit);
+		m_camera.focusOn(fireTarget.getPosition());
 	}
 
 	@Override

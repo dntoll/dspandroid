@@ -57,14 +57,14 @@ public class MasterController {
 					m_showMenu = true;
 				}
 				
-				m_masterView.drawGame(drawable, m_model);
+				m_masterView.drawGame(drawable, m_model, elapsedTimeSeconds);
 				drawable.drawText("Game Over", 200, 10, drawable.m_guiText);
 			} else if (m_model.playerHasWon()) {
 				if (m_gui.DoButtonCentered(halfWidth, halfHeight, "restart", m_input, false)) {
 					startNewGame();
 				}
 				
-				m_masterView.drawGame(drawable, m_model);
+				m_masterView.drawGame(drawable, m_model, elapsedTimeSeconds);
 				drawable.drawText("Game Won", 200, 10, drawable.m_guiText);
 			} else {
 				

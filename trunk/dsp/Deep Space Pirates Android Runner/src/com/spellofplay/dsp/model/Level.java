@@ -34,13 +34,13 @@ public class Level {
 	public void loadLevel(int a_level) {
 		String level =
 			        "XXXXXXXXXXXXXXXX" +
-					"X4123XXXXXXXXXXX" + 
+					"XO123XXXXXXXXXXX" + 
 					"XOOOOXEOOOOOXXXX" +
 					"XOOPOXOOOOOOXXXX" +
 					"XOOOXXOXXXXOXXXX" +
 					"XOOOOOOOXOOOOOOX" +
 					"XOOOOOOECOOOOOOX" +
-					"XOOOOOOOXOOOOOOX" + 
+					"XOOOOOOOX4OOOOOX" + 
 					"XXXXXXXXXXCOCXXX" +
 					"XOEEEOOOOOOOOOXX" +
 					"XOOOOOOOOOOOOOXX" +

@@ -1,6 +1,7 @@
 package com.spellofplay.dsp.controller;
 
 
+import com.spellofplay.common.view.Input;
 import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
@@ -9,7 +10,6 @@ import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.InteractionView;
 import com.spellofplay.dsp.view.LogView;
 import com.spellofplay.dsp.view.MasterView;
-import com.spellofplay.common.view.Input;
 
 public class GameController {
 	
@@ -37,7 +37,7 @@ public class GameController {
 		} else if (a_model.isEnemyTime()) {
 			updateEnemies(drawable, a_model, elapsedTimeSeconds, mcl);
 		} else  {
-			startNewSoldierRound(drawable, a_model);
+			startNewSoldierRound(drawable, a_model, elapsedTimeSeconds);
 		}
 		
 		m_log.draw(drawable);
@@ -45,11 +45,11 @@ public class GameController {
 	}
 	
 
-	public void startNewSoldierRound(AndroidDraw drawable, ModelFacade a_model) {
+	public void startNewSoldierRound(AndroidDraw drawable, ModelFacade a_model, float elapsedTimeSeconds) {
 		a_model.startNewSoldierRound();
 		m_masterView.startNewRound();
 		
-		m_masterView.drawGame(drawable, a_model);
+		m_masterView.drawGame(drawable, a_model, elapsedTimeSeconds);
 		m_log.doLog("start new round");
 	}
 
@@ -62,7 +62,7 @@ public class GameController {
 		if (m_masterView.updateAnimations(a_model, elapsedTimeSeconds)) {
 			a_model.updatePlayers(mcl);
 		}
-		m_masterView.drawGame(drawable, a_model);
+		m_masterView.drawGame(drawable, a_model, elapsedTimeSeconds);
 	}
 
 
@@ -71,7 +71,7 @@ public class GameController {
 		if (m_masterView.updateAnimations(a_model, elapsedTimeSeconds)) {
 			a_model.updateEnemies(mcl);
 		}
-		m_masterView.drawGame(drawable, a_model);
+		m_masterView.drawGame(drawable, a_model, elapsedTimeSeconds);
 		
 		drawable.drawText("Enemy is moving", 200, 10, drawable.m_guiText);
 	}
