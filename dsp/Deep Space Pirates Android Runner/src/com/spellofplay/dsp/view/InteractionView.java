@@ -113,7 +113,7 @@ public class InteractionView {
 		
 		if (a_input.IsMouseClicked()) {
 			if (mouseOverSoldier != null) {
-				selectSoldier(mouseOverSoldier);
+				selectSoldier(mouseOverSoldier, m_camera);
 			} else if (mouseOverEnemy != null) {
 				m_selectedEnemy = mouseOverEnemy;
 			} else {
@@ -172,21 +172,19 @@ public class InteractionView {
 		if (a_model.isSoldierTime() == false)
 			return null;
 		
-		
-		
+		return m_selectedSoldier;
+	}
+
+	void updateSoldierSelection(ModelFacade a_model, Camera camera, int width, int height) {
 		if (m_selectedSoldier == null || m_selectedSoldier.getTimeUnits() == 0) {
 			//SELECT THE NEXT SOLDIER
-			for (Soldier s : a_model.getAliveSoldiers()) {
-				if (s.getTimeUnits() > 0) {
-					selectSoldier(s);
+			for (Soldier soldier : a_model.getAliveSoldiers()) {
+				if (soldier.getTimeUnits() > 0) {
+					selectSoldier(soldier, camera);
 					break;
 				}
 			}
 		}
-		
-		
-		
-		return m_selectedSoldier;
 	}
 	
 	public ModelPosition getDestination(ModelFacade a_model) {
@@ -224,8 +222,12 @@ public class InteractionView {
 		}
 	}
 	
-	private void selectSoldier(Soldier mouseOverSoldier) {
-		m_selectedSoldier = mouseOverSoldier;
+	private void selectSoldier(Soldier mouseOverSoldier, Camera camera) {
+		
+		if (m_selectedSoldier != mouseOverSoldier) {
+			m_selectedSoldier = mouseOverSoldier;
+			camera.focusOn(mouseOverSoldier.getPosition());
+		}
 		m_selectedPath = null;
 	}
 	
@@ -259,5 +261,9 @@ public class InteractionView {
 		m_selectedSoldier = null;
 		m_selectedPath = null;
 		
+	}
+
+	public void startNewRound() {
+		m_selectedSoldier = null;
 	}
 }

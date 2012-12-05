@@ -4,13 +4,28 @@ import android.graphics.Point;
 
 import com.spellofplay.dsp.model.Level;
 import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.model.Vector2;
 
 public class Camera {
 
 	private static final int m_scale = 64;
 	
+	
+	public int m_screenWidth;
+	public int m_screenHeight;
 	public ViewPosition m_displacement = new ViewPosition(0,0);
+	
+	public ViewPosition m_targetDisplacement = new ViewPosition(0,0);
+	
+	
+	public Camera() {
+	}
+	
+	public void setScreenSize(int windowWidth, int windowHeight) {
+		m_screenWidth = windowWidth;
+		m_screenHeight = windowHeight;
+	}
 
 	
 	public ViewPosition toViewPos(Vector2 modelPos) {
@@ -67,36 +82,42 @@ public class Camera {
 		} else {
 			m_displacement.m_x = m_scrollStartPos.x + a_dragX;
 			m_displacement.m_y = m_scrollStartPos.y + a_dragY;
+			m_targetDisplacement.m_x = m_displacement.m_x;
+			m_targetDisplacement.m_y = m_displacement.m_y;
 			
-			int levelVisualWidth = m_scale * (Level.Width);
-			//Om skärmens bredd är större än banan
-			if (screenWidth >= levelVisualWidth)
-				m_displacement.m_x = 0;
-			else {
-				//banan är bredare än skärmen
-				int maxDisplacement = levelVisualWidth - screenWidth; 
-				if ( m_displacement.m_x > 0)
-					m_displacement.m_x = 0;
-				if ( m_displacement.m_x < -maxDisplacement)
-					m_displacement.m_x = -maxDisplacement;
-			}
-			
-			int levelVisualHeight = m_scale * (Level.Height);
-			//Om skärmens bredd är större än banan
-			if (screenHeight >= levelVisualHeight)
-				m_displacement.m_y = 0;
-			else {
-				//banan är bredare än skärmen
-				int maxDisplacement = levelVisualHeight - screenHeight; 
-				if ( m_displacement.m_y > 0)
-					m_displacement.m_y = 0;
-				if ( m_displacement.m_y < -maxDisplacement)
-					m_displacement.m_y = -maxDisplacement;
-			}
+			displacementWithinLevel();
 			
 			
 		}
 		
+	}
+
+	private void displacementWithinLevel() {
+		int levelVisualWidth = m_scale * (Level.Width);
+		//Om skärmens bredd är större än banan
+		if (m_screenWidth >= levelVisualWidth)
+			m_displacement.m_x = 0;
+		else {
+			//banan är bredare än skärmen
+			int maxDisplacement = levelVisualWidth - m_screenWidth; 
+			if ( m_displacement.m_x > 0)
+				m_displacement.m_x = 0;
+			if ( m_displacement.m_x < -maxDisplacement)
+				m_displacement.m_x = -maxDisplacement;
+		}
+		
+		int levelVisualHeight = m_scale * (Level.Height);
+		//Om skärmens bredd är större än banan
+		if (m_screenHeight >= levelVisualHeight)
+			m_displacement.m_y = 0;
+		else {
+			//banan är bredare än skärmen
+			int maxDisplacement = levelVisualHeight - m_screenHeight; 
+			if ( m_displacement.m_y > 0)
+				m_displacement.m_y = 0;
+			if ( m_displacement.m_y < -maxDisplacement)
+				m_displacement.m_y = -maxDisplacement;
+		}
 	}
 	
 	public void StopScrolling() {
@@ -104,10 +125,39 @@ public class Camera {
 		
 	}
 
-	
+	public void focusOn(ModelPosition focusOn) {
+		
+		float vfx = focusOn.m_x * m_scale;
+		float vfy = focusOn.m_y * m_scale;
+		
+		m_targetDisplacement.m_x = -vfx + m_screenWidth/2;
+		m_targetDisplacement.m_y = -vfy + m_screenHeight/2;
+		
+		
+		displacementWithinLevel();
+	}
+
+	public void update(float elapsedTimeSeconds) {
+		Vector2 direction = m_targetDisplacement.sub(m_displacement).toVector2();
+		
+		float distance = direction.length();
+		float speed = m_screenWidth * 3.0f;
+		float movementLength = speed * elapsedTimeSeconds;
+		
+		if (distance > movementLength) {
+			direction.normalize();
+			m_displacement.m_x += direction.m_x * movementLength;
+			m_displacement.m_y += direction.m_y * movementLength;
+		} else {
+			m_displacement.m_x = m_targetDisplacement.m_x;
+			m_displacement.m_y = m_targetDisplacement.m_y;
+		}
+		
+		displacementWithinLevel();
+	}
+
 
 	
-
 	
 
 }

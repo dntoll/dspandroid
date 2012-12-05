@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 
 import com.spellofplay.common.view.Mesh;
+import com.spellofplay.common.view.RotatedTile;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.Level;
 import com.spellofplay.dsp.model.ModelFacade;
@@ -15,7 +16,6 @@ import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.model.CharacterCollection;
 import com.spellofplay.dsp.model.TileType;
-import com.spellofplay.common.view.RotatedTile;
 
 
 public class LevelDrawer {
