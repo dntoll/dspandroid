@@ -89,7 +89,7 @@ public class GameView implements ICharacterListener {
 	}
 	
 	public void startNewGame(ModelFacade a_model) {
-		
+		hasInitatedBuffer = false;
 		
 		m_level.startUpdateVisibility();
 		

@@ -20,7 +20,7 @@ public class RuleBook {
 	}
 	
 	public static boolean couldFireIfHadTime(Character character, Character fireTarget, IMoveAndVisibility a_moveAndVisibility) {
-		if (a_moveAndVisibility.lineOfSight(character, fireTarget) == false)
+		if (a_moveAndVisibility.hasClearSight(character, fireTarget) == false)
 			return false;
 		
 		float distance = character.distance(fireTarget);

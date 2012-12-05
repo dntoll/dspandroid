@@ -105,6 +105,7 @@ public class LevelDrawer {
 	
 			}	
 		}
+		
 		drawable.drawMeshToBackground(backgroundMeshBlocked, Level.Width, Level.Height, camera.getScale(), m_theTextureMap);
 		drawable.drawMeshToBackground(crates, Level.Width, Level.Height, camera.getScale(), m_theTextureMap);
 		drawable.drawMeshToBackground(pits, Level.Width, Level.Height, camera.getScale(), m_theTextureMap);
