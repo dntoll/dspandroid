@@ -42,7 +42,8 @@ public class AndroidDraw  {
 	public void drawMeshToBackground(Mesh a_backgroundMeshBlocked, 
 						 int a_width, 
 						 int a_height, 
-						 int a_scale, com.spellofplay.dsp.view.ITexture a_textureMap) {
+						 int a_scale, 
+						 com.spellofplay.dsp.view.ITexture a_textureMap, boolean clear) {
 		
 		//First time create background, or if resolution change adapt
 		if (m_background == null || m_background.getWidth() != a_width * a_scale) {
@@ -56,9 +57,13 @@ public class AndroidDraw  {
 		
 		
 		Canvas c = new Canvas(m_background);
-		m_guiText.setColor(Color.BLACK);
+		m_guiText.setColor(Color.WHITE);
 		
-		c.drawBitmap(m_background, 0, 0, m_guiText);
+		if (clear) {
+			Rect dst = new Rect(0,0, a_width * a_scale, a_height * a_scale);
+			c.drawColor(Color.BLACK);
+		}
+		
 		
 		m_path.setColor(Color.WHITE);
 		c.drawVertices(a_backgroundMeshBlocked.m_mode, 

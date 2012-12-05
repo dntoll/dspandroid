@@ -39,6 +39,7 @@ public class Enemy extends Character{
 	
 	public Enemy(ModelPosition startPosition) {
 		super(startPosition, 5);
+		m_hitpoints = 1;
 
 	}
 	
