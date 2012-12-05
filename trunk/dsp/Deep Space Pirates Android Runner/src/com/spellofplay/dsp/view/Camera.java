@@ -9,7 +9,7 @@ import com.spellofplay.dsp.model.Vector2;
 
 public class Camera {
 
-	private static final int m_scale = 64;
+	private static final int m_scale = 32;
 	
 	
 	public int m_screenWidth;

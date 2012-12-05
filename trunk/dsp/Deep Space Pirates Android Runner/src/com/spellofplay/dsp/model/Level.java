@@ -1,12 +1,14 @@
 package com.spellofplay.dsp.model;
 
+import com.spellofplay.dsp.model.levelgenerator.LevelGenerator;
+
 public class Level {
 
 	public static final int Height = 32;
 	public static final int Width = 32;
 	
 	public TileType m_tiles[][] = new TileType[Width][Height];
-	ModelPosition m_playerStartPositions[]= new ModelPosition[Game.MAX_SOLDIERS];
+	public ModelPosition m_playerStartPositions[]= new ModelPosition[Game.MAX_SOLDIERS];
 	ModelPosition m_enemyPositions[]= new ModelPosition[Game.MAX_ENEMIES];
 	int m_numEnemies;
 	

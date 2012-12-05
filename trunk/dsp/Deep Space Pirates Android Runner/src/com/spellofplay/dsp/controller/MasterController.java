@@ -1,6 +1,8 @@
 package com.spellofplay.dsp.controller;
 
 
+import android.view.KeyEvent;
+
 import com.spellofplay.dsp.model.Line;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.view.AndroidDraw;
@@ -38,6 +40,13 @@ public class MasterController {
 		public boolean onDraw(AndroidDraw drawable, float elapsedTimeSeconds) {
 		int halfWidth = drawable.getWindowWidth()/2;
 		int halfHeight = drawable.getWindowHeight()/2;
+		
+		
+		if (m_input.IsKeyClicked(KeyEvent.KEYCODE_MENU)  || 
+        		m_input.IsKeyClicked(KeyEvent.KEYCODE_BACK)) {
+			m_showMenu = true;
+		}
+		
 		if (m_showMenu) {
 			if (m_gui.DoButtonCentered(halfWidth, halfHeight, "New Game", m_input, false)) {
 				startNewGame();

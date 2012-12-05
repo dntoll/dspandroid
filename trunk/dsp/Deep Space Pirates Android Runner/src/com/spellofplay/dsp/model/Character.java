@@ -8,7 +8,7 @@ public abstract class Character   {
 	protected int m_maxTimeUnits = 3;
 	protected int m_watchTimeUnits = 0;
 	protected int m_timeUnits = m_maxTimeUnits;
-	protected int m_hitpoints = 3;
+	protected int m_hitpoints = 5;
 
 	public Character(ModelPosition startPosition, int a_maxTimeUnits) {
 		m_position = startPosition;

@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Game implements IMoveAndVisibility {
 
-	public static final int MAX_SOLDIERS = 4;
-	public static final int MAX_ENEMIES = 5;
+	public static final int MAX_SOLDIERS = 3;
+	public static final int MAX_ENEMIES = 10;
 	Soldier[] m_soldiers = new Soldier[MAX_SOLDIERS];
 	Enemy[] m_enemies = new Enemy[MAX_ENEMIES];
 	Level m_level = new Level();
