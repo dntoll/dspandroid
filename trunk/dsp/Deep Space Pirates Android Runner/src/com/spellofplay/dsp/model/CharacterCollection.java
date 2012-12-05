@@ -80,6 +80,15 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 	public void remove(Character character) {
 		characters.remove(character);
 	}
+	
+	public void remove(ModelPosition to) {
+		for (T character : characters) {
+			if (character.getPosition().equals(to))  {
+				characters.remove(character);
+				return;
+			}
+		}
+	}
 
 
 
@@ -140,5 +149,9 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		}
 		return new CharacterCollection<T>(charactersThatCanBeShot);
 	}
+
+
+
+	
 
 }

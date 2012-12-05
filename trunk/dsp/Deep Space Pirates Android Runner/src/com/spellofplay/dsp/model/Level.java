@@ -2,26 +2,19 @@ package com.spellofplay.dsp.model;
 
 public class Level {
 
-	public static final int Height = 24;
-	public static final int Width = 16;
+	public static final int Height = 32;
+	public static final int Width = 32;
 	
 	public TileType m_tiles[][] = new TileType[Width][Height];
 	ModelPosition m_playerStartPositions[]= new ModelPosition[Game.MAX_SOLDIERS];
 	ModelPosition m_enemyPositions[]= new ModelPosition[Game.MAX_ENEMIES];
+	int m_numEnemies;
 	
 	public Level() {
-		for (int i= 0; i< Game.MAX_SOLDIERS; i++) {
-			m_playerStartPositions[i] = null;
-		}
-		for (int i= 0; i< Game.MAX_SOLDIERS; i++) {
-			m_enemyPositions[i] = null;
-		}
+		clear();
 	}
 	
 	public TileType GetTile(int a_x, int a_y) {
-		
-		
-		
 		//walls around the level
 		if (a_x >= 0 && a_x < Width && a_y >= 0 && a_y < Height)
 			return m_tiles[a_x][a_y];
@@ -32,7 +25,12 @@ public class Level {
 	
 
 	public void loadLevel(int a_level) {
-		String level =
+		
+		LevelGenerator gen = new LevelGenerator(a_level);
+		
+		gen.generate(this);
+		
+		/*String level =
 			        "XXXXXXXXXXXXXXXX" +
 					"XO123XXXXXXXXXXX" + 
 					"XOOOOXEOOOOOXXXX" +
@@ -64,26 +62,36 @@ public class Level {
 			for (int x = 0; x < Width; x++) {
 			
 				int index = x + y * Width;
-				
-				char c = level.charAt(index);
-				switch (c) {
-					case 'X' : m_tiles[x][y] = TileType.TileWall; break;
-					case 'O' : m_tiles[x][y] = TileType.TileEmpty; break;
-					case 'P' : m_tiles[x][y] = TileType.TilePit; break;
-					case 'C' : m_tiles[x][y] = TileType.TileCover; break;
-					case 'E' : m_tiles[x][y] = TileType.TileEmpty;
-							   if (enemy < Game.MAX_ENEMIES) 
-								   m_enemyPositions[enemy] = new ModelPosition(x,y);
-							   enemy++;
-					default : m_tiles[x][y] = TileType.TileEmpty; break;
+				try {
+					char c = level.charAt(index);
+					switch (c) {
+						case 'X' : m_tiles[x][y] = TileType.TileWall; break;
+						case 'O' : m_tiles[x][y] = TileType.TileEmpty; break;
+						case 'P' : m_tiles[x][y] = TileType.TilePit; break;
+						case 'C' : m_tiles[x][y] = TileType.TileCover; break;
+						case 'E' : m_tiles[x][y] = TileType.TileEmpty;
+								   if (enemy < Game.MAX_ENEMIES) 
+									   m_enemyPositions[enemy] = new ModelPosition(x,y);
+								   enemy++;
+						default : m_tiles[x][y] = TileType.TileEmpty; break;
+					}
+					if (c >= '1' && c <= '0' + Game.MAX_SOLDIERS) {
+						m_playerStartPositions[c - '1'] = new ModelPosition(x, y);
+					}
+				} catch (StringIndexOutOfBoundsException e) {
+					
 				}
-				if (c >= '1' && c <= '0' + Game.MAX_SOLDIERS) {
-					m_playerStartPositions[c - '1'] = new ModelPosition(x, y);
-				}
-			}
-		}
+			} 
+		}*/
 	}
 	
+	public void addEnemy(ModelPosition modelPosition) {
+		
+		// TODO Auto-generated method stub
+		if (m_numEnemies < Game.MAX_ENEMIES) 
+			m_enemyPositions[m_numEnemies] = modelPosition;
+		m_numEnemies++;
+	}
 	
 
 	public ModelPosition getStartLocation(int i) {
@@ -222,4 +230,22 @@ public class Level {
 		
 		return false;
 	}
+
+	public void clear() {
+		for (int i= 0; i< Game.MAX_SOLDIERS; i++) {
+			m_playerStartPositions[i] = null;
+		}
+		for (int i= 0; i< Game.MAX_SOLDIERS; i++) {
+			m_enemyPositions[i] = null;
+		}
+		m_numEnemies = 0;
+		
+		for (int y = 0; y < Height; y++) {
+			for (int x = 0; x < Width; x++) {
+				m_tiles[x][y] = TileType.TileWall;
+			}
+		}
+	}
+
+	
 }

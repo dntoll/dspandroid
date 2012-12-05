@@ -76,7 +76,11 @@ public class AStar {
 		return SearchResult.SearchFailedNoPath;
 	}
     
-    public void InitSearch(ModelPosition a_start, ModelPosition a_end, boolean a_nearSearch, float a_distance, boolean a_canMoveThroughObstacles)
+    public void InitSearch(ModelPosition a_start, 
+    					   ModelPosition a_end, 
+    					   boolean a_nearSearch, 
+    					   float a_distance, 
+    					   boolean a_canMoveThroughObstacles)
     {
         m_canMoveThroughObstacles = a_canMoveThroughObstacles;
         
@@ -269,7 +273,7 @@ public class AStar {
         else
         {
             return pNode.m_node.sub(m_end).length() <= m_nearDistance &&
-            m_map.lineOfSight(pNode.m_node, m_end);
+            m_map.hasClearSight(pNode.m_node, m_end);
         }
     }
 

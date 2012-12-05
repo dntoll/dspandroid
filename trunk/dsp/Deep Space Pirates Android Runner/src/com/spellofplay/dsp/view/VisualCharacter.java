@@ -31,21 +31,20 @@ public class VisualCharacter {
 		m_lastPosition.m_y = dude.getPosition().m_y;
 	}
 	
-	void drawEnemy(AndroidDraw drawable, Camera camera, ITexture enemyTexture, boolean isSpotted, ModelPosition lastSeenPosition) {
+	void drawEnemySpotted(AndroidDraw drawable, Camera camera, ITexture enemyTexture) {
 		boolean drawGui = true;
-		//Plats och färg för synliga fiender
-		ViewPosition vEpos = getVisualPosition(camera);//camera.toViewPos(m_modelCharacter.getPosition());
+
+		ViewPosition vEpos = getVisualPosition(camera);
 		int color = Color.WHITE;
 		
-		//NOBODY CAN SEE THE ENEMY RIGHT NOW?
-		if (isSpotted == false) {
-			color =  TRANSPARENT;
-			//LAST KNOWN POSITION
-			vEpos = camera.toViewPos(lastSeenPosition); 
-			drawGui = false;
-		} 
-		
-		drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, drawGui);
+		drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, drawGui, true);
+	}
+	
+	void drawEnemyNotSpotted(AndroidDraw drawable, Camera camera, ITexture enemyTexture, Vector2 lastSeenPosition) {
+		boolean drawGui = false;
+		int color =  TRANSPARENT;
+		ViewPosition vEpos = camera.toViewPos(lastSeenPosition); 
+		drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, drawGui, false);
 	}
 
 	private void drawGUI(AndroidDraw drawable, Rect dst) {
@@ -67,7 +66,7 @@ public class VisualCharacter {
 	void drawSoldier(AndroidDraw drawable, Camera camera, ITexture player, Enemy target ) {
 		
 		ViewPosition vpos = getVisualPosition(camera);
-		drawCharacter(vpos, drawable, camera, player, target != null ? target.getPosition() : null, SOLDIER, Color.WHITE, true);
+		drawCharacter(vpos, drawable, camera, player, target != null ? target.getPosition() : null, SOLDIER, Color.WHITE, true, true);
 	}
 	
 	private void drawCharacter(ViewPosition vpos, 
@@ -75,16 +74,16 @@ public class VisualCharacter {
 							  Camera camera, 
 							  ITexture player, 
 							  ModelPosition targetPosition, 
-							  Rect source, int color, boolean drawgui) {
-		//Did we move?
-		if (m_lastPosition.equals(m_modelCharacter.getPosition()) == false) {
-			m_targetRotation = m_lastPosition.sub(m_modelCharacter.getPosition()).getRotation();
-		} else if (targetPosition != null) {
-			//Rotate to face target
-			m_targetRotation = m_modelCharacter.getPosition().sub(targetPosition).getRotation();
+							  Rect source, int color, boolean drawgui, boolean rotate) {
+		if (rotate) {
+			//Did we move?
+			if (m_lastPosition.equals(m_modelCharacter.getPosition()) == false) {
+				m_targetRotation = m_lastPosition.sub(m_modelCharacter.getPosition()).getRotation();
+			} else if (targetPosition != null) {
+				//Rotate to face target
+				m_targetRotation = m_modelCharacter.getPosition().sub(targetPosition).getRotation();
+			}
 		}
-		//
-		 
 		
 		
 		Rect dst = new Rect((int)vpos.m_x -camera.getHalfScale(), 

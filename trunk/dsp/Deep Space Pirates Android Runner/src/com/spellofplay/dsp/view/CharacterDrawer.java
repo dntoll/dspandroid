@@ -10,13 +10,12 @@ import com.spellofplay.dsp.model.Character;
 import com.spellofplay.dsp.model.CharacterCollection;
 import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ModelFacade;
-import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.model.Vector2;
 
 public class CharacterDrawer {
 	Map<Character, VisualCharacter> m_characters = new HashMap<Character, VisualCharacter>();
-	Map<Enemy, ModelPosition> m_enemiesSeenThisRound = new HashMap<Enemy, ModelPosition>();
+	Map<Enemy, Vector2> m_enemiesSeenThisRound = new HashMap<Enemy, Vector2>();
 	ShotAnimation m_shotAnimation = new ShotAnimation();
 	
 	ITexture m_player;
@@ -54,9 +53,12 @@ public class CharacterDrawer {
 			}
 		}
 		
-		m_shotAnimation.update(a_elapsedTime);
-		if (m_shotAnimation.isActive()) {
-			doneAnimating = false;
+		//only animate shots if movement is done
+		if (doneAnimating) {
+			m_shotAnimation.update(a_elapsedTime);
+			if (m_shotAnimation.isActive()) {
+				doneAnimating = false;
+			}
 		}
 		
 		
@@ -91,20 +93,29 @@ public class CharacterDrawer {
 			
 			boolean isSpotted = !a_model.canSee(enemy).isEmpty();
 			
+			
+			VisualCharacter vchar = m_characters.get(enemy);
+			
 			//HAS THIS ENEMY HAS BEEN SEEN THIS ROUND?
 			if (isSpotted == false) {
 				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
 					//not seen at all this round...
 					continue;
 				}
+				
+				vchar.drawEnemyNotSpotted(drawable, camera, m_texture, m_enemiesSeenThisRound.get(enemy));
+				
 			} else {
 				//add it to the list of enemies seen this round
 				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
-					m_enemiesSeenThisRound.put(enemy, enemy.getPosition());
+					m_enemiesSeenThisRound.put(enemy, vchar.getInterpolatedModelPosition());
 				}
+				
+				vchar.drawEnemySpotted(drawable, camera, m_texture);
+				
 			}
-			VisualCharacter vchar = m_characters.get(enemy);
-			vchar.drawEnemy(drawable, camera, m_texture, isSpotted, m_enemiesSeenThisRound.get(enemy));
+			
+			
 			
 			
 			

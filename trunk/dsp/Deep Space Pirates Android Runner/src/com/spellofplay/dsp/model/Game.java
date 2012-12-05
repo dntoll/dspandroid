@@ -155,6 +155,16 @@ public class Game implements IMoveAndVisibility {
 			return false;
 		}
 		
+		return true;
+	}
+	
+	@Override
+	public boolean hasClearSight(Character cha1, Character cha2) {
+		
+		return hasClearSight(cha1.getPosition(), cha2.getPosition());
+		/*if (lineOfSight(cha1, cha2) == false)
+			return false;
+		
 		Line line = new Line(cha1.getPosition().toCenterTileVector(), cha2.getPosition().toCenterTileVector());
 		
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
@@ -171,6 +181,29 @@ public class Game implements IMoveAndVisibility {
 		if (enemies.blocks(line))
 			return false;
 		
+		return true;*/
+	}
+	
+	@Override
+	public boolean hasClearSight(ModelPosition from, ModelPosition to) {
+		if (lineOfSight(from, to) == false)
+			return false;
+		
+		Line line = new Line(from.toCenterTileVector(), to.toCenterTileVector());
+		
+		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
+		soldiers.remove(from);
+		soldiers.remove(to);
+		
+		if (soldiers.blocks(line))
+			return false;
+		
+		CharacterCollection<Enemy> enemies = getAliveEnemies();
+		enemies.remove(from);
+		enemies.remove(to);
+		
+		if (enemies.blocks(line))
+			return false;
 		
 		return true;
 	}
@@ -180,6 +213,10 @@ public class Game implements IMoveAndVisibility {
 		
 		return m_level.hasCoverFrom(target.getPosition(), attacker.getPosition().sub(target.getPosition()));
 	}
+
+	
+
+	
 
 		
 }

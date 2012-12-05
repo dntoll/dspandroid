@@ -53,7 +53,14 @@ public class AndroidDraw  {
 		m_path.setColor(Color.WHITE);
 		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
 		
+		
+		
 		Canvas c = new Canvas(m_background);
+		m_guiText.setColor(Color.BLACK);
+		
+		c.drawBitmap(m_background, 0, 0, m_guiText);
+		
+		m_path.setColor(Color.WHITE);
 		c.drawVertices(a_backgroundMeshBlocked.m_mode, 
 				a_backgroundMeshBlocked.GetVerticeCount(), a_backgroundMeshBlocked.m_verts, 0, 
 				a_backgroundMeshBlocked.m_texs, 0, 
