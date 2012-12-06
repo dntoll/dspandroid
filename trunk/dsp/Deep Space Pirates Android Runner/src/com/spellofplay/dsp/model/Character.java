@@ -112,19 +112,15 @@ public abstract class Character   {
 		
 		m_timeUnits -= getFireCost();
 		
-		//Determine success
+		
 		if (RuleBook.DetermineFireSuccess(this, fireTarget, moveAndVisibility.targetHasCover(this, fireTarget))) {
 			fireTarget.m_hitpoints -= getDamage();
-			
-			
 			a_listener.fireAt(this, fireTarget, true);
 			return true;
+		} else {
+			a_listener.fireAt(this, fireTarget, false);
+			return false;
 		}
-		a_listener.fireAt(this, fireTarget, false);
-		
-		
-		
-		return false;
 		
 	}
 
