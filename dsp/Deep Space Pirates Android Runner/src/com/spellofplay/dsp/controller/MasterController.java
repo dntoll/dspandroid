@@ -26,7 +26,7 @@ public class MasterController {
 		
 		Line.test();
 		
-		m_masterView = new MasterView(a_texture, a_player);
+		m_masterView = new MasterView(a_texture, a_player, m_model);
 		
 		m_game = new GameController(m_masterView);
 		m_input = a_input;
@@ -48,14 +48,7 @@ public class MasterController {
 		}
 		
 		if (m_showMenu) {
-			if (m_gui.DoButtonCentered(halfWidth, halfHeight, "New Game", m_input, false)) {
-				startNewGame();
-				m_showMenu = false;
-			}
-			if (m_gui.DoButtonCentered(halfWidth, halfHeight + SimpleGui.BUTTON_HEIGHT, "Continue", m_input, false)) {
-				m_showMenu = false;
-			}
-			if (m_gui.DoButtonCentered(halfWidth, halfHeight + SimpleGui.BUTTON_HEIGHT * 2, "Exit", m_input, false)) {
+			if (doMenu(halfWidth, halfHeight) == false) {
 				return false;
 			}
 			
@@ -87,6 +80,21 @@ public class MasterController {
 		
 		return true;
 	}
+
+		private boolean doMenu(int halfWidth, int halfHeight) {
+			if (m_gui.DoButtonCentered(halfWidth, halfHeight, "New Game", m_input, false)) {
+				startNewGame();
+				m_showMenu = false;
+			}
+			if (m_gui.DoButtonCentered(halfWidth, halfHeight + SimpleGui.BUTTON_HEIGHT, "Continue", m_input, false)) {
+				m_showMenu = false;
+			}
+			if (m_gui.DoButtonCentered(halfWidth, halfHeight + SimpleGui.BUTTON_HEIGHT * 2, "Exit", m_input, false)) {
+				return false;
+			}
+			
+			return true;
+		}
 	
 	
 	void startNewGame() {

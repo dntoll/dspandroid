@@ -141,7 +141,7 @@ public class Camera {
 		Vector2 direction = m_targetDisplacement.sub(m_displacement).toVector2();
 		
 		float distance = direction.length();
-		float speed = m_screenWidth * 3.0f;
+		float speed = distance;
 		float movementLength = speed * elapsedTimeSeconds;
 		
 		if (distance > movementLength) {
