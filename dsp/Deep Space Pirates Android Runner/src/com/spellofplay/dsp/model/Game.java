@@ -44,7 +44,7 @@ public class Game implements IMoveAndVisibility {
 		LevelGenerator gen = new LevelGenerator(a_level);
 		
 		gen.generate(m_level);
-		//m_level.loadLevel(a_level);
+
 		for (int i = 0; i < MAX_SOLDIERS; i++) {
 			if (m_soldiers[i] != null && m_level.getStartLocation(i) != null) {
 				m_soldiers[i].reset(m_level.getStartLocation(i));
@@ -54,7 +54,7 @@ public class Game implements IMoveAndVisibility {
 		}
 		
 		for (int i = 0; i < MAX_ENEMIES; i++) {
-			m_enemies[i] = m_level.getEnemy(i);
+			m_enemies[i] = new Enemy(m_level.getEnemyStartLocation(i));
 		}
 		
 	}
@@ -94,19 +94,17 @@ public class Game implements IMoveAndVisibility {
 	}
 	
 	private MultiMovementListeners getEnemyListeners() {
-		
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		return soldiers.getMovementListeners();
-		
-		
 	}
 
-	EnemyAI m_ai = new EnemyAI();
+	
 	public void updateEnemies(ICharacterListener clistener) {
 		CharacterCollection<Enemy> enemies = getAliveEnemies();
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		MultiMovementListeners multiListener= getEnemyListeners();
-		m_ai.think(enemies, soldiers, this, clistener, multiListener);
+		EnemyAI ai = new EnemyAI();
+		ai.think(enemies, soldiers, this, clistener, multiListener);
 	}
 
 	public void startNewSoldierRound() {
@@ -166,26 +164,7 @@ public class Game implements IMoveAndVisibility {
 	public boolean hasClearSight(Character cha1, Character cha2) {
 		
 		return hasClearSight(cha1.getPosition(), cha2.getPosition());
-		/*if (lineOfSight(cha1, cha2) == false)
-			return false;
 		
-		Line line = new Line(cha1.getPosition().toCenterTileVector(), cha2.getPosition().toCenterTileVector());
-		
-		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
-		soldiers.remove(cha1);
-		soldiers.remove(cha2);
-		
-		if (soldiers.blocks(line))
-			return false;
-		
-		CharacterCollection<Enemy> enemies = getAliveEnemies();
-		enemies.remove(cha1);
-		enemies.remove(cha2);
-		
-		if (enemies.blocks(line))
-			return false;
-		
-		return true;*/
 	}
 	
 	@Override

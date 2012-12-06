@@ -1,7 +1,5 @@
 package com.spellofplay.dsp.model;
 
-import com.spellofplay.dsp.model.levelgenerator.LevelGenerator;
-
 public class Level {
 
 	public static final int Height = 32;
@@ -41,9 +39,9 @@ public class Level {
 		return m_playerStartPositions[i];
 	}
 	
-	public Enemy getEnemy(int i) {
+	public ModelPosition getEnemyStartLocation(int i) {
 		if (m_enemyPositions[i] != null)
-			return new Enemy(m_enemyPositions[i]);
+			return m_enemyPositions[i];
 		return null;
 	}
 
