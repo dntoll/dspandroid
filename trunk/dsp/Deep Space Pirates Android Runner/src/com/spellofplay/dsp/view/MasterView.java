@@ -12,8 +12,8 @@ public class MasterView implements ICharacterListener {
 	private InteractionView m_actionView;
 	private Camera  m_camera = new Camera();
 
-	public MasterView(ITexture a_texture, ITexture a_player) {
-		m_view = new GameView(a_texture, a_player, m_camera);
+	public MasterView(ITexture a_texture, ITexture a_player, ModelFacade model) {
+		m_view = new GameView(a_texture, a_player, m_camera, model);
 		m_actionView = new InteractionView(m_camera);
 	}
 
@@ -35,11 +35,11 @@ public class MasterView implements ICharacterListener {
 		Soldier selected = m_actionView.getSelectedSoldier(model);
 		Enemy target = m_actionView.getFireTarget(model);
 		
-		m_view.drawMovementAndVisibilityHelp(drawable, model, selected);
+		m_view.drawMovementAndVisibilityHelp(drawable, selected);
 		m_actionView.drawMovementPath(drawable, model);
 
 		m_view.getCharacterDrawer().draw(drawable, model, selected, m_camera, target);
-		m_view.drawSightLines(drawable, model, selected);
+		m_view.drawSightLines(drawable, selected);
 		
 		m_actionView.Draw(drawable);
 		
@@ -53,7 +53,7 @@ public class MasterView implements ICharacterListener {
 	@Override
 	public void moveTo(Character character) {
 		m_view.moveTo(character);
-		m_camera.focusOn(character.getPosition());
+		
 		
 	}
 

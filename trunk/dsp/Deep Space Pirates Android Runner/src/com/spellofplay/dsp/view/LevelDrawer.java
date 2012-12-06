@@ -115,20 +115,13 @@ public class LevelDrawer {
 	}
 
 	//Visibility map
-	private int m_updateX = 0;
+	//private int m_updateX = 0;
 	private boolean[][] m_visibilityMap;
 	
-	public void startUpdateVisibility() {
-		m_updateX = 0;
-	}
-	
-	private void updateVisibility(ModelFacade a_model) {
-
+	void updateVisibility(ModelFacade a_model) {
 		CharacterCollection<Soldier> soldiers = a_model.getAliveSoldiers();
-		//for (int x = 0; x < Level.Width; x++) {
-		int x = m_updateX;
 		
-		if (x < Level.Width) {
+		for (int x = 0; x < Level.Width; x++) {
 			for (int y = 0; y < Level.Height; y++) {
 				for (Soldier s : soldiers) {
 					
@@ -144,13 +137,12 @@ public class LevelDrawer {
 					}
 				}
 			}
-			m_updateX++;
 		}
+		
 	}
 	
 	public void drawNotVisible(ModelFacade a_model, AndroidDraw drawable, Camera camera) {
-		updateVisibility(a_model);
-		updateVisibility(a_model);
+		
 		
 		for (int x = 0; x < Level.Width; x++) {
 			for (int y = 0; y < Level.Height; y++) {
@@ -197,44 +189,56 @@ public class LevelDrawer {
 							int travelCost = m_movementMap[x][y] + 1;
 							
 							//check the neighbours
-							for (int dx = -1; dx < 2; dx++) {
-								for (int dy = -1; dy < 2; dy++) { 
-									if (dx == 0 && dy == 0) {
-										continue;
-									}
-									//Stay inside level
-									if (x+dx >= Level.Width || y+dy >= Level.Height) {
-										continue;
-									}
-									if (x+dx < 0 || y+dy < 0) {
-										continue;
-									}
-									
-
-									if (a_checker.isMovePossible(new ModelPosition(x+dx, y+dy), false) == false) {
-										continue;
-									}
-									
-									//Diagonala moves
-									if (dx == dy || dx == -dy) {
-								        if (a_checker.isMovePossible(new ModelPosition(x + dx, y), false) == false)
-									        continue;
-								        if (a_checker.isMovePossible(new ModelPosition(x, y + dy), false) == false)
-									        continue;
-							        }
-									
-									//har vi redan en högre movementcost där ?
-									if (m_movementMap[x+dx][y+dy] > travelCost ) {
-										m_movementMap[x+dx][y+dy] = travelCost;
-										hasAddedNewNodes = true;
-									}
-								}
-							}
+							hasAddedNewNodes = checkTheNeighbours(a_checker,
+									hasAddedNewNodes, x, y, travelCost);
 						}
 					}
 				}
 			}
 		}
+	}
+	private boolean checkTheNeighbours(IMoveAndVisibility a_checker,
+			boolean hasAddedNewNodes, int x, int y, int travelCost) {
+		for (int dx = -1; dx < 2; dx++) {
+			for (int dy = -1; dy < 2; dy++) { 
+				if (validNeighbour(a_checker, x, y, dx, dy) == false)
+					continue;
+				
+				//har vi redan en högre movementcost där ?
+				if (m_movementMap[x+dx][y+dy] > travelCost ) {
+					m_movementMap[x+dx][y+dy] = travelCost;
+					hasAddedNewNodes = true;
+				}
+			}
+		}
+		return hasAddedNewNodes;
+	}
+	
+	private boolean validNeighbour(IMoveAndVisibility a_checker, int x, int y, int dx, int dy) {
+		if (dx == 0 && dy == 0) {
+			return false;
+		}
+		//Stay inside level
+		if (x+dx >= Level.Width || y+dy >= Level.Height) {
+			return false;
+		}
+		if (x+dx < 0 || y+dy < 0) {
+			return false;
+		}
+		
+
+		if (a_checker.isMovePossible(new ModelPosition(x+dx, y+dy), false) == false) {
+			return false;
+		}
+		
+		//Diagonala moves
+		if (dx == dy || dx == -dy) {
+	        if (a_checker.isMovePossible(new ModelPosition(x + dx, y), false) == false)
+	        	return false;
+	        if (a_checker.isMovePossible(new ModelPosition(x, y + dy), false) == false)
+	        	return false;
+        }
+		return true;
 	}
 	
 	
@@ -245,24 +249,26 @@ public class LevelDrawer {
 		
 		for (int x = 0; x < Level.Width; x++) {
 			for (int y = 0; y < Level.Height; y++) {
-				
-				
-				if (m_movementMap[x][y] <= selected.getTimeUnits()) {
-					ViewPosition vp = camera.toViewPos(x, y);
-					Rect dst = new Rect((int)vp.m_x - camera.getHalfScale(), 
-										(int)vp.m_y - camera.getHalfScale(),
-										(int)vp.m_x + camera.getHalfScale(), 
-										(int)vp.m_y + camera.getHalfScale());
-				
-				
-					if (m_movementMap[x][y] <= selected.getTimeUnits() - selected.getFireCost())	
-						drawable.drawRect(dst, Color.argb(48, 0, 255, 0));
-					else
-						drawable.drawRect(dst, Color.argb(32, 0, 255, 128));
-					
-					drawable.drawText("" + m_movementMap[x][y], (int)vp.m_x, (int)vp.m_y);
-				}
+				drawTileMoveHint(drawable, camera, selected, x, y);
 			}	
+		}
+	}
+	private void drawTileMoveHint(AndroidDraw drawable, Camera camera,
+			Soldier selected, int x, int y) {
+		if (m_movementMap[x][y] <= selected.getTimeUnits()) {
+			ViewPosition vp = camera.toViewPos(x, y);
+			Rect dst = new Rect((int)vp.m_x - camera.getHalfScale(), 
+								(int)vp.m_y - camera.getHalfScale(),
+								(int)vp.m_x + camera.getHalfScale(), 
+								(int)vp.m_y + camera.getHalfScale());
+		
+		
+			if (m_movementMap[x][y] <= selected.getTimeUnits() - selected.getFireCost())	
+				drawable.drawRect(dst, Color.argb(48, 0, 255, 0));
+			else
+				drawable.drawRect(dst, Color.argb(32, 0, 255, 128));
+			
+			drawable.drawText("" + m_movementMap[x][y], (int)vp.m_x, (int)vp.m_y);
 		}
 	}
 	

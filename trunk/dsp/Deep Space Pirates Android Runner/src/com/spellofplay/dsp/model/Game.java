@@ -3,6 +3,8 @@ package com.spellofplay.dsp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.spellofplay.dsp.model.levelgenerator.LevelGenerator;
+
 public class Game implements IMoveAndVisibility {
 
 	public static final int MAX_SOLDIERS = 3;
@@ -39,8 +41,10 @@ public class Game implements IMoveAndVisibility {
 			m_soldiers[i] = new Soldier(new ModelPosition(5,5));
 		}
 		
+		LevelGenerator gen = new LevelGenerator(a_level);
 		
-		m_level.loadLevel(a_level);
+		gen.generate(m_level);
+		//m_level.loadLevel(a_level);
 		for (int i = 0; i < MAX_SOLDIERS; i++) {
 			if (m_soldiers[i] != null && m_level.getStartLocation(i) != null) {
 				m_soldiers[i].reset(m_level.getStartLocation(i));

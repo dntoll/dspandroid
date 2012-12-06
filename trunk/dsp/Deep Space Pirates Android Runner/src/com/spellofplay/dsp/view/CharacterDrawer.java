@@ -78,7 +78,7 @@ public class CharacterDrawer {
 		
 
 		for (int i = 0; i< 3;i++) {
-			float delay = 0.2f * (float)i;
+			float delay = 0.2f * (float)i+ 0.01f;
 			if (didHit) {
 				m_shotAnimation.addHit(attackerPos, targetPos, rand, delay);
 			} else {

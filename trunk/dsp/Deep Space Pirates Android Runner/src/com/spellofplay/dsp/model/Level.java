@@ -26,66 +26,7 @@ public class Level {
 	}
 	
 
-	public void loadLevel(int a_level) {
-		
-		LevelGenerator gen = new LevelGenerator(a_level);
-		
-		gen.generate(this);
-		
-		/*String level =
-			        "XXXXXXXXXXXXXXXX" +
-					"XO123XXXXXXXXXXX" + 
-					"XOOOOXEOOOOOXXXX" +
-					"XOOPOXOOOOOOXXXX" +
-					"XOOOXXOXXXXOXXXX" +
-					"XOOOOOOOXOOOOOOX" +
-					"XOOOOOOECOOOOOOX" +
-					"XOOOOOOOX4OOOOOX" + 
-					"XXXXXXXXXXCOCXXX" +
-					"XOEEEOOOOOOOOOXX" +
-					"XOOOOOOOOOOOOOXX" +
-					"XOOOOOOOOOOOOOXX" +
-					"XOOOOOOOOOOOOOXX" +
-					"XXXXXXOOOXXXXXXX" + 
-					"XXXXXXOOOXXXXXXX" +
-					"XXXXXXOOOXXXXXXX" +
-					"XXXXXXOOOXXXXXXX" +
-					"XOOOOOOOOOOOOOXX" +
-					"XOOOOOOOOOOOOOXX" +
-					"XOOOOOOOOOOOOOXX" +
-					"XOOOOOOOOOOOOOXX" +
-					"XXXXXXXXXXXXXXXX" +
-					"XXXXXXXXXXXXXXXX" +
-					"XXXXXXXXXXXXXXXX";
-		
-		int enemy = 0;
-		
-		for (int y = 0; y < Height; y++) {
-			for (int x = 0; x < Width; x++) {
-			
-				int index = x + y * Width;
-				try {
-					char c = level.charAt(index);
-					switch (c) {
-						case 'X' : m_tiles[x][y] = TileType.TileWall; break;
-						case 'O' : m_tiles[x][y] = TileType.TileEmpty; break;
-						case 'P' : m_tiles[x][y] = TileType.TilePit; break;
-						case 'C' : m_tiles[x][y] = TileType.TileCover; break;
-						case 'E' : m_tiles[x][y] = TileType.TileEmpty;
-								   if (enemy < Game.MAX_ENEMIES) 
-									   m_enemyPositions[enemy] = new ModelPosition(x,y);
-								   enemy++;
-						default : m_tiles[x][y] = TileType.TileEmpty; break;
-					}
-					if (c >= '1' && c <= '0' + Game.MAX_SOLDIERS) {
-						m_playerStartPositions[c - '1'] = new ModelPosition(x, y);
-					}
-				} catch (StringIndexOutOfBoundsException e) {
-					
-				}
-			} 
-		}*/
-	}
+	
 	
 	public void addEnemy(ModelPosition modelPosition) {
 		
@@ -174,46 +115,80 @@ public class Level {
         dir.normalize();
 
         if (dir.m_x > 0.0f) {
-	        for (int x = (int)a_from.m_x+1; (float)x < a_to.m_x; x++) {
-		        float u = ((float)x - a_from.m_x) / dir.m_x;
-		        float y = a_from.m_y + dir.m_y * u;
-                if (isLosBlocked(x, y, 0.01f, 0.0f)) {
-                    return false;
-                }
-		
+        	
+	        if (stepNodesPositiveXDirection(a_from, a_to, dir) == false) {
+	        	return false;
 	        }
         } else if (dir.m_x < 0.0f) {
-	        for (int x = (int)a_from.m_x; (float)x > a_to.m_x; x--) {
-		        float u = ((float)x - a_from.m_x) / dir.m_x;
-		        float y = a_from.m_y + dir.m_y * u;
-                if (isLosBlocked(x, y, 0.01f, 0.0f)) {
-                    return false;
-                }
+        	if (stepNodesNegativeXDirection(a_from, a_to, dir) == false) {
+	        	return false;
 	        }
+	        
         }
 
         //y
         if (dir.m_y > 0.0f) {
-	        for (int y = (int)a_from.m_y+1; (float)y < a_to.m_y; y++) {
-		        float u = ((float)y - a_from.m_y) / dir.m_y;
-		        float x = a_from.m_x + dir.m_x * u;
-                if (isLosBlocked(x, y, 0.0f, 0.01f)) {
-                    return false;
-                }
-    			
+        	if (stepNodesPositiveYDirection(a_from, a_to, dir) == false) {
+	        	return false;
 	        }
         } else if (dir.m_y < 0.0f) {
-	        for (int y = (int)a_from.m_y; (float)y > a_to.m_y; y--) {
-		        float u = ((float)y - a_from.m_y) / dir.m_y;
-		        float x = a_from.m_x + dir.m_x * u;
-                if (isLosBlocked(x, y, 0.0f, 0.01f)) {
-                    return false;
-                }
+        	if (stepNodesNegativeYDirection(a_from, a_to, dir) == false) {
+	        	return false;
 	        }
         }
 
         return true;
     }
+
+	private boolean stepNodesNegativeYDirection(Vector2 a_from, Vector2 a_to,
+			Vector2 dir) {
+		for (int y = (int)a_from.m_y; (float)y > a_to.m_y; y--) {
+		    float u = ((float)y - a_from.m_y) / dir.m_y;
+		    float x = a_from.m_x + dir.m_x * u;
+		    if (isLosBlocked(x, y, 0.0f, 0.01f)) {
+		        return false;
+		    }
+		}
+		return true;
+	}
+
+	private boolean stepNodesPositiveYDirection(Vector2 a_from, Vector2 a_to,
+			Vector2 dir) {
+		for (int y = (int)a_from.m_y+1; (float)y < a_to.m_y; y++) {
+		    float u = ((float)y - a_from.m_y) / dir.m_y;
+		    float x = a_from.m_x + dir.m_x * u;
+		    if (isLosBlocked(x, y, 0.0f, 0.01f)) {
+		        return false;
+		    }
+		}
+		return true;
+	}
+
+	private boolean stepNodesNegativeXDirection(Vector2 a_from, Vector2 a_to,
+			Vector2 dir) {
+		for (int x = (int)a_from.m_x; (float)x > a_to.m_x; x--) {
+		    float u = ((float)x - a_from.m_x) / dir.m_x;
+		    float y = a_from.m_y + dir.m_y * u;
+		    if (isLosBlocked(x, y, 0.01f, 0.0f)) {
+		        return false;
+		    }
+		}
+		return true;
+	}
+
+	private boolean stepNodesPositiveXDirection(Vector2 a_from, Vector2 a_to,
+			Vector2 dir) {
+		for (int x = (int)a_from.m_x+1; (float)x < a_to.m_x; x++) {
+		    float u = ((float)x - a_from.m_x) / dir.m_x;
+		    float y = a_from.m_y + dir.m_y * u;
+		    if (isLosBlocked(x, y, 0.01f, 0.0f)) {
+		        return false;
+		    }
+
+		}
+		
+		return true;
+	}
 
 	public boolean hasCoverFrom(ModelPosition position, Vector2 sub) {
 		

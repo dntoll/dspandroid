@@ -26,14 +26,16 @@ public class GameView implements ICharacterListener {
 	
 	
 	ITexture m_texture;
+	private ModelFacade model;
 	
 	
 	
-	public GameView(ITexture a_texture, ITexture a_player, Camera camera) {
+	public GameView(ITexture a_texture, ITexture a_player, Camera camera, ModelFacade model) {
 		m_level = new LevelDrawer(a_texture);
 		setM_characterDrawer(new CharacterDrawer(a_texture, a_player));
 		m_texture = a_texture;
 		m_camera = camera;
+		this.model = model;
 		
 	}
 	
@@ -41,23 +43,23 @@ public class GameView implements ICharacterListener {
 	
 
 
-	public void drawMovementAndVisibilityHelp(AndroidDraw drawable, ModelFacade a_model, Soldier selected) {
+	public void drawMovementAndVisibilityHelp(AndroidDraw drawable, Soldier selected) {
 		
-		m_level.drawPossibleMoveArea(a_model.getMovePossible(), drawable, m_camera, selected);
-		m_level.drawNotVisible(a_model, drawable, m_camera);
+		m_level.drawPossibleMoveArea(model.getMovePossible(), drawable, m_camera, selected);
+		m_level.drawNotVisible(model, drawable, m_camera);
 	}
 
 
-	public void drawSightLines(AndroidDraw drawable, ModelFacade a_model, Soldier selected) {
-		for (Enemy enemy : a_model.getAliveEnemies()) {
-			CharacterCollection<Soldier> soldiersWhoSpotsEnemy = a_model.canSee(enemy);
-			CharacterCollection<Soldier> canShootEnemy = soldiersWhoSpotsEnemy.canShoot(enemy, a_model.getMovePossible());
+	public void drawSightLines(AndroidDraw drawable, Soldier selected) {
+		for (Enemy enemy : model.getAliveEnemies()) {
+			CharacterCollection<Soldier> soldiersWhoSpotsEnemy = model.canSee(enemy);
+			CharacterCollection<Soldier> canShootEnemy = soldiersWhoSpotsEnemy.canShoot(enemy, model.getMovePossible());
 			
 			for(Soldier s : canShootEnemy) {
 
 				ViewPosition vsPos = getCharacterDrawer().getVisualPosition(s, m_camera);
 				ViewPosition vEpos = getCharacterDrawer().getVisualPosition(enemy, m_camera);
-				boolean hasCover = a_model.getMovePossible().targetHasCover(s, enemy);
+				boolean hasCover = model.getMovePossible().targetHasCover(s, enemy);
 				
 				drawable.drawLine(vEpos, vsPos, hasCover ? Color.LTGRAY : Color.WHITE);
 				
@@ -88,19 +90,21 @@ public class GameView implements ICharacterListener {
 		getCharacterDrawer().startNewRound();
 	}
 	
-	public void startNewGame(ModelFacade a_model) {
+	public void startNewGame(ModelFacade model) {
 		hasInitatedBuffer = false;
 		
-		m_level.startUpdateVisibility();
+		m_level.updateVisibility(model);
 		
-		getCharacterDrawer().startNewGame(a_model);
+		getCharacterDrawer().startNewGame(model);
 	}
 
 	@Override
 	public void moveTo(Character character) {
-		m_level.startUpdateVisibility();
+		m_level.updateVisibility(model);
 		
 		getCharacterDrawer().moveTo(character);
+		
+		m_camera.focusOn(character.getPosition());
 		
 	}
 

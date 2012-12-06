@@ -191,62 +191,7 @@ public class AStar {
 		        for (int x = -1; x <= 1; x++) {
     			
 
-			        if (x == 0 && y == 0) 
-				        continue;
-
-			        // handle diagonal, should be like this in dungeon but not on trail...
-			        // on trail diagonal is ok 
-			        if (x == y || x == -y) {
-				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y), m_canMoveThroughObstacles) == false)
-					        continue;
-				        if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x, pNode.m_node.m_y + y), m_canMoveThroughObstacles) == false)
-					        continue;
-			        }
-
-
-                    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y + y), m_canMoveThroughObstacles) == true)
-                    {
-				        Node NewNode = new Node();
-				        
-				        
-				        NewNode.m_parent = null;
-				        NewNode.m_node.m_x = pNode.m_node.m_x + x;
-				        NewNode.m_node.m_y = pNode.m_node.m_y + y;
-
-				        //Kostnaden för att gå från start till barnnoden
-				        float dNewCost = pNode.m_nCostFromstart + TraverseCost(pNode.m_node, NewNode.m_node);
-
-				        //Är den nya kostnaden bättre än någon vi hittat förut till barnnoden?
-				        boolean bImprovment = IsImprovment(NewNode, dNewCost);
-    					
-				        //Om den finns i köerna och inte är en förbättring slänger vi den...
-				        if (!bImprovment && (ExistInOpen(NewNode.m_node) || ExistInClosed(NewNode.m_node))) {
-					        continue;
-				        } else {
-					        m_nVisitedNodes++;
-
-					        //Vilken väg tog vi för att komma till noden
-					        NewNode.m_parent = pNode;
-					        //NewNode.m_pNode->setParentNode(node.m_pNode);
-					        NewNode.m_nCostFromstart = dNewCost;
-
-					        //Estimera kostnaden till målet
-					        NewNode.m_nCostToGoal = TraverseCost(NewNode.m_node, m_end) * m_heuristicsModifier;
-    						
-					        //om den fanns i closed plocka upp den igen...
-					        //ta bort den ur closed
-					        //if (ExistInClosed(NewNode.m_node)) {
-						    removeFromClosed(NewNode);
-					        //}
-					        //om den fanns i open plocka upp den igen...
-					        //ta bort den ur closed
-					        //if (ExistInOpen( NewNode.m_node)) {
-						    removeFromOpen(NewNode);
-					        //}
-					        //och lägg den längst bak i open
-					        m_listOpen.add(NewNode);
-				        }
-			        }
+			        visitNeighbours(pNode, y, x);
 		        }
 	        }
 	        
@@ -262,6 +207,74 @@ public class AStar {
         m_listClosed.add(pNode);
         return SearchResult.SearchNotDone;
     }
+
+	private void visitNeighbours(Node pNode, int y, int x) {
+		if (x == 0 && y == 0)
+			return;
+
+		if ( canMoveDiagonal(pNode, y, x) == false) {
+			return;
+		}
+
+
+		if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y + y), m_canMoveThroughObstacles) == true)
+		{
+		    Node NewNode = new Node();
+		    
+		    
+		    NewNode.m_parent = null;
+		    NewNode.m_node.m_x = pNode.m_node.m_x + x;
+		    NewNode.m_node.m_y = pNode.m_node.m_y + y;
+
+		    //Kostnaden för att gå från start till barnnoden
+		    float dNewCost = pNode.m_nCostFromstart + TraverseCost(pNode.m_node, NewNode.m_node);
+
+		    //Är den nya kostnaden bättre än någon vi hittat förut till barnnoden?
+		    boolean bImprovment = IsImprovment(NewNode, dNewCost);
+			
+		    //Om den finns i köerna och inte är en förbättring slänger vi den...
+		    if (!bImprovment && (ExistInOpen(NewNode.m_node) || ExistInClosed(NewNode.m_node))) {
+		        return;
+		    } else {
+		        visitNode(pNode, NewNode, dNewCost);
+		    }
+		}
+	}
+
+	private boolean canMoveDiagonal(Node pNode, int y, int x) {
+		if (x == y || x == -y) {
+		    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y), m_canMoveThroughObstacles) == false)
+				return false;
+		    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x, pNode.m_node.m_y + y), m_canMoveThroughObstacles) == false)
+				return false;
+		}
+		return true;
+	}
+
+	private void visitNode(Node pNode, Node NewNode, float dNewCost) {
+		m_nVisitedNodes++;
+
+		//Vilken väg tog vi för att komma till noden
+		NewNode.m_parent = pNode;
+		//NewNode.m_pNode->setParentNode(node.m_pNode);
+		NewNode.m_nCostFromstart = dNewCost;
+
+		//Estimera kostnaden till målet
+		NewNode.m_nCostToGoal = TraverseCost(NewNode.m_node, m_end) * m_heuristicsModifier;
+		
+		//om den fanns i closed plocka upp den igen...
+		//ta bort den ur closed
+		//if (ExistInClosed(NewNode.m_node)) {
+		removeFromClosed(NewNode);
+		//}
+		//om den fanns i open plocka upp den igen...
+		//ta bort den ur closed
+		//if (ExistInOpen( NewNode.m_node)) {
+		removeFromOpen(NewNode);
+		//}
+		//och lägg den längst bak i open
+		m_listOpen.add(NewNode);
+	}
 
 	
 

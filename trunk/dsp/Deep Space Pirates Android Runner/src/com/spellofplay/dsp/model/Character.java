@@ -142,6 +142,7 @@ public abstract class Character   {
 
 	public void watchMovement(Character mover,
 			IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
+		
 		if (RuleBook.canFireAt(this, mover, moveAndVisibility) == true) {
 			fireAt(mover, moveAndVisibility, a_listener);
 		}
