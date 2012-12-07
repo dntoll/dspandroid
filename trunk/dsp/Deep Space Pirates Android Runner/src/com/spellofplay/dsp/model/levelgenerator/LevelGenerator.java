@@ -27,10 +27,38 @@ public class LevelGenerator {
 		Room room = createStartRoom(level);
 		
 		createConnectedRoom(room, level);
+		
+		
+		createWindows(level);
+	}
+
+	private void createWindows(Level level) {
+		
+		for (int x = 0; x < Level.Width; x++) {
+			for (int y = 0; y < Level.Height; y++) {
+				if (level.isWallAndHasTwoClearSides(x,y) ) {
+					addExtraDoorsAndWindows(level, x, y);
+				}
+			}
+		}
+	}
+
+	public void addExtraDoorsAndWindows(Level level, int x, int y) {
+		switch (random.nextInt(6)) 
+		{
+			case 0:
+			case 1:
+				level.m_tiles[x][y] = TileType.TileCover;
+				break;
+			case 2:
+				level.m_tiles[x][y] = TileType.TileEmpty;
+				break;
+			
+		}
 	}
 
 	int minimumRoomSize = 3;
-	int maxRoomSize = 7;
+	int maxRoomSize = 9;
 	
 	private void createConnectedRoom(Room parent, Level level) {
 		switch (random.nextInt(4)) {
@@ -160,8 +188,11 @@ public class LevelGenerator {
 		
 		Room ret = new Room(upperLeftCorner, size, random);
 		if (ret.addRoom(level)) {
-			ret.addEnemies(level);
+			
+			ret.addDecorations(level);
 			ret.addDoor(parent, level);
+			
+			ret.addEnemies(level);
 			
 			createConnectedRoom(ret, level);
 		}

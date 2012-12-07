@@ -3,6 +3,7 @@ package com.spellofplay.dsp.model;
 public class Soldier extends Character {
 
 	
+	
 	public Soldier(ModelPosition startPosition) {
 		super(startPosition, 7);
 	}
@@ -20,4 +21,7 @@ public class Soldier extends Character {
 	public float getRange() {
 		return 12.0f;
 	}
+
+
+	
 }

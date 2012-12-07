@@ -4,12 +4,11 @@ import android.graphics.Point;
 
 import com.spellofplay.dsp.model.Level;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.model.Vector2;
 
 public class Camera {
 
-	private static final int m_scale = 32;
+	private static final int m_scale = 64;
 	
 	
 	public int m_screenWidth;

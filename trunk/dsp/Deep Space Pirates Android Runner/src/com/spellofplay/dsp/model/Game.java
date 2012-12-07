@@ -1,6 +1,7 @@
 package com.spellofplay.dsp.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.spellofplay.dsp.model.levelgenerator.LevelGenerator;
@@ -45,17 +46,25 @@ public class Game implements IMoveAndVisibility {
 		
 		gen.generate(m_level);
 
-		for (int i = 0; i < MAX_SOLDIERS; i++) {
-			if (m_soldiers[i] != null && m_level.getStartLocation(i) != null) {
-				m_soldiers[i].reset(m_level.getStartLocation(i));
-			} else {
-				m_soldiers[i] = null;
+		try {
+			for (int i = 0; i < MAX_SOLDIERS; i++) {
+				if (m_soldiers[i] != null) {
+					m_soldiers[i].reset(m_level.getStartLocation(i));
+				} else {
+					m_soldiers[i] = null;
+				}
 			}
+		} catch (LevelHasToFewSoldierPositions e) {
+			
 		}
 		
-		for (int i = 0; i < MAX_ENEMIES; i++) {
-			m_enemies[i] = new Enemy(m_level.getEnemyStartLocation(i));
-		}
+		try {
+			for (int i = 0; i < MAX_ENEMIES; i++) {
+				m_enemies[i] = new Enemy(m_level.getEnemyStartLocation(i));
+			}
+		} catch (LevelHasToFewEnemiesException e) {
+			
+		} 
 		
 	}
 
@@ -71,20 +80,38 @@ public class Game implements IMoveAndVisibility {
 		MultiMovementListeners multiListener= getSoldierListeners();
 		
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
+		
+		
 		for (Soldier s : soldiers) {
-			s.search();
+			s.getPathFinder().search();
+
+			
 			s.move(clistener, multiListener, this);
+			
 		}
 
-		updateEnemySights(this);
+		updateEnemySights();
+		updateSoldierSights();
 	}
 	
+	SoldierMemory m_soldierMemory = new SoldierMemory();
 	
-	private void updateEnemySights(IMoveAndVisibility moveAndVisibility) {
+	private void updateSoldierSights() {
+		CharacterCollection<Enemy> enemies = getAliveEnemies();
+		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
+		if (m_soldierMemory.seeNewEnemies(soldiers, enemies, this) )
+		{
+			soldiers.stopAllMovement();
+			m_soldierMemory.updateSights(soldiers, enemies, this);
+		}
+		
+	}
+
+	private void updateEnemySights() {
 		CharacterCollection<Enemy> enemies = getAliveEnemies();
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		for (Enemy enemy : enemies) {
-			enemy.updateSights(soldiers, moveAndVisibility);
+			enemy.updateSights(soldiers, this);
 		}
 	}
 

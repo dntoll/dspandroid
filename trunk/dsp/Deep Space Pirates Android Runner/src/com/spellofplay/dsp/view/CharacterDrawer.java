@@ -33,6 +33,7 @@ public class CharacterDrawer {
 	public void startNewGame(ModelFacade a_model) {
 		m_characters.clear();
 		
+	
 		CharacterCollection<Soldier> soldiers = a_model.getAliveSoldiers(); 
 		for (Soldier soldier : soldiers) {
 			m_characters.put(soldier, new VisualCharacter(soldier));
@@ -41,6 +42,7 @@ public class CharacterDrawer {
 		for (Enemy enemy : a_model.getAliveEnemies()) {
 			m_characters.put(enemy, new VisualCharacter(enemy));
 		}
+		
 		m_shotAnimation.removeAnimations();
 	}
 	
