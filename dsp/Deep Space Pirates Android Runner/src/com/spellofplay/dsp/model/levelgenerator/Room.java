@@ -59,8 +59,12 @@ public class Room {
 		
 		int numEnemies = random.nextInt(3);
 		for (int i = 0; i< numEnemies; i++) {
+
+			int x = upperLeftCorner.m_x + i+1;
+			int y = upperLeftCorner.m_y+1;
 			
-			level.addEnemy(new ModelPosition(upperLeftCorner.m_x + i+1, upperLeftCorner.m_y+1));
+			if (level.GetTile(x, y) == TileType.TileEmpty)
+				level.addEnemy(new ModelPosition(x, y));
 			
 		}
 	}

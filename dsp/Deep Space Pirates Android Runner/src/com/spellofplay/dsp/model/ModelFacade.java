@@ -72,7 +72,8 @@ public class ModelFacade {
 	}
 
 	public boolean playerHasWon() {
-		return m_game.getAliveEnemies().size() == 0 && m_game.getAliveSoldiers().size() > 0;
+		return m_game.getAliveEnemies().size() == 0 && 
+			   m_game.getAliveSoldiers().size() > 0;
 	}
 
 

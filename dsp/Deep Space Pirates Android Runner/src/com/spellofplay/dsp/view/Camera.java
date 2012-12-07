@@ -8,12 +8,13 @@ import com.spellofplay.dsp.model.Vector2;
 
 public class Camera {
 
-	private static final int m_scale = 64;
-	
-	
 	public int m_screenWidth;
 	public int m_screenHeight;
 	public ViewPosition m_displacement = new ViewPosition(0,0);
+	
+	private static final int m_scale = 64;
+	private boolean m_isScrolling = false;
+	private Point m_scrollStartPos = new Point();
 	
 	public ViewPosition m_targetDisplacement = new ViewPosition(0,0);
 	
@@ -33,9 +34,6 @@ public class Camera {
 	}
 	
 	public ViewPosition toViewPos(ModelPosition modelPos) {
-		
-		
-		
 		return new ViewPosition(modelPos.m_x * m_scale + m_displacement.m_x,
 								modelPos.m_y * m_scale + m_displacement.m_y);
 	}
@@ -51,7 +49,6 @@ public class Camera {
 	}
 
 	public float toViewScale(float modelDistance) {
-		// TODO Auto-generated method stub
 		return modelDistance * m_scale;
 	}
 
@@ -71,8 +68,7 @@ public class Camera {
 	}
 
 	
-	boolean m_isScrolling = false;
-    Point m_scrollStartPos = new Point();
+	
 	public void DoScroll(int screenWidth, int screenHeight, int a_dragX, int a_dragY) {
 		if (m_isScrolling == false) {
 			m_isScrolling = true;
@@ -93,11 +89,9 @@ public class Camera {
 
 	private void displacementWithinLevel() {
 		int levelVisualWidth = m_scale * (Level.Width);
-		//Om skärmens bredd är större än banan
 		if (m_screenWidth >= levelVisualWidth)
 			m_displacement.m_x = 0;
 		else {
-			//banan är bredare än skärmen
 			int maxDisplacement = levelVisualWidth - m_screenWidth; 
 			if ( m_displacement.m_x > 0)
 				m_displacement.m_x = 0;
@@ -106,11 +100,9 @@ public class Camera {
 		}
 		
 		int levelVisualHeight = m_scale * (Level.Height);
-		//Om skärmens bredd är större än banan
 		if (m_screenHeight >= levelVisualHeight)
 			m_displacement.m_y = 0;
 		else {
-			//banan är bredare än skärmen
 			int maxDisplacement = levelVisualHeight - m_screenHeight; 
 			if ( m_displacement.m_y > 0)
 				m_displacement.m_y = 0;

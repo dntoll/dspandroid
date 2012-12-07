@@ -70,8 +70,8 @@ public class MasterView implements ICharacterListener {
 	}
 
 	@Override
-	public void enemyAILog(String string) {
-		m_view.enemyAILog(string);
+	public void enemyAILog(String string, Enemy enemy) {
+		m_view.enemyAILog(string, enemy);
 	}
 
 	public InteractionView getInteractionView() {

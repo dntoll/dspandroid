@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.spellofplay.dsp.model.Character;
+import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ICharacterListener;
 
 import android.graphics.Color;
@@ -56,8 +57,8 @@ public class LogView implements ICharacterListener {
 	}
 
 	@Override
-	public void enemyAILog(String string) {
+	public void enemyAILog(String string, Enemy enemy) {
 		m_logMessage = string;
-		m_log.add(string );
+		m_log.add(string + enemy.getPosition().m_x + ":" + enemy.getPosition().m_y );
 	}
 }

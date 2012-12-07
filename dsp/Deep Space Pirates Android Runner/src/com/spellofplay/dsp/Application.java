@@ -96,13 +96,8 @@ public class Application extends View   implements IUpdateable {
 	}
 	
 	public void update() {
-		
-		
-        
-        
 		invalidate();
     	m_sleepHandler.sleep(this, 10);
-    	
 	}
 	
 	@Override

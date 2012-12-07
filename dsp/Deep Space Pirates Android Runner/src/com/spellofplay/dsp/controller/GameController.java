@@ -45,7 +45,7 @@ public class GameController {
 	}
 	
 
-	public void startNewSoldierRound(AndroidDraw drawable, ModelFacade a_model, float elapsedTimeSeconds) {
+	private void startNewSoldierRound(AndroidDraw drawable, ModelFacade a_model, float elapsedTimeSeconds) {
 		a_model.startNewSoldierRound();
 		m_masterView.startNewRound();
 		
@@ -55,7 +55,7 @@ public class GameController {
 
 
 
-	public void updateSoldiers(AndroidDraw drawable, ModelFacade a_model, Input a_input, float elapsedTimeSeconds, MultiCharacterListener mcl) {
+	private void updateSoldiers(AndroidDraw drawable, ModelFacade a_model, Input a_input, float elapsedTimeSeconds, MultiCharacterListener mcl) {
 		
 		doInteractWithSoldiers(drawable, a_model, a_input, elapsedTimeSeconds, mcl);
 		
@@ -67,7 +67,7 @@ public class GameController {
 
 
 
-	public void updateEnemies(AndroidDraw drawable, ModelFacade a_model, float elapsedTimeSeconds, MultiCharacterListener mcl) {
+	private void updateEnemies(AndroidDraw drawable, ModelFacade a_model, float elapsedTimeSeconds, MultiCharacterListener mcl) {
 		if (m_masterView.updateAnimations(a_model, elapsedTimeSeconds)) {
 			a_model.updateEnemies(mcl);
 		}
@@ -85,29 +85,20 @@ public class GameController {
 										MultiCharacterListener a_mcl) {
 		
 		InteractionView actionView = m_masterView.getInteractionView();
-		
 		actionView.setupInput(a_input, a_model, drawable.getWindowWidth(), drawable.getWindowHeight());
 		
 		Soldier selectedSoldier = actionView.getSelectedSoldier(a_model);
 		
 		if (selectedSoldier != null) {
 			if (actionView.userWantsToMove()) {
-				//Everything that can be done with selected target
 				ModelPosition destination = actionView.getDestination(a_model);
-				
 				if (destination != null) {
-					
 					a_model.doMoveTo(selectedSoldier, destination);
 					actionView.unselectPath();
 				}
-			} 
-			
-			if (actionView.userWantsToWatch()){
+			} else if (actionView.userWantsToWatch()){
 				a_model.doWatch(selectedSoldier);
-			}
-			
-			
-			if (actionView.userWantsToFire()){ 
+			} else if (actionView.userWantsToFire()){ 
 				Enemy fireTarget = actionView.getFireTarget(a_model);
 				
 				if (fireTarget != null) {
