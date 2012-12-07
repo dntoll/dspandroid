@@ -1,7 +1,5 @@
 package com.spellofplay.dsp.view;
 
-import java.util.List;
-
 import android.graphics.Color;
 
 import com.spellofplay.common.view.Input;

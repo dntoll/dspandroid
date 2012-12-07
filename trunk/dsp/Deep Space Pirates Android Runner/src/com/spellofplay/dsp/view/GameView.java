@@ -1,7 +1,6 @@
 package com.spellofplay.dsp.view;
 
 
-import java.util.List;
 import android.graphics.Color;
 import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ICharacterListener;
@@ -14,29 +13,20 @@ import com.spellofplay.dsp.model.Vector2;
 
 
 public class GameView implements ICharacterListener {
-
-	
-	
-	LevelDrawer m_level;
+	private LevelDrawer m_level;
+	private MovementMapView m_movement = new MovementMapView();
+	private VisibilityView m_visibility;
 	private CharacterDrawer m_characterDrawer;
-	
-	boolean hasInitatedBuffer = false;
-	Camera  m_camera;
-	
-	
-	
-	ITexture m_texture;
+	private boolean hasInitatedBuffer = false;
+	private Camera  m_camera;
 	private ModelFacade model;
-	
-	
 	
 	public GameView(ITexture a_texture, ITexture a_player, Camera camera, ModelFacade model) {
 		m_level = new LevelDrawer(a_texture);
 		setM_characterDrawer(new CharacterDrawer(a_texture, a_player));
-		m_texture = a_texture;
 		m_camera = camera;
 		this.model = model;
-		
+		m_visibility = new VisibilityView();
 	}
 	
 	
@@ -45,15 +35,15 @@ public class GameView implements ICharacterListener {
 
 	public void drawMovementAndVisibilityHelp(AndroidDraw drawable, Soldier selected) {
 		
-		m_level.drawPossibleMoveArea(model.getMovePossible(), drawable, m_camera, selected);
-		m_level.drawNotVisible(model, drawable, m_camera);
+		m_movement.drawPossibleMoveArea(model.getMovePossible(), drawable, m_camera, selected);
+		m_visibility.drawNotVisible(model, drawable, m_camera);
 	}
 
 
 	public void drawSightLines(AndroidDraw drawable, Soldier selected) {
 		for (Enemy enemy : model.getAliveEnemies()) {
 			CharacterCollection<Soldier> soldiersWhoSpotsEnemy = model.canSee(enemy);
-			CharacterCollection<Soldier> canShootEnemy = soldiersWhoSpotsEnemy.canShoot(enemy, model.getMovePossible());
+			CharacterCollection<Soldier> canShootEnemy = soldiersWhoSpotsEnemy.couldShootIfHadTime(enemy, model.getMovePossible());
 			
 			for(Soldier s : canShootEnemy) {
 
@@ -78,9 +68,8 @@ public class GameView implements ICharacterListener {
 	}
 
 	public void redrawLevelBuffer(AndroidDraw drawable, ModelFacade a_model) {
-		if (hasInitatedBuffer == false) 
-		{
-			m_level.draw(a_model.getLevel(), drawable, m_camera);
+		if (hasInitatedBuffer == false) {
+			m_level.drawToBuffer(a_model.getLevel(), drawable, m_camera);
 			hasInitatedBuffer = true;
 		}
 	}
@@ -92,32 +81,27 @@ public class GameView implements ICharacterListener {
 	
 	public void startNewGame(ModelFacade model) {
 		hasInitatedBuffer = false;
-		
-		m_level.updateVisibility(model);
-		
+		m_visibility.clear();
+		m_visibility.updateVisibility(model);
 		getCharacterDrawer().startNewGame(model);
 	}
 
 	@Override
 	public void moveTo(Character character) {
-		m_level.updateVisibility(model);
-		
+		m_visibility.updateVisibility(model);
 		getCharacterDrawer().moveTo(character);
-		
 		m_camera.focusOn(character.getPosition());
-		
+		m_movement.update();
 	}
 
 	@Override
 	public void cannotFireAt(Character character, Character fireTarget) {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
 	public void enemyAILog(String string, Enemy enemy) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -125,7 +109,7 @@ public class GameView implements ICharacterListener {
 	@Override
 	public void fireAt(Character attacker, Character fireTarget, boolean didHit) {
 		getCharacterDrawer().fireAt(attacker, fireTarget, didHit);
-		
+		m_movement.update();
 	}
 
 

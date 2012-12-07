@@ -45,7 +45,6 @@ public class Level {
 	}
 
 	public boolean canMove(ModelPosition a_to) {
-		
 		if (GetTile(a_to.m_x, a_to.m_y) == TileType.TileEmpty) {
 			return true;
 		} else {
@@ -66,8 +65,7 @@ public class Level {
 		return false;
 	}
 	
-	 private boolean isLosBlocked(float a_x, float a_y, float a_dx, float a_dy)
-     {
+	 private boolean isLosBlocked(float a_x, float a_y, float a_dx, float a_dy) {
          if (isClear(new ModelPosition((int)a_x, (int)a_y)) == false)
          {
              return true;
