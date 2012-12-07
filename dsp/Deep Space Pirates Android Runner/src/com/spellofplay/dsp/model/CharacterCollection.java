@@ -125,11 +125,11 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 
 
 
-	public CharacterCollection<T> canShoot(Character enemy, IMoveAndVisibility a_moveAndVisibility) {
+	public CharacterCollection<T> couldShootIfHadTime(Character enemy, IMoveAndVisibility a_moveAndVisibility) {
 		List<T> soldiersThatCanSee = new ArrayList<T>();
 		for(T soldier : characters) {
 			
-			if (RuleBook.canFireAt(soldier, enemy, a_moveAndVisibility)) {
+			if (RuleBook.couldFireIfHadTime(soldier, enemy, a_moveAndVisibility)) {
 				soldiersThatCanSee.add(soldier);
 			}
 		}

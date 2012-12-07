@@ -148,6 +148,11 @@ public class AndroidDraw  {
 		
 	}
 
+	public void drawBlack(Rect dst) {
+		m_guiText.setColor(Color.argb(255, 0, 0, 0));
+		m_drawTarget.drawRect(dst, m_guiText);
+	}
+
 	
 
 	

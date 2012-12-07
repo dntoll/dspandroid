@@ -12,7 +12,7 @@ public class Camera {
 	public int m_screenHeight;
 	public ViewPosition m_displacement = new ViewPosition(0,0);
 	
-	private static final int m_scale = 64;
+	private static final int m_scale = 32;
 	private boolean m_isScrolling = false;
 	private Point m_scrollStartPos = new Point();
 	
@@ -74,6 +74,8 @@ public class Camera {
 			m_isScrolling = true;
 			m_scrollStartPos.x = (int)m_displacement.m_x;
 			m_scrollStartPos.y = (int)m_displacement.m_y;
+			m_targetDisplacement.m_x = m_displacement.m_x;
+			m_targetDisplacement.m_y = m_displacement.m_y;
 		} else {
 			m_displacement.m_x = m_scrollStartPos.x + a_dragX;
 			m_displacement.m_y = m_scrollStartPos.y + a_dragY;
