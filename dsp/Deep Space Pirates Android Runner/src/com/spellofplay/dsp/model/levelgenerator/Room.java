@@ -72,9 +72,9 @@ public class Room {
 			return;
 		int doorat = random.nextInt(connections.size());
 		ModelPosition door = connections.get(doorat);
-		
-			
 		level.m_tiles[door.m_x][door.m_y] = TileType.TileEmpty;
+		
+		
 	}
 
 	private List<ModelPosition> getConnections(Room parent) {
@@ -111,6 +111,23 @@ public class Room {
 
 	private boolean insideX(int x) {
 		return x >= upperLeftCorner.m_x && x < upperLeftCorner.m_x + sizes.m_x;
+	}
+
+	public void addDecorations(Level level) {
+		TileType type = TileType.TileEmpty;
+		switch (random.nextInt(3)) {
+			case 0 : type = TileType.TileCover; break;
+			case 1 : type = TileType.TileWall; break;
+			case 2 : type = TileType.TilePit; break;
+			
+		}
+		
+		
+		for (int x = upperLeftCorner.m_x+2; x < upperLeftCorner.m_x + sizes.m_x-2; x++) {
+			for (int y = upperLeftCorner.m_y+2; y <= getBottom()-2; y++) {
+				level.m_tiles[x][y] = type;
+			}	
+		}
 	}
 
 	

@@ -51,10 +51,6 @@ public class Enemy extends Character{
 		return m_memory.getClosestSoldierSpotted();
 	}
 
-	
-
-	
-
 	public void removeTimeUnit() {
 		m_timeUnits--;
 		
@@ -72,27 +68,10 @@ public class Enemy extends Character{
 	public float getRange() {
 		return 6.0f;
 	}
+
 	
 	
-	public void stopMoving() {
-		m_pathFinder = null;
-	}
 	
-	public boolean isDoingSomething() {
-		return m_pathFinder != null;
-	}
-
-	public boolean isSearching() {
-		return m_pathFinder != null && m_pathFinder.isSearching();
-		
-	}
-
-	public boolean isMoving() {
-		return m_pathFinder != null && m_pathFinder.m_path.size() > 0;
-	}
-
-	public boolean didSearchFail() {
-		return m_pathFinder != null && m_pathFinder.didSearchFail();
-	}
+	
 
 }

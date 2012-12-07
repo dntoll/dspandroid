@@ -9,26 +9,25 @@ public class EnemyAI {
 		
 		for (Enemy enemy : enemies) {
 			
+			PathFinder pathFinder = enemy.getPathFinder();
+			
 			if (enemy.getTimeUnits() > 0) {
-				if (enemy.isSearching() ) {
-					enemy.search();
+				if (pathFinder.isSearching() ) {
+					pathFinder.search();
 					a_clistener.enemyAILog("is searching");
-					break;
-				} else if (enemy.isMoving()) {
+				} else if (pathFinder.isMoving()) {
 					enemy.move(a_clistener, movementListeners, a_moveAndVisibility);
 					a_clistener.enemyAILog("is moving");
 					
 					stopIfSoldierInSight(soldiers, a_moveAndVisibility, enemy);
-					break;
-				} else if (enemy.didSearchFail()) {
+					
+				} else if (pathFinder.didSearchFail()) {
 					enemy.doWatch();
 					a_clistener.enemyAILog("failed search do Watch");
-					break;
 				} else {
-					
 					decideWhatToDo(soldiers, a_moveAndVisibility, a_clistener, enemy);
-					break; 
 				}
+				break;
 			}
 		}
 		
@@ -39,7 +38,7 @@ public class EnemyAI {
 		Soldier closestThatWeCanSee = getClosestSoldierThatWeCanSee(enemy, soldiers, a_moveAndVisibility);
 		if (closestThatWeCanSee != null) {
 			if (RuleBook.couldFireIfHadTime(enemy, closestThatWeCanSee, a_moveAndVisibility) == true) {
-				enemy.stopMoving();
+				enemy.getPathFinder().stopAllSearches();
 			}
 		}
 	}

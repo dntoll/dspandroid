@@ -149,9 +149,45 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		}
 		return new CharacterCollection<T>(charactersThatCanBeShot);
 	}
-
-
-
 	
+
+
+
+
+public CharacterCollection<T> selectThoseThatCanSeenBy(CharacterCollection<Soldier> observers, IMoveAndVisibility visibility) {
+		List<T> charactersSeen = new ArrayList<T>();
+		
+		for(Soldier observer : observers) {
+			for(T theObserved : characters) {
+				
+				if (visibility.lineOfSight(observer, theObserved)) {
+					charactersSeen.add(theObserved);
+				}
+			}
+			
+		}
+		return new CharacterCollection<T>(charactersSeen);
+	}
+
+
+
+public boolean containsAll(CharacterCollection<T> observedEnemies) {
+	return  characters.containsAll(observedEnemies.characters);
+}
+
+
+
+public void addAll(CharacterCollection<T> observedEnemies) {
+	characters.addAll(observedEnemies.characters);
+}
+
+
+
+public void stopAllMovement() {
+	for(T mover : characters) {
+		mover.getPathFinder().stopAllSearches();
+	}
+}
+
 
 }

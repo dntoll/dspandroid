@@ -1,9 +1,9 @@
 package com.spellofplay.dsp.model;
 
 public abstract class Character   {
-	private ModelPosition m_position;
+	private ModelPosition m_position = new ModelPosition();
 	
-	public AStar m_pathFinder;
+	protected PathFinder m_pathFinder = new PathFinder();
 	
 	protected int m_maxTimeUnits = 3;
 	protected int m_watchTimeUnits = 0;
@@ -11,7 +11,8 @@ public abstract class Character   {
 	protected int m_hitpoints = 5;
 
 	public Character(ModelPosition startPosition, int a_maxTimeUnits) {
-		m_position = startPosition;
+		m_position.m_x = startPosition.m_x;
+		m_position.m_y = startPosition.m_y;
 		m_maxTimeUnits = m_timeUnits = a_maxTimeUnits;
 	}
 	
@@ -53,8 +54,8 @@ public abstract class Character   {
 
 	public void startNewRound() {
 		m_timeUnits = m_maxTimeUnits;
-		m_pathFinder = null;
 		m_watchTimeUnits = 0;
+		m_pathFinder.stopAllSearches();
 	}
 	
 	public boolean hasWatch() {
@@ -62,10 +63,9 @@ public abstract class Character   {
 	}
 	
 	public void setDestination(ModelPosition destination, IMoveAndVisibility a_map, float a_distance, boolean a_checkPathThroughOthers) {
-		m_pathFinder = new AStar(a_map);
 		
+		m_pathFinder.setDestination(a_map, m_position, destination, a_distance > 0.0f, a_distance, a_checkPathThroughOthers);
 		
-		m_pathFinder.InitSearch(m_position, destination, a_distance > 0.0f, a_distance, a_checkPathThroughOthers);
 	}
 
 	/**
@@ -76,28 +76,26 @@ public abstract class Character   {
 	 */
 	public void move(ICharacterListener clistener, MultiMovementListeners multiListener, IMoveAndVisibility moveAndVisibility) {
 		
-		if (m_pathFinder != null && m_timeUnits > 0) {
+		if (m_timeUnits > 0) {
 			if (m_pathFinder.isSearchDone()) {
 				MoveToNextPosition(clistener, multiListener, moveAndVisibility);
 			} 
 		}
 	}
 	
-	public void search() {
-		if (m_pathFinder != null)
-			m_pathFinder.Update(100);
-	}
+	
 
 	private void MoveToNextPosition(ICharacterListener clistener, MultiMovementListeners multiListener, IMoveAndVisibility moveAndVisibility) {
 		
-		ModelPosition pos = m_pathFinder.m_path.get(0);
-		m_pathFinder.m_path.remove(0);
+		ModelPosition pos = m_pathFinder.getNextPosition();
+		
+		if ( m_timeUnits <= 0) {
+			return;
+		}
 		m_position = pos;
 		m_timeUnits--;
 		
-		if (m_pathFinder.m_path.size() == 0 || m_timeUnits <= 0) {
-			m_pathFinder = null;
-		}
+		
 		clistener.moveTo(this);
 		multiListener.moveTo(this, moveAndVisibility, clistener);
 	}
@@ -148,5 +146,8 @@ public abstract class Character   {
 		return m_timeUnits + m_watchTimeUnits >= getFireCost(); 
 	}
 
+	public PathFinder getPathFinder() {
+		return m_pathFinder;
+	}
 	
 }

@@ -21,9 +21,6 @@ public class ModelFacade {
 		return m_game.getAliveSoldiers().isTime();
 		
 	}
-	
-	
-
 
 	public boolean isEnemyTime() {
 		if (isSoldierTime())
