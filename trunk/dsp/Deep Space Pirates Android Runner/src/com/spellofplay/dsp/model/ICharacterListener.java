@@ -7,7 +7,7 @@ public interface ICharacterListener {
 
 	void cannotFireAt(Character character, Character fireTarget);
 
-	void enemyAILog(String string);
+	void enemyAILog(String string, Enemy enemy);
 
 	void moveTo(Character character);
 

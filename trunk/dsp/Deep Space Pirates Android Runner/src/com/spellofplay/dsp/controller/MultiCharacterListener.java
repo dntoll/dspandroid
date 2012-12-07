@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.spellofplay.dsp.model.Character;
+import com.spellofplay.dsp.model.Enemy;
 import com.spellofplay.dsp.model.ICharacterListener;
 
 
@@ -37,10 +38,11 @@ public class MultiCharacterListener implements ICharacterListener{
 		}
 	}
 
+
 	@Override
-	public void enemyAILog(String string) {
+	public void enemyAILog(String string, Enemy enemy) {
 		for (ICharacterListener l : m_listeners) {
-			l.enemyAILog(string);
+			l.enemyAILog(string, enemy);
 		}
 	}
 

@@ -14,16 +14,16 @@ public class EnemyAI {
 			if (enemy.getTimeUnits() > 0) {
 				if (pathFinder.isSearching() ) {
 					pathFinder.search();
-					a_clistener.enemyAILog("is searching");
+					a_clistener.enemyAILog("is searching", enemy);
 				} else if (pathFinder.isMoving()) {
 					enemy.move(a_clistener, movementListeners, a_moveAndVisibility);
-					a_clistener.enemyAILog("is moving");
+					a_clistener.enemyAILog("is moving", enemy);
 					
 					stopIfSoldierInSight(soldiers, a_moveAndVisibility, enemy);
 					
 				} else if (pathFinder.didSearchFail()) {
 					enemy.doWatch();
-					a_clistener.enemyAILog("failed search do Watch");
+					a_clistener.enemyAILog("failed search do Watch", enemy);
 				} else {
 					decideWhatToDo(soldiers, a_moveAndVisibility, a_clistener, enemy);
 				}
@@ -59,7 +59,7 @@ public class EnemyAI {
 				
 			} else {
 				enemy.setDestination(closestThatWeCanSee.getPosition(), a_moveAndVisibility, enemy.getRange(), false);
-				a_clistener.enemyAILog("set destination");
+				a_clistener.enemyAILog("set destination", enemy);
 			}
 		} else {
 			
@@ -67,10 +67,10 @@ public class EnemyAI {
 			
 			if (closestThatWeHaveSeen != null) {
 				enemy.setDestination(closestThatWeHaveSeen.getPosition(), a_moveAndVisibility, 1, false);
-				a_clistener.enemyAILog("going for the once visible");
+				a_clistener.enemyAILog("going for the once visible", enemy);
 			} else {
 				enemy.doWatch();
-				a_clistener.enemyAILog("no visible soldiers, watch");
+				a_clistener.enemyAILog("no visible soldiers, watch", enemy);
 			}
 		}
 	}

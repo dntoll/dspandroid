@@ -116,7 +116,7 @@ public class GameView implements ICharacterListener {
 
 
 	@Override
-	public void enemyAILog(String string) {
+	public void enemyAILog(String string, Enemy enemy) {
 		// TODO Auto-generated method stub
 		
 	}
