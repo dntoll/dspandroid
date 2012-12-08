@@ -11,8 +11,8 @@ import android.graphics.Rect;
 
 public class LogView implements ICharacterListener {
 
-	List<String> m_log = new ArrayList<String>();
-	String m_logMessage = "";
+	private List<String> m_log = new ArrayList<String>();
+	private String m_logMessage = "";
 	
 	public void draw(AndroidDraw drawable) {
 		

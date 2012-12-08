@@ -8,16 +8,15 @@ import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.MultiMovementListeners;
+import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;
 import com.spellofplay.dsp.model.levelgenerator.LevelGenerator;
 
 public class Game implements IMoveAndVisibility {
 
-	public static final int MAX_SOLDIERS = 3;
-	public static final int MAX_ENEMIES = 10;
-	Soldier[] m_soldiers = new Soldier[MAX_SOLDIERS];
-	Enemy[] m_enemies = new Enemy[MAX_ENEMIES];
-	Level m_level = new Level();
+	private Soldier[] m_soldiers = new Soldier[Preferences.MAX_SOLDIERS];
+	private Enemy[] m_enemies = new Enemy[Preferences.MAX_ENEMIES];
+	private Level m_level = new Level();
 	
 	public Game() {
 		startLevel(0);
@@ -54,7 +53,7 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	public void startLevel(int a_level) {
-		for (int i = 0; i < MAX_SOLDIERS; i++) {
+		for (int i = 0; i < Preferences.MAX_SOLDIERS; i++) {
 			m_soldiers[i] = new Soldier(new ModelPosition(5,5));
 		}
 		
@@ -63,7 +62,7 @@ public class Game implements IMoveAndVisibility {
 		gen.generate(m_level);
 
 		try {
-			for (int i = 0; i < MAX_SOLDIERS; i++) {
+			for (int i = 0; i < Preferences.MAX_SOLDIERS; i++) {
 				if (m_soldiers[i] != null) {
 					m_soldiers[i].reset(m_level.getStartLocation(i));
 				} else {
@@ -75,7 +74,7 @@ public class Game implements IMoveAndVisibility {
 		}
 		
 		try {
-			for (int i = 0; i < MAX_ENEMIES; i++) {
+			for (int i = 0; i < Preferences.MAX_ENEMIES; i++) {
 				m_enemies[i] = new Enemy(m_level.getEnemyStartLocation(i));
 			}
 		} catch (LevelHasToFewEnemiesException e) {
@@ -113,7 +112,7 @@ public class Game implements IMoveAndVisibility {
 		updateSoldierSights();
 	}
 	
-	SoldierMemory m_soldierMemory = new SoldierMemory();
+	private SoldierMemory m_soldierMemory = new SoldierMemory();
 	
 	private void updateSoldierSights() {
 		CharacterCollection<Enemy> enemies = getAliveEnemies();

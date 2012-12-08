@@ -10,7 +10,7 @@ import com.spellofplay.dsp.model.ModelPosition;
 public class AStar {
 	
 	public List<ModelPosition> m_path;
-	public SearchResult m_state;
+	private SearchResult m_state;
 	private boolean m_canMoveThroughObstacles = false;
 	//private boolean m_doingFirstSearchWithObstacles = true;
 	
@@ -36,7 +36,7 @@ public class AStar {
 		return m_state == SearchResult.SearchNotDone;
 	}
     
-    public boolean didSearchFail() {
+    boolean didSearchFail() {
     	return m_state == SearchResult.SearchFailedNoPath;
 	}
     

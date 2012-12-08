@@ -9,14 +9,14 @@ import com.spellofplay.dsp.model.MultiMovementListeners;
 public abstract class Character extends ICharacter  {
 	private ModelPosition m_position = new ModelPosition();
 	
-	protected PathFinder m_pathFinder = new PathFinder();
+	private PathFinder m_pathFinder = new PathFinder();
 	
-	protected int m_maxTimeUnits = 3;
-	protected int m_watchTimeUnits = 0;
+	private int m_maxTimeUnits = 3;
+	private int m_watchTimeUnits = 0;
 	protected int m_timeUnits = m_maxTimeUnits;
 	protected int m_hitpoints = 5;
 
-	public Character(ModelPosition startPosition, int a_maxTimeUnits) {
+	Character(ModelPosition startPosition, int a_maxTimeUnits) {
 		m_position.m_x = startPosition.m_x;
 		m_position.m_y = startPosition.m_y;
 		m_maxTimeUnits = m_timeUnits = a_maxTimeUnits;
@@ -27,7 +27,7 @@ public abstract class Character extends ICharacter  {
 		m_timeUnits = 0;
 	}
 	
-	public void reset(ModelPosition startLocation) {
+	void reset(ModelPosition startLocation) {
 		m_position = startLocation;
 	}
 	
@@ -70,7 +70,7 @@ public abstract class Character extends ICharacter  {
 		return m_watchTimeUnits >= getFireCost();
 	}
 	
-	public void setDestination(ModelPosition destination, IMoveAndVisibility a_map, float a_distance, boolean a_checkPathThroughOthers) {
+	void setDestination(ModelPosition destination, IMoveAndVisibility a_map, float a_distance, boolean a_checkPathThroughOthers) {
 		
 		m_pathFinder.setDestination(a_map, m_position, destination, a_distance > 0.0f, a_distance, a_checkPathThroughOthers);
 		
@@ -82,7 +82,7 @@ public abstract class Character extends ICharacter  {
 	 * @param check
 	 * @return true if everything is ok but false if a search or move failed
 	 */
-	public void move(ICharacterListener clistener, MultiMovementListeners multiListener, IMoveAndVisibility moveAndVisibility) {
+	void move(ICharacterListener clistener, MultiMovementListeners multiListener, IMoveAndVisibility moveAndVisibility) {
 		
 		if (m_timeUnits > 0) {
 			if (m_pathFinder.isSearchDone()) {

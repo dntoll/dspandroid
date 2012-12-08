@@ -12,7 +12,7 @@ import android.graphics.Paint.Style;
 
 public class SimpleGui {
 	public static final int BUTTON_HEIGHT = 32;
-	public static final int BUTTON_WIDTH = 64;
+	static final int BUTTON_WIDTH = 64;
 	
 	private Paint m_guiText = new Paint();
 	private List<DrawCall> m_drawCalls = new ArrayList<DrawCall>();
@@ -60,16 +60,16 @@ public class SimpleGui {
 		m_drawCalls.clear();
 	}
 	
-	abstract class DrawCall {
+	private abstract class DrawCall {
 		
 		public abstract void Draw(AndroidDraw a_draw);
 		
 	}
-	class DrawButton extends DrawCall {
+	private class DrawButton extends DrawCall {
 		private int x, y, left, top, right, bottom, height;
 		private boolean disabled, mouseOver, isDragging;
 		private String text;
-		public DrawButton(int a_x, int a_y, String a_text,
+		private DrawButton(int a_x, int a_y, String a_text,
 				boolean a_isDragging, boolean a_disabled, int a_height, int a_left,
 				int a_right, int a_top, int a_bottom, boolean a_mouseOver) {
 			x = a_x;

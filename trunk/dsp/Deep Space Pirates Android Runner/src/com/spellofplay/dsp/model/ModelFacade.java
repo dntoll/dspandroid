@@ -9,7 +9,7 @@ import com.spellofplay.dsp.model.inner.Soldier;
 
 public class ModelFacade implements IModel, IEventTarget {
 	
-	Game m_game = new Game();
+	private Game m_game = new Game();
 
 	@Override
 	public String getGameTitle() {
@@ -95,7 +95,9 @@ public class ModelFacade implements IModel, IEventTarget {
 
 	@Override
 	public boolean fireAt(ICharacter selectedSoldier, ICharacter fireTarget, ICharacterListener listener) {
-		return selectedSoldier.fireAt(fireTarget, m_game, listener);
+		Soldier selected = (Soldier)selectedSoldier;
+		
+		return selected.fireAt(fireTarget, m_game, listener);
 	}
 
 	@Override
@@ -113,10 +115,10 @@ public class ModelFacade implements IModel, IEventTarget {
 		return m_game.lineOfSight(soldierPos, targetPosition );
 	}
 	
-	@Override
+	/*@Override
 	public boolean canSee(ICharacter soldier, ICharacter enemy) {
 		return canSeeMapPosition(soldier, enemy.getPosition());
-	}
+	}*/
 
 	@Override
 	public CharacterIterable canSee(ICharacter enemy) {

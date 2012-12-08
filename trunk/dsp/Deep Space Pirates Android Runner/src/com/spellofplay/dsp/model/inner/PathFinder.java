@@ -3,11 +3,11 @@ package com.spellofplay.dsp.model.inner;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 
-public class PathFinder {
+class PathFinder {
 	
-	protected AStar m_pathFinder;
+	private AStar m_pathFinder;
 	
-	public void stopAllSearches() {
+	void stopAllSearches() {
 		m_pathFinder = null;
 	}
 	
@@ -19,7 +19,7 @@ public class PathFinder {
 		return m_pathFinder != null && m_pathFinder.isSearching();
 	}
 	
-	public void search() {
+	void search() {
 		if (m_pathFinder != null)
 			m_pathFinder.Update(100);
 	}
@@ -28,7 +28,7 @@ public class PathFinder {
 		return m_pathFinder != null && m_pathFinder.m_path.size() > 0;
 	}
 
-	public boolean didSearchFail() {
+	boolean didSearchFail() {
 		return m_pathFinder != null && m_pathFinder.didSearchFail();
 	}
 
@@ -49,7 +49,7 @@ public class PathFinder {
 		return false;
 	}
 
-	public void setDestination(IMoveAndVisibility a_map,
+	void setDestination(IMoveAndVisibility a_map,
 			ModelPosition m_position, ModelPosition destination, boolean b,
 			float a_distance, boolean a_checkPathThroughOthers) {
 		m_pathFinder = new AStar(a_map);

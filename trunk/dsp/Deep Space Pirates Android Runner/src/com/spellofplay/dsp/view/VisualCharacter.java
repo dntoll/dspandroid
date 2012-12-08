@@ -6,7 +6,7 @@ import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Vector2;
 
-public class VisualCharacter {
+class VisualCharacter {
 	private static final Rect SOLDIER = new Rect(0, 0, 255, 255);
 	private static final Rect ENEMY = new Rect(0, 128, 32, 128 + 32);
 	private static final Rect DEAD_ENEMY = new Rect(64, 128, 96, 128 + 32);
@@ -22,7 +22,7 @@ public class VisualCharacter {
 	private ICharacter m_modelCharacter;
 	private ModelPosition m_lastPositionSeen = new ModelPosition();
 	
-	public VisualCharacter(ICharacter soldier2) {
+	VisualCharacter(ICharacter soldier2) {
 		m_modelCharacter = soldier2;
 		m_lastPositionSeen.m_x = soldier2.getPosition().m_x;
 		m_lastPositionSeen.m_y = soldier2.getPosition().m_y;
@@ -37,7 +37,7 @@ public class VisualCharacter {
 		drawCharacter(vEpos, drawable, camera, enemyTexture, ENEMY, color, drawGui, true);
 	}
 	
-	public void drawDeadEnemy(AndroidDraw drawable, Camera camera, ITexture enemyTexture) {
+	void drawDeadEnemy(AndroidDraw drawable, Camera camera, ITexture enemyTexture) {
 		ViewPosition vEpos = getVisualPosition(camera);
 		int color = Color.WHITE;
 		
@@ -106,7 +106,7 @@ public class VisualCharacter {
 	
 	
 
-	public ViewPosition getVisualPosition(Camera camera) {
+	ViewPosition getVisualPosition(Camera camera) {
 		ViewPosition vpos = null;//camera.toViewPos(m_modelCharacter.getPosition());
 		
 		if (m_movementTimer > 0) {
@@ -194,11 +194,11 @@ public class VisualCharacter {
 		m_attackTimer = 0.5f;
 	}
 
-	public void takeDamage() {
+	void takeDamage() {
 		m_damageTimer = 0.5f;
 	}
 
-	public void doAnimateHit() {
+	void doAnimateHit() {
 		if (m_modelCharacter.getHitPoints() <= 0)
 			m_showDeadEnemy = true;
 	}

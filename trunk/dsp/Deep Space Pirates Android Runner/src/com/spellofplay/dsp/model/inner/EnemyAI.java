@@ -4,7 +4,7 @@ import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.MultiMovementListeners;
 
-public class EnemyAI {
+class EnemyAI {
 
 	
 
@@ -37,7 +37,7 @@ public class EnemyAI {
 		
 	}
 
-	public void stopIfSoldierInSight(CharacterCollection<Soldier> soldiers,
+	private void stopIfSoldierInSight(CharacterCollection<Soldier> soldiers,
 			IMoveAndVisibility a_moveAndVisibility, Enemy enemy) {
 		Soldier closestThatWeCanSee = getClosestSoldierThatWeCanSee(enemy, soldiers, a_moveAndVisibility);
 		if (closestThatWeCanSee != null) {
@@ -47,7 +47,7 @@ public class EnemyAI {
 		}
 	}
 
-	public void decideWhatToDo(CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility,	ICharacterListener a_clistener, Enemy enemy) {
+	private void decideWhatToDo(CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility,	ICharacterListener a_clistener, Enemy enemy) {
 		
 		Soldier closestThatWeCanSee = getClosestSoldierThatWeCanSee(enemy, soldiers, a_moveAndVisibility);
 		

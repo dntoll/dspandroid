@@ -6,9 +6,9 @@ import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 
 
-public class MultiCharacterListener implements ICharacterListener{
+class MultiCharacterListener implements ICharacterListener{
 
-	List<ICharacterListener> m_listeners = new ArrayList<ICharacterListener>();
+	private List<ICharacterListener> m_listeners = new ArrayList<ICharacterListener>();
 	
 	@Override
 	public void moveTo(ICharacter character) {
@@ -24,7 +24,7 @@ public class MultiCharacterListener implements ICharacterListener{
 		}
 	}
 
-	public void addListener(ICharacterListener a_view) {
+	void addListener(ICharacterListener a_view) {
 		m_listeners.add(a_view);
 		
 	}

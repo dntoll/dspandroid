@@ -15,19 +15,17 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class Application extends View   implements IUpdateable {
+public class Application extends View implements IUpdateable {
 	
-	MasterController m_master = null;//new MasterController(context)
-	AndroidDraw m_draw = new AndroidDraw();
+	private MasterController m_master = null;//new MasterController(context)
+	private AndroidDraw m_draw = new AndroidDraw();
 	private Input m_input = new Input();
 	
 	private Activity m_activity;
 	
-	//TIMER
-	long m_lastTime = 0; //THE time in millis of last frame
-	public SleepHandler m_sleepHandler = new SleepHandler();
-	
-	
+	private long m_lastTime = 0; //THE time in millis of last frame
+	SleepHandler m_sleepHandler = new SleepHandler();
+
 	public Application(Context context, Activity cfTimerActivity) {
         super(context);
         
@@ -116,7 +114,7 @@ public class Application extends View   implements IUpdateable {
         m_lastTime = now;
 	}
 	
-	public void Stop() {
+	void Stop() {
 		m_sleepHandler.m_stop = true;
 		
 		m_master.ShowMenu();
@@ -124,7 +122,7 @@ public class Application extends View   implements IUpdateable {
 	}
 
 
-	public void Resume() {
+	void Resume() {
 		m_sleepHandler.m_stop = false;
 		m_sleepHandler.sleep(this, 50);
 		m_input.IsMouseClicked(); 

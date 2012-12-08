@@ -1,5 +1,5 @@
 package com.spellofplay.dsp;
 
-public interface IUpdateable {
+interface IUpdateable {
 	public void update();
 }

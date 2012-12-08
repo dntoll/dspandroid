@@ -21,11 +21,7 @@ public class ModelPosition {
 	}
 
 
-	public float length() {
 		
-		return android.util.FloatMath.sqrt(m_x * m_x + m_y * m_y);
-	}
-	
 	@Override 
 	public boolean equals(Object aThat) {
 		

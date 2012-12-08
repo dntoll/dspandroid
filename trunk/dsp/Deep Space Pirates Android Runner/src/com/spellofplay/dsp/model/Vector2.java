@@ -40,7 +40,7 @@ public class Vector2 {
 
 	public float length() {
 		
-		return (float) Math.sqrt(m_x * m_x + m_y * m_y);
+		return android.util.FloatMath.sqrt(m_x * m_x + m_y * m_y);
 	}
 	
 	@Override 
@@ -57,14 +57,6 @@ public class Vector2 {
 		m_y -= g;
 		return this;
 	}
-	
-	
-
-
-	public float dot(Vector2 toP) {
-		return m_x * toP.m_x + m_y + toP.m_y;
-	}
-
 
 	public float getRotation() {
 		return 90.0f +(float)(Math.atan2(m_y, m_x) * 180.0/Math.PI);

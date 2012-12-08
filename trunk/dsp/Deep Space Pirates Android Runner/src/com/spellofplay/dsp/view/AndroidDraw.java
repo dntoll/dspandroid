@@ -17,7 +17,7 @@ public class AndroidDraw  {
 	
 	private Bitmap m_background;
 	
-	Canvas m_drawTarget;
+	private Canvas m_drawTarget;
 	
 	public AndroidDraw() {
 		m_path.setColor(Color.WHITE);
@@ -33,13 +33,13 @@ public class AndroidDraw  {
 		m_drawTarget.drawText(gameTitle, i, j, guiText );
 	}
 	
-	public void drawText(String gameTitle, int i, int j) {
+	void drawText(String gameTitle, int i, int j) {
 		m_guiText.setColor(Color.WHITE);
 		m_drawTarget.drawText(gameTitle, i, j, m_guiText );
 	}
 
 	
-	public void drawMeshToBackground(Mesh a_backgroundMeshBlocked, 
+	void drawMeshToBackground(Mesh a_backgroundMeshBlocked, 
 						 int a_width, 
 						 int a_height, 
 						 int a_scale, 
@@ -60,7 +60,6 @@ public class AndroidDraw  {
 		m_guiText.setColor(Color.WHITE);
 		
 		if (clear) {
-			Rect dst = new Rect(0,0, a_width * a_scale, a_height * a_scale);
 			c.drawColor(Color.BLACK);
 		}
 		
@@ -77,23 +76,13 @@ public class AndroidDraw  {
 		return;
 	}
 	
-	public void drawBackground(ViewPosition a_displacement) {
+	void drawBackground(ViewPosition a_displacement) {
 		m_guiText.setColor(Color.WHITE);
 		m_drawTarget.drawBitmap(m_background, a_displacement.m_x, a_displacement.m_y, m_guiText);
 	}
 
 	
-	public void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst, int a_color) {
-		 
-		
-		m_path.setColor(a_color);
-		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
-		
-		m_drawTarget.drawBitmap((Bitmap)a_textureMap.getTexture(), src, dst, m_path);
-		
-	}
-	
-	public void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst, int a_color, float a_rotationDegrees) {
+	void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst, int a_color, float a_rotationDegrees) {
 		 
 		m_drawTarget.save();
 		m_drawTarget.rotate(a_rotationDegrees + 90, dst.exactCenterX(), dst.exactCenterY()); //center
@@ -105,7 +94,7 @@ public class AndroidDraw  {
 		m_drawTarget.restore();
 	}
 	
-	public void drawLine(ViewPosition vEpos, ViewPosition vsPos, int color) {
+	void drawLine(ViewPosition vEpos, ViewPosition vsPos, int color) {
 		m_guiText.setColor(color);
 		m_guiText.setStrokeWidth(2.0f);
 		m_drawTarget.drawLine(vEpos.m_x, vEpos.m_y, vsPos.m_x, vsPos.m_y, m_guiText);
@@ -113,7 +102,7 @@ public class AndroidDraw  {
 	
 	
 	
-	public void drawCircle(ViewPosition center, int radius, int color) {
+	void drawCircle(ViewPosition center, int radius, int color) {
 		
 		m_guiText.setColor(color);
 		RectF oval = new RectF(center.m_x - radius, center.m_y - radius, center.m_x + radius, center.m_y + radius);
@@ -123,7 +112,7 @@ public class AndroidDraw  {
 	
 	
 
-	public void drawRect(int left, int top, int right, int bottom,
+	void drawRect(int left, int top, int right, int bottom,
 			Paint paint) {
 		m_drawTarget.drawRect(left, top, right, bottom, paint);
 	}
@@ -137,18 +126,18 @@ public class AndroidDraw  {
 		return m_drawTarget.getHeight();
 	}
 
-	public void drawFog(Rect dst) {
+	void drawFog(Rect dst) {
 		m_guiText.setColor(Color.argb(128, 0, 0, 0));
 		m_drawTarget.drawRect(dst, m_guiText);
 	}
 
-	public void drawRect(Rect dst, int color) {
+	void drawRect(Rect dst, int color) {
 		m_guiText.setColor(color);
 		m_drawTarget.drawRect(dst, m_guiText);
 		
 	}
 
-	public void drawBlack(Rect dst) {
+	void drawBlack(Rect dst) {
 		m_guiText.setColor(Color.argb(255, 0, 0, 0));
 		m_drawTarget.drawRect(dst, m_guiText);
 	}
