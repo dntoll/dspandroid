@@ -2,12 +2,13 @@ package com.spellofplay.dsp.view;
 
 import android.graphics.Rect;
 
-import com.spellofplay.dsp.model.CharacterCollection;
-import com.spellofplay.dsp.model.Level;
-import com.spellofplay.dsp.model.ModelFacade;
+import com.spellofplay.dsp.model.CharacterIterable;
+import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.Soldier;
 import com.spellofplay.dsp.model.TileType;
+import com.spellofplay.dsp.model.inner.CharacterCollection;
+import com.spellofplay.dsp.model.inner.Level;
 
 public class VisibilityView {
 	private enum Visibility {
@@ -33,7 +34,7 @@ public class VisibilityView {
 		}
 	}
 	
-	void drawNotVisible(ModelFacade a_model, AndroidDraw drawable, Camera camera) {
+	void drawNotVisible(IModel a_model, AndroidDraw drawable, Camera camera) {
 		for (int x = 0; x < Level.Width; x++) {
 			for (int y = 0; y < Level.Height; y++) {
 				
@@ -54,13 +55,13 @@ public class VisibilityView {
 		}
 	}
 	
-	void updateVisibility(ModelFacade a_model) {
-		CharacterCollection<Soldier> soldiers = a_model.getAliveSoldiers();
+	void updateVisibility(IModel a_model) {
+		CharacterIterable soldiers = a_model.getAliveSoldiers();
 		
 		for (int x = 0; x < Level.Width; x++) {
 			for (int y = 0; y < Level.Height; y++) {
-				for (Soldier s : soldiers) {
-					if (a_model.getLevel().m_tiles[x][y] != TileType.TileWall) {
+				for (ICharacter s : soldiers) {
+					if (a_model.getTile(x, y) != TileType.TileWall) {
 						
 						if (visibilityMap[x][y] != Visibility.NeverSeen)
 							visibilityMap[x][y] = Visibility.NotSeen;
@@ -76,18 +77,18 @@ public class VisibilityView {
 		
 		for (int x = 0; x < Level.Width; x++) {
 			for (int y = 0; y < Level.Height; y++) {
-				if (a_model.getLevel().m_tiles[x][y] == TileType.TileWall) {
-					ifNeighbourVisible(x, y, a_model.getLevel());
+				if (a_model.getTile(x, y) == TileType.TileWall) {
+					ifNeighbourVisible(x, y, a_model);
 				}
 			}
 		}
 		
 	}
 
-	private void ifNeighbourVisible(int x, int y, Level level) {
+	private void ifNeighbourVisible(int x, int y, IModel level) {
 		for (int dx = -1; dx < 2; dx++) {
 			for (int dy = -1; dy < 2; dy++) {
-				if (level.GetTile(x +dx ,y +dy) != TileType.TileWall) {
+				if (level.getTile(x +dx ,y +dy) != TileType.TileWall) {
 					if (getVisibility(x +dx, y+dy) == Visibility.SeenByAll) {
 						visibilityMap[x][y] = Visibility.SeenByAll;
 					}

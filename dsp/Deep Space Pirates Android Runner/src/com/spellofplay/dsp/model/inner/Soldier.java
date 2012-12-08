@@ -1,4 +1,6 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
+
+import com.spellofplay.dsp.model.ModelPosition;
 
 public class Soldier extends Character {
 

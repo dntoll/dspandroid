@@ -1,9 +1,12 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Enemy extends Character{
+import com.spellofplay.dsp.model.IMoveAndVisibility;
+import com.spellofplay.dsp.model.ModelPosition;
+
+public class Enemy extends Character {
 
 	class EnemyMemory {
 		private Map<Soldier, ModelPosition> m_soldiersLastPositions = new HashMap<Soldier, ModelPosition>(); 
@@ -23,7 +26,7 @@ public class Enemy extends Character{
 			Soldier closest = null;
 			
 			for (Soldier soldier : m_soldiersLastPositions.keySet()) {
-				if (soldier.getHitpoints() > 0) {
+				if (soldier.getHitPoints() > 0) {
 					float dist = soldier.distance(Enemy.this);
 					if (dist < distance) {
 						distance = dist;
@@ -70,8 +73,6 @@ public class Enemy extends Character{
 	}
 
 	
-	
-	
-	
+
 
 }

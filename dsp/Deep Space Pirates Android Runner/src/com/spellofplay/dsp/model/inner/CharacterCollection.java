@@ -1,17 +1,22 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CharacterCollection<T extends Character> implements Iterable<T>{
+import com.spellofplay.dsp.model.CharacterIterable;
+import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.IMoveAndVisibility;
+import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.MultiMovementListeners;
+
+public class CharacterCollection<T extends ICharacter> implements Iterable<T>{
 
 	List<T> characters;
+	
 	public CharacterCollection(List<T> characters) {
 		this.characters = characters;
 	}
-
-	
 
 	public int size() {
 		return characters.size();
@@ -26,7 +31,7 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		return false;
 	}
 
-	public CharacterCollection<T> thatCanSee(IMoveAndVisibility visibility, Character target) {
+	public CharacterCollection<T> thatCanSee(IMoveAndVisibility visibility, ICharacter target) {
 		List<T> soldiersThatCanSee = new ArrayList<T>();
 		
 		for (T character : characters) {
@@ -43,8 +48,11 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 	public Iterator<T> iterator() {
 		return characters.iterator();
 	}
-
-
+	
+	
+	public CharacterIterable getSafeIterator() {
+		return new CharacterIterable(characters);
+	}
 
 	public MultiMovementListeners getMovementListeners() {
 		MultiMovementListeners multiListener = new MultiMovementListeners();
@@ -117,15 +125,11 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		return closest;
 	}
 
-
-
 	public boolean isEmpty() {
 		return size() == 0;
 	}
 
-
-
-	public CharacterCollection<T> couldShootIfHadTime(Character enemy, IMoveAndVisibility a_moveAndVisibility) {
+	public CharacterCollection<T> couldShootIfHadTime(ICharacter enemy, IMoveAndVisibility a_moveAndVisibility) {
 		List<T> soldiersThatCanSee = new ArrayList<T>();
 		for(T soldier : characters) {
 			
@@ -136,9 +140,7 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		return new CharacterCollection<T>(soldiersThatCanSee);
 	}
 
-
-
-	public CharacterCollection<T> canBeShotBy(Character selectedSoldier, IMoveAndVisibility a_moveAndVisibility) {
+	public CharacterCollection<T> canBeShotBy(ICharacter selectedSoldier, IMoveAndVisibility a_moveAndVisibility) {
 		
 		List<T> charactersThatCanBeShot = new ArrayList<T>();
 		for(T character : characters) {
@@ -149,12 +151,8 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		}
 		return new CharacterCollection<T>(charactersThatCanBeShot);
 	}
-	
 
-
-
-
-public CharacterCollection<T> selectThoseThatCanSeenBy(CharacterCollection<Soldier> observers, IMoveAndVisibility visibility) {
+	public CharacterCollection<T> selectThoseThatCanSeenBy(CharacterCollection<Soldier> observers, IMoveAndVisibility visibility) {
 		List<T> charactersSeen = new ArrayList<T>();
 		
 		for(Soldier observer : observers) {
@@ -169,25 +167,21 @@ public CharacterCollection<T> selectThoseThatCanSeenBy(CharacterCollection<Soldi
 		return new CharacterCollection<T>(charactersSeen);
 	}
 
-
-
-public boolean containsAll(CharacterCollection<T> observedEnemies) {
-	return  characters.containsAll(observedEnemies.characters);
-}
-
-
-
-public void addAll(CharacterCollection<T> observedEnemies) {
-	characters.addAll(observedEnemies.characters);
-}
-
-
-
-public void stopAllMovement() {
-	for(T mover : characters) {
-		mover.getPathFinder().stopAllSearches();
+	public boolean containsAll(CharacterCollection<T> observedEnemies) {
+		return  characters.containsAll(observedEnemies.characters);
 	}
-}
+	
+	public void addAll(CharacterCollection<T> observedEnemies) {
+		characters.addAll(observedEnemies.characters);
+	}
+	
+	public void stopAllMovement() {
+		for(T mover : characters) {
+			mover.stopAllMovement();
+		}
+	}
+
+	
 
 
 }

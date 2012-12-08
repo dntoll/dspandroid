@@ -1,4 +1,4 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
 public class LevelHasToFewEnemiesException extends Exception {
 

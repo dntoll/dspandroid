@@ -1,12 +1,15 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
 import java.util.Random;
+
+import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.IMoveAndVisibility;
 
 public class RuleBook {
 
 	private static Random m_die = new Random();
 	
-	public static boolean DetermineFireSuccess(Character character, Character fireTarget, boolean targetHasCover) {
+	public static boolean DetermineFireSuccess(ICharacter character, ICharacter fireTarget, boolean targetHasCover) {
 
 		float toHitChance = getToHitChance(character, fireTarget, targetHasCover);
 		
@@ -19,7 +22,7 @@ public class RuleBook {
 		
 	}
 	
-	public static boolean couldFireIfHadTime(Character character, Character fireTarget, IMoveAndVisibility a_moveAndVisibility) {
+	public static boolean couldFireIfHadTime(ICharacter character, ICharacter fireTarget, IMoveAndVisibility a_moveAndVisibility) {
 		if (a_moveAndVisibility.hasClearSight(character, fireTarget) == false)
 			return false;
 		
@@ -30,9 +33,9 @@ public class RuleBook {
 		return true;
 	}
 	
-	public static boolean canFireAt(Character character, Character fireTarget, IMoveAndVisibility a_moveAndVisibility) {
+	public static boolean canFireAt(ICharacter character, ICharacter fireTarget, IMoveAndVisibility a_moveAndVisibility) {
 		
-		if (fireTarget.getHitpoints() <= 0) {
+		if (fireTarget.getHitPoints() <= 0) {
 			return false;
 		}
 		
@@ -47,7 +50,7 @@ public class RuleBook {
 	}
 	
 	
-	public static float getToHitChance(Character character, Character fireTarget, boolean targetHasCover) {
+	public static float getToHitChance(ICharacter character, ICharacter fireTarget, boolean targetHasCover) {
 		 float toHitChance = 0.5f + character.getFireSkill() - fireTarget.getDodgeSkill();
 		 
 		 float length = character.distance(fireTarget);

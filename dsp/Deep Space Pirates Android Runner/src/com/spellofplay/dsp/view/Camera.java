@@ -2,9 +2,9 @@ package com.spellofplay.dsp.view;
 
 import android.graphics.Point;
 
-import com.spellofplay.dsp.model.Level;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Vector2;
+import com.spellofplay.dsp.model.inner.Level;
 
 public class Camera {
 

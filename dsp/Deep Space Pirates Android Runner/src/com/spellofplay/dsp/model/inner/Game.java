@@ -1,8 +1,14 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.ICharacterListener;
+import com.spellofplay.dsp.model.IMoveAndVisibility;
+import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.MultiMovementListeners;
+import com.spellofplay.dsp.model.TileType;
 import com.spellofplay.dsp.model.levelgenerator.LevelGenerator;
 
 public class Game implements IMoveAndVisibility {
@@ -29,24 +35,21 @@ public class Game implements IMoveAndVisibility {
 		return new CharacterCollection<Enemy>(getCharacters(m_enemies, false));
 	}
 
-	private <T extends Character> List<T> getCharacters(T[] list, boolean isAlive) {
+	private <T extends ICharacter> List<T> getCharacters(T[] list, boolean isAlive) {
 		List<T> ret = new ArrayList<T>();
 		for (T s : list) {
 			if (s != null) {
 				if (isAlive) {
-					if (s.m_hitpoints > 0) {
+					if (s.getHitPoints() > 0) {
 						ret.add(s);	
 					}
 				} else {
-					if (s.m_hitpoints <= 0) {
+					if (s.getHitPoints() <= 0) {
 						ret.add(s);	
 					}
 				}
-			
-				
 			}
 		}
-		
 		return ret;
 	}
 
@@ -82,8 +85,11 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	
-	public void doMoveTo(Soldier selectedSoldier, ModelPosition destination) {
-		selectedSoldier.setDestination(destination, this, 0.0f, false);
+	public void doMoveTo(ICharacter selectedSoldier, ModelPosition destination) {
+		
+		Character soldier = (Character)selectedSoldier;
+		
+		soldier.setDestination(destination, this, 0.0f, false);
 		
 	}
 
@@ -192,7 +198,7 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	@Override
-	public boolean lineOfSight(Character cha1, Character cha2) {
+	public boolean lineOfSight(ICharacter cha1, ICharacter cha2) {
 		if (m_level.lineOfSight(cha1.getPosition(), cha2.getPosition()) == false) {
 			return false;
 		}
@@ -201,7 +207,7 @@ public class Game implements IMoveAndVisibility {
 	}
 	
 	@Override
-	public boolean hasClearSight(Character cha1, Character cha2) {
+	public boolean hasClearSight(ICharacter cha1, ICharacter cha2) {
 		
 		return hasClearSight(cha1.getPosition(), cha2.getPosition());
 		
@@ -232,9 +238,17 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	@Override
-	public boolean targetHasCover(Character attacker, Character target) {
+	public boolean targetHasCover(ICharacter attacker, ICharacter target) {
 		
 		return m_level.hasCoverFrom(target.getPosition(), attacker.getPosition().sub(target.getPosition()));
+	}
+
+	public TileType getTile(int x, int y) {
+		return m_level.GetTile(x, y);
+	}
+
+	public boolean canMove(ModelPosition clickOnLevelPosition) {
+		return m_level.canMove(clickOnLevelPosition);
 	}
 
 	

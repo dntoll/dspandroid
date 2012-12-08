@@ -4,8 +4,9 @@ import android.graphics.Rect;
 
 import com.spellofplay.common.view.Mesh;
 import com.spellofplay.common.view.RotatedTile;
-import com.spellofplay.dsp.model.Level;
+import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.TileType;
+import com.spellofplay.dsp.model.inner.Level;
 
 
 public class LevelDrawer {
@@ -20,7 +21,7 @@ public class LevelDrawer {
 	}
 
 	
-	public void drawToBuffer(Level level, AndroidDraw drawable, Camera camera) {
+	public void drawToBuffer(IModel model, AndroidDraw drawable, Camera camera) {
 		Mesh backgroundMeshBlocked = new Mesh(Level.Width, Level.Height);
 		Mesh crates = new Mesh(Level.Width, Level.Height);
 		Mesh pits = new Mesh(Level.Width, Level.Height);
@@ -35,10 +36,10 @@ public class LevelDrawer {
 						y*camera.getScale() + camera.getScale());
 				
 				int variation = (x+y)%2 ;
-				RotatedTile rotTileBlocked = new RotatedTile(level.GetTile(x, y) != TileType.TileWall,
-													 		 level.GetTile(x +1, y) != TileType.TileWall,
-															 level.GetTile(x, y+1) != TileType.TileWall,
-															 level.GetTile(x +1, y + 1) != TileType.TileWall);
+				RotatedTile rotTileBlocked = new RotatedTile(model.getTile(x, y) != TileType.TileWall,
+															 model.getTile(x +1, y) != TileType.TileWall,
+															 model.getTile(x, y+1) != TileType.TileWall,
+															 model.getTile(x +1, y + 1) != TileType.TileWall);
 													
 				
 				
@@ -50,10 +51,10 @@ public class LevelDrawer {
 				}
 				
 				variation = 2;
-				rotTileBlocked = new RotatedTile(level.GetTile(x, y) == TileType.TileCover,
-													 		 level.GetTile(x +1, y) == TileType.TileCover,
-															 level.GetTile(x, y+1) == TileType.TileCover,
-															 level.GetTile(x +1, y + 1) == TileType.TileCover);
+				rotTileBlocked = new RotatedTile(model.getTile(x, y) == TileType.TileCover,
+													 		 model.getTile(x +1, y) == TileType.TileCover,
+															 model.getTile(x, y+1) == TileType.TileCover,
+															 model.getTile(x +1, y + 1) == TileType.TileCover);
 				
 				if (rotTileBlocked.isEmpty()) 
 				{
@@ -63,10 +64,10 @@ public class LevelDrawer {
 				}
 				
 				variation = 2;
-				rotTileBlocked = new RotatedTile(level.GetTile(x, y) == TileType.TilePit,
-													 		 level.GetTile(x +1, y) == TileType.TilePit,
-															 level.GetTile(x, y+1) == TileType.TilePit,
-															 level.GetTile(x +1, y + 1) == TileType.TilePit);
+				rotTileBlocked = new RotatedTile(model.getTile(x, y) == TileType.TilePit,
+													 		 model.getTile(x +1, y) == TileType.TilePit,
+															 model.getTile(x, y+1) == TileType.TilePit,
+															 model.getTile(x +1, y + 1) == TileType.TilePit);
 				
 				if (rotTileBlocked.isEmpty()) 
 				{

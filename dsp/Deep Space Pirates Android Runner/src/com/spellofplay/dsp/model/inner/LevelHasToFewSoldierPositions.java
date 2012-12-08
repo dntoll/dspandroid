@@ -1,4 +1,4 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
 public class LevelHasToFewSoldierPositions extends Exception {
 	private static final long serialVersionUID = -5890604369664821722L;

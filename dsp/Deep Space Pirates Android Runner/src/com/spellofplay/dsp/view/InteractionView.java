@@ -3,14 +3,13 @@ package com.spellofplay.dsp.view;
 import android.graphics.Color;
 
 import com.spellofplay.common.view.Input;
-import com.spellofplay.dsp.model.AStar;
-import com.spellofplay.dsp.model.Character;
-import com.spellofplay.dsp.model.Enemy;
-import com.spellofplay.dsp.model.ModelFacade;
+import com.spellofplay.dsp.model.CharacterIterable;
+import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.Soldier;
-import com.spellofplay.dsp.model.AStar.SearchResult;
-import com.spellofplay.dsp.model.CharacterCollection;
+import com.spellofplay.dsp.model.inner.AStar;
+import com.spellofplay.dsp.model.inner.CharacterCollection;
+import com.spellofplay.dsp.model.inner.AStar.SearchResult;
 
 
 public class InteractionView {
@@ -18,8 +17,8 @@ public class InteractionView {
 	SimpleGui m_gui = new SimpleGui();
 	Camera m_camera;
 	
-	Soldier m_selectedSoldier;
-	Enemy   m_selectedEnemy;
+	ICharacter m_selectedSoldier;
+	ICharacter   m_selectedEnemy;
 	AStar m_selectedPath = null;
 	
 	enum Action {
@@ -57,20 +56,20 @@ public class InteractionView {
 		return false;
 	}
 	
-	private Soldier onSoldier(Input a_input, ModelFacade a_model) {
-		CharacterCollection<Soldier> soldiers = a_model.getAliveSoldiers();
+	private ICharacter onSoldier(Input a_input, IModel a_model) {
+		CharacterIterable soldiers = a_model.getAliveSoldiers();
 		ViewPosition clickpos = new ViewPosition(a_input.m_mousePosition.x, a_input.m_mousePosition.y);
 		return onCharacter(soldiers, clickpos);
 	}
 	
-	private Enemy onEnemy(Input a_input, ModelFacade a_model) {
-		CharacterCollection<Enemy> enemies = a_model.getAliveEnemies();
+	private ICharacter onEnemy(Input a_input, IModel a_model) {
+		CharacterIterable enemies = a_model.getAliveEnemies();
 		ViewPosition clickpos = new ViewPosition(a_input.m_mousePosition.x, a_input.m_mousePosition.y);
 		return onCharacter(enemies, clickpos);
 	}
 	
-	private <T extends Character> T onCharacter(CharacterCollection<T> soldiers, ViewPosition clickpos) {
-		for (T s : soldiers) {
+	private ICharacter onCharacter(CharacterIterable characters, ViewPosition clickpos) {
+		for (ICharacter s : characters) {
 			ModelPosition modelPos = s.getPosition();
 			
 			ViewPosition viewPosition = m_camera.toViewPos(modelPos);
@@ -84,13 +83,13 @@ public class InteractionView {
 		return null;
 	}
 	
-	public void setupInput(Input a_input, ModelFacade a_model, int a_width, int a_height) {
+	public void setupInput(Input a_input, IModel a_model, int a_width, int a_height) {
 		
 		m_action = Action.None;
 		
 		//On soldier?
-		Soldier mouseOverSoldier = onSoldier(a_input, a_model);
-		Enemy mouseOverEnemy = onEnemy(a_input, a_model);
+		ICharacter mouseOverSoldier = onSoldier(a_input, a_model);
+		ICharacter mouseOverEnemy = onEnemy(a_input, a_model);
 		
 		if (getSelectedSoldier(a_model) != null) {
 			if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH, a_height - SimpleGui.BUTTON_HEIGHT-16, "Watch", a_input, false)) {
@@ -140,8 +139,8 @@ public class InteractionView {
 		m_selectedPath = null;
 	}
 	
-	public Enemy getFireTarget(ModelFacade a_model) {
-		Soldier selected = getSelectedSoldier(a_model);
+	public ICharacter getFireTarget(IModel a_model) {
+		ICharacter selected = getSelectedSoldier(a_model);
 		
 		if (selected == null) {
 			return null;
@@ -153,7 +152,7 @@ public class InteractionView {
 		
 			
 		//Can we see the one we clicked on
-		if (m_selectedEnemy != null && m_selectedEnemy.getHitpoints() > 0) {
+		if (m_selectedEnemy != null && m_selectedEnemy.getHitPoints() > 0) {
 
 			if (a_model.canShoot(selected, m_selectedEnemy)) {
 				return m_selectedEnemy;
@@ -166,17 +165,17 @@ public class InteractionView {
 		
 	}
 	
-	public Soldier getSelectedSoldier(ModelFacade a_model) {
+	public ICharacter getSelectedSoldier(IModel a_model) {
 		if (a_model.isSoldierTime() == false)
 			return null;
 		
 		return m_selectedSoldier;
 	}
 
-	void updateSoldierSelection(ModelFacade a_model, Camera camera, int width, int height) {
+	void updateSoldierSelection(IModel a_model, Camera camera, int width, int height) {
 		if (m_selectedSoldier == null || m_selectedSoldier.getTimeUnits() == 0) {
 			//SELECT THE NEXT SOLDIER
-			for (Soldier soldier : a_model.getAliveSoldiers()) {
+			for (ICharacter soldier : a_model.getAliveSoldiers()) {
 				if (soldier.getTimeUnits() > 0) {
 					selectSoldier(soldier, camera);
 					break;
@@ -185,9 +184,9 @@ public class InteractionView {
 		}
 	}
 	
-	public ModelPosition getDestination(ModelFacade a_model) {
+	public ModelPosition getDestination(IModel a_model) {
 		
-		Soldier selected = getSelectedSoldier(a_model);
+		ICharacter selected = getSelectedSoldier(a_model);
 		if (selected == null) {
 			return null;
 		}
@@ -205,11 +204,11 @@ public class InteractionView {
 		return null;
 	}
 	
-	private void selectDestination(ModelFacade a_model, ModelPosition clickOnLevelPosition) {
-		Soldier soldier = getSelectedSoldier(a_model);
+	private void selectDestination(IModel a_model, ModelPosition clickOnLevelPosition) {
+		ICharacter soldier = getSelectedSoldier(a_model);
 		
 		if (soldier != null) {
-			if (a_model.getLevel().canMove(clickOnLevelPosition)) {
+			if (a_model.canMove(clickOnLevelPosition)) {
 				float length = clickOnLevelPosition.sub( soldier.getPosition() ).length();
 				boolean moveIsPossible = length < soldier.getTimeUnits() * Math.sqrt(2.0);
 				if (moveIsPossible) {
@@ -220,7 +219,7 @@ public class InteractionView {
 		}
 	}
 	
-	private void selectSoldier(Soldier mouseOverSoldier, Camera camera) {
+	private void selectSoldier(ICharacter mouseOverSoldier, Camera camera) {
 		
 		if (m_selectedSoldier != mouseOverSoldier) {
 			m_selectedSoldier = mouseOverSoldier;
@@ -238,7 +237,7 @@ public class InteractionView {
 		
 	}
 	
-	public void drawMovementPath(AndroidDraw drawable, ModelFacade a_model) {
+	public void drawMovementPath(AndroidDraw drawable, IModel a_model) {
 		if (getDestination(a_model) != null) {
 
 			//Vi har en vald path

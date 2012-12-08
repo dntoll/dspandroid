@@ -3,12 +3,12 @@ package com.spellofplay.dsp.model;
 public interface ICharacterListener {
 
 	
-	void fireAt(Character attacker, Character fireTarget, boolean didHit);
+	void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit);
 
-	void cannotFireAt(Character character, Character fireTarget);
+	void cannotFireAt(ICharacter character, ICharacter fireTarget);
 
-	void enemyAILog(String string, Enemy enemy);
+	void enemyAILog(String string, ICharacter enemy);
 
-	void moveTo(Character character);
+	void moveTo(ICharacter character);
 
 }
