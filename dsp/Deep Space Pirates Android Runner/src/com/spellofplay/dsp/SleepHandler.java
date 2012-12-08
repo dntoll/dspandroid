@@ -5,10 +5,10 @@ package com.spellofplay.dsp;
 import android.os.Handler;
 import android.os.Message;
 
-public class SleepHandler extends Handler{
+class SleepHandler extends Handler{
 	
-	public boolean m_stop = false;
-	IUpdateable mUpdater = null;
+	boolean m_stop = false;
+	private IUpdateable mUpdater = null;
 	@Override
     public void handleMessage(Message msg) {
 		if (m_stop == false) {
@@ -20,7 +20,7 @@ public class SleepHandler extends Handler{
 		}
     }
 
-    public void sleep(IUpdateable aUpdateable, long delayMillis) {
+    void sleep(IUpdateable aUpdateable, long delayMillis) {
     	mUpdater = aUpdateable;
     	this.removeMessages(0);
         sendMessageDelayed(obtainMessage(0), delayMillis);

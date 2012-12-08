@@ -1,6 +1,5 @@
 package com.spellofplay.dsp.model;
 
-import com.spellofplay.dsp.model.inner.Level;
 
 public interface IModel {
 
@@ -25,8 +24,6 @@ public interface IModel {
 	public abstract boolean canShoot(ICharacter soldier, ICharacter enemy);
 
 	public abstract boolean canSeeMapPosition(ICharacter soldier, ModelPosition modelPosition);
-
-	public abstract boolean canSee(ICharacter soldier, ICharacter enemy);
 
 	public abstract CharacterIterable canSee(ICharacter enemy);
 

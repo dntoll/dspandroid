@@ -6,7 +6,7 @@ public class Soldier extends Character {
 
 	
 	
-	public Soldier(ModelPosition startPosition) {
+	Soldier(ModelPosition startPosition) {
 		super(startPosition, 7);
 	}
 

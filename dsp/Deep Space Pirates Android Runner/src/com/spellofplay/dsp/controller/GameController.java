@@ -5,14 +5,13 @@ import com.spellofplay.common.view.Input;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IEventTarget;
 import com.spellofplay.dsp.model.IModel;
-import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.InteractionView;
 import com.spellofplay.dsp.view.LogView;
 import com.spellofplay.dsp.view.MasterView;
 
-public class GameController {
+class GameController {
 	
 	
 	private MasterView m_masterView;
@@ -20,7 +19,7 @@ public class GameController {
 	private IModel model;
 	
 	
-	public GameController(MasterView m_masterView, IModel model) {
+	GameController(MasterView m_masterView, IModel model) {
 		this.m_masterView = m_masterView;
 		this.model = model;
 	}

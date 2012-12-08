@@ -8,30 +8,29 @@ import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.inner.AStar;
-import com.spellofplay.dsp.model.inner.CharacterCollection;
 import com.spellofplay.dsp.model.inner.AStar.SearchResult;
 
 
 public class InteractionView {
 	
-	SimpleGui m_gui = new SimpleGui();
-	Camera m_camera;
+	private SimpleGui m_gui = new SimpleGui();
+	private Camera m_camera;
 	
-	ICharacter m_selectedSoldier;
-	ICharacter   m_selectedEnemy;
-	AStar m_selectedPath = null;
+	private ICharacter m_selectedSoldier;
+	private ICharacter   m_selectedEnemy;
+	private AStar m_selectedPath = null;
 	
-	enum Action {
+	private enum Action {
 		None, Watch, Moveing, Attacking
 	}
 	
-	public Action m_action;
+	private Action m_action;
 
 	public InteractionView() {
 		this.m_action = Action.None;
 	}
 	
-	public InteractionView(Camera camera) {
+	InteractionView(Camera camera) {
 		m_camera = camera;
 	}
 
@@ -232,12 +231,12 @@ public class InteractionView {
 	
 	
 
-	public void Draw(AndroidDraw drawable) {
+	void Draw(AndroidDraw drawable) {
 		m_gui.DrawGui(drawable);
 		
 	}
 	
-	public void drawMovementPath(AndroidDraw drawable, IModel a_model) {
+	void drawMovementPath(AndroidDraw drawable, IModel a_model) {
 		if (getDestination(a_model) != null) {
 
 			//Vi har en vald path
@@ -253,14 +252,14 @@ public class InteractionView {
 		}
 	}
 
-	public void startNewGame() {
+	void startNewGame() {
 		m_selectedEnemy = null;
 		m_selectedSoldier = null;
 		m_selectedPath = null;
 		
 	}
 
-	public void startNewRound() {
+	void startNewRound() {
 		m_selectedSoldier = null;
 	}
 }

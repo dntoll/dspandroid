@@ -6,15 +6,15 @@ import java.util.Random;
 import android.graphics.Color;
 import com.spellofplay.dsp.model.Vector2;
 
-public class ShotAnimation {
+class ShotAnimation {
 
-	class Shot {
+	private class Shot {
 
-		Vector2 attackerModelPos;
-		VisualCharacter fireTarget;
-		boolean hit;
-		static final float shotspeed = 15.0f;
-		static final float blastAnimationTime = 0.3f;
+		private Vector2 attackerModelPos;
+		private VisualCharacter fireTarget;
+		private boolean hit;
+		private static final float shotspeed = 15.0f;
+		private static final float blastAnimationTime = 0.3f;
 		float delay = 0.0f;
 		float time = 0;
 		private float x;
@@ -88,7 +88,7 @@ public class ShotAnimation {
 		}
 
 
-		public void drawShotInAir(AndroidDraw drawable, Camera cam,
+		private void drawShotInAir(AndroidDraw drawable, Camera cam,
 				ViewPosition fireTargetPos, ViewPosition attackerPos,
 				Vector2 direction, int Trace) {
 			float percent = time / timeToTravel();
@@ -140,7 +140,7 @@ public class ShotAnimation {
 		
 	}
 	
-	List<Shot> activeShots = new ArrayList<Shot>();
+	private List<Shot> activeShots = new ArrayList<Shot>();
 	
 	
 	
@@ -152,11 +152,11 @@ public class ShotAnimation {
 		}
 	}
 
-	public void addHit(Vector2 attacker, VisualCharacter targetPos, Random rand, float delay) {
+	void addHit(Vector2 attacker, VisualCharacter targetPos, Random rand, float delay) {
 		activeShots.add(new Shot(attacker, targetPos, true, rand, delay) );
 	}
 
-	public void addMiss(Vector2 attacker, VisualCharacter fireTarget, Random rand, float delay) {
+	void addMiss(Vector2 attacker, VisualCharacter fireTarget, Random rand, float delay) {
 		activeShots.add(new Shot(attacker, fireTarget, false, rand, delay) );
 	}
 
@@ -178,7 +178,7 @@ public class ShotAnimation {
 		return false;
 	}
 
-	public void removeAnimations() {
+	void removeAnimations() {
 		activeShots.clear();
 	}
 

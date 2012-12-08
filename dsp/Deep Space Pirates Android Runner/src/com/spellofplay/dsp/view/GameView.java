@@ -11,7 +11,7 @@ import com.spellofplay.dsp.model.Vector2;
 import com.spellofplay.dsp.model.inner.RuleBook;
 
 
-public class GameView implements ICharacterListener {
+class GameView implements ICharacterListener {
 	private LevelDrawer m_level;
 	private MovementMapView m_movement = new MovementMapView();
 	private VisibilityView m_visibility;
@@ -20,7 +20,7 @@ public class GameView implements ICharacterListener {
 	private Camera  m_camera;
 	private IModel model;
 	
-	public GameView(ITexture a_texture, ITexture a_player, Camera camera, IModel model) {
+	GameView(ITexture a_texture, ITexture a_player, Camera camera, IModel model) {
 		m_level = new LevelDrawer(a_texture);
 		setM_characterDrawer(new CharacterDrawer(a_texture, a_player));
 		m_camera = camera;
@@ -28,14 +28,14 @@ public class GameView implements ICharacterListener {
 		m_visibility = new VisibilityView();
 	}
 	
-	public void drawMovementAndVisibilityHelp(AndroidDraw drawable, ICharacter selected) {
+	void drawMovementAndVisibilityHelp(AndroidDraw drawable, ICharacter selected) {
 		
 		m_movement.drawPossibleMoveArea(model.getMovePossible(), drawable, m_camera, selected);
 		m_visibility.drawNotVisible(model, drawable, m_camera);
 	}
 
 
-	public void drawSightLines(AndroidDraw drawable, ICharacter selected) {
+	void drawSightLines(AndroidDraw drawable, ICharacter selected) {
 		for (ICharacter enemy : model.getAliveEnemies()) {
 			CharacterIterable canShootEnemy = model.couldShootIfHadTime(enemy);
 			
@@ -61,7 +61,7 @@ public class GameView implements ICharacterListener {
 		}
 	}
 
-	public void redrawLevelBuffer(AndroidDraw drawable, IModel model) {
+	void redrawLevelBuffer(AndroidDraw drawable, IModel model) {
 		if (hasInitatedBuffer == false) {
 			m_level.drawToBuffer(model, drawable, m_camera);
 			hasInitatedBuffer = true;
@@ -69,11 +69,11 @@ public class GameView implements ICharacterListener {
 	}
 
 
-	public void startNewRound() {
+	void startNewRound() {
 		getCharacterDrawer().startNewRound();
 	}
 	
-	public void startNewGame(IModel model) {
+	void startNewGame(IModel model) {
 		hasInitatedBuffer = false;
 		m_visibility.clear();
 		m_visibility.updateVisibility(model);
@@ -107,7 +107,7 @@ public class GameView implements ICharacterListener {
 	}
 
 
-	public boolean updateAnimations(IModel model,
+	boolean updateAnimations(IModel model,
 			float elapsedTimeSeconds) {
 		return getCharacterDrawer().updateAnimations(model, elapsedTimeSeconds);
 	}

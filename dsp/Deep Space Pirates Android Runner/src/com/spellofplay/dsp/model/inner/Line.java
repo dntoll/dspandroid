@@ -2,11 +2,11 @@ package com.spellofplay.dsp.model.inner;
 
 import com.spellofplay.dsp.model.Vector2;
 
-public class Line {
+class Line {
 	
-	Vector2 m_pos1;
-	Vector2 m_pos2;
-	float m_lineMag;
+	private Vector2 m_pos1;
+	private Vector2 m_pos2;
+	private float m_lineMag;
 
 	public Line(Vector2 pos1, Vector2 pos2) {
 		m_pos1 = pos1;
@@ -16,7 +16,7 @@ public class Line {
 				
 	}
 
-	public float distance(Vector2 position) {
+	float distance(Vector2 position) {
 		return pointToLineDistance(m_pos1, m_pos2, position);
 	}
 	

@@ -3,15 +3,16 @@ package com.spellofplay.dsp.model.levelgenerator;
 import java.util.Random;
 
 import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;
 import com.spellofplay.dsp.model.Vector2;
 import com.spellofplay.dsp.model.inner.Level;
 
 public class LevelGenerator {
 
-	int minimumRoomSize = 3;
-	int maxRoomSize = 9;
-	Random random;
+	private int minimumRoomSize = 3;
+	private int maxRoomSize = 9;
+	private Random random;
 	
 	public LevelGenerator(int a_level) {
 		random = new Random();
@@ -30,8 +31,8 @@ public class LevelGenerator {
 
 	private void createWindows(Level level) {
 		
-		for (int x = 0; x < Level.Width; x++) {
-			for (int y = 0; y < Level.Height; y++) {
+		for (int x = 0; x < Preferences.Width; x++) {
+			for (int y = 0; y < Preferences.Height; y++) {
 				if (level.isWallAndHasTwoClearSides(x,y) ) {
 					addExtraDoorsAndWindows(level, x, y);
 				}
@@ -39,7 +40,7 @@ public class LevelGenerator {
 		}
 	}
 
-	public void addExtraDoorsAndWindows(Level level, int x, int y) {
+	private void addExtraDoorsAndWindows(Level level, int x, int y) {
 		switch (random.nextInt(6)) 
 		{
 			case 0:
@@ -98,7 +99,7 @@ public class LevelGenerator {
 		int sizex = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		int sizey = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		
-		int areaToTheBottomOfParent = (int) (Level.Height - (parent.upperLeftCorner.m_y + parent.sizes.m_y+1));
+		int areaToTheBottomOfParent = (int) (Preferences.Height - (parent.upperLeftCorner.m_y + parent.sizes.m_y+1));
 		int top = (int) (parent.upperLeftCorner.m_y + parent.sizes.m_y + 1);
 		
 		if (areaToTheBottomOfParent < sizey) {
@@ -126,7 +127,7 @@ public class LevelGenerator {
 		int sizex = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		int sizey = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		
-		int areaToTheRightOfParent = (int) (Level.Width - (parent.upperLeftCorner.m_x + parent.sizes.m_x+1));
+		int areaToTheRightOfParent = (int) (Preferences.Width - (parent.upperLeftCorner.m_x + parent.sizes.m_x+1));
 		int left = (int) (parent.upperLeftCorner.m_x + parent.sizes.m_x + 1);
 				
 		if (areaToTheRightOfParent < sizex) {
@@ -146,8 +147,8 @@ public class LevelGenerator {
 		
 		int maxLeftLocation = parent.getRight();
 		
-		if (maxLeftLocation + sizex >= Level.Width)
-			maxLeftLocation = Level.Width - sizex -1;
+		if (maxLeftLocation + sizex >= Preferences.Width)
+			maxLeftLocation = Preferences.Width - sizex -1;
 		
 		int left = minLeftLocation + random.nextInt(maxLeftLocation - minLeftLocation);
 		
@@ -166,8 +167,8 @@ public class LevelGenerator {
 		
 		int maxTopLocation = parent.getBottom();
 		
-		if (maxTopLocation + sizey >= Level.Height)
-			maxTopLocation = Level.Height - sizey -1;
+		if (maxTopLocation + sizey >= Preferences.Height)
+			maxTopLocation = Preferences.Height - sizey -1;
 		
 		int top = minTopLocation + random.nextInt(maxTopLocation - minTopLocation);
 		

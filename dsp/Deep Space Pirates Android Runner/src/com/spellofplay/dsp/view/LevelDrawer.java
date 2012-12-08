@@ -5,29 +5,29 @@ import android.graphics.Rect;
 import com.spellofplay.common.view.Mesh;
 import com.spellofplay.common.view.RotatedTile;
 import com.spellofplay.dsp.model.IModel;
+import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;
-import com.spellofplay.dsp.model.inner.Level;
 
 
-public class LevelDrawer {
+class LevelDrawer {
 		
 	private ITexture m_theTextureMap;
 	
 	
 	
-	public LevelDrawer(ITexture a_theTexture) {
+	LevelDrawer(ITexture a_theTexture) {
 		m_theTextureMap = a_theTexture;
 		
 	}
 
 	
-	public void drawToBuffer(IModel model, AndroidDraw drawable, Camera camera) {
-		Mesh backgroundMeshBlocked = new Mesh(Level.Width, Level.Height);
-		Mesh crates = new Mesh(Level.Width, Level.Height);
-		Mesh pits = new Mesh(Level.Width, Level.Height);
+	void drawToBuffer(IModel model, AndroidDraw drawable, Camera camera) {
+		Mesh backgroundMeshBlocked = new Mesh(Preferences.Width, Preferences.Height);
+		Mesh crates = new Mesh(Preferences.Width, Preferences.Height);
+		Mesh pits = new Mesh(Preferences.Width, Preferences.Height);
 		
-		for (int x = 0; x < Level.Width; x++) {
-			for (int y = 0; y < Level.Height; y++) {
+		for (int x = 0; x < Preferences.Width; x++) {
+			for (int y = 0; y < Preferences.Height; y++) {
 				//ViewPosition vp = camera.toViewPos(x, y);
 				
 				Rect dst = new Rect(x*camera.getScale(), 
@@ -79,9 +79,9 @@ public class LevelDrawer {
 			}	
 		}
 		
-		drawable.drawMeshToBackground(backgroundMeshBlocked, Level.Width, Level.Height, camera.getScale(), m_theTextureMap, true);
-		drawable.drawMeshToBackground(crates, Level.Width, Level.Height, camera.getScale(), m_theTextureMap, false);
-		drawable.drawMeshToBackground(pits, Level.Width, Level.Height, camera.getScale(), m_theTextureMap, false);
+		drawable.drawMeshToBackground(backgroundMeshBlocked, Preferences.Width, Preferences.Height, camera.getScale(), m_theTextureMap, true);
+		drawable.drawMeshToBackground(crates, Preferences.Width, Preferences.Height, camera.getScale(), m_theTextureMap, false);
+		drawable.drawMeshToBackground(pits, Preferences.Width, Preferences.Height, camera.getScale(), m_theTextureMap, false);
 	}
 	
 	

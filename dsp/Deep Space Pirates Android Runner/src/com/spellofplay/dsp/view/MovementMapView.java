@@ -6,18 +6,18 @@ import android.graphics.Rect;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.inner.Level;
+import com.spellofplay.dsp.model.Preferences;
 
-public class MovementMapView {
+class MovementMapView {
 	private int[][] m_movementMap;
 	private ICharacter m_soldierForWhomMapIsValid;
 	private boolean m_mustUpdate;
 	
 	public MovementMapView() {
-		m_movementMap  = new int[Level.Width][];
-		for (int x = 0; x< Level.Width; x++) {
-			m_movementMap[x] = new int[Level.Height];
-			for (int y = 0; y< Level.Height; y++) {
+		m_movementMap  = new int[Preferences.Width][];
+		for (int x = 0; x< Preferences.Width; x++) {
+			m_movementMap[x] = new int[Preferences.Height];
+			for (int y = 0; y< Preferences.Height; y++) {
 				m_movementMap[x][y] = 1000;
 			}
 		}
@@ -33,8 +33,8 @@ public class MovementMapView {
 		m_soldierForWhomMapIsValid = selected;
 		m_mustUpdate = false;
 		
-		for (int x = 0; x < Level.Width; x++) {
-			for (int y = 0; y < Level.Height; y++) {
+		for (int x = 0; x < Preferences.Width; x++) {
+			for (int y = 0; y < Preferences.Height; y++) {
 				m_movementMap[x][y] = 1000;
 			}
 		}
@@ -44,8 +44,8 @@ public class MovementMapView {
 			boolean hasAddedNewNodes = true;
 			while (hasAddedNewNodes) {
 				hasAddedNewNodes = false;
-				for (int x = 0; x < Level.Width; x++) {
-					for (int y = 0; y < Level.Height; y++) {
+				for (int x = 0; x < Preferences.Width; x++) {
+					for (int y = 0; y < Preferences.Height; y++) {
 					
 						if (m_movementMap[x][y] < selected.getTimeUnits()) {
 							
@@ -82,7 +82,7 @@ public class MovementMapView {
 			return false;
 		}
 		//Stay inside level
-		if (x+dx >= Level.Width || y+dy >= Level.Height) {
+		if (x+dx >= Preferences.Width || y+dy >= Preferences.Height) {
 			return false;
 		}
 		if (x+dx < 0 || y+dy < 0) {
@@ -105,7 +105,7 @@ public class MovementMapView {
 	}
 	
 	
-	public void drawPossibleMoveArea(IMoveAndVisibility a_checker, AndroidDraw drawable, Camera camera, ICharacter selected) {
+	void drawPossibleMoveArea(IMoveAndVisibility a_checker, AndroidDraw drawable, Camera camera, ICharacter selected) {
 		if (selected != m_soldierForWhomMapIsValid) {
 			m_mustUpdate = true;
 		}
@@ -116,8 +116,8 @@ public class MovementMapView {
 		if (selected == null)
 			return;
 		
-		for (int x = 0; x < Level.Width; x++) {
-			for (int y = 0; y < Level.Height; y++) {
+		for (int x = 0; x < Preferences.Width; x++) {
+			for (int y = 0; y < Preferences.Height; y++) {
 				drawTileMoveHint(drawable, camera, selected, x, y);
 			}	
 		}

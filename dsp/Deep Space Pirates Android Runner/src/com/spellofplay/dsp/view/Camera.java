@@ -3,56 +3,51 @@ package com.spellofplay.dsp.view;
 import android.graphics.Point;
 
 import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.Vector2;
-import com.spellofplay.dsp.model.inner.Level;
 
-public class Camera {
+class Camera {
 
-	public int m_screenWidth;
-	public int m_screenHeight;
-	public ViewPosition m_displacement = new ViewPosition(0,0);
+	private int m_screenWidth;
+	private int m_screenHeight;
+	ViewPosition m_displacement = new ViewPosition(0,0);
 	
 	private static final int m_scale = 32;
 	private boolean m_isScrolling = false;
 	private Point m_scrollStartPos = new Point();
 	
-	public ViewPosition m_targetDisplacement = new ViewPosition(0,0);
+	private ViewPosition m_targetDisplacement = new ViewPosition(0,0);
 	
 	
 	public Camera() {
 	}
 	
-	public void setScreenSize(int windowWidth, int windowHeight) {
+	void setScreenSize(int windowWidth, int windowHeight) {
 		m_screenWidth = windowWidth;
 		m_screenHeight = windowHeight;
 	}
 
 	
-	public ViewPosition toViewPos(Vector2 modelPos) {
+	ViewPosition toViewPos(Vector2 modelPos) {
 		return new ViewPosition(modelPos.m_x * m_scale + m_displacement.m_x,
 				modelPos.m_y * m_scale + m_displacement.m_y);
 	}
 	
-	public ViewPosition toViewPos(ModelPosition modelPos) {
+	ViewPosition toViewPos(ModelPosition modelPos) {
 		return new ViewPosition(modelPos.m_x * m_scale + m_displacement.m_x,
 								modelPos.m_y * m_scale + m_displacement.m_y);
 	}
 	
-	public ViewPosition toViewPos(int x, int y) {
+	ViewPosition toViewPos(int x, int y) {
 		return new ViewPosition(x * m_scale + m_displacement.m_x,
 				y * m_scale + m_displacement.m_y);
 	}
 	
-	public ViewPosition toViewPos(float x, float y) {
-		return new ViewPosition(x * m_scale + m_displacement.m_x,
-				y * m_scale + m_displacement.m_y);
-	}
-
-	public float toViewScale(float modelDistance) {
+	float toViewScale(float modelDistance) {
 		return modelDistance * m_scale;
 	}
 
-	public ModelPosition toModelPos(ViewPosition mousePos) {
+	ModelPosition toModelPos(ViewPosition mousePos) {
 		
 		ViewPosition vp = mousePos.sub(m_displacement).sub(new ViewPosition(-m_scale/2,-m_scale/2));
 		
@@ -69,7 +64,7 @@ public class Camera {
 
 	
 	
-	public void DoScroll(int screenWidth, int screenHeight, int a_dragX, int a_dragY) {
+	void DoScroll(int screenWidth, int screenHeight, int a_dragX, int a_dragY) {
 		if (m_isScrolling == false) {
 			m_isScrolling = true;
 			m_scrollStartPos.x = (int)m_displacement.m_x;
@@ -90,7 +85,7 @@ public class Camera {
 	}
 
 	private void displacementWithinLevel() {
-		int levelVisualWidth = m_scale * (Level.Width);
+		int levelVisualWidth = m_scale * (Preferences.Width);
 		if (m_screenWidth >= levelVisualWidth)
 			m_displacement.m_x = 0;
 		else {
@@ -101,7 +96,7 @@ public class Camera {
 				m_displacement.m_x = -maxDisplacement;
 		}
 		
-		int levelVisualHeight = m_scale * (Level.Height);
+		int levelVisualHeight = m_scale * (Preferences.Height);
 		if (m_screenHeight >= levelVisualHeight)
 			m_displacement.m_y = 0;
 		else {
@@ -113,12 +108,12 @@ public class Camera {
 		}
 	}
 	
-	public void StopScrolling() {
+	void StopScrolling() {
 		m_isScrolling = false;
 		
 	}
 
-	public void focusOn(ModelPosition focusOn) {
+	void focusOn(ModelPosition focusOn) {
 		
 		float vfx = focusOn.m_x * m_scale;
 		float vfy = focusOn.m_y * m_scale;
@@ -130,7 +125,7 @@ public class Camera {
 		displacementWithinLevel();
 	}
 
-	public void update(float elapsedTimeSeconds) {
+	void update(float elapsedTimeSeconds) {
 		Vector2 direction = m_targetDisplacement.sub(m_displacement).toVector2();
 		
 		float distance = direction.length();

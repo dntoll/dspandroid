@@ -18,9 +18,9 @@ public abstract class ICharacter {
 	abstract public int getFireCost();
 	
 	//write
-	abstract public void startNewRound();
+	/*abstract public void startNewRound();
 	abstract public void watchMovement(ICharacter mover, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener);
 	abstract public void stopAllMovement();
-	abstract public boolean fireAt(ICharacter fireTarget, IMoveAndVisibility m_game,ICharacterListener listener);
+	abstract public boolean fireAt(ICharacter fireTarget, IMoveAndVisibility m_game,ICharacterListener listener);*/
 	
 }

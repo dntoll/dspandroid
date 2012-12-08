@@ -9,7 +9,7 @@ public class RuleBook {
 
 	private static Random m_die = new Random();
 	
-	public static boolean DetermineFireSuccess(ICharacter character, ICharacter fireTarget, boolean targetHasCover) {
+	static boolean DetermineFireSuccess(ICharacter character, ICharacter fireTarget, boolean targetHasCover) {
 
 		float toHitChance = getToHitChance(character, fireTarget, targetHasCover);
 		
@@ -22,7 +22,7 @@ public class RuleBook {
 		
 	}
 	
-	public static boolean couldFireIfHadTime(ICharacter character, ICharacter fireTarget, IMoveAndVisibility a_moveAndVisibility) {
+	static boolean couldFireIfHadTime(ICharacter character, ICharacter fireTarget, IMoveAndVisibility a_moveAndVisibility) {
 		if (a_moveAndVisibility.hasClearSight(character, fireTarget) == false)
 			return false;
 		

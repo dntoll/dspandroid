@@ -7,24 +7,24 @@ import java.util.Random;
 import android.graphics.Rect;
 
 import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;
 import com.spellofplay.dsp.model.Vector2;
-import com.spellofplay.dsp.model.inner.Game;
 import com.spellofplay.dsp.model.inner.Level;
 
 
-public class Room {
+class Room {
 
 	ModelPosition upperLeftCorner;
 	Vector2 sizes;
-	Random random;
+	private Random random;
 	public Room(ModelPosition upperLeftCorner, Vector2 size, Random random) {
 		this.upperLeftCorner = upperLeftCorner;
 		this.sizes = size;
 		this.random = random;
 	}
 
-	public boolean addRoom(Level level) {
+	boolean addRoom(Level level) {
 		
 		for (int x = upperLeftCorner.m_x-1; x <= upperLeftCorner.m_x + sizes.m_x; x++) {
 			for (int y = upperLeftCorner.m_y-1; y <= getBottom()+1; y++) {
@@ -42,8 +42,8 @@ public class Room {
 		return true;
 	}
 
-	public void addPlayers(Level level) {
-		for (int i = 0; i< Game.MAX_SOLDIERS; i++) {
+	void addPlayers(Level level) {
+		for (int i = 0; i< Preferences.MAX_SOLDIERS; i++) {
 			level.m_playerStartPositions[i] = new ModelPosition(upperLeftCorner.m_x + i+1, upperLeftCorner.m_y+1); 
 		}
 	}
@@ -55,7 +55,7 @@ public class Room {
 		return (int) (upperLeftCorner.m_x + sizes.m_x - 1);
 	}
 
-	public void addEnemies(Level level) {
+	void addEnemies(Level level) {
 		
 		int numEnemies = random.nextInt(3);
 		for (int i = 0; i< numEnemies; i++) {
@@ -69,7 +69,7 @@ public class Room {
 		}
 	}
 
-	public void addDoor(Room parent, Level level) {
+	void addDoor(Room parent, Level level) {
 		List<ModelPosition> connections = getConnections(parent);
 		
 		if (connections.size() == 0)
@@ -117,7 +117,7 @@ public class Room {
 		return x >= upperLeftCorner.m_x && x < upperLeftCorner.m_x + sizes.m_x;
 	}
 
-	public void addDecorations(Level level) {
+	void addDecorations(Level level) {
 		TileType type = TileType.TileEmpty;
 		switch (random.nextInt(3)) {
 			case 0 : type = TileType.TileCover; break;

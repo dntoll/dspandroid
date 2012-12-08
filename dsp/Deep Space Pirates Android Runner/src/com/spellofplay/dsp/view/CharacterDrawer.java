@@ -9,13 +9,13 @@ import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.Vector2;
 
-public class CharacterDrawer {
-	Map<ICharacter, VisualCharacter> m_characters = new HashMap<ICharacter, VisualCharacter>();
-	Map<ICharacter, Vector2> m_enemiesSeenThisRound = new HashMap<ICharacter, Vector2>();
-	ShotAnimation m_shotAnimation = new ShotAnimation();
+class CharacterDrawer {
+	private Map<ICharacter, VisualCharacter> m_characters = new HashMap<ICharacter, VisualCharacter>();
+	private Map<ICharacter, Vector2> m_enemiesSeenThisRound = new HashMap<ICharacter, Vector2>();
+	private ShotAnimation m_shotAnimation = new ShotAnimation();
 	
-	ITexture m_player;
-	ITexture m_texture;
+	private ITexture m_player;
+	private ITexture m_texture;
 	
 	public CharacterDrawer(ITexture a_texture, ITexture a_player) {
 		m_player = a_player;
@@ -26,7 +26,7 @@ public class CharacterDrawer {
 		return m_characters.get(character).getVisualPosition(camera);
 	}
 	
-	public void startNewGame(IModel a_model) {
+	void startNewGame(IModel a_model) {
 		m_characters.clear();
 		m_shotAnimation.removeAnimations();
 
@@ -40,7 +40,7 @@ public class CharacterDrawer {
 		
 	}
 	
-	public boolean updateAnimations(IModel a_model, float a_elapsedTime) {
+	boolean updateAnimations(IModel a_model, float a_elapsedTime) {
 		boolean doneAnimating = true;
 		
 		doneAnimating = animateCharacterMovement(a_elapsedTime, doneAnimating);
@@ -54,7 +54,7 @@ public class CharacterDrawer {
 		return doneAnimating;
 	}
 
-	public boolean animateShots(float a_elapsedTime, boolean doneAnimating) {
+	private boolean animateShots(float a_elapsedTime, boolean doneAnimating) {
 		m_shotAnimation.update(a_elapsedTime);
 		if (m_shotAnimation.isActive()) {
 			doneAnimating = false;
@@ -62,7 +62,7 @@ public class CharacterDrawer {
 		return doneAnimating;
 	}
 
-	public boolean animateCharacterMovement(float a_elapsedTime,
+	private boolean animateCharacterMovement(float a_elapsedTime,
 			boolean doneAnimating) {
 		for (VisualCharacter vc : m_characters.values()) {
 			if (vc.update(a_elapsedTime) == false) {
@@ -72,7 +72,7 @@ public class CharacterDrawer {
 		return doneAnimating;
 	}
 	
-	public void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
+	void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
 		m_characters.get(attacker).attack();
 		
 		Random rand = new Random();
@@ -103,7 +103,7 @@ public class CharacterDrawer {
 		}
 	}
 	
-	void drawEnemies(AndroidDraw drawable, IModel a_model, Camera camera) {
+	private void drawEnemies(AndroidDraw drawable, IModel a_model, Camera camera) {
 		
 		for (ICharacter enemy : a_model.getAliveEnemies()) {
 			boolean isSpotted = a_model.canSee(enemy).isEmpty() == false;
@@ -125,7 +125,7 @@ public class CharacterDrawer {
 		
 	}
 	
-	void drawSoldiers(AndroidDraw drawable, IModel a_model,
+	private void drawSoldiers(AndroidDraw drawable, IModel a_model,
 			ICharacter selected, Camera camera, ICharacter enemyTarget) {
 		ICharacter target = drawTargetSelection(drawable, a_model, camera, enemyTarget);
 		for (ICharacter soldier : a_model.getAliveSoldiers()) {
@@ -144,7 +144,7 @@ public class CharacterDrawer {
 	}
 
 
-	void drawSoldierSelection(AndroidDraw drawable,
+	private void drawSoldierSelection(AndroidDraw drawable,
 			IModel a_model, ICharacter selected, Camera camera) {
 		if (selected != null && a_model.isSoldierTime() && selected.getTimeUnits() > 0) {
 			ViewPosition vpos = m_characters.get(selected).getVisualPosition(camera);//.toViewPos(selected.getPosition());
@@ -152,17 +152,17 @@ public class CharacterDrawer {
 		}
 	}
 
-	public void moveTo(ICharacter character) {
+	void moveTo(ICharacter character) {
 		m_characters.get(character).moveTo();
 		
 	}
 
-	public void startNewRound() {
+	void startNewRound() {
 		m_enemiesSeenThisRound.clear();
 		
 	}
 
-	public void draw(AndroidDraw drawable, IModel model, ICharacter selected, Camera camera, ICharacter target) {
+	void draw(AndroidDraw drawable, IModel model, ICharacter selected, Camera camera, ICharacter target) {
 		drawSoldierSelection(drawable, model, selected, camera);
 		drawSoldiers(drawable, model, selected, camera, target);
 		drawEnemies(drawable, model, camera);

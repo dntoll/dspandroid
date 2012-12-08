@@ -10,11 +10,11 @@ import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.MultiMovementListeners;
 
-public class CharacterCollection<T extends ICharacter> implements Iterable<T>{
+public class CharacterCollection<T extends Character> implements Iterable<T>{
 
-	List<T> characters;
+	private List<T> characters;
 	
-	public CharacterCollection(List<T> characters) {
+	CharacterCollection(List<T> characters) {
 		this.characters = characters;
 	}
 
@@ -66,7 +66,7 @@ public class CharacterCollection<T extends ICharacter> implements Iterable<T>{
 
 
 
-	public void startNewRound() {
+	void startNewRound() {
 		for (T s : characters) {
 			s.startNewRound();
 		}
@@ -74,7 +74,7 @@ public class CharacterCollection<T extends ICharacter> implements Iterable<T>{
 
 
 
-	public boolean occupies(ModelPosition pos) {
+	boolean occupies(ModelPosition pos) {
 		for (T s : characters) {
 			if (s.getPosition().equals(pos))  {
 				return true;
@@ -82,14 +82,8 @@ public class CharacterCollection<T extends ICharacter> implements Iterable<T>{
 		}
 		return false;
 	}
-
-
-
-	public void remove(Character character) {
-		characters.remove(character);
-	}
 	
-	public void remove(ModelPosition to) {
+	void remove(ModelPosition to) {
 		for (T character : characters) {
 			if (character.getPosition().equals(to))  {
 				characters.remove(character);
@@ -100,7 +94,7 @@ public class CharacterCollection<T extends ICharacter> implements Iterable<T>{
 
 
 
-	public boolean blocks(Line line) {
+	boolean blocks(Line line) {
 		for (T s : characters) {
 			if (line.distance(s.getPosition().toCenterTileVector()) < s.getRadius() * 0.8f) { 
 				return true;
@@ -152,7 +146,7 @@ public class CharacterCollection<T extends ICharacter> implements Iterable<T>{
 		return new CharacterCollection<T>(charactersThatCanBeShot);
 	}
 
-	public CharacterCollection<T> selectThoseThatCanSeenBy(CharacterCollection<Soldier> observers, IMoveAndVisibility visibility) {
+	CharacterCollection<T> selectThoseThatCanSeenBy(CharacterCollection<Soldier> observers, IMoveAndVisibility visibility) {
 		List<T> charactersSeen = new ArrayList<T>();
 		
 		for(Soldier observer : observers) {
@@ -167,15 +161,15 @@ public class CharacterCollection<T extends ICharacter> implements Iterable<T>{
 		return new CharacterCollection<T>(charactersSeen);
 	}
 
-	public boolean containsAll(CharacterCollection<T> observedEnemies) {
+	boolean containsAll(CharacterCollection<T> observedEnemies) {
 		return  characters.containsAll(observedEnemies.characters);
 	}
 	
-	public void addAll(CharacterCollection<T> observedEnemies) {
+	void addAll(CharacterCollection<T> observedEnemies) {
 		characters.addAll(observedEnemies.characters);
 	}
 	
-	public void stopAllMovement() {
+	void stopAllMovement() {
 		for(T mover : characters) {
 			mover.stopAllMovement();
 		}

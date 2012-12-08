@@ -8,7 +8,7 @@ import com.spellofplay.dsp.model.ModelPosition;
 
 public class Enemy extends Character {
 
-	class EnemyMemory {
+	private class EnemyMemory {
 		private Map<Soldier, ModelPosition> m_soldiersLastPositions = new HashMap<Soldier, ModelPosition>(); 
 		
 		public void updateSights(CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility) { 
@@ -38,9 +38,9 @@ public class Enemy extends Character {
 		}
 	}
 	
-	EnemyMemory m_memory = new EnemyMemory();
+	private EnemyMemory m_memory = new EnemyMemory();
 	
-	public Enemy(ModelPosition startPosition) {
+	Enemy(ModelPosition startPosition) {
 		super(startPosition, 5);
 		m_hitpoints = 1;
 
@@ -52,11 +52,6 @@ public class Enemy extends Character {
 	
 	public Soldier getClosestSoldierSpotted() {
 		return m_memory.getClosestSoldierSpotted();
-	}
-
-	public void removeTimeUnit() {
-		m_timeUnits--;
-		
 	}
 	
 	public float getFireSkill() {

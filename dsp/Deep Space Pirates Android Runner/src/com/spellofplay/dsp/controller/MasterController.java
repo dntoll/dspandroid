@@ -4,7 +4,6 @@ package com.spellofplay.dsp.controller;
 import android.view.KeyEvent;
 
 import com.spellofplay.dsp.model.ModelFacade;
-import com.spellofplay.dsp.model.inner.Line;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.ITexture;
 import com.spellofplay.dsp.view.MasterView;
@@ -74,7 +73,7 @@ public class MasterController {
 		return true;
 	}
 
-	public void drawGameWhenItsOver(AndroidDraw drawable,
+	private void drawGameWhenItsOver(AndroidDraw drawable,
 			float elapsedTimeSeconds, String message) {
 		m_masterView.updateAnimations(m_model, elapsedTimeSeconds);
 		m_masterView.drawGame(drawable, m_model, elapsedTimeSeconds);
@@ -97,7 +96,7 @@ public class MasterController {
 		}
 	
 	
-	void startNewGame() {
+	private void startNewGame() {
 		m_model.startNewGame(0);
 		m_masterView.startNewGame(m_model);
 	}

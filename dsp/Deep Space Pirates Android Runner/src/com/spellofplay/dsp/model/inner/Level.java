@@ -1,18 +1,16 @@
 package com.spellofplay.dsp.model.inner;
 
 import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;
 import com.spellofplay.dsp.model.Vector2;
 
 public class Level {
 
-	public static final int Height = 24;
-	public static final int Width = 24;
-	
-	public TileType m_tiles[][] = new TileType[Width][Height];
-	public ModelPosition m_playerStartPositions[]= new ModelPosition[Game.MAX_SOLDIERS];
-	ModelPosition m_enemyPositions[]= new ModelPosition[Game.MAX_ENEMIES];
-	int m_numEnemies;
+	public TileType m_tiles[][] = new TileType[Preferences.Width][Preferences.Height];
+	public ModelPosition m_playerStartPositions[]= new ModelPosition[Preferences.MAX_SOLDIERS];
+	private ModelPosition m_enemyPositions[]= new ModelPosition[Preferences.MAX_ENEMIES];
+	private int m_numEnemies;
 	
 	public Level() {
 		clear();
@@ -20,7 +18,7 @@ public class Level {
 	
 	public TileType GetTile(int a_x, int a_y) {
 		//walls around the level
-		if (a_x >= 0 && a_x < Width && a_y >= 0 && a_y < Height)
+		if (a_x >= 0 && a_x < Preferences.Width && a_y >= 0 && a_y < Preferences.Height)
 			return m_tiles[a_x][a_y];
 		else
 			return TileType.TileWall;
@@ -28,19 +26,19 @@ public class Level {
 	}
 	
 	public void addEnemy(ModelPosition modelPosition) {
-		if (m_numEnemies < Game.MAX_ENEMIES) 
+		if (m_numEnemies < Preferences.MAX_ENEMIES) 
 			m_enemyPositions[m_numEnemies] = modelPosition;
 		m_numEnemies++;
 	}
 	
 
-	public ModelPosition getStartLocation(int i) throws LevelHasToFewSoldierPositions {
+	ModelPosition getStartLocation(int i) throws LevelHasToFewSoldierPositions {
 		if (m_playerStartPositions[i] != null)
 			return m_playerStartPositions[i];
 		throw new LevelHasToFewSoldierPositions("Level has not room for soldier number " + i);
 	}
 	
-	public ModelPosition getEnemyStartLocation(int i) throws LevelHasToFewEnemiesException {
+	ModelPosition getEnemyStartLocation(int i) throws LevelHasToFewEnemiesException {
 		if (m_enemyPositions[i] != null)
 			return m_enemyPositions[i];
 		
@@ -48,7 +46,7 @@ public class Level {
 		throw new LevelHasToFewEnemiesException("Level has not room for enemy number " + i);
 	}
 
-	public boolean canMove(ModelPosition a_to) {
+	boolean canMove(ModelPosition a_to) {
 		if (GetTile(a_to.m_x, a_to.m_y) == TileType.TileEmpty) {
 			return true;
 		} else {
@@ -56,7 +54,7 @@ public class Level {
 		}
 	}
 
-	public boolean isClear(ModelPosition a_end) {
+	private boolean isClear(ModelPosition a_end) {
 		if (GetTile(a_end.m_x, a_end.m_y) == TileType.TileEmpty) {
 			return true;
 		}
@@ -81,7 +79,7 @@ public class Level {
          return false;
      }
 	 
-	 public boolean lineOfSight(ModelPosition pos1, ModelPosition pos2) {
+	 boolean lineOfSight(ModelPosition pos1, ModelPosition pos2) {
 		Vector2 fromPos = pos1.toCenterTileVector();
 		Vector2 targetPosition = pos2.toCenterTileVector();
 		if ( lineOfSight(fromPos, targetPosition) ) {
@@ -237,7 +235,7 @@ public class Level {
 		return true;
 	}
 
-	public boolean hasCoverFrom(ModelPosition position, Vector2 sub) {
+	boolean hasCoverFrom(ModelPosition position, Vector2 sub) {
 		
 		
 		sub.normalize();
@@ -256,16 +254,16 @@ public class Level {
 	}
 
 	public void clear() {
-		for (int i= 0; i< Game.MAX_SOLDIERS; i++) {
+		for (int i= 0; i< Preferences.MAX_SOLDIERS; i++) {
 			m_playerStartPositions[i] = null;
 		}
-		for (int i= 0; i< Game.MAX_SOLDIERS; i++) {
+		for (int i= 0; i< Preferences.MAX_SOLDIERS; i++) {
 			m_enemyPositions[i] = null;
 		}
 		m_numEnemies = 0;
 		
-		for (int y = 0; y < Height; y++) {
-			for (int x = 0; x < Width; x++) {
+		for (int y = 0; y < Preferences.Height; y++) {
+			for (int x = 0; x < Preferences.Width; x++) {
 				m_tiles[x][y] = TileType.TileWall;
 			}
 		}
