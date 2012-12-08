@@ -51,6 +51,9 @@ public class ModelFacade {
 	public CharacterCollection<Enemy> getAliveEnemies() {
 		return m_game.getAliveEnemies();
 	}
+	public CharacterCollection<Enemy> getDeadEnemies() {
+		return m_game.getDeadEnemies();
+	}
 
 
 	public void startNewGame(int a_level) {
@@ -122,6 +125,9 @@ public class ModelFacade {
 	public IMoveAndVisibility getMovePossible() {
 		return m_game;
 	}
+
+
+	
 
 
 	

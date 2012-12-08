@@ -11,6 +11,7 @@ import com.spellofplay.dsp.model.Vector2;
 public class VisualCharacter {
 	private static final Rect SOLDIER = new Rect(0, 0, 255, 255);
 	private static final Rect ENEMY = new Rect(0, 128, 32, 128 + 32);
+	private static final Rect DEAD_ENEMY = new Rect(64, 128, 96, 128 + 32);
 	private static final float MOVEMENT_TIME = 0.2f;
 	private static final float ROTATION_SPEED = 360.0f;
 	private final int TRANSPARENT = Color.argb(128, 255, 255, 255);
@@ -20,6 +21,7 @@ public class VisualCharacter {
 	private float m_damageTimer = 0.0f;
 	private float m_rotation = 0;
 	private float m_targetRotation = 0;
+	private boolean m_showDeadEnemy = false;
 		
 	
 	Character m_modelCharacter;
@@ -38,6 +40,16 @@ public class VisualCharacter {
 		int color = Color.WHITE;
 		
 		drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, drawGui, true);
+	}
+	
+	public void drawDeadEnemy(AndroidDraw drawable, Camera camera, ITexture enemyTexture) {
+		ViewPosition vEpos = getVisualPosition(camera);
+		int color = Color.WHITE;
+		
+		if (m_showDeadEnemy)
+			drawCharacter(vEpos, drawable, camera, enemyTexture, null, DEAD_ENEMY, color, false, true);
+		else 
+			drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, false, true);
 	}
 	
 	void drawEnemyNotSpotted(AndroidDraw drawable, Camera camera, ITexture enemyTexture, Vector2 lastSeenPosition) {
@@ -99,6 +111,8 @@ public class VisualCharacter {
 			drawGUI(drawable, dst);
 		}
 	}
+	
+	
 
 	public ViewPosition getVisualPosition(Camera camera) {
 		ViewPosition vpos = null;//camera.toViewPos(m_modelCharacter.getPosition());
@@ -191,5 +205,12 @@ public class VisualCharacter {
 	public void takeDamage() {
 		m_damageTimer = 0.5f;
 	}
+
+	public void doAnimateHit() {
+		if (m_modelCharacter.getHitpoints() <= 0)
+			m_showDeadEnemy = true;
+	}
+
+	
 }
 

@@ -37,7 +37,7 @@ public class MasterController {
 		
 	}
 
-		public boolean onDraw(AndroidDraw drawable, float elapsedTimeSeconds) {
+	public boolean onDraw(AndroidDraw drawable, float elapsedTimeSeconds) {
 		int halfWidth = drawable.getWindowWidth()/2;
 		int halfHeight = drawable.getWindowHeight()/2;
 		
@@ -55,23 +55,18 @@ public class MasterController {
 		} else {
 		
 			if (m_model.enemyHasWon()) {
+				
 				if (m_gui.DoButtonCentered(halfWidth, halfHeight, "Menu", m_input, false)) {
 					m_showMenu = true;
 				}
-				
-				m_masterView.drawGame(drawable, m_model, elapsedTimeSeconds);
-				drawable.drawText("Game Over", 200, 10, drawable.m_guiText);
+				drawGameWhenItsOver(drawable, elapsedTimeSeconds, "Game Over");
 			} else if (m_model.playerHasWon()) {
 				if (m_gui.DoButtonCentered(halfWidth, halfHeight, "restart", m_input, false)) {
 					startNewGame();
 				}
-				
-				m_masterView.drawGame(drawable, m_model, elapsedTimeSeconds);
-				drawable.drawText("Game Won", 200, 10, drawable.m_guiText);
+				drawGameWhenItsOver(drawable, elapsedTimeSeconds, "Game Won");
 			} else {
-				
 				m_game.update(drawable, m_model, m_input, elapsedTimeSeconds);
-				
 			}
 		}
 		m_gui.DrawGui(drawable);
@@ -79,6 +74,13 @@ public class MasterController {
 		m_input.IsMouseClicked();
 		
 		return true;
+	}
+
+	public void drawGameWhenItsOver(AndroidDraw drawable,
+			float elapsedTimeSeconds, String message) {
+		m_masterView.updateAnimations(m_model, elapsedTimeSeconds);
+		m_masterView.drawGame(drawable, m_model, elapsedTimeSeconds);
+		drawable.drawText(message, 200, 10, drawable.m_guiText);
 	}
 
 		private boolean doMenu(int halfWidth, int halfHeight) {

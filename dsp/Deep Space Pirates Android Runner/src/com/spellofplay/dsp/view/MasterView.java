@@ -35,6 +35,8 @@ public class MasterView implements ICharacterListener {
 		Soldier selected = m_actionView.getSelectedSoldier(model);
 		Enemy target = m_actionView.getFireTarget(model);
 		
+		m_view.getCharacterDrawer().drawCasualties(drawable, model, m_camera);
+		
 		m_view.drawMovementAndVisibilityHelp(drawable, selected);
 		m_actionView.drawMovementPath(drawable, model);
 

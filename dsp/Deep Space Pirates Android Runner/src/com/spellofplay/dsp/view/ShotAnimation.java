@@ -11,7 +11,7 @@ public class ShotAnimation {
 	class Shot {
 
 		Vector2 attackerModelPos;
-		Vector2 fireTargetModelPos;
+		VisualCharacter fireTarget;
 		boolean hit;
 		static final float shotspeed = 15.0f;
 		static final float blastAnimationTime = 0.3f;
@@ -19,18 +19,15 @@ public class ShotAnimation {
 		float time = 0;
 		private float x;
 		private float y;
+		private int randomSeed;
 		
 		
-		public Shot(Vector2 attacker, Vector2 fireTarget, boolean hit, Random rand, float delay) {
-			this.attackerModelPos = moveShotToOutsideAttacker(attacker, fireTarget);
-			
+		public Shot(Vector2 attacker, VisualCharacter fireTarget, boolean hit, Random rand, float delay) {
 			this.delay = delay;
-			this.fireTargetModelPos = fireTarget;
+			this.fireTarget = fireTarget;
 			this.hit = hit;
-			
-			if (hit == false)
-				this.fireTargetModelPos = displaceTarget(attacker, fireTarget, rand);
-			
+			this.randomSeed = rand.nextInt();
+			this.attackerModelPos = moveShotToOutsideAttacker(attacker, fireTarget.getInterpolatedModelPosition());
 		}
 
 
@@ -51,13 +48,20 @@ public class ShotAnimation {
 
 
 		private float getDistance() {
-			return attackerModelPos.sub(fireTargetModelPos).length();
+			return attackerModelPos.sub(fireTarget.getInterpolatedModelPosition()).length();
 		}
 
 
 		public void draw(AndroidDraw drawable, Camera cam) {
 			if (delay > 0)
 				return;
+			
+			Vector2 fireTargetModelPos = fireTarget.getInterpolatedModelPosition();
+			if (hit == false) {
+				
+				fireTargetModelPos = displaceTarget(attackerModelPos, fireTargetModelPos, new Random(randomSeed));
+			}
+			
 			ViewPosition fireTargetPos = cam.toViewPos(fireTargetModelPos);
 			ViewPosition attackerPos = cam.toViewPos(attackerModelPos);
 			
@@ -76,6 +80,9 @@ public class ShotAnimation {
 				float percent = blastTime / blastAnimationTime;
 				int blastSize = (int)(percent * 0.3f * cam.getScale());
 				drawable.drawCircle(fireTargetPos, blastSize, Trace);
+				
+				
+				fireTarget.doAnimateHit();
 			}
 			
 		}
@@ -145,11 +152,11 @@ public class ShotAnimation {
 		}
 	}
 
-	public void addHit(Vector2 attacker, Vector2 fireTarget, Random rand, float delay) {
-		activeShots.add(new Shot(attacker, fireTarget, true, rand, delay) );
+	public void addHit(Vector2 attacker, VisualCharacter targetPos, Random rand, float delay) {
+		activeShots.add(new Shot(attacker, targetPos, true, rand, delay) );
 	}
 
-	public void addMiss(Vector2 attacker, Vector2 fireTarget, Random rand, float delay) {
+	public void addMiss(Vector2 attacker, VisualCharacter fireTarget, Random rand, float delay) {
 		activeShots.add(new Shot(attacker, fireTarget, false, rand, delay) );
 	}
 
