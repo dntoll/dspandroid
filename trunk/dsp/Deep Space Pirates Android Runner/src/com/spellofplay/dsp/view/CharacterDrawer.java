@@ -32,8 +32,8 @@ public class CharacterDrawer {
 	
 	public void startNewGame(ModelFacade a_model) {
 		m_characters.clear();
-		
-	
+		m_shotAnimation.removeAnimations();
+
 		CharacterCollection<Soldier> soldiers = a_model.getAliveSoldiers(); 
 		for (Soldier soldier : soldiers) {
 			m_characters.put(soldier, new VisualCharacter(soldier));
@@ -43,27 +43,37 @@ public class CharacterDrawer {
 			m_characters.put(enemy, new VisualCharacter(enemy));
 		}
 		
-		m_shotAnimation.removeAnimations();
 	}
 	
 	public boolean updateAnimations(ModelFacade a_model, float a_elapsedTime) {
 		boolean doneAnimating = true;
 		
+		doneAnimating = animateCharacterMovement(a_elapsedTime, doneAnimating);
+		
+		//only animate shots if movement is done
+		if (doneAnimating) {
+			doneAnimating = animateShots(a_elapsedTime, doneAnimating);
+		}
+		
+		
+		return doneAnimating;
+	}
+
+	public boolean animateShots(float a_elapsedTime, boolean doneAnimating) {
+		m_shotAnimation.update(a_elapsedTime);
+		if (m_shotAnimation.isActive()) {
+			doneAnimating = false;
+		}
+		return doneAnimating;
+	}
+
+	public boolean animateCharacterMovement(float a_elapsedTime,
+			boolean doneAnimating) {
 		for (VisualCharacter vc : m_characters.values()) {
 			if (vc.update(a_elapsedTime) == false) {
 				doneAnimating = false;
 			}
 		}
-		
-		//only animate shots if movement is done
-		if (doneAnimating) {
-			m_shotAnimation.update(a_elapsedTime);
-			if (m_shotAnimation.isActive()) {
-				doneAnimating = false;
-			}
-		}
-		
-		
 		return doneAnimating;
 	}
 	
@@ -73,7 +83,7 @@ public class CharacterDrawer {
 		Random rand = new Random();
 		
 		Vector2 attackerPos = m_characters.get(attacker).getInterpolatedModelPosition();
-		Vector2 targetPos = m_characters.get(fireTarget).getInterpolatedModelPosition();
+		VisualCharacter targetPos = m_characters.get(fireTarget);
 		
 		if (didHit)
 			m_characters.get(fireTarget).takeDamage();
@@ -90,38 +100,34 @@ public class CharacterDrawer {
 		
 	}
 	
-	void drawEnemies(AndroidDraw drawable, ModelFacade a_model, Camera camera) {
-		for (Enemy enemy : a_model.getAliveEnemies()) {
-			
-			boolean isSpotted = !a_model.canSee(enemy).isEmpty();
-			
-			
+	void drawCasualties(AndroidDraw drawable, ModelFacade a_model, Camera camera) {
+		for (Enemy enemy : a_model.getDeadEnemies()) {
 			VisualCharacter vchar = m_characters.get(enemy);
 			
-			//HAS THIS ENEMY HAS BEEN SEEN THIS ROUND?
+			vchar.drawDeadEnemy(drawable, camera, m_texture);
+		}
+	}
+	
+	void drawEnemies(AndroidDraw drawable, ModelFacade a_model, Camera camera) {
+		
+		for (Enemy enemy : a_model.getAliveEnemies()) {
+			boolean isSpotted = a_model.canSee(enemy).isEmpty() == false;
+			VisualCharacter vchar = m_characters.get(enemy);
+			
 			if (isSpotted == false) {
 				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
-					//not seen at all this round...
 					continue;
 				}
-				
 				vchar.drawEnemyNotSpotted(drawable, camera, m_texture, m_enemiesSeenThisRound.get(enemy));
-				
 			} else {
-				//add it to the list of enemies seen this round
 				if (m_enemiesSeenThisRound.containsKey(enemy) == false) {
 					m_enemiesSeenThisRound.put(enemy, vchar.getInterpolatedModelPosition());
 				}
-				
 				vchar.drawEnemySpotted(drawable, camera, m_texture);
-				
 			}
-			
-			
-			
-			
-			
 		}
+		
+		
 	}
 	
 	void drawSoldiers(AndroidDraw drawable, ModelFacade a_model,

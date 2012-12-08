@@ -96,7 +96,7 @@ public class AndroidDraw  {
 	public void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst, int a_color, float a_rotationDegrees) {
 		 
 		m_drawTarget.save();
-		m_drawTarget.rotate(a_rotationDegrees, dst.exactCenterX(), dst.exactCenterY()); //center
+		m_drawTarget.rotate(a_rotationDegrees + 90, dst.exactCenterX(), dst.exactCenterY()); //center
 		m_path.setColor(a_color);
 		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
 		

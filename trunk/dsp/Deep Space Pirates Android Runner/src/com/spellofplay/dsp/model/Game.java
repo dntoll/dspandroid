@@ -1,7 +1,6 @@
 package com.spellofplay.dsp.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.spellofplay.dsp.model.levelgenerator.LevelGenerator;
@@ -19,18 +18,32 @@ public class Game implements IMoveAndVisibility {
 	}
 	
 	public CharacterCollection<Soldier> getAliveSoldiers() {
-		return new CharacterCollection<Soldier>(getCharacters(m_soldiers));
+		return new CharacterCollection<Soldier>(getCharacters(m_soldiers, true));
 	}
 	
 	public CharacterCollection<Enemy>  getAliveEnemies() {
-		return new CharacterCollection<Enemy>(getCharacters(m_enemies));
+		return new CharacterCollection<Enemy>(getCharacters(m_enemies, true));
+	}
+	
+	public CharacterCollection<Enemy> getDeadEnemies() {
+		return new CharacterCollection<Enemy>(getCharacters(m_enemies, false));
 	}
 
-	private <T extends Character> List<T> getCharacters(T[] a_list) {
+	private <T extends Character> List<T> getCharacters(T[] list, boolean isAlive) {
 		List<T> ret = new ArrayList<T>();
-		for (T s : a_list) {
-			if (s != null  && s.m_hitpoints > 0) {
-				ret.add(s);
+		for (T s : list) {
+			if (s != null) {
+				if (isAlive) {
+					if (s.m_hitpoints > 0) {
+						ret.add(s);	
+					}
+				} else {
+					if (s.m_hitpoints <= 0) {
+						ret.add(s);	
+					}
+				}
+			
+				
 			}
 		}
 		
@@ -223,6 +236,8 @@ public class Game implements IMoveAndVisibility {
 		
 		return m_level.hasCoverFrom(target.getPosition(), attacker.getPosition().sub(target.getPosition()));
 	}
+
+	
 
 	
 
