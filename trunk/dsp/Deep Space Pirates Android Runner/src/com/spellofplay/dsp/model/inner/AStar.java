@@ -1,8 +1,11 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.spellofplay.dsp.model.IMoveAndVisibility;
+import com.spellofplay.dsp.model.ModelPosition;
 
 public class AStar {
 	

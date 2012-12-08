@@ -3,15 +3,14 @@ package com.spellofplay.dsp.view;
 import android.graphics.Color;
 import android.graphics.Rect;
 
-import com.spellofplay.dsp.model.Character;
+import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
-import com.spellofplay.dsp.model.Level;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.Soldier;
+import com.spellofplay.dsp.model.inner.Level;
 
 public class MovementMapView {
 	private int[][] m_movementMap;
-	private Soldier m_soldierForWhomMapIsValid;
+	private ICharacter m_soldierForWhomMapIsValid;
 	private boolean m_mustUpdate;
 	
 	public MovementMapView() {
@@ -30,7 +29,7 @@ public class MovementMapView {
 		m_mustUpdate = true;
 	}
 	
-	private void updateMoveMap(IMoveAndVisibility a_checker, Soldier selected) {
+	private void updateMoveMap(IMoveAndVisibility a_checker, ICharacter selected) {
 		m_soldierForWhomMapIsValid = selected;
 		m_mustUpdate = false;
 		
@@ -106,9 +105,8 @@ public class MovementMapView {
 	}
 	
 	
-	public void drawPossibleMoveArea(IMoveAndVisibility a_checker, AndroidDraw drawable, Camera camera, Soldier selected) {
-		if (selected instanceof Soldier && 
-			selected != m_soldierForWhomMapIsValid) {
+	public void drawPossibleMoveArea(IMoveAndVisibility a_checker, AndroidDraw drawable, Camera camera, ICharacter selected) {
+		if (selected != m_soldierForWhomMapIsValid) {
 			m_mustUpdate = true;
 		}
 		
@@ -124,7 +122,7 @@ public class MovementMapView {
 			}	
 		}
 	}
-	private void drawTileMoveHint(AndroidDraw drawable, Camera camera, Soldier selected, int x, int y) {
+	private void drawTileMoveHint(AndroidDraw drawable, Camera camera, ICharacter selected, int x, int y) {
 		if (m_movementMap[x][y] <= selected.getTimeUnits()) {
 			ViewPosition vp = camera.toViewPos(x, y);
 			Rect dst = new Rect((int)vp.m_x - camera.getHalfScale(), 

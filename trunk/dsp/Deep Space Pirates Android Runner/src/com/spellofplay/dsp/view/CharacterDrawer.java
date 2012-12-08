@@ -5,17 +5,13 @@ import java.util.Map;
 import java.util.Random;
 
 import android.graphics.Color;
-
-import com.spellofplay.dsp.model.Character;
-import com.spellofplay.dsp.model.CharacterCollection;
-import com.spellofplay.dsp.model.Enemy;
-import com.spellofplay.dsp.model.ModelFacade;
-import com.spellofplay.dsp.model.Soldier;
+import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.Vector2;
 
 public class CharacterDrawer {
-	Map<Character, VisualCharacter> m_characters = new HashMap<Character, VisualCharacter>();
-	Map<Enemy, Vector2> m_enemiesSeenThisRound = new HashMap<Enemy, Vector2>();
+	Map<ICharacter, VisualCharacter> m_characters = new HashMap<ICharacter, VisualCharacter>();
+	Map<ICharacter, Vector2> m_enemiesSeenThisRound = new HashMap<ICharacter, Vector2>();
 	ShotAnimation m_shotAnimation = new ShotAnimation();
 	
 	ITexture m_player;
@@ -26,26 +22,25 @@ public class CharacterDrawer {
 		m_texture = a_texture;
 	}
 
-	ViewPosition getVisualPosition(Character character, Camera camera) {
+	ViewPosition getVisualPosition(ICharacter character, Camera camera) {
 		return m_characters.get(character).getVisualPosition(camera);
 	}
 	
-	public void startNewGame(ModelFacade a_model) {
+	public void startNewGame(IModel a_model) {
 		m_characters.clear();
 		m_shotAnimation.removeAnimations();
 
-		CharacterCollection<Soldier> soldiers = a_model.getAliveSoldiers(); 
-		for (Soldier soldier : soldiers) {
+		for (ICharacter soldier : a_model.getAliveSoldiers()) {
 			m_characters.put(soldier, new VisualCharacter(soldier));
 		}
 		
-		for (Enemy enemy : a_model.getAliveEnemies()) {
+		for (ICharacter enemy : a_model.getAliveEnemies()) {
 			m_characters.put(enemy, new VisualCharacter(enemy));
 		}
 		
 	}
 	
-	public boolean updateAnimations(ModelFacade a_model, float a_elapsedTime) {
+	public boolean updateAnimations(IModel a_model, float a_elapsedTime) {
 		boolean doneAnimating = true;
 		
 		doneAnimating = animateCharacterMovement(a_elapsedTime, doneAnimating);
@@ -77,7 +72,7 @@ public class CharacterDrawer {
 		return doneAnimating;
 	}
 	
-	public void fireAt(Character attacker, Character fireTarget, boolean didHit) {
+	public void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
 		m_characters.get(attacker).attack();
 		
 		Random rand = new Random();
@@ -100,17 +95,17 @@ public class CharacterDrawer {
 		
 	}
 	
-	void drawCasualties(AndroidDraw drawable, ModelFacade a_model, Camera camera) {
-		for (Enemy enemy : a_model.getDeadEnemies()) {
+	void drawCasualties(AndroidDraw drawable, IModel a_model, Camera camera) {
+		for (ICharacter enemy : a_model.getDeadEnemies()) {
 			VisualCharacter vchar = m_characters.get(enemy);
 			
 			vchar.drawDeadEnemy(drawable, camera, m_texture);
 		}
 	}
 	
-	void drawEnemies(AndroidDraw drawable, ModelFacade a_model, Camera camera) {
+	void drawEnemies(AndroidDraw drawable, IModel a_model, Camera camera) {
 		
-		for (Enemy enemy : a_model.getAliveEnemies()) {
+		for (ICharacter enemy : a_model.getAliveEnemies()) {
 			boolean isSpotted = a_model.canSee(enemy).isEmpty() == false;
 			VisualCharacter vchar = m_characters.get(enemy);
 			
@@ -130,16 +125,16 @@ public class CharacterDrawer {
 		
 	}
 	
-	void drawSoldiers(AndroidDraw drawable, ModelFacade a_model,
-			Soldier selected, Camera camera, Enemy enemyTarget) {
-		Enemy target = drawTargetSelection(drawable, a_model, camera, enemyTarget);
-		for (Soldier soldier : a_model.getAliveSoldiers()) {
+	void drawSoldiers(AndroidDraw drawable, IModel a_model,
+			ICharacter selected, Camera camera, ICharacter enemyTarget) {
+		ICharacter target = drawTargetSelection(drawable, a_model, camera, enemyTarget);
+		for (ICharacter soldier : a_model.getAliveSoldiers()) {
 			VisualCharacter vchar = m_characters.get(soldier);
 			vchar.drawSoldier(drawable, camera, m_player, selected == soldier ? target :  null);
 		}
 	}
 	
-	private Enemy drawTargetSelection(AndroidDraw drawable, ModelFacade a_model, Camera camera, Enemy target) {
+	private ICharacter drawTargetSelection(AndroidDraw drawable, IModel a_model, Camera camera, ICharacter target) {
 		
 		if (target != null) {
 			ViewPosition vEpos = camera.toViewPos(target.getPosition());
@@ -150,14 +145,14 @@ public class CharacterDrawer {
 
 
 	void drawSoldierSelection(AndroidDraw drawable,
-			ModelFacade a_model, Soldier selected, Camera camera) {
+			IModel a_model, ICharacter selected, Camera camera) {
 		if (selected != null && a_model.isSoldierTime() && selected.getTimeUnits() > 0) {
 			ViewPosition vpos = m_characters.get(selected).getVisualPosition(camera);//.toViewPos(selected.getPosition());
 			drawable.drawCircle(vpos, camera.getHalfScale(), Color.GREEN);
 		}
 	}
 
-	public void moveTo(Character character) {
+	public void moveTo(ICharacter character) {
 		m_characters.get(character).moveTo();
 		
 	}
@@ -167,7 +162,7 @@ public class CharacterDrawer {
 		
 	}
 
-	public void draw(AndroidDraw drawable, ModelFacade model, Soldier selected, Camera camera, Enemy target) {
+	public void draw(AndroidDraw drawable, IModel model, ICharacter selected, Camera camera, ICharacter target) {
 		drawSoldierSelection(drawable, model, selected, camera);
 		drawSoldiers(drawable, model, selected, camera, target);
 		drawEnemies(drawable, model, camera);

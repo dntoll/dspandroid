@@ -6,11 +6,11 @@ import java.util.Random;
 
 import android.graphics.Rect;
 
-import com.spellofplay.dsp.model.Game;
-import com.spellofplay.dsp.model.Level;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.TileType;
 import com.spellofplay.dsp.model.Vector2;
+import com.spellofplay.dsp.model.inner.Game;
+import com.spellofplay.dsp.model.inner.Level;
 
 
 public class Room {

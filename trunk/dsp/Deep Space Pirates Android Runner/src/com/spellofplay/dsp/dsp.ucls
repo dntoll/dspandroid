@@ -10,9 +10,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="2" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.Level" 
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Level" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/Level.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/Level.java" binary="false">    
     <position x="1073" y="686" width="64" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -20,9 +20,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="3" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.Game" 
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Game" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/Game.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/Game.java" binary="false">    
     <position x="677" y="102" width="65" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -30,9 +30,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <enumeration id="4" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.AStar.SearchResult" 
+  <enumeration id="4" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.AStar.SearchResult" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/AStar.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/AStar.java" binary="false">    
     <position x="808" y="686" width="120" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -40,9 +40,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </enumeration>  
-  <class id="5" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.Enemy.EnemyMemory" 
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Enemy.EnemyMemory" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/Enemy.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/Enemy.java" binary="false">    
     <position x="759" y="297" width="127" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -50,9 +50,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="6" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.Soldier" 
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Soldier" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/Soldier.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/Soldier.java" binary="false">    
     <position x="895" y="621" width="75" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -70,9 +70,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </interface>  
-  <class id="8" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.AStar.Node" 
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.AStar.Node" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/AStar.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/AStar.java" binary="false">    
     <position x="633" y="686" width="62" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -80,9 +80,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="9" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.EnemyAI" 
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.EnemyAI" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/EnemyAI.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/EnemyAI.java" binary="false">    
     <position x="535" y="167" width="84" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -100,9 +100,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="11" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.Line" 
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Line" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/Line.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/Line.java" binary="false">    
     <position x="36" y="427" width="55" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -120,9 +120,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </enumeration>  
-  <class id="13" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.RuleBook" 
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.RuleBook" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/RuleBook.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/RuleBook.java" binary="false">    
     <position x="236" y="427" width="94" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -140,9 +140,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="15" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.Enemy" 
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Enemy" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/Enemy.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/Enemy.java" binary="false">    
     <position x="759" y="232" width="71" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -150,9 +150,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="16" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.Character" 
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Character" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/Character.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/Character.java" binary="false">    
     <position x="595" y="557" width="93" height="24"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -170,9 +170,9 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </interface>  
-  <class id="18" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.AStar" 
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.AStar" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/AStar.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/AStar.java" binary="false">    
     <position x="751" y="621" width="62" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      
@@ -190,9 +190,10 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="20" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.CharacterCollection" 
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.CharacterCollection" 
     project="Deep Space Pirates Android Runner" 
-    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/CharacterCollection.java" binary="false">    
+    file="/Deep Space Pirates Android Runner/src/com/spellofplay/dsp/model/inner/CharacterCollection.java" 
+    binary="false">    
     <position x="194" y="362" width="194" height="25"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="true">      

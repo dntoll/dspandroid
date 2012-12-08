@@ -3,8 +3,7 @@ package com.spellofplay.dsp.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.spellofplay.dsp.model.Character;
-import com.spellofplay.dsp.model.Enemy;
+import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 
 import android.graphics.Color;
@@ -32,16 +31,16 @@ public class LogView implements ICharacterListener {
 	}
 
 	@Override
-	public void moveTo(Character character) {
+	public void moveTo(ICharacter character) {
 		m_log.add("character moved..." );
 		
 	}
 
 	@Override
-	public void fireAt(Character attacker, Character fireTarget, boolean didHit) {
+	public void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
 		m_log.add("character attacked and " + (didHit ? "did hit" : "missed"));
 		
-		if (didHit && fireTarget.getHitpoints() == 0) {
+		if (didHit && fireTarget.getHitPoints() == 0) {
 			m_log.add("target eliminated");	
 		}
 	}
@@ -51,13 +50,13 @@ public class LogView implements ICharacterListener {
 	}
 
 	@Override
-	public void cannotFireAt(Character character, Character fireTarget) {
+	public void cannotFireAt(ICharacter character, ICharacter fireTarget) {
 		m_log.add("character could not fire at");
 		
 	}
 
 	@Override
-	public void enemyAILog(String string, Enemy enemy) {
+	public void enemyAILog(String string, ICharacter enemy) {
 		m_logMessage = string;
 		m_log.add(string + enemy.getPosition().m_x + ":" + enemy.getPosition().m_y );
 	}

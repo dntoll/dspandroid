@@ -3,8 +3,8 @@ package com.spellofplay.dsp.controller;
 
 import android.view.KeyEvent;
 
-import com.spellofplay.dsp.model.Line;
 import com.spellofplay.dsp.model.ModelFacade;
+import com.spellofplay.dsp.model.inner.Line;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.ITexture;
 import com.spellofplay.dsp.view.MasterView;
@@ -23,12 +23,10 @@ public class MasterController {
 	
 	
 	public MasterController(Input a_input, ITexture a_texture, ITexture a_player) {
-		
-		Line.test();
-		
+	
 		m_masterView = new MasterView(a_texture, a_player, m_model);
 		
-		m_game = new GameController(m_masterView);
+		m_game = new GameController(m_masterView, m_model);
 		m_input = a_input;
 		
 		m_showMenu = true;

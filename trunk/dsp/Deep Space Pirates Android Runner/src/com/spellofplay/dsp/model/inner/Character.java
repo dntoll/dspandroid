@@ -1,6 +1,12 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
-public abstract class Character   {
+import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.ICharacterListener;
+import com.spellofplay.dsp.model.IMoveAndVisibility;
+import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.MultiMovementListeners;
+
+public abstract class Character extends ICharacter  {
 	private ModelPosition m_position = new ModelPosition();
 	
 	protected PathFinder m_pathFinder = new PathFinder();
@@ -41,9 +47,11 @@ public abstract class Character   {
 		return 1;
 	}
 	
-	public int getHitpoints() {
+	@Override
+	public int getHitPoints() {
 		return m_hitpoints;
 	}
+	
 	
 	public int getTimeUnits() {
 		return m_timeUnits;
@@ -99,20 +107,18 @@ public abstract class Character   {
 		clistener.moveTo(this);
 		multiListener.moveTo(this, moveAndVisibility, clistener);
 	}
-	
-	public boolean fireAt(Character fireTarget, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
+		
+	public boolean fireAt(ICharacter fireTarget, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
 				
 		if (RuleBook.canFireAt(this, fireTarget, moveAndVisibility) == false) {
 			a_listener.cannotFireAt(this, fireTarget);
 			return false;
 		}
-			
-		
 		m_timeUnits -= getFireCost();
 		
-		
 		if (RuleBook.DetermineFireSuccess(this, fireTarget, moveAndVisibility.targetHasCover(this, fireTarget))) {
-			fireTarget.m_hitpoints -= getDamage();
+			Character target = (Character)fireTarget;
+			target.m_hitpoints -= getDamage();
 			a_listener.fireAt(this, fireTarget, true);
 			return true;
 		} else {
@@ -122,19 +128,11 @@ public abstract class Character   {
 		
 	}
 
-	public abstract float getFireSkill();
-
-	public abstract float getDodgeSkill();
-
-	public float distance(Character other) {
+	public float distance(ICharacter other) {
 		return m_position.sub(other.getPosition()).length();
 	}
 
-	public abstract float getRange();
-
-	
-
-	public void watchMovement(Character mover,
+	public void watchMovement(ICharacter mover,
 			IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
 		
 		if (RuleBook.canFireAt(this, mover, moveAndVisibility) == true) {
@@ -148,6 +146,10 @@ public abstract class Character   {
 
 	public PathFinder getPathFinder() {
 		return m_pathFinder;
+	}
+
+	public void stopAllMovement() {
+		getPathFinder().stopAllSearches();
 	}
 	
 }

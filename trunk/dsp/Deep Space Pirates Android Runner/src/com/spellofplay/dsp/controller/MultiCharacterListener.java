@@ -2,9 +2,7 @@ package com.spellofplay.dsp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.spellofplay.dsp.model.Character;
-import com.spellofplay.dsp.model.Enemy;
+import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 
 
@@ -13,14 +11,14 @@ public class MultiCharacterListener implements ICharacterListener{
 	List<ICharacterListener> m_listeners = new ArrayList<ICharacterListener>();
 	
 	@Override
-	public void moveTo(Character character) {
+	public void moveTo(ICharacter character) {
 		for (ICharacterListener l : m_listeners) {
 			l.moveTo(character);
 		}
 	}
 
 	@Override
-	public void fireAt(Character attacker, Character fireTarget, boolean didHit) {
+	public void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
 		for (ICharacterListener l : m_listeners) {
 			l.fireAt(attacker, fireTarget, didHit);
 		}
@@ -32,7 +30,7 @@ public class MultiCharacterListener implements ICharacterListener{
 	}
 
 	@Override
-	public void cannotFireAt(Character character, Character fireTarget) {
+	public void cannotFireAt(ICharacter character, ICharacter fireTarget) {
 		for (ICharacterListener l : m_listeners) {
 			l.cannotFireAt(character, fireTarget);
 		}
@@ -40,7 +38,7 @@ public class MultiCharacterListener implements ICharacterListener{
 
 
 	@Override
-	public void enemyAILog(String string, Enemy enemy) {
+	public void enemyAILog(String string, ICharacter enemy) {
 		for (ICharacterListener l : m_listeners) {
 			l.enemyAILog(string, enemy);
 		}

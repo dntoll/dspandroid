@@ -2,14 +2,13 @@ package com.spellofplay.dsp.view;
 
 
 import android.graphics.Color;
-import com.spellofplay.dsp.model.Enemy;
+
+import com.spellofplay.dsp.model.CharacterIterable;
+import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
-import com.spellofplay.dsp.model.ModelFacade;
-import com.spellofplay.dsp.model.RuleBook;
-import com.spellofplay.dsp.model.Soldier;
-import com.spellofplay.dsp.model.Character;
-import com.spellofplay.dsp.model.CharacterCollection;
+import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.Vector2;
+import com.spellofplay.dsp.model.inner.RuleBook;
 
 
 public class GameView implements ICharacterListener {
@@ -19,9 +18,9 @@ public class GameView implements ICharacterListener {
 	private CharacterDrawer m_characterDrawer;
 	private boolean hasInitatedBuffer = false;
 	private Camera  m_camera;
-	private ModelFacade model;
+	private IModel model;
 	
-	public GameView(ITexture a_texture, ITexture a_player, Camera camera, ModelFacade model) {
+	public GameView(ITexture a_texture, ITexture a_player, Camera camera, IModel model) {
 		m_level = new LevelDrawer(a_texture);
 		setM_characterDrawer(new CharacterDrawer(a_texture, a_player));
 		m_camera = camera;
@@ -29,23 +28,18 @@ public class GameView implements ICharacterListener {
 		m_visibility = new VisibilityView();
 	}
 	
-	
-	
-
-
-	public void drawMovementAndVisibilityHelp(AndroidDraw drawable, Soldier selected) {
+	public void drawMovementAndVisibilityHelp(AndroidDraw drawable, ICharacter selected) {
 		
 		m_movement.drawPossibleMoveArea(model.getMovePossible(), drawable, m_camera, selected);
 		m_visibility.drawNotVisible(model, drawable, m_camera);
 	}
 
 
-	public void drawSightLines(AndroidDraw drawable, Soldier selected) {
-		for (Enemy enemy : model.getAliveEnemies()) {
-			CharacterCollection<Soldier> soldiersWhoSpotsEnemy = model.canSee(enemy);
-			CharacterCollection<Soldier> canShootEnemy = soldiersWhoSpotsEnemy.couldShootIfHadTime(enemy, model.getMovePossible());
+	public void drawSightLines(AndroidDraw drawable, ICharacter selected) {
+		for (ICharacter enemy : model.getAliveEnemies()) {
+			CharacterIterable canShootEnemy = model.couldShootIfHadTime(enemy);
 			
-			for(Soldier s : canShootEnemy) {
+			for(ICharacter s : canShootEnemy) {
 
 				ViewPosition vsPos = getCharacterDrawer().getVisualPosition(s, m_camera);
 				ViewPosition vEpos = getCharacterDrawer().getVisualPosition(enemy, m_camera);
@@ -67,9 +61,9 @@ public class GameView implements ICharacterListener {
 		}
 	}
 
-	public void redrawLevelBuffer(AndroidDraw drawable, ModelFacade a_model) {
+	public void redrawLevelBuffer(AndroidDraw drawable, IModel model) {
 		if (hasInitatedBuffer == false) {
-			m_level.drawToBuffer(a_model.getLevel(), drawable, m_camera);
+			m_level.drawToBuffer(model, drawable, m_camera);
 			hasInitatedBuffer = true;
 		}
 	}
@@ -79,7 +73,7 @@ public class GameView implements ICharacterListener {
 		getCharacterDrawer().startNewRound();
 	}
 	
-	public void startNewGame(ModelFacade model) {
+	public void startNewGame(IModel model) {
 		hasInitatedBuffer = false;
 		m_visibility.clear();
 		m_visibility.updateVisibility(model);
@@ -87,7 +81,7 @@ public class GameView implements ICharacterListener {
 	}
 
 	@Override
-	public void moveTo(Character character) {
+	public void moveTo(ICharacter character) {
 		m_visibility.updateVisibility(model);
 		getCharacterDrawer().moveTo(character);
 		m_camera.focusOn(character.getPosition());
@@ -95,25 +89,25 @@ public class GameView implements ICharacterListener {
 	}
 
 	@Override
-	public void cannotFireAt(Character character, Character fireTarget) {
+	public void cannotFireAt(ICharacter character, ICharacter fireTarget) {
 		
 	}
 
 
 	@Override
-	public void enemyAILog(String string, Enemy enemy) {
+	public void enemyAILog(String string, ICharacter enemy) {
 		
 	}
 
 
 	@Override
-	public void fireAt(Character attacker, Character fireTarget, boolean didHit) {
+	public void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
 		getCharacterDrawer().fireAt(attacker, fireTarget, didHit);
 		m_movement.update();
 	}
 
 
-	public boolean updateAnimations(ModelFacade model,
+	public boolean updateAnimations(IModel model,
 			float elapsedTimeSeconds) {
 		return getCharacterDrawer().updateAnimations(model, elapsedTimeSeconds);
 	}

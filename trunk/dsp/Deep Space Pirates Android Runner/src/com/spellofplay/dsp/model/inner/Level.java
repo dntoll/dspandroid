@@ -1,4 +1,8 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
+
+import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.TileType;
+import com.spellofplay.dsp.model.Vector2;
 
 public class Level {
 

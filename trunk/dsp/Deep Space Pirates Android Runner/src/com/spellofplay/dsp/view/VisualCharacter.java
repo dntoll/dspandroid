@@ -2,10 +2,8 @@ package com.spellofplay.dsp.view;
 
 import android.graphics.Color;
 import android.graphics.Rect;
-
-import com.spellofplay.dsp.model.Enemy;
+import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.Character;
 import com.spellofplay.dsp.model.Vector2;
 
 public class VisualCharacter {
@@ -15,22 +13,19 @@ public class VisualCharacter {
 	private static final float MOVEMENT_TIME = 0.2f;
 	private static final float ROTATION_SPEED = 360.0f;
 	private final int TRANSPARENT = Color.argb(128, 255, 255, 255);
-	
 	private float m_movementTimer = 0.0f;
 	private float m_attackTimer = 0.0f;
 	private float m_damageTimer = 0.0f;
 	private float m_rotation = 0;
 	private float m_targetRotation = 0;
 	private boolean m_showDeadEnemy = false;
-		
+	private ICharacter m_modelCharacter;
+	private ModelPosition m_lastPositionSeen = new ModelPosition();
 	
-	Character m_modelCharacter;
-	ModelPosition m_lastPosition = new ModelPosition();
-	
-	public VisualCharacter(Character dude) {
-		m_modelCharacter = dude;
-		m_lastPosition.m_x = dude.getPosition().m_x;
-		m_lastPosition.m_y = dude.getPosition().m_y;
+	public VisualCharacter(ICharacter soldier2) {
+		m_modelCharacter = soldier2;
+		m_lastPositionSeen.m_x = soldier2.getPosition().m_x;
+		m_lastPositionSeen.m_y = soldier2.getPosition().m_y;
 	}
 	
 	void drawEnemySpotted(AndroidDraw drawable, Camera camera, ITexture enemyTexture) {
@@ -39,7 +34,7 @@ public class VisualCharacter {
 		ViewPosition vEpos = getVisualPosition(camera);
 		int color = Color.WHITE;
 		
-		drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, drawGui, true);
+		drawCharacter(vEpos, drawable, camera, enemyTexture, ENEMY, color, drawGui, true);
 	}
 	
 	public void drawDeadEnemy(AndroidDraw drawable, Camera camera, ITexture enemyTexture) {
@@ -47,16 +42,16 @@ public class VisualCharacter {
 		int color = Color.WHITE;
 		
 		if (m_showDeadEnemy)
-			drawCharacter(vEpos, drawable, camera, enemyTexture, null, DEAD_ENEMY, color, false, true);
+			drawCharacter(vEpos, drawable, camera, enemyTexture, DEAD_ENEMY, color, false, true);
 		else 
-			drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, false, true);
+			drawCharacter(vEpos, drawable, camera, enemyTexture, ENEMY, color, false, true);
 	}
 	
 	void drawEnemyNotSpotted(AndroidDraw drawable, Camera camera, ITexture enemyTexture, Vector2 lastSeenPosition) {
 		boolean drawGui = false;
 		int color =  TRANSPARENT;
 		ViewPosition vEpos = camera.toViewPos(lastSeenPosition); 
-		drawCharacter(vEpos, drawable, camera, enemyTexture, null, ENEMY, color, drawGui, false);
+		drawCharacter(vEpos, drawable, camera, enemyTexture, ENEMY, color, drawGui, false);
 	}
 
 	private void drawGUI(AndroidDraw drawable, Rect dst) {
@@ -72,29 +67,29 @@ public class VisualCharacter {
 		
 		drawable.drawText("" + m_modelCharacter.getTimeUnits(), dst.left, dst.top, drawable.m_guiText);
 		drawable.drawText("" + m_modelCharacter.getWatchTimeUnits(), dst.left + 16, dst.top, drawable.m_guiText);
-		drawable.drawText("" + m_modelCharacter.getHitpoints(), dst.right-16, dst.top, drawable.m_guiText);
+		drawable.drawText("" + m_modelCharacter.getHitPoints(), dst.right-16, dst.top, drawable.m_guiText);
 	}
 
-	void drawSoldier(AndroidDraw drawable, Camera camera, ITexture player, Enemy target ) {
+	void drawSoldier(AndroidDraw drawable, Camera camera, ITexture player, ICharacter target ) {
 		
 		ViewPosition vpos = getVisualPosition(camera);
-		drawCharacter(vpos, drawable, camera, player, target != null ? target.getPosition() : null, SOLDIER, Color.WHITE, true, true);
+		
+		if (target != null) {
+			m_targetRotation = m_modelCharacter.getPosition().sub(target.getPosition()).getRotation();
+		}
+		drawCharacter(vpos, drawable, camera, player, SOLDIER, Color.WHITE, true, true);
 	}
 	
 	private void drawCharacter(ViewPosition vpos, 
 							  AndroidDraw drawable, 
 							  Camera camera, 
 							  ITexture player, 
-							  ModelPosition targetPosition, 
 							  Rect source, int color, boolean drawgui, boolean rotate) {
 		if (rotate) {
-			//Did we move?
-			if (m_lastPosition.equals(m_modelCharacter.getPosition()) == false) {
-				m_targetRotation = m_lastPosition.sub(m_modelCharacter.getPosition()).getRotation();
-			} else if (targetPosition != null) {
-				//Rotate to face target
-				m_targetRotation = m_modelCharacter.getPosition().sub(targetPosition).getRotation();
-			}
+			
+			if (m_lastPositionSeen.equals(m_modelCharacter.getPosition()) == false) {
+				m_targetRotation = m_lastPositionSeen.sub(m_modelCharacter.getPosition()).getRotation();
+			} 
 		}
 		
 		
@@ -102,9 +97,6 @@ public class VisualCharacter {
 				(int)vpos.m_y -camera.getHalfScale(),
 				(int)vpos.m_x + camera.getHalfScale(), 
 				(int)vpos.m_y + camera.getHalfScale());
-		
-		
-		
 		
 		drawable.drawBitmap(player, source, dst, color, m_rotation);
 		if (drawgui) {
@@ -131,9 +123,9 @@ public class VisualCharacter {
 	}
 
 	public Vector2 getInterpolatedModelPosition() {
-		float vmxpos = (float)m_lastPosition.m_x * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
+		float vmxpos = (float)m_lastPositionSeen.m_x * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
 		               (float)m_modelCharacter.getPosition().m_x * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
-		float vmypos = (float)m_lastPosition.m_y * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
+		float vmypos = (float)m_lastPositionSeen.m_y * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
 					   (float)m_modelCharacter.getPosition().m_y * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
 		
 		Vector2 modelInterPolatedPosition = new Vector2(vmxpos, vmypos);
@@ -161,7 +153,7 @@ public class VisualCharacter {
 		
 		m_movementTimer -= a_elapsedTime;
 		if (m_movementTimer < 0) {
-			m_lastPosition = m_modelCharacter.getPosition();
+			m_lastPositionSeen = m_modelCharacter.getPosition();
 		}
 		
 		m_attackTimer -= a_elapsedTime;
@@ -207,7 +199,7 @@ public class VisualCharacter {
 	}
 
 	public void doAnimateHit() {
-		if (m_modelCharacter.getHitpoints() <= 0)
+		if (m_modelCharacter.getHitPoints() <= 0)
 			m_showDeadEnemy = true;
 	}
 
