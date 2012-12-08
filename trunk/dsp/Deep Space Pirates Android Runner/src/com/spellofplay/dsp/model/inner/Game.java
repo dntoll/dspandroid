@@ -10,7 +10,7 @@ import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.MultiMovementListeners;
 import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;
-import com.spellofplay.dsp.model.levelgenerator.LevelGenerator;
+import com.spellofplay.dsp.model.inner.levelgenerator.LevelGenerator;
 
 public class Game implements IMoveAndVisibility {
 
