@@ -12,26 +12,30 @@ import com.spellofplay.dsp.model.inner.RuleBook;
 
 
 class GameView implements ICharacterListener {
-	private LevelDrawer m_level;
-	private MovementMapView m_movement = new MovementMapView();
-	private VisibilityView m_visibility;
+	private LevelDrawer level;
+	private MovementMapView movementView = new MovementMapView();
+	private VisibilityView visibility;
 	private CharacterDrawer m_characterDrawer;
 	private boolean hasInitatedBuffer = false;
-	private Camera  m_camera;
+	private Camera  camera;
 	private IModel model;
 	
 	GameView(ITexture a_texture, ITexture a_player, Camera camera, IModel model) {
-		m_level = new LevelDrawer(a_texture);
+		this.level = new LevelDrawer(a_texture, model);
 		setM_characterDrawer(new CharacterDrawer(a_texture, a_player));
-		m_camera = camera;
+		this.camera = camera;
 		this.model = model;
-		m_visibility = new VisibilityView();
+		this.visibility = new VisibilityView();
 	}
 	
 	void drawMovementAndVisibilityHelp(AndroidDraw drawable, ICharacter selected) {
 		
-		m_movement.drawPossibleMoveArea(model.getMovePossible(), drawable, m_camera, selected);
-		m_visibility.drawNotVisible(model, drawable, m_camera);
+		movementView.drawPossibleMoveArea(model.getMovePossible(), drawable, camera, selected);
+		visibility.drawNotVisible(model, drawable, camera);
+	}
+	
+	public void drawDoors(AndroidDraw drawable) {
+		level.drawDoors(drawable, camera);
 	}
 
 
@@ -41,8 +45,8 @@ class GameView implements ICharacterListener {
 			
 			for(ICharacter s : canShootEnemy) {
 
-				ViewPosition vsPos = getCharacterDrawer().getVisualPosition(s, m_camera);
-				ViewPosition vEpos = getCharacterDrawer().getVisualPosition(enemy, m_camera);
+				ViewPosition vsPos = getCharacterDrawer().getVisualPosition(s, camera);
+				ViewPosition vEpos = getCharacterDrawer().getVisualPosition(enemy, camera);
 				boolean hasCover = model.getMovePossible().targetHasCover(s, enemy);
 				
 				drawable.drawLine(vEpos, vsPos, hasCover ? Color.LTGRAY : Color.WHITE);
@@ -50,12 +54,12 @@ class GameView implements ICharacterListener {
 				if (selected == s) {
 					Vector2 direction = vEpos.sub(vsPos).toVector2();
 					direction.normalize();
-					direction = direction.mul((float)m_camera.getScale() * 0.65f);
+					direction = direction.mul((float)camera.getScale() * 0.65f);
 					
 					Vector2 textAt = vEpos.toVector2().sub(direction);
 					
 					float chance = RuleBook.getToHitChance(s, enemy, hasCover);
-					drawable.drawText( " " + (int)(100.0f * chance) + "%", (int)textAt.m_x, (int)textAt.m_y);
+					drawable.drawText( " " + (int)(100.0f * chance) + "%", (int)textAt.x, (int)textAt.y);
 				}
 			}
 		}
@@ -63,7 +67,7 @@ class GameView implements ICharacterListener {
 
 	void redrawLevelBuffer(AndroidDraw drawable, IModel model) {
 		if (hasInitatedBuffer == false) {
-			m_level.drawToBuffer(model, drawable, m_camera);
+			level.drawToBuffer(drawable, camera);
 			hasInitatedBuffer = true;
 		}
 	}
@@ -75,17 +79,17 @@ class GameView implements ICharacterListener {
 	
 	void startNewGame(IModel model) {
 		hasInitatedBuffer = false;
-		m_visibility.clear();
-		m_visibility.updateVisibility(model);
+		visibility.clear();
+		visibility.updateVisibility(model);
 		getCharacterDrawer().startNewGame(model);
 	}
 
 	@Override
 	public void moveTo(ICharacter character) {
-		m_visibility.updateVisibility(model);
+		visibility.updateVisibility(model);
 		getCharacterDrawer().moveTo(character);
-		m_camera.focusOn(character.getPosition());
-		m_movement.update();
+		camera.focusOn(character.getPosition());
+		movementView.update();
 	}
 
 	@Override
@@ -103,7 +107,7 @@ class GameView implements ICharacterListener {
 	@Override
 	public void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
 		getCharacterDrawer().fireAt(attacker, fireTarget, didHit);
-		m_movement.update();
+		movementView.update();
 	}
 
 
@@ -125,6 +129,13 @@ class GameView implements ICharacterListener {
 	public CharacterDrawer getCharacterDrawer() {
 		return m_characterDrawer;
 	}
+
+	public void open() {
+		visibility.updateVisibility(model);
+		movementView.update();
+	}
+
+	
 
 
 	

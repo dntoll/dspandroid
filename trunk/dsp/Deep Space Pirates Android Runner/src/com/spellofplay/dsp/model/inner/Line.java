@@ -23,15 +23,15 @@ class Line {
 	private float pointToLineDistance(Vector2 A, Vector2 B, Vector2 P)
 	{
 		
-		float u = ((P.m_x - A.m_x) * (B.m_x - A.m_x) + 
-				   (P.m_y - A.m_y) * (B.m_y - A.m_y)) / ( m_lineMag * m_lineMag);
+		float u = ((P.x - A.x) * (B.x - A.x) + 
+				   (P.y - A.y) * (B.y - A.y)) / ( m_lineMag * m_lineMag);
 		
 		if( u < 0.0f || u > 1.0f) {
 			return Float.MAX_VALUE;
 		}
 		
-		float ix = A.m_x + u * (B.m_x - A.m_x);
-		float iy = A.m_y + u * (B.m_y - A.m_y);
+		float ix = A.x + u * (B.x - A.x);
+		float iy = A.y + u * (B.y - A.y);
 		Vector2 intersect = new Vector2(ix, iy);
 	
 		

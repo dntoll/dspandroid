@@ -18,4 +18,6 @@ public interface IEventTarget {
 
 	public abstract void doWatch(ICharacter selectedSoldier);
 
+	public abstract void open(ICharacter selectedSoldier);
+
 }

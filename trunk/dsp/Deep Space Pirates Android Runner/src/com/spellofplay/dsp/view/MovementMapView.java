@@ -14,10 +14,10 @@ class MovementMapView {
 	private boolean m_mustUpdate;
 	
 	public MovementMapView() {
-		m_movementMap  = new int[Preferences.Width][];
-		for (int x = 0; x< Preferences.Width; x++) {
-			m_movementMap[x] = new int[Preferences.Height];
-			for (int y = 0; y< Preferences.Height; y++) {
+		m_movementMap  = new int[Preferences.WIDTH][];
+		for (int x = 0; x< Preferences.WIDTH; x++) {
+			m_movementMap[x] = new int[Preferences.HEIGHT];
+			for (int y = 0; y< Preferences.HEIGHT; y++) {
 				m_movementMap[x][y] = 1000;
 			}
 		}
@@ -33,19 +33,19 @@ class MovementMapView {
 		m_soldierForWhomMapIsValid = selected;
 		m_mustUpdate = false;
 		
-		for (int x = 0; x < Preferences.Width; x++) {
-			for (int y = 0; y < Preferences.Height; y++) {
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
 				m_movementMap[x][y] = 1000;
 			}
 		}
 		
 		if (selected != null) {
-			m_movementMap[selected.getPosition().m_x][selected.getPosition().m_y] = 0;
+			m_movementMap[selected.getPosition().x][selected.getPosition().y] = 0;
 			boolean hasAddedNewNodes = true;
 			while (hasAddedNewNodes) {
 				hasAddedNewNodes = false;
-				for (int x = 0; x < Preferences.Width; x++) {
-					for (int y = 0; y < Preferences.Height; y++) {
+				for (int x = 0; x < Preferences.WIDTH; x++) {
+					for (int y = 0; y < Preferences.HEIGHT; y++) {
 					
 						if (m_movementMap[x][y] < selected.getTimeUnits()) {
 							
@@ -82,7 +82,7 @@ class MovementMapView {
 			return false;
 		}
 		//Stay inside level
-		if (x+dx >= Preferences.Width || y+dy >= Preferences.Height) {
+		if (x+dx >= Preferences.WIDTH || y+dy >= Preferences.HEIGHT) {
 			return false;
 		}
 		if (x+dx < 0 || y+dy < 0) {
@@ -90,15 +90,15 @@ class MovementMapView {
 		}
 		
 
-		if (a_checker.isMovePossible(new ModelPosition(x+dx, y+dy), false) == false) {
+		if (a_checker.isMovePossible(new ModelPosition(x+dx, y+dy)) == false) {
 			return false;
 		}
 		
 		//Diagonala moves
 		if (dx == dy || dx == -dy) {
-	        if (a_checker.isMovePossible(new ModelPosition(x + dx, y), false) == false)
+	        if (a_checker.isMovePossible(new ModelPosition(x + dx, y)) == false)
 	        	return false;
-	        if (a_checker.isMovePossible(new ModelPosition(x, y + dy), false) == false)
+	        if (a_checker.isMovePossible(new ModelPosition(x, y + dy)) == false)
 	        	return false;
         }
 		return true;
@@ -116,8 +116,8 @@ class MovementMapView {
 		if (selected == null)
 			return;
 		
-		for (int x = 0; x < Preferences.Width; x++) {
-			for (int y = 0; y < Preferences.Height; y++) {
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
 				drawTileMoveHint(drawable, camera, selected, x, y);
 			}	
 		}

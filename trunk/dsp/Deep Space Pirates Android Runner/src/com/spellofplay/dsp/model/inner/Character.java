@@ -6,33 +6,33 @@ import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.MultiMovementListeners;
 
-public abstract class Character extends ICharacter  {
-	private ModelPosition m_position = new ModelPosition();
+public abstract class Character implements ICharacter  {
+	private ModelPosition position = new ModelPosition();
 	
-	private PathFinder m_pathFinder = new PathFinder();
+	private PathFinder pathFinder = new PathFinder();
 	
-	private int m_maxTimeUnits = 3;
-	private int m_watchTimeUnits = 0;
-	protected int m_timeUnits = m_maxTimeUnits;
-	protected int m_hitpoints = 5;
+	private int maxTimeUnits = 3;
+	private int watchTimeUnits = 0;
+	protected int timeUnits = maxTimeUnits;
+	protected int hitPoints = 5;
 
 	Character(ModelPosition startPosition, int a_maxTimeUnits) {
-		m_position.m_x = startPosition.m_x;
-		m_position.m_y = startPosition.m_y;
-		m_maxTimeUnits = m_timeUnits = a_maxTimeUnits;
+		position.x = startPosition.x;
+		position.y = startPosition.y;
+		maxTimeUnits = timeUnits = a_maxTimeUnits;
 	}
 	
 	public void doWatch() {
-		m_watchTimeUnits = m_timeUnits;
-		m_timeUnits = 0;
+		watchTimeUnits = timeUnits;
+		timeUnits = 0;
 	}
 	
 	void reset(ModelPosition startLocation) {
-		m_position = startLocation;
+		position = startLocation;
 	}
 	
 	public ModelPosition getPosition() {
-		return m_position;
+		return position;
 	}
 
 	public float getRadius() {
@@ -49,43 +49,37 @@ public abstract class Character extends ICharacter  {
 	
 	@Override
 	public int getHitPoints() {
-		return m_hitpoints;
+		return hitPoints;
 	}
 	
 	
 	public int getTimeUnits() {
-		return m_timeUnits;
+		return timeUnits;
 	}
 	public int getWatchTimeUnits() {
-		return m_watchTimeUnits;
+		return watchTimeUnits;
 	}
 
 	public void startNewRound() {
-		m_timeUnits = m_maxTimeUnits;
-		m_watchTimeUnits = 0;
-		m_pathFinder.stopAllSearches();
+		timeUnits = maxTimeUnits;
+		watchTimeUnits = 0;
+		pathFinder.stopAllSearches();
 	}
 	
 	public boolean hasWatch() {
-		return m_watchTimeUnits >= getFireCost();
+		return watchTimeUnits >= getFireCost();
 	}
 	
-	void setDestination(ModelPosition destination, IMoveAndVisibility a_map, float a_distance, boolean a_checkPathThroughOthers) {
+	void setDestination(ModelPosition destination, IMoveAndVisibility map, float distance) {
 		
-		m_pathFinder.setDestination(a_map, m_position, destination, a_distance > 0.0f, a_distance, a_checkPathThroughOthers);
+		pathFinder.setDestination(map, position, destination, distance > 0.0f, distance);
 		
 	}
 
-	/**
-	 * 
-	 * @param multiListener 
-	 * @param check
-	 * @return true if everything is ok but false if a search or move failed
-	 */
 	void move(ICharacterListener clistener, MultiMovementListeners multiListener, IMoveAndVisibility moveAndVisibility) {
 		
-		if (m_timeUnits > 0) {
-			if (m_pathFinder.isSearchDone()) {
+		if (timeUnits > 0) {
+			if (pathFinder.isSearchDone()) {
 				MoveToNextPosition(clistener, multiListener, moveAndVisibility);
 			} 
 		}
@@ -95,13 +89,13 @@ public abstract class Character extends ICharacter  {
 
 	private void MoveToNextPosition(ICharacterListener clistener, MultiMovementListeners multiListener, IMoveAndVisibility moveAndVisibility) {
 		
-		ModelPosition pos = m_pathFinder.getNextPosition();
+		ModelPosition pos = pathFinder.getNextPosition();
 		
-		if ( m_timeUnits <= 0) {
+		if ( timeUnits <= 0) {
 			return;
 		}
-		m_position = pos;
-		m_timeUnits--;
+		position = pos;
+		timeUnits--;
 		
 		
 		clistener.moveTo(this);
@@ -114,11 +108,11 @@ public abstract class Character extends ICharacter  {
 			a_listener.cannotFireAt(this, fireTarget);
 			return false;
 		}
-		m_timeUnits -= getFireCost();
+		timeUnits -= getFireCost();
 		
 		if (RuleBook.DetermineFireSuccess(this, fireTarget, moveAndVisibility.targetHasCover(this, fireTarget))) {
 			Character target = (Character)fireTarget;
-			target.m_hitpoints -= getDamage();
+			target.hitPoints -= getDamage();
 			a_listener.fireAt(this, fireTarget, true);
 			return true;
 		} else {
@@ -129,23 +123,23 @@ public abstract class Character extends ICharacter  {
 	}
 
 	public float distance(ICharacter other) {
-		return m_position.sub(other.getPosition()).length();
+		return position.sub(other.getPosition()).length();
 	}
 
 	public void watchMovement(ICharacter mover,
-			IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
+			IMoveAndVisibility moveAndVisibility, ICharacterListener listener) {
 		
 		if (RuleBook.canFireAt(this, mover, moveAndVisibility) == true) {
-			fireAt(mover, moveAndVisibility, a_listener);
+			fireAt(mover, moveAndVisibility, listener);
 		}
 	}
 
 	public boolean hasTimeToFire() {
-		return m_timeUnits + m_watchTimeUnits >= getFireCost(); 
+		return timeUnits + watchTimeUnits >= getFireCost(); 
 	}
 
 	public PathFinder getPathFinder() {
-		return m_pathFinder;
+		return pathFinder;
 	}
 
 	public void stopAllMovement() {

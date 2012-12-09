@@ -7,7 +7,7 @@ import com.spellofplay.dsp.model.Vector2;
 
 public class Level {
 
-	public TileType m_tiles[][] = new TileType[Preferences.Width][Preferences.Height];
+	public TileType m_tiles[][] = new TileType[Preferences.WIDTH][Preferences.HEIGHT];
 	public ModelPosition m_playerStartPositions[]= new ModelPosition[Preferences.MAX_SOLDIERS];
 	private ModelPosition m_enemyPositions[]= new ModelPosition[Preferences.MAX_ENEMIES];
 	private int m_numEnemies;
@@ -18,7 +18,7 @@ public class Level {
 	
 	public TileType GetTile(int a_x, int a_y) {
 		//walls around the level
-		if (a_x >= 0 && a_x < Preferences.Width && a_y >= 0 && a_y < Preferences.Height)
+		if (a_x >= 0 && a_x < Preferences.WIDTH && a_y >= 0 && a_y < Preferences.HEIGHT)
 			return m_tiles[a_x][a_y];
 		else
 			return TileType.TileWall;
@@ -47,7 +47,7 @@ public class Level {
 	}
 
 	boolean canMove(ModelPosition a_to) {
-		if (GetTile(a_to.m_x, a_to.m_y) == TileType.TileEmpty) {
+		if (GetTile(a_to.x, a_to.y) == TileType.TileEmpty) {
 			return true;
 		} else {
 			return false;
@@ -55,13 +55,13 @@ public class Level {
 	}
 
 	private boolean isClear(ModelPosition a_end) {
-		if (GetTile(a_end.m_x, a_end.m_y) == TileType.TileEmpty) {
+		if (GetTile(a_end.x, a_end.y) == TileType.TileEmpty) {
 			return true;
 		}
-		if (GetTile(a_end.m_x, a_end.m_y) == TileType.TilePit) {
+		if (GetTile(a_end.x, a_end.y) == TileType.TilePit) {
 			return true;
 		}
-		if (GetTile(a_end.m_x, a_end.m_y) == TileType.TileCover) {
+		if (GetTile(a_end.x, a_end.y) == TileType.TileCover) {
 			return true;
 		}
 		return false;
@@ -105,29 +105,23 @@ public class Level {
         dir.normalize();
 
         
-      /*  if (stepNodesInDirection(true, a_from, a_to, dir)) {
-        	return false;
-        }
-        if (stepNodesInDirection(false, a_from, a_to, dir)) {
-        	return false;
-        }*/
-        if (dir.m_x > 0.0f) {
+        if (dir.x > 0.0f) {
         	
 	        if (stepNodesPositiveXDirection(a_from, a_to, dir) == false) {
 	        	return false;
 	        }
-        } else if (dir.m_x < 0.0f) {
+        } else if (dir.x < 0.0f) {
         	if (stepNodesNegativeXDirection(a_from, a_to, dir) == false) {
 	        	return false;
 	        }
 	        
         }
 
-        if (dir.m_y > 0.0f) {
+        if (dir.y > 0.0f) {
         	if (stepNodesPositiveYDirection(a_from, a_to, dir) == false) {
 	        	return false;
 	        }
-        } else if (dir.m_y < 0.0f) {
+        } else if (dir.y < 0.0f) {
         	if (stepNodesNegativeYDirection(a_from, a_to, dir) == false) {
 	        	return false;
 	        }
@@ -136,60 +130,12 @@ public class Level {
         return true;
     }
 	
-	/*private boolean stepNodesInDirection(boolean xIsMainDirection, Vector2 from, Vector2 to, Vector2 dir) {
-		float mainDirection; 
-		float mainDirectionFrom;
-		float mainDirectionTo;
-		float theOtherDirection;
-		float theOtherDirectionFrom;
-		
-		if (xIsMainDirection == false) {
-			mainDirection = dir.m_y;
-			mainDirectionFrom =from.m_y;
-			mainDirectionTo = to.m_y;
-			theOtherDirection = dir.m_x;
-			theOtherDirectionFrom = from.m_x;
-		} else {
-			mainDirection = dir.m_x;
-			mainDirectionFrom =from.m_x;
-			mainDirectionTo = to.m_x;
-			theOtherDirection = dir.m_y;
-			theOtherDirectionFrom = from.m_y;
-		}
-		
-		
-		int stepDirection;
-		if (mainDirection > 0.0f) {
-			stepDirection = 1;
-		} else if ( mainDirection < 0.0f) {
-			stepDirection = -1;
-		} else {
-			return true;
-		}
-		
-		
-		for (int position = (int)mainDirectionFrom; position > mainDirectionTo; position += stepDirection) {
-		    float u = ((float)position - theOtherDirection) / mainDirection;
-		    float theOtherPosition = theOtherDirectionFrom + theOtherDirection * u;
-		    
-		    if (xIsMainDirection) {
-		    	if (isLosBlocked(position, theOtherPosition, 0.0f, 0.01f)) {
-			        return false;
-			    }	
-		    } else {
-		    	if (isLosBlocked(position, theOtherPosition, 0.0f, 0.01f)) {
-			        return false;
-			    }
-		    }
-		}
-		return true;
-	}*/
 
 	private boolean stepNodesNegativeYDirection(Vector2 a_from, Vector2 a_to,
 			Vector2 dir) {
-		for (int y = (int)a_from.m_y; y > a_to.m_y; y--) {
-		    float u = ((float)y - a_from.m_y) / dir.m_y;
-		    float x = a_from.m_x + dir.m_x * u;
+		for (int y = (int)a_from.y; y > a_to.y; y--) {
+		    float u = ((float)y - a_from.y) / dir.y;
+		    float x = a_from.x + dir.x * u;
 		    if (isLosBlocked(x, y, 0.0f, 0.01f)) {
 		        return false;
 		    }
@@ -199,9 +145,9 @@ public class Level {
 
 	private boolean stepNodesPositiveYDirection(Vector2 a_from, Vector2 a_to,
 			Vector2 dir) {
-		for (int y = (int)a_from.m_y+1; (float)y < a_to.m_y; y++) {
-		    float u = ((float)y - a_from.m_y) / dir.m_y;
-		    float x = a_from.m_x + dir.m_x * u;
+		for (int y = (int)a_from.y+1; (float)y < a_to.y; y++) {
+		    float u = ((float)y - a_from.y) / dir.y;
+		    float x = a_from.x + dir.x * u;
 		    if (isLosBlocked(x, y, 0.0f, 0.01f)) {
 		        return false;
 		    }
@@ -211,9 +157,9 @@ public class Level {
 
 	private boolean stepNodesNegativeXDirection(Vector2 a_from, Vector2 a_to,
 			Vector2 dir) {
-		for (int x = (int)a_from.m_x; (float)x > a_to.m_x; x--) {
-		    float u = ((float)x - a_from.m_x) / dir.m_x;
-		    float y = a_from.m_y + dir.m_y * u;
+		for (int x = (int)a_from.x; (float)x > a_to.x; x--) {
+		    float u = ((float)x - a_from.x) / dir.x;
+		    float y = a_from.y + dir.y * u;
 		    if (isLosBlocked(x, y, 0.01f, 0.0f)) {
 		        return false;
 		    }
@@ -223,9 +169,9 @@ public class Level {
 
 	private boolean stepNodesPositiveXDirection(Vector2 a_from, Vector2 a_to,
 			Vector2 dir) {
-		for (int x = (int)a_from.m_x+1; (float)x < a_to.m_x; x++) {
-		    float u = ((float)x - a_from.m_x) / dir.m_x;
-		    float y = a_from.m_y + dir.m_y * u;
+		for (int x = (int)a_from.x+1; (float)x < a_to.x; x++) {
+		    float u = ((float)x - a_from.x) / dir.x;
+		    float y = a_from.y + dir.y * u;
 		    if (isLosBlocked(x, y, 0.01f, 0.0f)) {
 		        return false;
 		    }
@@ -240,13 +186,13 @@ public class Level {
 		
 		sub.normalize();
 		
-		int dx = sub.m_x > 0 ? 1 : (sub.m_x < 0 ? -1 : 0);
-		int dy = sub.m_y > 0 ? 1 : (sub.m_y < 0 ? -1 : 0);
+		int dx = sub.x > 0 ? 1 : (sub.x < 0 ? -1 : 0);
+		int dy = sub.y > 0 ? 1 : (sub.y < 0 ? -1 : 0);
 		
-		if (GetTile(position.m_x + dx, position.m_y) == TileType.TileCover) {
+		if (GetTile(position.x + dx, position.y) == TileType.TileCover) {
 			return true;
 		}
-		if (GetTile(position.m_x, position.m_y + dy) == TileType.TileCover) {
+		if (GetTile(position.x, position.y + dy) == TileType.TileCover) {
 			return true;
 		}
 		
@@ -262,8 +208,8 @@ public class Level {
 		}
 		m_numEnemies = 0;
 		
-		for (int y = 0; y < Preferences.Height; y++) {
-			for (int x = 0; x < Preferences.Width; x++) {
+		for (int y = 0; y < Preferences.HEIGHT; y++) {
+			for (int x = 0; x < Preferences.WIDTH; x++) {
 				m_tiles[x][y] = TileType.TileWall;
 			}
 		}
@@ -293,5 +239,38 @@ public class Level {
 		return clearTilesX == 2 || clearTilesY == 2;
 	}
 
-	
+	public boolean hasDoorCloseToIt(ModelPosition position) {
+		int x = position.x;
+		int y = position.y;
+		if (GetTile(x+1, y) == TileType.TileDoor) {
+			return true;
+		}
+		if (GetTile(x-1, y) == TileType.TileDoor) {
+			return true;
+		}
+		if (GetTile(x, y+1) == TileType.TileDoor) {
+			return true;
+		}
+		if (GetTile(x, y-1) == TileType.TileDoor) {
+			return true;
+		}
+		return false;
+	}
+
+	public void open(ModelPosition position) {
+		int x = position.x;
+		int y = position.y;
+		if (GetTile(x+1, y) == TileType.TileDoor) {
+			m_tiles[x+1][y] = TileType.TileEmpty;
+		}
+		if (GetTile(x-1, y) == TileType.TileDoor) {
+			m_tiles[x-1][y] = TileType.TileEmpty;
+		}
+		if (GetTile(x, y+1) == TileType.TileDoor) {
+			m_tiles[x][y+1] = TileType.TileEmpty;
+		}
+		if (GetTile(x, y-1) == TileType.TileDoor) {
+			m_tiles[x][y-1] = TileType.TileEmpty;
+		}
+	}
 }

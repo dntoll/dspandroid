@@ -58,6 +58,6 @@ public class LogView implements ICharacterListener {
 	@Override
 	public void enemyAILog(String string, ICharacter enemy) {
 		m_logMessage = string;
-		m_log.add(string + enemy.getPosition().m_x + ":" + enemy.getPosition().m_y );
+		m_log.add(string + enemy.getPosition().x + ":" + enemy.getPosition().y );
 	}
 }

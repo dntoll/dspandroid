@@ -11,98 +11,102 @@ import com.spellofplay.dsp.view.SimpleGui;
 import com.spellofplay.common.view.Input;
 
 public class MasterController {
-	private ModelFacade m_model = new ModelFacade();
-	private GameController m_game;
-	
-	private MasterView m_masterView;
-	private Input m_input = null;
-	private SimpleGui m_gui = new SimpleGui();
-	
-	private boolean m_showMenu = true;
+	private ModelFacade model = new ModelFacade();
+	private GameController game;
+	private MasterView masterView;
+	private Input input = null;
+	private SimpleGui gui = new SimpleGui();
+	private boolean showMenu = true;
 	
 	
-	public MasterController(Input a_input, ITexture a_texture, ITexture a_player) {
-	
-		m_masterView = new MasterView(a_texture, a_player, m_model);
-		
-		m_game = new GameController(m_masterView, m_model);
-		m_input = a_input;
-		
-		m_showMenu = true;
-		
+	public MasterController(Input input, ITexture enemyAndTilesTexture, ITexture playerTexture) {
+		this.masterView = new MasterView(enemyAndTilesTexture, playerTexture, model);
+		this.game = new GameController(masterView, model);
+		this.input = input;
+		this.showMenu = true;
+
 		startNewGame();
-		
 	}
 
-	public boolean onDraw(AndroidDraw drawable, float elapsedTimeSeconds) {
-		int halfWidth = drawable.getWindowWidth()/2;
-		int halfHeight = drawable.getWindowHeight()/2;
-		
-		
-		if (m_input.IsKeyClicked(KeyEvent.KEYCODE_MENU)  || 
-        		m_input.IsKeyClicked(KeyEvent.KEYCODE_BACK)) {
-			m_showMenu = true;
-		}
-		
-		if (m_showMenu) {
-			if (doMenu(halfWidth, halfHeight) == false) {
+	public boolean doMenuOrGame(AndroidDraw drawable, float elapsedTimeSeconds) {
+		showMenuOnBackOrMenuCommand();
+		if (showMenu) {
+			if (doMenu(drawable) == false) {
 				return false;
 			}
-			
 		} else {
-		
-			if (m_model.enemyHasWon()) {
-				
-				if (m_gui.DoButtonCentered(halfWidth, halfHeight, "Menu", m_input, false)) {
-					m_showMenu = true;
-				}
-				drawGameWhenItsOver(drawable, elapsedTimeSeconds, "Game Over");
-			} else if (m_model.playerHasWon()) {
-				if (m_gui.DoButtonCentered(halfWidth, halfHeight, "restart", m_input, false)) {
-					startNewGame();
-				}
-				drawGameWhenItsOver(drawable, elapsedTimeSeconds, "Game Won");
-			} else {
-				m_game.update(drawable, m_model, m_input, elapsedTimeSeconds);
-			}
+			doGameView(drawable, elapsedTimeSeconds);
 		}
-		m_gui.DrawGui(drawable);
 		
-		m_input.IsMouseClicked();
+		gui.DrawGui(drawable);
+		
+		removeUnhandledClicks();
 		
 		return true;
 	}
-
-	private void drawGameWhenItsOver(AndroidDraw drawable,
-			float elapsedTimeSeconds, String message) {
-		m_masterView.updateAnimations(m_model, elapsedTimeSeconds);
-		m_masterView.drawGame(drawable, m_model, elapsedTimeSeconds);
-		drawable.drawText(message, 200, 10, drawable.m_guiText);
+	
+	private void showMenuOnBackOrMenuCommand() {
+		if (input.IsKeyClicked(KeyEvent.KEYCODE_MENU)  || 
+        	input.IsKeyClicked(KeyEvent.KEYCODE_BACK)) {
+			showMenu = true;
+		}
+	}
+	
+	private boolean doMenu(AndroidDraw drawable) {
+		int halfWidth = drawable.getWindowWidth()/2;
+		int halfHeight = drawable.getWindowHeight()/2;
+		
+		if (gui.DoButtonCentered(halfWidth, halfHeight, "New Game", input)) {
+			startNewGame();
+			showMenu = false;
+		}
+		if (gui.DoButtonCentered(halfWidth, halfHeight + SimpleGui.BUTTON_HEIGHT, "Continue", input)) {
+			showMenu = false;
+		}
+		if (gui.DoButtonCentered(halfWidth, halfHeight + SimpleGui.BUTTON_HEIGHT * 2, "Exit", input)) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private void doGameView(AndroidDraw drawable, float elapsedTimeSeconds) {
+		int halfWidth = drawable.getWindowWidth()/2;
+		int halfHeight = drawable.getWindowHeight()/2;
+		
+		if (model.enemyHasWon()) {
+			
+			if (gui.DoButtonCentered(halfWidth, halfHeight, "Menu", input)) {
+				showMenu = true;
+			}
+			drawGameWhenItsOver(drawable, elapsedTimeSeconds, "Game Over");
+		} else if (model.playerHasWon()) {
+			if (gui.DoButtonCentered(halfWidth, halfHeight, "restart", input)) {
+				startNewGame();
+			}
+			drawGameWhenItsOver(drawable, elapsedTimeSeconds, "Game Won");
+		} else {
+			game.update(drawable, model, input, elapsedTimeSeconds);
+		}
 	}
 
-		private boolean doMenu(int halfWidth, int halfHeight) {
-			if (m_gui.DoButtonCentered(halfWidth, halfHeight, "New Game", m_input, false)) {
-				startNewGame();
-				m_showMenu = false;
-			}
-			if (m_gui.DoButtonCentered(halfWidth, halfHeight + SimpleGui.BUTTON_HEIGHT, "Continue", m_input, false)) {
-				m_showMenu = false;
-			}
-			if (m_gui.DoButtonCentered(halfWidth, halfHeight + SimpleGui.BUTTON_HEIGHT * 2, "Exit", m_input, false)) {
-				return false;
-			}
-			
-			return true;
-		}
-	
+	private void removeUnhandledClicks() {
+		input.IsMouseClicked();
+	}
+
+	private void drawGameWhenItsOver(AndroidDraw drawable, float elapsedTimeSeconds, String message) {
+		masterView.updateAnimations(model, elapsedTimeSeconds);
+		masterView.drawGame(drawable, model, elapsedTimeSeconds);
+		drawable.drawText(message, 200, 10, drawable.m_guiText);
+	}
 	
 	private void startNewGame() {
-		m_model.startNewGame(0);
-		m_masterView.startNewGame(m_model);
+		model.startNewGame(0);
+		masterView.startNewGame(model);
 	}
 
 	public void ShowMenu() {
-		m_showMenu = true;
+		showMenu = true;
 	}
 
 }

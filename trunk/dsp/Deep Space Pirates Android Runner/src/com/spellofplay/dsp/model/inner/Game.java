@@ -88,7 +88,7 @@ public class Game implements IMoveAndVisibility {
 		
 		Character soldier = (Character)selectedSoldier;
 		
-		soldier.setDestination(destination, this, 0.0f, false);
+		soldier.setDestination(destination, this, 0.0f);
 		
 	}
 
@@ -163,14 +163,12 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	@Override
-	public boolean isMovePossible(ModelPosition pos, boolean a_canMoveThroughObstacles) {
+	public boolean isMovePossible(ModelPosition pos) {
 		if (m_level.canMove(pos) == false)
 			return false;
 		
-		if (a_canMoveThroughObstacles == false) {
-			if (isOccupied(pos)) {
-				return false;
-			}
+		if (isOccupied(pos)) {
+			return false;
 		}
 		
 		return true;
@@ -248,6 +246,15 @@ public class Game implements IMoveAndVisibility {
 
 	public boolean canMove(ModelPosition clickOnLevelPosition) {
 		return m_level.canMove(clickOnLevelPosition);
+	}
+
+	public boolean hasDoorCloseToIt(ModelPosition position) {
+		return m_level.hasDoorCloseToIt(position);
+	}
+
+	public void open(ModelPosition position) {
+		m_level.open(position);
+		
 	}
 
 	

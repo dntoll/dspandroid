@@ -24,8 +24,8 @@ class VisualCharacter {
 	
 	VisualCharacter(ICharacter soldier2) {
 		m_modelCharacter = soldier2;
-		m_lastPositionSeen.m_x = soldier2.getPosition().m_x;
-		m_lastPositionSeen.m_y = soldier2.getPosition().m_y;
+		m_lastPositionSeen.x = soldier2.getPosition().x;
+		m_lastPositionSeen.y = soldier2.getPosition().y;
 	}
 	
 	void drawEnemySpotted(AndroidDraw drawable, Camera camera, ITexture enemyTexture) {
@@ -123,10 +123,10 @@ class VisualCharacter {
 	}
 
 	public Vector2 getInterpolatedModelPosition() {
-		float vmxpos = (float)m_lastPositionSeen.m_x * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
-		               (float)m_modelCharacter.getPosition().m_x * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
-		float vmypos = (float)m_lastPositionSeen.m_y * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
-					   (float)m_modelCharacter.getPosition().m_y * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
+		float vmxpos = (float)m_lastPositionSeen.x * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
+		               (float)m_modelCharacter.getPosition().x * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
+		float vmypos = (float)m_lastPositionSeen.y * (1.0f - (MOVEMENT_TIME - m_movementTimer)/MOVEMENT_TIME) +   
+					   (float)m_modelCharacter.getPosition().y * (MOVEMENT_TIME - m_movementTimer) / MOVEMENT_TIME;
 		
 		Vector2 modelInterPolatedPosition = new Vector2(vmxpos, vmypos);
 		return modelInterPolatedPosition;

@@ -123,23 +123,23 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		return size() == 0;
 	}
 
-	public CharacterCollection<T> couldShootIfHadTime(ICharacter enemy, IMoveAndVisibility a_moveAndVisibility) {
+	public CharacterCollection<T> couldShootIfHadTime(ICharacter enemy, IMoveAndVisibility moveAndVisibility) {
 		List<T> soldiersThatCanSee = new ArrayList<T>();
 		for(T soldier : characters) {
 			
-			if (RuleBook.couldFireIfHadTime(soldier, enemy, a_moveAndVisibility)) {
+			if (RuleBook.couldFireIfHadTime(soldier, enemy, moveAndVisibility)) {
 				soldiersThatCanSee.add(soldier);
 			}
 		}
 		return new CharacterCollection<T>(soldiersThatCanSee);
 	}
 
-	public CharacterCollection<T> canBeShotBy(ICharacter selectedSoldier, IMoveAndVisibility a_moveAndVisibility) {
+	public CharacterCollection<T> canBeShotBy(ICharacter selectedSoldier, IMoveAndVisibility moveAndVisibility) {
 		
 		List<T> charactersThatCanBeShot = new ArrayList<T>();
 		for(T character : characters) {
 			
-			if (RuleBook.canFireAt(selectedSoldier, character, a_moveAndVisibility)) {
+			if (RuleBook.canFireAt(selectedSoldier, character, moveAndVisibility)) {
 				charactersThatCanBeShot.add(character);
 			}
 		}

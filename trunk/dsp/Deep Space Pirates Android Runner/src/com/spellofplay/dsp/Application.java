@@ -108,7 +108,7 @@ public class Application extends View implements IUpdateable {
         super.onDraw(canvas);
         
         m_draw.setDrawTarget(canvas);
-        if (m_master.onDraw(m_draw, elapsedTimeSeconds) == false ) {
+        if (m_master.doMenuOrGame(m_draw, elapsedTimeSeconds) == false ) {
         	m_activity.finish();
         }
         m_lastTime = now;

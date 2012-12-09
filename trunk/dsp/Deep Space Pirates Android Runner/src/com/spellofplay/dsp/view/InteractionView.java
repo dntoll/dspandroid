@@ -21,7 +21,7 @@ public class InteractionView {
 	private AStar m_selectedPath = null;
 	
 	private enum Action {
-		None, Watch, Moveing, Attacking
+		None, Watch, Moveing, Attacking, Open
 	}
 	
 	private Action m_action;
@@ -49,8 +49,13 @@ public class InteractionView {
 
 
 	public boolean userWantsToFire() {
-		
 		if (m_action == Action.Attacking)
+			return true;
+		return false;
+	}
+	
+	public boolean userWantsToOpenDoor() {
+		if (m_action == Action.Open)
 			return true;
 		return false;
 	}
@@ -91,18 +96,23 @@ public class InteractionView {
 		ICharacter mouseOverEnemy = onEnemy(a_input, a_model);
 		
 		if (getSelectedSoldier(a_model) != null) {
-			if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH, a_height - SimpleGui.BUTTON_HEIGHT-16, "Watch", a_input, false)) {
+			if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH, a_height - SimpleGui.BUTTON_HEIGHT-16, "Watch", a_input)) {
 				m_action = Action.Watch;
 			}
 			
 			if (getDestination(a_model) != null) {
-				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*2, a_height - SimpleGui.BUTTON_HEIGHT-16, "Move", a_input, false)) {
+				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*2, a_height - SimpleGui.BUTTON_HEIGHT-16, "Move", a_input)) {
 					m_action = Action.Moveing;
 				}
 			}
 			if (getFireTarget(a_model) != null) {
-				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*3, a_height - SimpleGui.BUTTON_HEIGHT-16, "Fire", a_input, false)) {
+				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*3, a_height - SimpleGui.BUTTON_HEIGHT-16, "Fire", a_input)) {
 					m_action = Action.Attacking;
+				}
+			}
+			if (canOpenDoor(a_model)) {
+				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*3, a_height - SimpleGui.BUTTON_HEIGHT-16, "Open", a_input)) {
+					m_action = Action.Open;
 				}
 			}
 		}
@@ -134,6 +144,10 @@ public class InteractionView {
 		
 	}
 	
+	private boolean canOpenDoor(IModel model) {
+		return model.hasDoorCloseToIt(m_selectedSoldier);
+	}
+
 	public void unselectPath() {
 		m_selectedPath = null;
 	}
@@ -193,9 +207,9 @@ public class InteractionView {
 		if (m_selectedPath != null) {
 			if (m_selectedPath.Update(100) == SearchResult.SearchSucceded)
 			{
-				if (m_selectedPath.m_path.size() <= selected.getTimeUnits() ) 
+				if (m_selectedPath.path.size() <= selected.getTimeUnits() ) 
 				{
-					return m_selectedPath.m_path.get(m_selectedPath.m_path.size()-1);
+					return m_selectedPath.path.get(m_selectedPath.path.size()-1);
 				}
 			}
 		}
@@ -212,7 +226,7 @@ public class InteractionView {
 				boolean moveIsPossible = length < soldier.getTimeUnits() * Math.sqrt(2.0);
 				if (moveIsPossible) {
 					m_selectedPath = new AStar(a_model.getMovePossible());
-					m_selectedPath.InitSearch(soldier.getPosition(), clickOnLevelPosition, false, 0, false);
+					m_selectedPath.InitSearch(soldier.getPosition(), clickOnLevelPosition, false, 0);
 				}
 			}
 		}
@@ -243,7 +257,7 @@ public class InteractionView {
 			if (m_selectedPath != null) {
 				if (m_selectedPath.Update(10) == SearchResult.SearchSucceded) {
 					
-					for (ModelPosition loc : m_selectedPath.m_path)  {
+					for (ModelPosition loc : m_selectedPath.path)  {
 						drawable.drawCircle(m_camera.toViewPos(loc), m_camera.getHalfScale()/2, Color.argb(128, 0, 0, 255));
 					}
 				}
@@ -262,4 +276,6 @@ public class InteractionView {
 	void startNewRound() {
 		m_selectedSoldier = null;
 	}
+
+	
 }
