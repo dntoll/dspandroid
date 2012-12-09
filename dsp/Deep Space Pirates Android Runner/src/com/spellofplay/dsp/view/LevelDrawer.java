@@ -1,5 +1,6 @@
 package com.spellofplay.dsp.view;
 
+import android.graphics.Color;
 import android.graphics.Rect;
 
 import com.spellofplay.common.view.Mesh;
@@ -11,24 +12,24 @@ import com.spellofplay.dsp.model.TileType;
 
 class LevelDrawer {
 		
-	private ITexture m_theTextureMap;
+	private ITexture theTextureMap;
+	private IModel model;
 	
 	
-	
-	LevelDrawer(ITexture a_theTexture) {
-		m_theTextureMap = a_theTexture;
+	LevelDrawer(ITexture a_theTexture, IModel model) {
+		this.theTextureMap = a_theTexture;
+		this.model = model;
 		
 	}
 
 	
-	void drawToBuffer(IModel model, AndroidDraw drawable, Camera camera) {
-		Mesh backgroundMeshBlocked = new Mesh(Preferences.Width, Preferences.Height);
-		Mesh crates = new Mesh(Preferences.Width, Preferences.Height);
-		Mesh pits = new Mesh(Preferences.Width, Preferences.Height);
+	void drawToBuffer(AndroidDraw drawable, Camera camera) {
+		Mesh backgroundMeshBlocked = new Mesh(Preferences.WIDTH, Preferences.HEIGHT);
+		Mesh crates = new Mesh(Preferences.WIDTH, Preferences.HEIGHT);
+		Mesh pits = new Mesh(Preferences.WIDTH, Preferences.HEIGHT);
 		
-		for (int x = 0; x < Preferences.Width; x++) {
-			for (int y = 0; y < Preferences.Height; y++) {
-				//ViewPosition vp = camera.toViewPos(x, y);
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
 				
 				Rect dst = new Rect(x*camera.getScale(), 
 						y*camera.getScale(),
@@ -79,9 +80,30 @@ class LevelDrawer {
 			}	
 		}
 		
-		drawable.drawMeshToBackground(backgroundMeshBlocked, Preferences.Width, Preferences.Height, camera.getScale(), m_theTextureMap, true);
-		drawable.drawMeshToBackground(crates, Preferences.Width, Preferences.Height, camera.getScale(), m_theTextureMap, false);
-		drawable.drawMeshToBackground(pits, Preferences.Width, Preferences.Height, camera.getScale(), m_theTextureMap, false);
+		drawable.drawMeshToBackground(backgroundMeshBlocked, Preferences.WIDTH, Preferences.HEIGHT, camera.getScale(), theTextureMap, true);
+		drawable.drawMeshToBackground(crates, Preferences.WIDTH, Preferences.HEIGHT, camera.getScale(), theTextureMap, false);
+		drawable.drawMeshToBackground(pits, Preferences.WIDTH, Preferences.HEIGHT, camera.getScale(), theTextureMap, false);
+	}
+
+
+	public void drawDoors(AndroidDraw drawable, Camera camera) {
+		Rect source = new Rect(0, 256-32, 32, 256);
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				
+				if (model.getTile(x, y) == TileType.TileDoor) {
+					ViewPosition vpos = camera.toViewPos(x, y);
+					Rect dst = new Rect((int)vpos.m_x -camera.getHalfScale(), 
+							(int)vpos.m_y -camera.getHalfScale(),
+							(int)vpos.m_x + camera.getHalfScale(), 
+							(int)vpos.m_y + camera.getHalfScale());
+					
+					
+					drawable.drawBitmap(theTextureMap, source, dst, Color.WHITE, 0);
+				}
+			}
+		}
+		
 	}
 	
 	

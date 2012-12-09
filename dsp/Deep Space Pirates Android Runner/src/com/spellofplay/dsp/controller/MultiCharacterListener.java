@@ -8,30 +8,30 @@ import com.spellofplay.dsp.model.ICharacterListener;
 
 class MultiCharacterListener implements ICharacterListener{
 
-	private List<ICharacterListener> m_listeners = new ArrayList<ICharacterListener>();
+	private List<ICharacterListener> listeners = new ArrayList<ICharacterListener>();
 	
 	@Override
 	public void moveTo(ICharacter character) {
-		for (ICharacterListener l : m_listeners) {
+		for (ICharacterListener l : listeners) {
 			l.moveTo(character);
 		}
 	}
 
 	@Override
 	public void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
-		for (ICharacterListener l : m_listeners) {
+		for (ICharacterListener l : listeners) {
 			l.fireAt(attacker, fireTarget, didHit);
 		}
 	}
 
 	void addListener(ICharacterListener a_view) {
-		m_listeners.add(a_view);
+		listeners.add(a_view);
 		
 	}
 
 	@Override
 	public void cannotFireAt(ICharacter character, ICharacter fireTarget) {
-		for (ICharacterListener l : m_listeners) {
+		for (ICharacterListener l : listeners) {
 			l.cannotFireAt(character, fireTarget);
 		}
 	}
@@ -39,7 +39,7 @@ class MultiCharacterListener implements ICharacterListener{
 
 	@Override
 	public void enemyAILog(String string, ICharacter enemy) {
-		for (ICharacterListener l : m_listeners) {
+		for (ICharacterListener l : listeners) {
 			l.enemyAILog(string, enemy);
 		}
 	}

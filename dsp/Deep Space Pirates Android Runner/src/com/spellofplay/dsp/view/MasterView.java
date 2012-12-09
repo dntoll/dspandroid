@@ -29,7 +29,8 @@ public class MasterView implements ICharacterListener {
 		
 		m_view.redrawLevelBuffer(drawable, model);
 		drawable.drawBackground(m_camera.m_displacement);
-
+		m_view.drawDoors(drawable);
+		
 		ICharacter selected = m_actionView.getSelectedSoldier(model);
 		ICharacter target = m_actionView.getFireTarget(model);
 		
@@ -81,6 +82,10 @@ public class MasterView implements ICharacterListener {
 	public boolean updateAnimations(IModel model,
 			float elapsedTimeSeconds) {
 		return m_view.updateAnimations(model, elapsedTimeSeconds);
+	}
+
+	public void open() {
+		m_view.open();
 	}
 	
 	

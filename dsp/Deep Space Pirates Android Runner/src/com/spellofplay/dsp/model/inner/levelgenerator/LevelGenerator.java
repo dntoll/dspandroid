@@ -31,8 +31,8 @@ public class LevelGenerator {
 
 	private void createWindows(Level level) {
 		
-		for (int x = 0; x < Preferences.Width; x++) {
-			for (int y = 0; y < Preferences.Height; y++) {
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
 				if (level.isWallAndHasTwoClearSides(x,y) ) {
 					addExtraDoorsAndWindows(level, x, y);
 				}
@@ -48,7 +48,7 @@ public class LevelGenerator {
 				level.m_tiles[x][y] = TileType.TileCover;
 				break;
 			case 2:
-				level.m_tiles[x][y] = TileType.TileEmpty;
+				level.m_tiles[x][y] = TileType.TileDoor;
 				break;
 			
 		}
@@ -85,8 +85,8 @@ public class LevelGenerator {
 		int sizex = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		int sizey = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		
-		int areaAboveParent = parent.upperLeftCorner.m_y - 1;
-		int top = parent.upperLeftCorner.m_y - 1 - sizey;
+		int areaAboveParent = parent.upperLeftCorner.y - 1;
+		int top = parent.upperLeftCorner.y - 1 - sizey;
 		
 		if (areaAboveParent < sizey) {
 			return;
@@ -99,8 +99,8 @@ public class LevelGenerator {
 		int sizex = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		int sizey = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		
-		int areaToTheBottomOfParent = (int) (Preferences.Height - (parent.upperLeftCorner.m_y + parent.sizes.m_y+1));
-		int top = (int) (parent.upperLeftCorner.m_y + parent.sizes.m_y + 1);
+		int areaToTheBottomOfParent = (int) (Preferences.HEIGHT - (parent.upperLeftCorner.y + parent.sizes.y+1));
+		int top = (int) (parent.upperLeftCorner.y + parent.sizes.y + 1);
 		
 		if (areaToTheBottomOfParent < sizey) {
 			return;
@@ -113,8 +113,8 @@ public class LevelGenerator {
 		int sizex = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		int sizey = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		
-		int areaToTheLeftOfParent = parent.upperLeftCorner.m_x - 1;
-		int left = parent.upperLeftCorner.m_x - 1 - sizex;
+		int areaToTheLeftOfParent = parent.upperLeftCorner.x - 1;
+		int left = parent.upperLeftCorner.x - 1 - sizex;
 		
 		if (areaToTheLeftOfParent < sizex) {
 			return;
@@ -127,8 +127,8 @@ public class LevelGenerator {
 		int sizex = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		int sizey = minimumRoomSize + random.nextInt(maxRoomSize - minimumRoomSize);
 		
-		int areaToTheRightOfParent = (int) (Preferences.Width - (parent.upperLeftCorner.m_x + parent.sizes.m_x+1));
-		int left = (int) (parent.upperLeftCorner.m_x + parent.sizes.m_x + 1);
+		int areaToTheRightOfParent = (int) (Preferences.WIDTH - (parent.upperLeftCorner.x + parent.sizes.x+1));
+		int left = (int) (parent.upperLeftCorner.x + parent.sizes.x + 1);
 				
 		if (areaToTheRightOfParent < sizex) {
 			return;
@@ -139,7 +139,7 @@ public class LevelGenerator {
 	
 	private void createYroom(Room parent, Level level, int top, int sizex,
 			int sizey) {
-		int minLeftLocation = parent.upperLeftCorner.m_x - sizex+1;
+		int minLeftLocation = parent.upperLeftCorner.x - sizex+1;
 		
 		if (minLeftLocation < 1) {
 			minLeftLocation = 1;
@@ -147,8 +147,8 @@ public class LevelGenerator {
 		
 		int maxLeftLocation = parent.getRight();
 		
-		if (maxLeftLocation + sizex >= Preferences.Width)
-			maxLeftLocation = Preferences.Width - sizex -1;
+		if (maxLeftLocation + sizex >= Preferences.WIDTH)
+			maxLeftLocation = Preferences.WIDTH - sizex -1;
 		
 		int left = minLeftLocation + random.nextInt(maxLeftLocation - minLeftLocation);
 		
@@ -159,7 +159,7 @@ public class LevelGenerator {
 
 	private void createXroom(Room parent, Level level, int left, int sizex,
 			int sizey) {
-		int minTopLocation = parent.upperLeftCorner.m_y - sizey+1;
+		int minTopLocation = parent.upperLeftCorner.y - sizey+1;
 		
 		if (minTopLocation < 1) {
 			minTopLocation = 1;
@@ -167,8 +167,8 @@ public class LevelGenerator {
 		
 		int maxTopLocation = parent.getBottom();
 		
-		if (maxTopLocation + sizey >= Preferences.Height)
-			maxTopLocation = Preferences.Height - sizey -1;
+		if (maxTopLocation + sizey >= Preferences.HEIGHT)
+			maxTopLocation = Preferences.HEIGHT - sizey -1;
 		
 		int top = minTopLocation + random.nextInt(maxTopLocation - minTopLocation);
 		

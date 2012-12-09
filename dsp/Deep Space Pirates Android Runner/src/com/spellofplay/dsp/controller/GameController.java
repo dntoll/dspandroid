@@ -14,68 +14,67 @@ import com.spellofplay.dsp.view.MasterView;
 class GameController {
 	
 	
-	private MasterView m_masterView;
-	private LogView m_log = new LogView();
+	private MasterView masterView;
+	private LogView logger = new LogView();
 	private IModel model;
+	private MultiCharacterListener multipleCharacterListenter;
 	
 	
 	GameController(MasterView m_masterView, IModel model) {
-		this.m_masterView = m_masterView;
+		this.masterView = m_masterView;
 		this.model = model;
+		multipleCharacterListenter = new MultiCharacterListener();
+		multipleCharacterListenter.addListener(m_masterView);
+		multipleCharacterListenter.addListener(logger);
 	}
 
 
 
 	public void update(AndroidDraw drawable, IEventTarget eventTarget, Input input, float elapsedTimeSeconds) {
 		
-		MultiCharacterListener mcl = new MultiCharacterListener();
-		mcl.addListener(m_masterView);
-		mcl.addListener(m_log);
-		
 		if (model.isSoldierTime()) {
-			updateSoldiers(drawable, eventTarget, input, elapsedTimeSeconds, mcl);
+			updateSoldiers(drawable, eventTarget, input, elapsedTimeSeconds);
 			if (model.isSoldierTime() == false) {
 				eventTarget.startNewEnemyRound();
 			}
+			
 		} else if (model.isEnemyTime()) {
-			updateEnemies(drawable, eventTarget, elapsedTimeSeconds, mcl);
-		} else  {
+			updateEnemies(drawable, eventTarget, elapsedTimeSeconds);
+		} else {
 			startNewSoldierRound(drawable, eventTarget, elapsedTimeSeconds);
 		}
+		masterView.drawGame(drawable, model, elapsedTimeSeconds);
 		
-		m_log.draw(drawable);
+		logger.draw(drawable);
 		
 	}
 	
 
 	private void startNewSoldierRound(AndroidDraw drawable, IEventTarget eventTarget, float elapsedTimeSeconds) {
 		eventTarget.startNewSoldierRound();
-		m_masterView.startNewRound();
+		masterView.startNewRound();
 		
-		m_masterView.drawGame(drawable, model, elapsedTimeSeconds);
-		m_log.doLog("start new round");
+		
+		logger.doLog("start new round");
 	}
 
 
 
-	private void updateSoldiers(AndroidDraw drawable, IEventTarget eventTarget, Input input, float elapsedTimeSeconds, MultiCharacterListener listener) {
+	private void updateSoldiers(AndroidDraw drawable, IEventTarget eventTarget, Input input, float elapsedTimeSeconds) {
 		
-		doInteractWithSoldiers(drawable, eventTarget, input, elapsedTimeSeconds, listener);
+		doInteractWithSoldiers(drawable, eventTarget, input, elapsedTimeSeconds);
 		
-		if (m_masterView.updateAnimations(model, elapsedTimeSeconds)) {
-			eventTarget.updatePlayers(listener);
+		if (masterView.updateAnimations(model, elapsedTimeSeconds)) {
+			eventTarget.updatePlayers(multipleCharacterListenter);
 		}
-		m_masterView.drawGame(drawable, model, elapsedTimeSeconds);
 	}
 
 
 
-	private void updateEnemies(AndroidDraw drawable, IEventTarget eventTarget, float elapsedTimeSeconds, MultiCharacterListener listener) {
-		if (m_masterView.updateAnimations(model, elapsedTimeSeconds)) {
-			eventTarget.updateEnemies(listener);
+	private void updateEnemies(AndroidDraw drawable, IEventTarget eventTarget, float elapsedTimeSeconds) {
+		if (masterView.updateAnimations(model, elapsedTimeSeconds)) {
+			eventTarget.updateEnemies(multipleCharacterListenter);
 		}
-		m_masterView.drawGame(drawable, model, elapsedTimeSeconds);
-		
 		drawable.drawText("Enemy is moving", 200, 10, drawable.m_guiText);
 	}
 
@@ -84,10 +83,9 @@ class GameController {
 	private void doInteractWithSoldiers(AndroidDraw drawable, 
 										IEventTarget eventTarget, 
 										Input input, 
-										float elapsedTime, 
-										MultiCharacterListener mcl) {
+										float elapsedTime) {
 		
-		InteractionView actionView = m_masterView.getInteractionView();
+		InteractionView actionView = masterView.getInteractionView();
 		actionView.setupInput(input, model, drawable.getWindowWidth(), drawable.getWindowHeight());
 		
 		ICharacter selectedSoldier = actionView.getSelectedSoldier(model);
@@ -95,20 +93,16 @@ class GameController {
 		if (selectedSoldier != null) {
 			if (actionView.userWantsToMove()) {
 				ModelPosition destination = actionView.getDestination(model);
-				if (destination != null) {
-					eventTarget.doMoveTo(selectedSoldier, destination);
-					actionView.unselectPath();
-				}
+				eventTarget.doMoveTo(selectedSoldier, destination);
+				actionView.unselectPath();
 			} else if (actionView.userWantsToWatch()){
 				eventTarget.doWatch(selectedSoldier);
 			} else if (actionView.userWantsToFire()){ 
 				ICharacter fireTarget = actionView.getFireTarget(model);
-				
-				if (fireTarget != null) {
-					if (eventTarget.fireAt(selectedSoldier, fireTarget, mcl) == false) {
-						
-					}
-				}
+				eventTarget.fireAt(selectedSoldier, fireTarget, multipleCharacterListenter);
+			}  else if (actionView.userWantsToOpenDoor()){ 
+				eventTarget.open(selectedSoldier);
+				masterView.open();
 			}
 		}
 	}

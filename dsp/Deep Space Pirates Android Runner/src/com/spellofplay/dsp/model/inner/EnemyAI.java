@@ -57,12 +57,12 @@ class EnemyAI {
 				if (RuleBook.canFireAt(enemy, closestThatWeCanSee, a_moveAndVisibility) == true) {
 					enemy.fireAt(closestThatWeCanSee, a_moveAndVisibility, a_clistener);
 				} else {
-					enemy.m_timeUnits--;
+					enemy.timeUnits--;
 					//hide would be better?
 				}
 				
 			} else {
-				enemy.setDestination(closestThatWeCanSee.getPosition(), a_moveAndVisibility, enemy.getRange(), false);
+				enemy.setDestination(closestThatWeCanSee.getPosition(), a_moveAndVisibility, enemy.getRange());
 				a_clistener.enemyAILog("set destination", enemy);
 			}
 		} else {
@@ -70,7 +70,7 @@ class EnemyAI {
 			Soldier closestThatWeHaveSeen = enemy.getClosestSoldierSpotted();
 			
 			if (closestThatWeHaveSeen != null) {
-				enemy.setDestination(closestThatWeHaveSeen.getPosition(), a_moveAndVisibility, 1, false);
+				enemy.setDestination(closestThatWeHaveSeen.getPosition(), a_moveAndVisibility, 1);
 				a_clistener.enemyAILog("going for the once visible", enemy);
 			} else {
 				enemy.doWatch();

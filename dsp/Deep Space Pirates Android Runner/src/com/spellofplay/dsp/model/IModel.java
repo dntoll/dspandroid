@@ -35,4 +35,6 @@ public interface IModel {
 
 	public abstract boolean canMove(ModelPosition clickOnLevelPosition);
 
+	public abstract boolean hasDoorCloseToIt(ICharacter m_selectedSoldier);
+
 }

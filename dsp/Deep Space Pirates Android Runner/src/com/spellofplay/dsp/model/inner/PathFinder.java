@@ -25,7 +25,7 @@ class PathFinder {
 	}
 
 	public boolean isMoving() {
-		return m_pathFinder != null && m_pathFinder.m_path.size() > 0;
+		return m_pathFinder != null && m_pathFinder.path.size() > 0;
 	}
 
 	boolean didSearchFail() {
@@ -33,9 +33,9 @@ class PathFinder {
 	}
 
 	public ModelPosition getNextPosition() {
-		ModelPosition pos = m_pathFinder.m_path.get(0);
-		m_pathFinder.m_path.remove(0);
-		if (m_pathFinder.m_path.size() == 0) {
+		ModelPosition pos = m_pathFinder.path.get(0);
+		m_pathFinder.path.remove(0);
+		if (m_pathFinder.path.size() == 0) {
 			m_pathFinder = null;
 		}
 		
@@ -51,8 +51,8 @@ class PathFinder {
 
 	void setDestination(IMoveAndVisibility a_map,
 			ModelPosition m_position, ModelPosition destination, boolean b,
-			float a_distance, boolean a_checkPathThroughOthers) {
+			float a_distance) {
 		m_pathFinder = new AStar(a_map);
-		m_pathFinder.InitSearch(m_position, destination, a_distance > 0.0f, a_distance, a_checkPathThroughOthers);
+		m_pathFinder.InitSearch(m_position, destination, a_distance > 0.0f, a_distance);
 	}
 }

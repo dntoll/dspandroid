@@ -8,45 +8,53 @@ import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 
 public class AStar {
-	
-	public List<ModelPosition> m_path;
-	private SearchResult m_state;
-	private boolean m_canMoveThroughObstacles = false;
-	//private boolean m_doingFirstSearchWithObstacles = true;
-	
-	public AStar(IMoveAndVisibility a_map) 
-    {
-        m_map = a_map;
-        m_path = new ArrayList<ModelPosition>();
-        m_state = SearchResult.SearchNotDone;
-    }
-
-    public enum SearchResult
+	public enum SearchResult
     {
     	SearchNotDone,
         SearchFailedNoPath,
         SearchSucceded
     };
     
+	public List<ModelPosition> path;
+	private SearchResult state;
+	private static final float HEURISTICSMODIFIER = 1.5f;
+    private boolean m_doesNearSearch;
+    private float m_nearDistance;
+    private int m_nVisitedNodes;
+    private List<Node> m_listOpen;
+    private List<Node> m_listClosed;
+	
+    private IMoveAndVisibility m_map;
+    private ModelPosition m_start, m_end;
+	
+	public AStar(IMoveAndVisibility a_map) 
+    {
+        m_map = a_map;
+        path = new ArrayList<ModelPosition>();
+        state = SearchResult.SearchNotDone;
+    }
+
+    
+    
     public boolean isSearchDone() {
-    	return m_state == SearchResult.SearchSucceded;
+    	return state == SearchResult.SearchSucceded;
 	}
     
     public boolean isSearching() {
-		return m_state == SearchResult.SearchNotDone;
+		return state == SearchResult.SearchNotDone;
 	}
     
     boolean didSearchFail() {
-    	return m_state == SearchResult.SearchFailedNoPath;
+    	return state == SearchResult.SearchFailedNoPath;
 	}
     
     public SearchResult Update(int a_maxNodes)
     {
-        if (m_state != SearchResult.SearchNotDone)
+        if (state != SearchResult.SearchNotDone)
         {
-            return m_state;
+            return state;
         }
-        if (m_doesNearSearch == false && m_map.isMovePossible(m_end, m_canMoveThroughObstacles) == false)
+        if (m_doesNearSearch == false && m_map.isMovePossible(m_end) == false)
         {
         	return doFailedSearch();
         }
@@ -55,13 +63,13 @@ public class AStar {
         while(m_listOpen.size() > 0)
         {
             if (m_nVisitedNodes > a_maxNodes) {
-                m_state = SearchResult.SearchNotDone;
+                state = SearchResult.SearchNotDone;
                 return SearchResult.SearchNotDone;
             }
             SearchResult result = OneSearchStep();
             if (result != SearchResult.SearchNotDone)
             {
-                m_state = result;
+                state = result;
                 return result;
             }
         }
@@ -69,29 +77,21 @@ public class AStar {
     }
 
 	private SearchResult doFailedSearch() {
-		if (m_canMoveThroughObstacles) {
-			//reset
-			InitSearch(m_start, m_end, m_doesNearSearch, m_nearDistance, false);
-			m_canMoveThroughObstacles = false;
-			return SearchResult.SearchNotDone;
-		}
-		m_state = SearchResult.SearchFailedNoPath;
+		state = SearchResult.SearchFailedNoPath;
 		return SearchResult.SearchFailedNoPath;
 	}
     
     public void InitSearch(ModelPosition a_start, 
     					   ModelPosition a_end, 
     					   boolean a_nearSearch, 
-    					   float a_distance, 
-    					   boolean a_canMoveThroughObstacles)
+    					   float a_distance)
     {
-        m_canMoveThroughObstacles = a_canMoveThroughObstacles;
         
-        m_path = new ArrayList<ModelPosition>();
+        path = new ArrayList<ModelPosition>();
         m_doesNearSearch = a_nearSearch;
         m_nearDistance = a_distance;
         m_nVisitedNodes = 0;
-        m_state = SearchResult.SearchNotDone;
+        state = SearchResult.SearchNotDone;
         Node startNode = new Node();
         startNode.m_nCostFromstart = 0.0f;
         startNode.m_nCostToGoal = TraverseCost(a_start, a_end);
@@ -145,15 +145,7 @@ public class AStar {
 		}
 	};
 
-    private static final float m_heuristicsModifier = 1.5f;
-    private boolean m_doesNearSearch;
-    private float m_nearDistance;
-    private int m_nVisitedNodes;
-    private List<Node> m_listOpen;
-    private List<Node> m_listClosed;
-	
-    private IMoveAndVisibility m_map;
-    private ModelPosition m_start, m_end;
+    
 	     
 	private float TraverseCost(ModelPosition a_a, ModelPosition a_b) {
         return a_a.sub(a_b).length();
@@ -167,7 +159,7 @@ public class AStar {
     		
         } else {
     		
-	        m_path.add(a_node.m_node);
+	        path.add(a_node.m_node);
         }
     }
 
@@ -185,7 +177,7 @@ public class AStar {
     	
         //Har vi nått fram
         if (IsAGoalNode(pNode)) {
-        	m_path = new ArrayList<ModelPosition>();
+        	path = new ArrayList<ModelPosition>();
 	        CreatePath(pNode);
 	        return SearchResult.SearchSucceded;
         } else {
@@ -220,14 +212,14 @@ public class AStar {
 		}
 
 
-		if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y + y), m_canMoveThroughObstacles) == true)
+		if (m_map.isMovePossible(new ModelPosition(pNode.m_node.x + x, pNode.m_node.y + y)) == true)
 		{
 		    Node NewNode = new Node();
 		    
 		    
 		    NewNode.m_parent = null;
-		    NewNode.m_node.m_x = pNode.m_node.m_x + x;
-		    NewNode.m_node.m_y = pNode.m_node.m_y + y;
+		    NewNode.m_node.x = pNode.m_node.x + x;
+		    NewNode.m_node.y = pNode.m_node.y + y;
 
 		    //Kostnaden för att gå från start till barnnoden
 		    float dNewCost = pNode.m_nCostFromstart + TraverseCost(pNode.m_node, NewNode.m_node);
@@ -246,9 +238,9 @@ public class AStar {
 
 	private boolean canMoveDiagonal(Node pNode, int y, int x) {
 		if (x == y || x == -y) {
-		    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x + x, pNode.m_node.m_y), m_canMoveThroughObstacles) == false)
+		    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.x + x, pNode.m_node.y)) == false)
 				return false;
-		    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.m_x, pNode.m_node.m_y + y), m_canMoveThroughObstacles) == false)
+		    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.x, pNode.m_node.y + y)) == false)
 				return false;
 		}
 		return true;
@@ -263,7 +255,7 @@ public class AStar {
 		NewNode.m_nCostFromstart = dNewCost;
 
 		//Estimera kostnaden till målet
-		NewNode.m_nCostToGoal = TraverseCost(NewNode.m_node, m_end) * m_heuristicsModifier;
+		NewNode.m_nCostToGoal = TraverseCost(NewNode.m_node, m_end) * HEURISTICSMODIFIER;
 		
 		//om den fanns i closed plocka upp den igen...
 		//ta bort den ur closed

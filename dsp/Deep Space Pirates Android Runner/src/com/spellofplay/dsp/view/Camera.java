@@ -29,13 +29,13 @@ class Camera {
 
 	
 	ViewPosition toViewPos(Vector2 modelPos) {
-		return new ViewPosition(modelPos.m_x * m_scale + m_displacement.m_x,
-				modelPos.m_y * m_scale + m_displacement.m_y);
+		return new ViewPosition(modelPos.x * m_scale + m_displacement.m_x,
+				modelPos.y * m_scale + m_displacement.m_y);
 	}
 	
 	ViewPosition toViewPos(ModelPosition modelPos) {
-		return new ViewPosition(modelPos.m_x * m_scale + m_displacement.m_x,
-								modelPos.m_y * m_scale + m_displacement.m_y);
+		return new ViewPosition(modelPos.x * m_scale + m_displacement.m_x,
+								modelPos.y * m_scale + m_displacement.m_y);
 	}
 	
 	ViewPosition toViewPos(int x, int y) {
@@ -85,7 +85,7 @@ class Camera {
 	}
 
 	private void displacementWithinLevel() {
-		int levelVisualWidth = m_scale * (Preferences.Width);
+		int levelVisualWidth = m_scale * (Preferences.WIDTH);
 		if (m_screenWidth >= levelVisualWidth)
 			m_displacement.m_x = 0;
 		else {
@@ -96,7 +96,7 @@ class Camera {
 				m_displacement.m_x = -maxDisplacement;
 		}
 		
-		int levelVisualHeight = m_scale * (Preferences.Height);
+		int levelVisualHeight = m_scale * (Preferences.HEIGHT);
 		if (m_screenHeight >= levelVisualHeight)
 			m_displacement.m_y = 0;
 		else {
@@ -115,8 +115,8 @@ class Camera {
 
 	void focusOn(ModelPosition focusOn) {
 		
-		float vfx = focusOn.m_x * m_scale;
-		float vfy = focusOn.m_y * m_scale;
+		float vfx = focusOn.x * m_scale;
+		float vfy = focusOn.y * m_scale;
 		
 		m_targetDisplacement.m_x = -vfx + m_screenWidth/2;
 		m_targetDisplacement.m_y = -vfy + m_screenHeight/2;
@@ -134,8 +134,8 @@ class Camera {
 		
 		if (distance > movementLength) {
 			direction.normalize();
-			m_displacement.m_x += direction.m_x * movementLength;
-			m_displacement.m_y += direction.m_y * movementLength;
+			m_displacement.m_x += direction.x * movementLength;
+			m_displacement.m_y += direction.y * movementLength;
 		} else {
 			m_displacement.m_x = m_targetDisplacement.m_x;
 			m_displacement.m_y = m_targetDisplacement.m_y;

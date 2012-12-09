@@ -26,16 +26,16 @@ class Room {
 
 	boolean addRoom(Level level) {
 		
-		for (int x = upperLeftCorner.m_x-1; x <= upperLeftCorner.m_x + sizes.m_x; x++) {
-			for (int y = upperLeftCorner.m_y-1; y <= getBottom()+1; y++) {
+		for (int x = upperLeftCorner.x-1; x <= upperLeftCorner.x + sizes.x; x++) {
+			for (int y = upperLeftCorner.y-1; y <= getBottom()+1; y++) {
 				if (level.GetTile(x, y) != TileType.TileWall) {
 					return false;
 				}
 			}	
 		}
 		
-		for (int x = upperLeftCorner.m_x; x < upperLeftCorner.m_x + sizes.m_x; x++) {
-			for (int y = upperLeftCorner.m_y; y <= getBottom(); y++) {
+		for (int x = upperLeftCorner.x; x < upperLeftCorner.x + sizes.x; x++) {
+			for (int y = upperLeftCorner.y; y <= getBottom(); y++) {
 				level.m_tiles[x][y] = TileType.TileEmpty;
 			}	
 		}
@@ -44,15 +44,15 @@ class Room {
 
 	void addPlayers(Level level) {
 		for (int i = 0; i< Preferences.MAX_SOLDIERS; i++) {
-			level.m_playerStartPositions[i] = new ModelPosition(upperLeftCorner.m_x + i+1, upperLeftCorner.m_y+1); 
+			level.m_playerStartPositions[i] = new ModelPosition(upperLeftCorner.x + i+1, upperLeftCorner.y+1); 
 		}
 	}
 
 	public int getBottom() {
-		return (int) (upperLeftCorner.m_y + sizes.m_y - 1);
+		return (int) (upperLeftCorner.y + sizes.y - 1);
 	}
 	public int getRight() {
-		return (int) (upperLeftCorner.m_x + sizes.m_x - 1);
+		return (int) (upperLeftCorner.x + sizes.x - 1);
 	}
 
 	void addEnemies(Level level) {
@@ -60,8 +60,8 @@ class Room {
 		int numEnemies = random.nextInt(3);
 		for (int i = 0; i< numEnemies; i++) {
 
-			int x = upperLeftCorner.m_x + i+1;
-			int y = upperLeftCorner.m_y+1;
+			int x = upperLeftCorner.x + i+1;
+			int y = upperLeftCorner.y+1;
 			
 			if (level.GetTile(x, y) == TileType.TileEmpty)
 				level.addEnemy(new ModelPosition(x, y));
@@ -76,7 +76,7 @@ class Room {
 			return;
 		int doorat = random.nextInt(connections.size());
 		ModelPosition door = connections.get(doorat);
-		level.m_tiles[door.m_x][door.m_y] = TileType.TileEmpty;
+		level.m_tiles[door.x][door.y] = TileType.TileDoor;
 		
 		
 	}
@@ -85,14 +85,14 @@ class Room {
 		
 		List<ModelPosition> connections = new ArrayList<ModelPosition>();
 		
-		Rect parentRect = new Rect(parent.upperLeftCorner.m_x-1, 
-								   parent.upperLeftCorner.m_y-1, 
-								   parent.upperLeftCorner.m_x + (int)parent.sizes.m_x + 1, 
-								   parent.upperLeftCorner.m_y + (int)parent.sizes.m_y+1);
-		Rect myRect = new Rect(upperLeftCorner.m_x-1, 
-							   upperLeftCorner.m_y-1, 
-							   upperLeftCorner.m_x + (int)sizes.m_x+1, 
-							   upperLeftCorner.m_y + (int)sizes.m_y+1);
+		Rect parentRect = new Rect(parent.upperLeftCorner.x-1, 
+								   parent.upperLeftCorner.y-1, 
+								   parent.upperLeftCorner.x + (int)parent.sizes.x + 1, 
+								   parent.upperLeftCorner.y + (int)parent.sizes.y+1);
+		Rect myRect = new Rect(upperLeftCorner.x-1, 
+							   upperLeftCorner.y-1, 
+							   upperLeftCorner.x + (int)sizes.x+1, 
+							   upperLeftCorner.y + (int)sizes.y+1);
 		
 		Rect intersection = new Rect();
 		intersection.setIntersect(parentRect, myRect);
@@ -110,11 +110,11 @@ class Room {
 	}
 
 	private boolean insideY(int y) {
-		return y >= upperLeftCorner.m_y && y < upperLeftCorner.m_y + sizes.m_y; 
+		return y >= upperLeftCorner.y && y < upperLeftCorner.y + sizes.y; 
 	}
 
 	private boolean insideX(int x) {
-		return x >= upperLeftCorner.m_x && x < upperLeftCorner.m_x + sizes.m_x;
+		return x >= upperLeftCorner.x && x < upperLeftCorner.x + sizes.x;
 	}
 
 	void addDecorations(Level level) {
@@ -127,8 +127,8 @@ class Room {
 		}
 		
 		
-		for (int x = upperLeftCorner.m_x+2; x < upperLeftCorner.m_x + sizes.m_x-2; x++) {
-			for (int y = upperLeftCorner.m_y+2; y <= getBottom()-2; y++) {
+		for (int x = upperLeftCorner.x+2; x < upperLeftCorner.x + sizes.x-2; x++) {
+			for (int y = upperLeftCorner.y+2; y <= getBottom()-2; y++) {
 				level.m_tiles[x][y] = type;
 			}	
 		}
