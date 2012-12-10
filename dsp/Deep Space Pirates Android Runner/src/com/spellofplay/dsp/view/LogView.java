@@ -16,8 +16,8 @@ public class LogView implements ICharacterListener {
 	
 	public void draw(AndroidDraw drawable) {
 		
-		int top = (int)((float)drawable.getWindowHeight() * 3.0f / 4.0f);
-		Rect dst = new Rect(0, top, drawable.getWindowWidth() / 2, drawable.getWindowHeight());
+		int top = 0;
+		Rect dst = new Rect((int)((float)drawable.getWindowWidth() * 0.8f), top, drawable.getWindowWidth(), (int)((float)drawable.getWindowHeight()*0.6f));
 		drawable.drawRect(dst, Color.BLACK);
 		drawable.m_guiText.setColor(Color.WHITE);
 		drawable.drawText("Log " + m_log.size() + " " + m_logMessage, 20, top + 32 , drawable.m_guiText);
@@ -25,7 +25,7 @@ public class LogView implements ICharacterListener {
 		int item = 0;
 		for (String s : m_log) {
 			int place = m_log.size() - item;
-			drawable.drawText(s, 20, top + 32 +place*24 , drawable.m_guiText);	
+			drawable.drawText(s, dst.left+8, top + 32 +place*24 , drawable.m_guiText);	
 			item++;
 		}
 	}

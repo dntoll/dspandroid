@@ -28,9 +28,11 @@ class GameView implements ICharacterListener {
 		this.visibility = new VisibilityView();
 	}
 	
-	void drawMovementAndVisibilityHelp(AndroidDraw drawable, ICharacter selected) {
+	void drawMovementHelp(AndroidDraw drawable, ICharacter selected) {
 		
 		movementView.drawPossibleMoveArea(model.getMovePossible(), drawable, camera, selected);
+	}
+	void drawVisibility(AndroidDraw drawable) {
 		visibility.drawNotVisible(model, drawable, camera);
 	}
 	
@@ -80,13 +82,13 @@ class GameView implements ICharacterListener {
 	void startNewGame(IModel model) {
 		hasInitatedBuffer = false;
 		visibility.clear();
-		visibility.updateVisibility(model);
+		visibility.recalculateVisibility(model);
 		getCharacterDrawer().startNewGame(model);
 	}
 
 	@Override
 	public void moveTo(ICharacter character) {
-		visibility.updateVisibility(model);
+		visibility.recalculateVisibility(model);
 		getCharacterDrawer().moveTo(character);
 		camera.focusOn(character.getPosition());
 		movementView.update();
@@ -131,7 +133,7 @@ class GameView implements ICharacterListener {
 	}
 
 	public void open() {
-		visibility.updateVisibility(model);
+		visibility.recalculateVisibility(model);
 		movementView.update();
 	}
 

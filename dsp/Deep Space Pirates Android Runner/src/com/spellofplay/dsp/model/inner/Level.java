@@ -79,24 +79,40 @@ public class Level {
          return false;
      }
 	 
-	 boolean lineOfSight(ModelPosition pos1, ModelPosition pos2) {
+	 public boolean lineOfSight(ModelPosition pos1, ModelPosition pos2) {
+		 return _lineOfSight(pos1, pos2);// || _lineOfSight(pos2, pos1);
+	 }
+	 
+	 private boolean _lineOfSight(ModelPosition pos1, ModelPosition pos2) {
 		Vector2 fromPos = pos1.toCenterTileVector();
 		Vector2 targetPosition = pos2.toCenterTileVector();
 		if ( lineOfSight(fromPos, targetPosition) ) {
 			return true;
 		}
-		if ( lineOfSight(fromPos.sub(0.3f, 0.3f), targetPosition ) ) {
+		/*if ( lineOfSight(fromPos.sub(0.3f, 0), targetPosition ) ) {
 			return true;
 		}
-		if ( lineOfSight(fromPos.sub(-0.3f, 0.3f), targetPosition ) ) {
+		if ( lineOfSight(fromPos.sub(-0.3f, 0), targetPosition ) ) {
 			return true;
 		}
-		if ( lineOfSight(fromPos.sub(-0.3f, -0.3f), targetPosition ) ) {
+		if ( lineOfSight(fromPos.sub(0, -0.3f), targetPosition ) ) {
 			return true;
 		}
-		if ( lineOfSight(fromPos.sub(0.3f, -0.3f), targetPosition ) ) {
+		if ( lineOfSight(fromPos.sub(0, -0.3f), targetPosition ) ) {
+			return true;
+		}*/
+		/*if ( lineOfSight(fromPos, targetPosition.sub(0.3f, 0.3f) ) ) {
 			return true;
 		}
+		if ( lineOfSight(fromPos, targetPosition.sub(-0.3f, 0.3f) ) ) {
+			return true;
+		}
+		if ( lineOfSight(fromPos, targetPosition.sub(-0.3f, -0.3f) ) ) {
+			return true;
+		}
+		if ( lineOfSight(fromPos, targetPosition.sub(0.3f, -0.3f) ) ) {
+			return true;
+		}*/
 		return false;
 	}
 
