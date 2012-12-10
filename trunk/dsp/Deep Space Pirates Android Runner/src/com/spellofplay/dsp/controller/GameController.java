@@ -10,10 +10,11 @@ import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.InteractionView;
 import com.spellofplay.dsp.view.LogView;
 import com.spellofplay.dsp.view.MasterView;
+import com.spellofplay.dsp.view.SimpleGui;
 
 class GameController {
 	
-	
+	private SimpleGui m_gui = new SimpleGui();
 	private MasterView masterView;
 	private LogView logger = new LogView();
 	private IModel model;
@@ -46,6 +47,7 @@ class GameController {
 		masterView.drawGame(drawable, model, elapsedTimeSeconds);
 		
 	//	logger.draw(drawable);
+		m_gui.DrawGui(drawable);
 		
 	}
 	
@@ -84,25 +86,43 @@ class GameController {
 										float elapsedTime) {
 		
 		InteractionView actionView = masterView.getInteractionView();
-		actionView.setupInput(input, model, drawable.getWindowWidth(), drawable.getWindowHeight());
+		
 		
 		ICharacter selectedSoldier = actionView.getSelectedSoldier(model);
 		
+		int width = drawable.getWindowWidth();
+		int height = drawable.getWindowHeight();
 		if (selectedSoldier != null) {
-			if (actionView.userWantsToMove()) {
-				ModelPosition destination = actionView.getDestination(model);
-				eventTarget.doMoveTo(selectedSoldier, destination);
-				actionView.unselectPath();
-			} else if (actionView.userWantsToWatch()){
+			int y = height - SimpleGui.BUTTON_HEIGHT-16;
+			if (m_gui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH, y, "Watch", input)) {
 				eventTarget.doWatch(selectedSoldier);
-			} else if (actionView.userWantsToFire()){ 
-				ICharacter fireTarget = actionView.getFireTarget(model);
-				eventTarget.fireAt(selectedSoldier, fireTarget, multipleCharacterListenter);
-			}  else if (actionView.userWantsToOpenDoor()){ 
-				eventTarget.open(selectedSoldier);
-				masterView.open();
+			}
+			
+			if (actionView.getDestination(model) != null) {
+				if (m_gui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*2, y, "Move", input)) {
+					ModelPosition destination = actionView.getDestination(model);
+					eventTarget.doMoveTo(selectedSoldier, destination);
+					actionView.unselectPath();
+				}
+			}
+			if (actionView.getFireTarget(model) != null) {
+				if (m_gui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*3, y, "Fire", input)) {
+					ICharacter fireTarget = actionView.getFireTarget(model);
+					eventTarget.fireAt(selectedSoldier, fireTarget, multipleCharacterListenter);
+				}
+			}
+			if (model.hasDoorCloseToIt(selectedSoldier)) {
+				if (m_gui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*4, y, "Open", input)) {
+					eventTarget.open(selectedSoldier);
+					masterView.open();
+				}
 			}
 		}
+		
+		actionView.setupInput(input, model, drawable.getWindowWidth(), drawable.getWindowHeight());
+		
+		
+		
 	}
 
 
