@@ -45,7 +45,7 @@ class GameController {
 		}
 		masterView.drawGame(drawable, model, elapsedTimeSeconds);
 		
-		logger.draw(drawable);
+	//	logger.draw(drawable);
 		
 	}
 	
@@ -53,8 +53,6 @@ class GameController {
 	private void startNewSoldierRound(AndroidDraw drawable, IEventTarget eventTarget, float elapsedTimeSeconds) {
 		eventTarget.startNewSoldierRound();
 		masterView.startNewRound();
-		
-		
 		logger.doLog("start new round");
 	}
 

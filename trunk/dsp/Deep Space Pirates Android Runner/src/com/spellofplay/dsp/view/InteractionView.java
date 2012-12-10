@@ -111,7 +111,7 @@ public class InteractionView {
 				}
 			}
 			if (canOpenDoor(a_model)) {
-				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*3, a_height - SimpleGui.BUTTON_HEIGHT-16, "Open", a_input)) {
+				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*4, a_height - SimpleGui.BUTTON_HEIGHT-16, "Open", a_input)) {
 					m_action = Action.Open;
 				}
 			}
@@ -179,9 +179,6 @@ public class InteractionView {
 	}
 	
 	public ICharacter getSelectedSoldier(IModel a_model) {
-		if (a_model.isSoldierTime() == false)
-			return null;
-		
 		return m_selectedSoldier;
 	}
 
