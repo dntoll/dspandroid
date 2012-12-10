@@ -13,53 +13,17 @@ import com.spellofplay.dsp.model.inner.AStar.SearchResult;
 
 public class InteractionView {
 	
-	private SimpleGui m_gui = new SimpleGui();
+	
 	private Camera m_camera;
 	
 	private ICharacter m_selectedSoldier;
 	private ICharacter   m_selectedEnemy;
 	private AStar m_selectedPath = null;
 	
-	private enum Action {
-		None, Watch, Moveing, Attacking, Open
-	}
-	
-	private Action m_action;
-
-	public InteractionView() {
-		this.m_action = Action.None;
-	}
-	
 	InteractionView(Camera camera) {
 		m_camera = camera;
 	}
 
-	public boolean userWantsToWatch() {
-		if (m_action == Action.Watch)
-			return true;
-		return false;
-	}
-
-
-	public boolean userWantsToMove() {
-		if (m_action == Action.Moveing)
-			return true;
-		return false;
-	}
-
-
-	public boolean userWantsToFire() {
-		if (m_action == Action.Attacking)
-			return true;
-		return false;
-	}
-	
-	public boolean userWantsToOpenDoor() {
-		if (m_action == Action.Open)
-			return true;
-		return false;
-	}
-	
 	private ICharacter onSoldier(Input a_input, IModel a_model) {
 		CharacterIterable soldiers = a_model.getAliveSoldiers();
 		ViewPosition clickpos = new ViewPosition(a_input.m_mousePosition.x, a_input.m_mousePosition.y);
@@ -88,48 +52,18 @@ public class InteractionView {
 	}
 	
 	public void setupInput(Input a_input, IModel a_model, int a_width, int a_height) {
-		
-		m_action = Action.None;
-		
-		//On soldier?
-		ICharacter mouseOverSoldier = onSoldier(a_input, a_model);
-		ICharacter mouseOverEnemy = onEnemy(a_input, a_model);
-		
-		if (getSelectedSoldier(a_model) != null) {
-			if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH, a_height - SimpleGui.BUTTON_HEIGHT-16, "Watch", a_input)) {
-				m_action = Action.Watch;
-			}
-			
-			if (getDestination(a_model) != null) {
-				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*2, a_height - SimpleGui.BUTTON_HEIGHT-16, "Move", a_input)) {
-					m_action = Action.Moveing;
-				}
-			}
-			if (getFireTarget(a_model) != null) {
-				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*3, a_height - SimpleGui.BUTTON_HEIGHT-16, "Fire", a_input)) {
-					m_action = Action.Attacking;
-				}
-			}
-			if (canOpenDoor(a_model)) {
-				if (m_gui.DoButtonCentered(a_width - SimpleGui.BUTTON_WIDTH*4, a_height - SimpleGui.BUTTON_HEIGHT-16, "Open", a_input)) {
-					m_action = Action.Open;
-				}
-			}
-		}
-		
 		if (a_input.IsMouseClicked()) {
+			ICharacter mouseOverSoldier = onSoldier(a_input, a_model);
+			ICharacter mouseOverEnemy = onEnemy(a_input, a_model);
+			
 			if (mouseOverSoldier != null) {
 				selectSoldier(mouseOverSoldier, m_camera);
 			} else if (mouseOverEnemy != null) {
 				m_selectedEnemy = mouseOverEnemy;
 			} else {
-				
 				ViewPosition clickpos = new ViewPosition(a_input.m_mousePosition.x, a_input.m_mousePosition.y);
 				ModelPosition clickOnLevelPosition = m_camera.toModelPos(clickpos);
-				
 				selectDestination(a_model, clickOnLevelPosition);
-				
-				
 			}
 		}
 		
@@ -144,7 +78,7 @@ public class InteractionView {
 		
 	}
 	
-	private boolean canOpenDoor(IModel model) {
+	public boolean canOpenDoor(IModel model) {
 		return model.hasDoorCloseToIt(m_selectedSoldier);
 	}
 
@@ -236,15 +170,6 @@ public class InteractionView {
 			camera.focusOn(mouseOverSoldier.getPosition());
 		}
 		m_selectedPath = null;
-	}
-	
-	
-	
-	
-
-	void Draw(AndroidDraw drawable) {
-		m_gui.DrawGui(drawable);
-		
 	}
 	
 	void drawMovementPath(AndroidDraw drawable, IModel a_model) {

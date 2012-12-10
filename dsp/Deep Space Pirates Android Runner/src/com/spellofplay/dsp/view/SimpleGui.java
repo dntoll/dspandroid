@@ -12,7 +12,7 @@ import android.graphics.Paint.Style;
 
 public class SimpleGui {
 	public static final int BUTTON_HEIGHT = 32;
-	static final int BUTTON_WIDTH = 64;
+	public static final int BUTTON_WIDTH = 64;
 	
 	private Paint m_guiText = new Paint();
 	private List<DrawCall> m_drawCalls = new ArrayList<DrawCall>();

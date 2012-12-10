@@ -50,7 +50,7 @@ public class MasterView implements ICharacterListener {
 		
 		m_view.drawSightLines(drawable, selected);
 		
-		m_actionView.Draw(drawable);
+		
 		
 	}
 
