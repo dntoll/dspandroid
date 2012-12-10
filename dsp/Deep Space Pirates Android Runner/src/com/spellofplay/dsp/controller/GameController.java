@@ -98,7 +98,7 @@ class GameController {
 				eventTarget.doWatch(selectedSoldier);
 			}
 			
-			if (actionView.getDestination(model) != null) {
+			if (actionView.hasDestination(model)) {
 				if (m_gui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*2, y, "Move", input)) {
 					ModelPosition destination = actionView.getDestination(model);
 					eventTarget.doMoveTo(selectedSoldier, destination);

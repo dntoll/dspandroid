@@ -113,8 +113,7 @@ class GameView implements ICharacterListener {
 	}
 
 
-	boolean updateAnimations(IModel model,
-			float elapsedTimeSeconds) {
+	boolean updateAnimations(IModel model, float elapsedTimeSeconds) {
 		return getCharacterDrawer().updateAnimations(model, elapsedTimeSeconds);
 	}
 
