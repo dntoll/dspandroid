@@ -22,28 +22,21 @@ public class MasterView implements ICharacterListener {
 	
 	public void drawGame(AndroidDraw drawable, IModel model, float elapsedTimeSeconds) {
 		
+		
 		m_camera.setScreenSize(drawable.getWindowWidth(), drawable.getWindowHeight());
+		m_actionView.updateSelections(model, m_camera, drawable.getWindowWidth(), drawable.getWindowHeight());
+		ICharacter selected = m_actionView.getSelectedSoldier(model);
+		ICharacter target = m_actionView.getFireTarget(model);
 		
-		m_actionView.updateSoldierSelection(model, m_camera, drawable.getWindowWidth(), drawable.getWindowHeight());
 		m_camera.update(elapsedTimeSeconds);
-		
 		m_view.redrawLevelBuffer(drawable, model);
 		drawable.drawBackground(m_camera.m_displacement);
 		m_view.drawDoors(drawable);
-		
-		
-		
-		
 		m_view.getCharacterDrawer().drawCasualties(drawable, model, m_camera);
-		
-		
-		ICharacter selected = m_actionView.getSelectedSoldier(model);
 		m_view.drawMovementHelp(drawable, selected);
 		m_view.drawVisibility(drawable);
-		
 		m_actionView.drawMovementPath(drawable, model);
-
-		ICharacter target = m_actionView.getFireTarget(model);
+		
 		
 		
 		m_view.getCharacterDrawer().draw(drawable, model, selected, m_camera, target);

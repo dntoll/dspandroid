@@ -98,15 +98,7 @@ public class InteractionView {
 		}
 		
 			
-		//Can we see the one we clicked on
-		if (m_selectedEnemy != null && m_selectedEnemy.getHitPoints() > 0) {
-
-			if (a_model.canShoot(selected, m_selectedEnemy)) {
-				return m_selectedEnemy;
-			}
-		}
 		
-		m_selectedEnemy = a_model.getClosestEnemyThatWeCanShoot(selected);
 
 		return m_selectedEnemy;
 		
@@ -116,23 +108,34 @@ public class InteractionView {
 		return m_selectedSoldier;
 	}
 
-	void updateSoldierSelection(IModel a_model, Camera camera, int width, int height) {
+	void updateSelections(IModel a_model, Camera camera, int width, int height) {
 		if (m_selectedSoldier == null || m_selectedSoldier.getTimeUnits() == 0) {
-			//SELECT THE NEXT SOLDIER
-			for (ICharacter soldier : a_model.getAliveSoldiers()) {
-				if (soldier.getTimeUnits() > 0) {
-					selectSoldier(soldier, camera);
-					break;
-				}
+			selectNextSoldier(a_model, camera);
+		}
+		
+		
+		if (m_selectedEnemy == null || 
+			m_selectedEnemy.getHitPoints() <= 0 || 
+			a_model.canShoot(m_selectedSoldier, m_selectedEnemy) == false) {
+			m_selectedEnemy = a_model.getClosestEnemyThatWeCanShoot(getSelectedSoldier(a_model));	
+		}
+		
+		
+	}
+
+	private void selectNextSoldier(IModel a_model, Camera camera) {
+		for (ICharacter soldier : a_model.getAliveSoldiers()) {
+			if (soldier.getTimeUnits() > 0) {
+				selectSoldier(soldier, camera);
+				break;
 			}
 		}
 	}
 	
-	public ModelPosition getDestination(IModel a_model) {
-		
+	public boolean hasDestination(IModel a_model) {
 		ICharacter selected = getSelectedSoldier(a_model);
 		if (selected == null) {
-			return null;
+			return false;
 		}
 		
 		if (m_selectedPath != null) {
@@ -140,12 +143,16 @@ public class InteractionView {
 			{
 				if (m_selectedPath.path.size() <= selected.getTimeUnits() ) 
 				{
-					return m_selectedPath.path.get(m_selectedPath.path.size()-1);
+					return true;
 				}
 			}
 		}
 		
-		return null;
+		return false;
+	}
+	
+	public ModelPosition getDestination(IModel a_model) {
+		return m_selectedPath.path.get(m_selectedPath.path.size()-1);
 	}
 	
 	private void selectDestination(IModel a_model, ModelPosition clickOnLevelPosition) {
@@ -173,7 +180,7 @@ public class InteractionView {
 	}
 	
 	void drawMovementPath(AndroidDraw drawable, IModel a_model) {
-		if (getDestination(a_model) != null) {
+		if (hasDestination(a_model)) {
 
 			//Vi har en vald path
 			if (m_selectedPath != null) {
