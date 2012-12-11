@@ -4,24 +4,45 @@ import com.spellofplay.dsp.model.ModelPosition;
 
 public class Soldier extends Character {
 
+	float m_fireSkill = 0.5f;
+	float m_dodgeSkill = 0.5f;
 	
 	
 	Soldier(ModelPosition startPosition) {
-		super(startPosition, 7);
+		super(startPosition, 5);
 	}
 
 	
 	public float getFireSkill() {
-		return 0.75f;
+		return m_fireSkill;
 	}
 
 	public float getDodgeSkill() {
-		return 0.6f;
+		return m_dodgeSkill;
 	}
 	
 	@Override
 	public float getRange() {
 		return 12.0f;
+	}
+
+
+	public void addMaxTimeUnits() {
+		m_experience--;
+		maxTimeUnits++;
+	}
+
+
+	public void addShootSkill() {
+		m_experience--;
+		m_fireSkill += 0.1f;
+	}
+
+
+	public void addDodgeSkill() {
+		m_experience--;
+		m_dodgeSkill += 0.1f;
+		
 	}
 
 

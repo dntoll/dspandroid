@@ -13,4 +13,6 @@ public interface ICharacter {
 	abstract public float getRadius();
 	abstract public int getWatchTimeUnits();
 	abstract public int getFireCost();
+	abstract boolean hasExperience();
+	abstract int getMaxTimeUnits();
 }

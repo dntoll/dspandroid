@@ -14,7 +14,6 @@ public class MultiMovementListeners {
 
 	public void moveTo(ICharacter mover, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
 		for (ICharacter watcher : listeners) {
-			
 			com.spellofplay.dsp.model.inner.Character watch = (com.spellofplay.dsp.model.inner.Character)watcher;
 			watch.watchMovement(mover, moveAndVisibility, a_listener);
 		}

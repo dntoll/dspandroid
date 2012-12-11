@@ -11,6 +11,8 @@ import com.spellofplay.dsp.model.MultiMovementListeners;
 import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;
 import com.spellofplay.dsp.model.inner.levelgenerator.LevelGenerator;
+import com.spellofplay.dsp.model.inner.levelgenerator.LevelHasToFewEnemiesException;
+import com.spellofplay.dsp.model.inner.levelgenerator.LevelHasToFewSoldierPositions;
 
 public class Game implements IMoveAndVisibility {
 
@@ -19,6 +21,11 @@ public class Game implements IMoveAndVisibility {
 	private Level m_level = new Level();
 	
 	public Game() {
+		
+		for (int i = 0; i < Preferences.MAX_SOLDIERS; i++) {
+			m_soldiers[i] = new Soldier(new ModelPosition(5,5));
+		}
+		
 		startLevel(0);
 	}
 	
@@ -53,9 +60,8 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	public void startLevel(int a_level) {
-		for (int i = 0; i < Preferences.MAX_SOLDIERS; i++) {
-			m_soldiers[i] = new Soldier(new ModelPosition(5,5));
-		}
+		
+		
 		
 		LevelGenerator gen = new LevelGenerator(a_level);
 		
@@ -102,14 +108,22 @@ public class Game implements IMoveAndVisibility {
 		
 		for (Soldier s : soldiers) {
 			s.getPathFinder().search();
-
-			
-			s.move(clistener, multiListener, this);
-			
+			moveCharacter(clistener, multiListener, s);
 		}
 
 		updateEnemySights();
 		updateSoldierSights();
+	}
+	@Override
+	public void moveCharacter(ICharacterListener clistener, MultiMovementListeners multiListener, ICharacter cha) {
+		Character character = (Character)cha;
+		if (character.canMove()) {
+			ModelPosition destination = character.getMovePosition();
+			character.move(destination, clistener);
+			multiListener.moveTo(character, this, clistener);
+			if (m_level.isDoor(destination))
+				m_level.openAt(destination.x, destination.y);
+		}
 	}
 	
 	private SoldierMemory m_soldierMemory = new SoldierMemory();
@@ -129,7 +143,7 @@ public class Game implements IMoveAndVisibility {
 		CharacterCollection<Enemy> enemies = getAliveEnemies();
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		for (Enemy enemy : enemies) {
-			enemy.updateSights(soldiers, this);
+			enemy.updateSights(soldiers, enemies, this);
 		}
 	}
 
@@ -164,6 +178,10 @@ public class Game implements IMoveAndVisibility {
 
 	@Override
 	public boolean isMovePossible(ModelPosition pos) {
+		
+		if (m_level.isDoor(pos))
+			return true;
+		
 		if (m_level.canMove(pos) == false)
 			return false;
 		
@@ -258,10 +276,5 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	
-
-	
-
-	
-
-		
+			
 }

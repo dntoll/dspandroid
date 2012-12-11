@@ -10,4 +10,6 @@ public interface IMoveAndVisibility {
 	boolean targetHasCover(ICharacter attacker, ICharacter target);
 	
 	boolean isMovePossible(ModelPosition pos);
+	
+	void moveCharacter(ICharacterListener clistener, MultiMovementListeners multiListener, ICharacter character);
 }

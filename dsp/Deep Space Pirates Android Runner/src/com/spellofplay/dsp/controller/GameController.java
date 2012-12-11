@@ -46,7 +46,7 @@ class GameController {
 		}
 		masterView.drawGame(drawable, model, elapsedTimeSeconds);
 		
-	//	logger.draw(drawable);
+		logger.draw(drawable);
 		m_gui.DrawGui(drawable);
 		
 	}

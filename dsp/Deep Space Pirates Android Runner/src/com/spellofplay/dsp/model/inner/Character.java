@@ -4,17 +4,22 @@ import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.MultiMovementListeners;
 
 public abstract class Character implements ICharacter  {
 	private ModelPosition position = new ModelPosition();
 	
 	private PathFinder pathFinder = new PathFinder();
 	
-	private int maxTimeUnits = 3;
+	protected int maxTimeUnits = 3;
+	protected int maxHitPoints = 5;
 	private int watchTimeUnits = 0;
 	protected int timeUnits = maxTimeUnits;
-	protected int hitPoints = 5;
+	protected int hitPoints = maxHitPoints;
+	protected int m_experience = 0;
+	
+	public int getMaxTimeUnits() {
+		return maxTimeUnits;
+	}
 
 	Character(ModelPosition startPosition, int a_maxTimeUnits) {
 		position.x = startPosition.x;
@@ -29,10 +34,16 @@ public abstract class Character implements ICharacter  {
 	
 	void reset(ModelPosition startLocation) {
 		position = startLocation;
+		startNewRound();
+		hitPoints = maxHitPoints;
 	}
 	
 	public ModelPosition getPosition() {
 		return position;
+	}
+	
+	public boolean hasExperience() {
+		return m_experience > 0;
 	}
 
 	public float getRadius() {
@@ -75,35 +86,29 @@ public abstract class Character implements ICharacter  {
 		pathFinder.setDestination(map, position, destination, distance > 0.0f, distance);
 		
 	}
-
-	void move(ICharacterListener clistener, MultiMovementListeners multiListener, IMoveAndVisibility moveAndVisibility) {
-		
+	
+	boolean canMove() {
 		if (timeUnits > 0) {
 			if (pathFinder.isSearchDone()) {
-				MoveToNextPosition(clistener, multiListener, moveAndVisibility);
-			} 
+				return true;
+			}
 		}
+		return false;
+	}
+	
+	ModelPosition getMovePosition() {
+		return pathFinder.getNextPosition();
 	}
 	
 	
-
-	private void MoveToNextPosition(ICharacterListener clistener, MultiMovementListeners multiListener, IMoveAndVisibility moveAndVisibility) {
+	void move(ModelPosition destination, ICharacterListener clistener) {
 		
-		ModelPosition pos = pathFinder.getNextPosition();
-		
-		if ( timeUnits <= 0) {
-			return;
-		}
-		position = pos;
+		position = destination;
 		timeUnits--;
-		
-		
 		clistener.moveTo(this);
-		multiListener.moveTo(this, moveAndVisibility, clistener);
 	}
 		
 	public boolean fireAt(ICharacter fireTarget, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
-				
 		if (RuleBook.canFireAt(this, fireTarget, moveAndVisibility) == false) {
 			a_listener.cannotFireAt(this, fireTarget);
 			return false;
@@ -114,6 +119,7 @@ public abstract class Character implements ICharacter  {
 			Character target = (Character)fireTarget;
 			target.hitPoints -= getDamage();
 			a_listener.fireAt(this, fireTarget, true);
+			m_experience++;
 			return true;
 		} else {
 			a_listener.fireAt(this, fireTarget, false);
@@ -126,8 +132,7 @@ public abstract class Character implements ICharacter  {
 		return position.sub(other.getPosition()).length();
 	}
 
-	public void watchMovement(ICharacter mover,
-			IMoveAndVisibility moveAndVisibility, ICharacterListener listener) {
+	public void watchMovement(ICharacter mover,	IMoveAndVisibility moveAndVisibility, ICharacterListener listener) {
 		
 		if (RuleBook.canFireAt(this, mover, moveAndVisibility) == true) {
 			fireAt(mover, moveAndVisibility, listener);
