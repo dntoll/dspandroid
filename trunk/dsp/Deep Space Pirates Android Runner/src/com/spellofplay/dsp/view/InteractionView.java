@@ -77,10 +77,6 @@ public class InteractionView {
 		}
 		
 	}
-	
-	public boolean canOpenDoor(IModel model) {
-		return model.hasDoorCloseToIt(m_selectedSoldier);
-	}
 
 	public void unselectPath() {
 		m_selectedPath = null;

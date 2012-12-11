@@ -13,7 +13,7 @@ public class Enemy extends Character {
 	
 	Enemy(ModelPosition startPosition) {
 		super(startPosition, 5);
-		hitPoints = 1;
+		hitPoints = maxHitPoints = 2;
 
 	}
 	
@@ -27,7 +27,7 @@ public class Enemy extends Character {
 	
 	@Override
 	public float getRange() {
-		return 6.0f;
+		return 12.0f;
 	}
 	
 	
@@ -45,7 +45,7 @@ public class Enemy extends Character {
 		}
 	}
 
-	public void spot(Soldier soldier) {
+	private void spot(Soldier soldier) {
 		m_soldiersLastPositions.put(soldier, soldier.getPosition() );
 	}
 	

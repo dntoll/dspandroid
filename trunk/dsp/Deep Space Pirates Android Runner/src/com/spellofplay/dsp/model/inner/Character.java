@@ -20,6 +20,10 @@ public abstract class Character implements ICharacter  {
 	public int getMaxTimeUnits() {
 		return maxTimeUnits;
 	}
+	
+	public int getMaxHitPoints() {
+		return maxHitPoints;
+	}
 
 	Character(ModelPosition startPosition, int a_maxTimeUnits) {
 		position.x = startPosition.x;
@@ -71,7 +75,7 @@ public abstract class Character implements ICharacter  {
 		return watchTimeUnits;
 	}
 
-	public void startNewRound() {
+	void startNewRound() {
 		timeUnits = maxTimeUnits;
 		watchTimeUnits = 0;
 		pathFinder.stopAllSearches();
@@ -147,7 +151,7 @@ public abstract class Character implements ICharacter  {
 		return pathFinder;
 	}
 
-	public void stopAllMovement() {
+	void stopAllMovement() {
 		getPathFinder().stopAllSearches();
 	}
 	

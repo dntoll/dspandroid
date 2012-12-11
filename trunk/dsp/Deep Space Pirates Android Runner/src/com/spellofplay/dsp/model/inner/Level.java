@@ -81,7 +81,7 @@ public class Level {
          return false;
      }
 	 
-	 public boolean lineOfSight(ModelPosition pos1, ModelPosition pos2) {
+	 boolean lineOfSight(ModelPosition pos1, ModelPosition pos2) {
 		 return _lineOfSight(pos1, pos2);// || _lineOfSight(pos2, pos1);
 	 }
 	 
@@ -257,7 +257,7 @@ public class Level {
 		return clearTilesX == 2 || clearTilesY == 2;
 	}
 
-	public boolean hasDoorCloseToIt(ModelPosition position) {
+	boolean hasDoorCloseToIt(ModelPosition position) {
 		int x = position.x;
 		int y = position.y;
 		if (GetTile(x+1, y) == TileType.TileDoor) {
@@ -275,7 +275,7 @@ public class Level {
 		return false;
 	}
 
-	public void open(ModelPosition position) {
+	void open(ModelPosition position) {
 		int x = position.x;
 		int y = position.y;
 		if (GetTile(x+1, y) == TileType.TileDoor) {
@@ -292,11 +292,11 @@ public class Level {
 		}
 	}
 
-	public boolean isDoor(ModelPosition pos) {
+	boolean isDoor(ModelPosition pos) {
 		return  GetTile(pos.x, pos.y) == TileType.TileDoor;
 	}
 
-	public void openAt(int x, int y) {
+	void openAt(int x, int y) {
 		m_tiles[x][y] = TileType.TileEmpty;
 	}
 }

@@ -64,6 +64,18 @@ class VisualCharacter {
 			drawable.m_guiText.setColor(Color.RED);
 		}
 		
+		dst.top = dst.top - 5;
+		dst.bottom = dst.top + 5;
+		drawable.drawRect(dst, Color.BLACK);
+		
+		float percentHp = (float)m_modelCharacter.getHitPoints() / (float)m_modelCharacter.getMaxHitPoints();
+		int width = (int)(((float)(dst.right - dst.left - 2)) * percentHp);
+		dst.top = dst.top +1;
+		dst.bottom = dst.top +3;
+		dst.left++;
+		dst.right = dst.left + width;
+		drawable.drawRect(dst, Color.RED);
+		
 		
 		drawable.drawText("" + m_modelCharacter.getTimeUnits(), dst.left, dst.top, drawable.m_guiText);
 		drawable.drawText("" + m_modelCharacter.getWatchTimeUnits(), dst.left + 16, dst.top, drawable.m_guiText);
@@ -93,10 +105,7 @@ class VisualCharacter {
 		}
 		
 		
-		Rect dst = new Rect((int)vpos.m_x -camera.getHalfScale(), 
-				(int)vpos.m_y -camera.getHalfScale(),
-				(int)vpos.m_x + camera.getHalfScale(), 
-				(int)vpos.m_y + camera.getHalfScale());
+		Rect dst = camera.toRect(vpos);
 		
 		drawable.drawBitmap(player, source, dst, color, m_rotation);
 		if (drawgui) {

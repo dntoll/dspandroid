@@ -46,11 +46,8 @@ class VisibilityView {
 			for (int y = 0; y < Preferences.HEIGHT; y++) {
 				
 				if (canSee(x,y) == false) {
-					ViewPosition vp = camera.toViewPos(x, y);
-					Rect dst = new Rect((int)vp.m_x - camera.getHalfScale(), 
-										(int)vp.m_y - camera.getHalfScale(),
-										(int)vp.m_x + camera.getHalfScale(), 
-										(int)vp.m_y + camera.getHalfScale());
+					
+					Rect dst = camera.toViewRect(x,y);
 					
 					if (neverSeen(x,y))
 						drawable.drawBlack(dst);
@@ -61,7 +58,7 @@ class VisibilityView {
 			}	
 		}
 	}
-	void updateVisibility(IModel a_model) {
+	private void updateVisibility(IModel a_model) {
 		if (shouldUpdateVisibility ) {
 			CharacterIterable soldiers = a_model.getAliveSoldiers();
 			
@@ -94,7 +91,7 @@ class VisibilityView {
 		}
 	}
 
-	public boolean doneUpdating() {
+	private boolean doneUpdating() {
 		return visibilityProgressX >= Preferences.WIDTH;
 	}
 	
@@ -103,7 +100,7 @@ class VisibilityView {
 		visibilityProgressX = 0;
 	}
 
-	public void isTileVisible(IModel a_model, CharacterIterable soldiers,
+	private void isTileVisible(IModel a_model, CharacterIterable soldiers,
 			int x, int y) {
 		
 		if (isWallOrDoor(a_model, x, y) == false) {
@@ -121,7 +118,7 @@ class VisibilityView {
 		}
 	}
 
-	public boolean isWallOrDoor(IModel level, int x, int y) {
+	private boolean isWallOrDoor(IModel level, int x, int y) {
 		return level.getTile(x, y) == TileType.TileWall || level.getTile(x, y) == TileType.TileDoor;
 	}
 

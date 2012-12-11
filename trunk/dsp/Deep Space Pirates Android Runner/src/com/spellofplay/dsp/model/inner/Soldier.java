@@ -4,12 +4,12 @@ import com.spellofplay.dsp.model.ModelPosition;
 
 public class Soldier extends Character {
 
-	float m_fireSkill = 0.5f;
-	float m_dodgeSkill = 0.5f;
+	private float m_fireSkill = 0.5f;
+	private float m_dodgeSkill = 0.5f;
 	
 	
 	Soldier(ModelPosition startPosition) {
-		super(startPosition, 5);
+		super(startPosition, 4);
 	}
 
 	

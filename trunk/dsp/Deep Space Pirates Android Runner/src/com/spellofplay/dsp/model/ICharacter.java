@@ -15,4 +15,5 @@ public interface ICharacter {
 	abstract public int getFireCost();
 	abstract boolean hasExperience();
 	abstract int getMaxTimeUnits();
+	abstract int getMaxHitPoints();
 }
