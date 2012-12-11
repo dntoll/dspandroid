@@ -254,7 +254,7 @@ public class Level {
 		
 		
 		
-		return clearTilesX == 2 || clearTilesY == 2;
+		return (clearTilesX == 2 && clearTilesY == 0)|| (clearTilesX == 0 && clearTilesY == 2);
 	}
 
 	boolean hasDoorCloseToIt(ModelPosition position) {

@@ -55,31 +55,20 @@ class VisualCharacter {
 	}
 
 	private void drawGUI(AndroidDraw drawable, Rect dst) {
+		dst.left += 3;
+		dst.right -= 6;
 		
-		drawable.m_guiText.setColor(Color.WHITE);
-		if (m_attackTimer > 0) {
-			drawable.m_guiText.setColor(Color.BLACK);
-		}
-		if (m_damageTimer > 0) {
-			drawable.m_guiText.setColor(Color.RED);
-		}
-		
-		dst.top = dst.top - 5;
-		dst.bottom = dst.top + 5;
+		dst.top = dst.top - 4;
+		dst.bottom = dst.top + 4;
 		drawable.drawRect(dst, Color.BLACK);
 		
 		float percentHp = (float)m_modelCharacter.getHitPoints() / (float)m_modelCharacter.getMaxHitPoints();
 		int width = (int)(((float)(dst.right - dst.left - 2)) * percentHp);
 		dst.top = dst.top +1;
-		dst.bottom = dst.top +3;
+		dst.bottom = dst.top +2;
 		dst.left++;
 		dst.right = dst.left + width;
 		drawable.drawRect(dst, Color.RED);
-		
-		
-		drawable.drawText("" + m_modelCharacter.getTimeUnits(), dst.left, dst.top, drawable.m_guiText);
-		drawable.drawText("" + m_modelCharacter.getWatchTimeUnits(), dst.left + 16, dst.top, drawable.m_guiText);
-		drawable.drawText("" + m_modelCharacter.getHitPoints(), dst.right-16, dst.top, drawable.m_guiText);
 	}
 
 	void drawSoldier(AndroidDraw drawable, Camera camera, ITexture player, ICharacter target ) {
