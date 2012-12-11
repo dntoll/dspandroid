@@ -3,6 +3,8 @@ package com.spellofplay.dsp.controller;
 
 import android.view.KeyEvent;
 
+import com.spellofplay.dsp.model.IEventTarget;
+import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.ITexture;
@@ -11,8 +13,11 @@ import com.spellofplay.dsp.view.SimpleGui;
 import com.spellofplay.common.view.Input;
 
 public class MasterController {
-	private ModelFacade model = new ModelFacade();
+	private ModelFacade _model = new ModelFacade();
+	private IEventTarget eventTarget = _model;
+	private IModel model = _model;
 	private GameController game;
+	private LevelUpController levelup;
 	private MasterView masterView;
 	private Input input = null;
 	private SimpleGui gui = new SimpleGui();
@@ -20,8 +25,14 @@ public class MasterController {
 	
 	
 	public MasterController(Input input, ITexture enemyAndTilesTexture, ITexture playerTexture) {
+		
+		ModelFacade _model = new ModelFacade();
+		eventTarget = _model;
+		model = _model;
+		
 		this.masterView = new MasterView(enemyAndTilesTexture, playerTexture, model);
 		this.game = new GameController(masterView, model);
+		this.levelup = new LevelUpController(model, eventTarget, input, gui);
 		this.input = input;
 		this.showMenu = true;
 
@@ -81,12 +92,12 @@ public class MasterController {
 			}
 			drawGameWhenItsOver(drawable, elapsedTimeSeconds, "Game Over");
 		} else if (model.playerHasWon()) {
-			if (gui.DoButtonCentered(halfWidth, halfHeight, "restart", input)) {
-				startNewGame();
+			if (levelup.doLevelUp(drawable) == true) {
+				newLevel();
 			}
-			drawGameWhenItsOver(drawable, elapsedTimeSeconds, "Game Won");
+			
 		} else {
-			game.update(drawable, model, input, elapsedTimeSeconds);
+			game.update(drawable, eventTarget, input, elapsedTimeSeconds);
 		}
 	}
 
@@ -100,8 +111,13 @@ public class MasterController {
 		drawable.drawText(message, 200, 10, drawable.m_guiText);
 	}
 	
+	private void newLevel() {
+		eventTarget.newLevel();
+		masterView.startNewGame(model);
+	}
+	
 	private void startNewGame() {
-		model.startNewGame(0);
+		eventTarget.startNewGame();
 		masterView.startNewGame(model);
 	}
 

@@ -3,12 +3,12 @@ package com.spellofplay.dsp.view;
 import android.graphics.Color;
 
 import com.spellofplay.common.view.Input;
+import com.spellofplay.dsp.model.AStar;
 import com.spellofplay.dsp.model.CharacterIterable;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.inner.AStar;
-import com.spellofplay.dsp.model.inner.AStar.SearchResult;
+import com.spellofplay.dsp.model.AStar.SearchResult;
 
 
 public class InteractionView {

@@ -15,7 +15,7 @@ public class LevelGenerator {
 	private Random random;
 	
 	public LevelGenerator(int a_level) {
-		random = new Random();
+		random = new Random(a_level);
 	}
 
 	public void generate(Level level) {

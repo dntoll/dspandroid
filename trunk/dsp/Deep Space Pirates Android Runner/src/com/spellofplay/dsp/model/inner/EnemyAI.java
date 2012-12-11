@@ -20,7 +20,8 @@ class EnemyAI {
 					pathFinder.search();
 					a_clistener.enemyAILog("is searching", enemy);
 				} else if (pathFinder.isMoving()) {
-					enemy.move(a_clistener, movementListeners, a_moveAndVisibility);
+					
+					a_moveAndVisibility.moveCharacter(a_clistener, movementListeners, enemy);
 					a_clistener.enemyAILog("is moving", enemy);
 					
 					stopIfSoldierInSight(soldiers, a_moveAndVisibility, enemy);
@@ -37,8 +38,7 @@ class EnemyAI {
 		
 	}
 
-	private void stopIfSoldierInSight(CharacterCollection<Soldier> soldiers,
-			IMoveAndVisibility a_moveAndVisibility, Enemy enemy) {
+	private void stopIfSoldierInSight(CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility, Enemy enemy) {
 		Soldier closestThatWeCanSee = getClosestSoldierThatWeCanSee(enemy, soldiers, a_moveAndVisibility);
 		if (closestThatWeCanSee != null) {
 			if (RuleBook.couldFireIfHadTime(enemy, closestThatWeCanSee, a_moveAndVisibility) == true) {
@@ -58,7 +58,7 @@ class EnemyAI {
 					enemy.fireAt(closestThatWeCanSee, a_moveAndVisibility, a_clistener);
 				} else {
 					enemy.timeUnits--;
-					//hide would be better?
+					enemy.setDestination(closestThatWeCanSee.getPosition(), a_moveAndVisibility, 1);
 				}
 				
 			} else {

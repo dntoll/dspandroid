@@ -4,6 +4,8 @@ import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;
 import com.spellofplay.dsp.model.Vector2;
+import com.spellofplay.dsp.model.inner.levelgenerator.LevelHasToFewEnemiesException;
+import com.spellofplay.dsp.model.inner.levelgenerator.LevelHasToFewSoldierPositions;
 
 public class Level {
 
@@ -219,7 +221,7 @@ public class Level {
 		for (int i= 0; i< Preferences.MAX_SOLDIERS; i++) {
 			m_playerStartPositions[i] = null;
 		}
-		for (int i= 0; i< Preferences.MAX_SOLDIERS; i++) {
+		for (int i= 0; i< Preferences.MAX_ENEMIES; i++) {
 			m_enemyPositions[i] = null;
 		}
 		m_numEnemies = 0;
@@ -277,16 +279,24 @@ public class Level {
 		int x = position.x;
 		int y = position.y;
 		if (GetTile(x+1, y) == TileType.TileDoor) {
-			m_tiles[x+1][y] = TileType.TileEmpty;
+			openAt(x+1,y);
 		}
 		if (GetTile(x-1, y) == TileType.TileDoor) {
-			m_tiles[x-1][y] = TileType.TileEmpty;
+			openAt(x-1,y);
 		}
 		if (GetTile(x, y+1) == TileType.TileDoor) {
-			m_tiles[x][y+1] = TileType.TileEmpty;
+			openAt(x,y+1);
 		}
 		if (GetTile(x, y-1) == TileType.TileDoor) {
-			m_tiles[x][y-1] = TileType.TileEmpty;
+			openAt(x,y-1);
 		}
+	}
+
+	public boolean isDoor(ModelPosition pos) {
+		return  GetTile(pos.x, pos.y) == TileType.TileDoor;
+	}
+
+	public void openAt(int x, int y) {
+		m_tiles[x][y] = TileType.TileEmpty;
 	}
 }

@@ -1,11 +1,9 @@
-package com.spellofplay.dsp.model.inner;
+package com.spellofplay.dsp.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.spellofplay.dsp.model.IMoveAndVisibility;
-import com.spellofplay.dsp.model.ModelPosition;
 
 public class AStar {
 	public enum SearchResult
@@ -44,7 +42,7 @@ public class AStar {
 		return state == SearchResult.SearchNotDone;
 	}
     
-    boolean didSearchFail() {
+    public boolean didSearchFail() {
     	return state == SearchResult.SearchFailedNoPath;
 	}
     
@@ -249,25 +247,11 @@ public class AStar {
 	private void visitNode(Node pNode, Node NewNode, float dNewCost) {
 		m_nVisitedNodes++;
 
-		//Vilken väg tog vi för att komma till noden
 		NewNode.m_parent = pNode;
-		//NewNode.m_pNode->setParentNode(node.m_pNode);
 		NewNode.m_nCostFromstart = dNewCost;
-
-		//Estimera kostnaden till målet
 		NewNode.m_nCostToGoal = TraverseCost(NewNode.m_node, m_end) * HEURISTICSMODIFIER;
-		
-		//om den fanns i closed plocka upp den igen...
-		//ta bort den ur closed
-		//if (ExistInClosed(NewNode.m_node)) {
 		removeFromClosed(NewNode);
-		//}
-		//om den fanns i open plocka upp den igen...
-		//ta bort den ur closed
-		//if (ExistInOpen( NewNode.m_node)) {
 		removeFromOpen(NewNode);
-		//}
-		//och lägg den längst bak i open
 		m_listOpen.add(NewNode);
 	}
 

@@ -10,6 +10,7 @@ import com.spellofplay.dsp.model.inner.Soldier;
 public class ModelFacade implements IModel, IEventTarget {
 	
 	private Game game = new Game();
+	private int currentLevel;
 
 	@Override
 	public String getGameTitle() {
@@ -131,8 +132,14 @@ public class ModelFacade implements IModel, IEventTarget {
 	}
 	
 	@Override
-	public void startNewGame(int a_level) {
-		game.startLevel(a_level);
+	public void startNewGame() {
+		currentLevel = 0;
+		game.startLevel(currentLevel);
+	}
+	
+	public void newLevel() {
+		currentLevel++;
+		game.startLevel(currentLevel);
 	}
 	
 	@Override
@@ -154,4 +161,25 @@ public class ModelFacade implements IModel, IEventTarget {
 	public boolean hasDoorCloseToIt(ICharacter selectedSoldier) {
 		return game.hasDoorCloseToIt(selectedSoldier.getPosition());
 	}
+
+	@Override
+	public void addTimeUnits(ICharacter soldier) {
+		Soldier selected  = (Soldier)soldier;
+		selected.addMaxTimeUnits();
+		
+	}
+
+	@Override
+	public void addShootSkill(ICharacter soldier) {
+		Soldier selected  = (Soldier)soldier;
+		selected.addShootSkill();
+	}
+
+	@Override
+	public void addDodgeSkill(ICharacter soldier) {
+		Soldier selected  = (Soldier)soldier;
+		selected.addDodgeSkill();
+	}
+
+	
 }

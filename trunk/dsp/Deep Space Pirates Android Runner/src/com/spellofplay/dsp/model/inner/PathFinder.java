@@ -1,5 +1,6 @@
 package com.spellofplay.dsp.model.inner;
 
+import com.spellofplay.dsp.model.AStar;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 

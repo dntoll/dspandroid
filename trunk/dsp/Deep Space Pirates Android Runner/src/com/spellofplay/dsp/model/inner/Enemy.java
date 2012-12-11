@@ -22,7 +22,7 @@ public class Enemy extends Character {
 	}
 
 	public float getDodgeSkill() {
-		return 0.3f;
+		return 0.4f;
 	}
 	
 	@Override
@@ -30,16 +30,23 @@ public class Enemy extends Character {
 		return 6.0f;
 	}
 	
-	public void updateSights(CharacterCollection<Soldier> soldiers, IMoveAndVisibility moveAndVisibility) { 
-		updateSights(this, soldiers, moveAndVisibility);
-	}
 	
-	private void updateSights(Enemy observer, CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility) { 
-		CharacterCollection<Soldier> soldiersThatEnemyCanSee = soldiers.thatCanSee(a_moveAndVisibility, observer);
+	void updateSights(CharacterCollection<Soldier> soldiers, CharacterCollection<Enemy> friends, IMoveAndVisibility a_moveAndVisibility) { 
+		CharacterCollection<Soldier> soldiersThatEnemyCanSee = soldiers.thatCanSee(a_moveAndVisibility, this);
+		CharacterCollection<Enemy> friendsThatCanSeeMe = friends.thatCanSee(a_moveAndVisibility, this);
+		
 		
 		for (Soldier soldier : soldiersThatEnemyCanSee) {
-			m_soldiersLastPositions.put(soldier, soldier.getPosition() );
+			spot(soldier);
+		
+			for (Enemy friend : friendsThatCanSeeMe) {
+				friend.spot(soldier);
+			}
 		}
+	}
+
+	public void spot(Soldier soldier) {
+		m_soldiersLastPositions.put(soldier, soldier.getPosition() );
 	}
 	
 	public Soldier getClosestSoldierSpotted() {
