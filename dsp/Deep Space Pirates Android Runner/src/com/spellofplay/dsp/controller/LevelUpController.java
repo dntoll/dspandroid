@@ -9,16 +9,16 @@ import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.SimpleGui;
 
-public class LevelUpController {
+class LevelUpController {
 
-	IModel model;
-	IEventTarget eventTarget;
-	Input input;
-	SimpleGui gui;
-	Paint guiText;
+	private IModel model;
+	private IEventTarget eventTarget;
+	private Input input;
+	private SimpleGui gui;
+	private Paint guiText;
 	
 	
-	public LevelUpController(IModel model, IEventTarget eventTarget,
+	LevelUpController(IModel model, IEventTarget eventTarget,
 			Input input, SimpleGui gui) {
 		this.model = model;
 		this.eventTarget = eventTarget;
@@ -28,7 +28,7 @@ public class LevelUpController {
 		
 	}
 
-	public boolean doLevelUp(AndroidDraw drawable) {
+	boolean doLevelUp(AndroidDraw drawable) {
 		
 		for ( ICharacter soldier : model.getAliveSoldiers()) {
 			if (soldier.hasExperience()) {

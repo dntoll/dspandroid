@@ -125,11 +125,7 @@ class MovementMapView {
 	private void drawTileMoveHint(AndroidDraw drawable, Camera camera, ICharacter selected, int x, int y) {
 		if (m_movementMap[x][y] <= selected.getTimeUnits()) {
 			ViewPosition vp = camera.toViewPos(x, y);
-			Rect dst = new Rect((int)vp.m_x - camera.getHalfScale(), 
-								(int)vp.m_y - camera.getHalfScale(),
-								(int)vp.m_x + camera.getHalfScale(), 
-								(int)vp.m_y + camera.getHalfScale());
-		
+			Rect dst = camera.toRect(vp);
 		
 			if (m_movementMap[x][y] <= selected.getTimeUnits() - selected.getFireCost())	
 				drawable.drawRect(dst, Color.argb(48, 0, 255, 0));

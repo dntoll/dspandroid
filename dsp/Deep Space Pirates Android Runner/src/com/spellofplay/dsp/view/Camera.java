@@ -1,6 +1,7 @@
 package com.spellofplay.dsp.view;
 
 import android.graphics.Point;
+import android.graphics.Rect;
 
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Preferences;
@@ -41,6 +42,18 @@ class Camera {
 	ViewPosition toViewPos(int x, int y) {
 		return new ViewPosition(x * m_scale + m_displacement.m_x,
 				y * m_scale + m_displacement.m_y);
+	}
+	
+	Rect toViewRect(int x, int y) {
+		ViewPosition vp = toViewPos(x, y);
+		return toRect(vp);
+	}
+	
+	Rect toRect(ViewPosition vp) {
+		return new Rect((int)vp.m_x - getHalfScale(), 
+				(int)vp.m_y - getHalfScale(),
+				(int)vp.m_x + getHalfScale(), 
+				(int)vp.m_y + getHalfScale());
 	}
 	
 	float toViewScale(float modelDistance) {

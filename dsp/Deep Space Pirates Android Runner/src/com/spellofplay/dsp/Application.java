@@ -26,7 +26,7 @@ public class Application extends View implements IUpdateable {
 	private long m_lastTime = 0; //THE time in millis of last frame
 	SleepHandler m_sleepHandler = new SleepHandler();
 
-	public Application(Context context, Activity cfTimerActivity) {
+	Application(Context context, Activity cfTimerActivity) {
         super(context);
         
         Resources r = context.getResources();

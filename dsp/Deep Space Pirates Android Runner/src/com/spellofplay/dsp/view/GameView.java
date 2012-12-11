@@ -84,6 +84,7 @@ class GameView implements ICharacterListener {
 		visibility.clear();
 		visibility.recalculateVisibility(model);
 		getCharacterDrawer().startNewGame(model);
+		movementView.update();
 	}
 
 	@Override

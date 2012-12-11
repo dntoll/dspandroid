@@ -92,11 +92,8 @@ class LevelDrawer {
 			for (int y = 0; y < Preferences.HEIGHT; y++) {
 				
 				if (model.getTile(x, y) == TileType.TileDoor) {
-					ViewPosition vpos = camera.toViewPos(x, y);
-					Rect dst = new Rect((int)vpos.m_x -camera.getHalfScale(), 
-							(int)vpos.m_y -camera.getHalfScale(),
-							(int)vpos.m_x + camera.getHalfScale(), 
-							(int)vpos.m_y + camera.getHalfScale());
+					
+					Rect dst = camera.toViewRect(x, y);
 					
 					
 					drawable.drawBitmap(theTextureMap, source, dst, Color.WHITE, 0);
