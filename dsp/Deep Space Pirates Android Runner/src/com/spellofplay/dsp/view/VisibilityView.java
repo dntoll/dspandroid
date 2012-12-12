@@ -62,7 +62,7 @@ class VisibilityView {
 		if (shouldUpdateVisibility ) {
 			CharacterIterable soldiers = a_model.getAliveSoldiers();
 			
-			int steps = 8;
+			int steps = Preferences.VISIBILITY_STEPS;
 			for (int dx = 0; dx < steps && visibilityProgressX + dx < Preferences.WIDTH; dx++) 
 			{
 				for (int y = 0; y < Preferences.HEIGHT; y++) {

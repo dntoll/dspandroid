@@ -24,13 +24,13 @@ public class MasterView implements ICharacterListener {
 		
 		
 		m_camera.setScreenSize(drawable.getWindowWidth(), drawable.getWindowHeight());
-		m_actionView.updateSelections(model, m_camera, drawable.getWindowWidth(), drawable.getWindowHeight());
+		m_actionView.updateSelections(model, m_camera);
 		ICharacter selected = m_actionView.getSelectedSoldier(model);
 		ICharacter target = m_actionView.getFireTarget(model);
 		
 		m_camera.update(elapsedTimeSeconds);
 		m_view.redrawLevelBuffer(drawable, model);
-		drawable.drawBackground(m_camera.m_displacement);
+		drawable.drawBackground(m_camera.getDisplacement());
 		m_view.drawDoors(drawable);
 		m_view.getCharacterDrawer().drawCasualties(drawable, model, m_camera);
 		m_view.drawMovementHelp(drawable, selected);

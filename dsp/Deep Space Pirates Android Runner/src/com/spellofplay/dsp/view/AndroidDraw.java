@@ -12,7 +12,7 @@ import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 
 public class AndroidDraw  {
-	public final Paint m_guiText = new Paint();
+	private final Paint m_guiText = new Paint();
 	private final Paint m_path = new Paint();
 	
 	private Bitmap m_background;
@@ -28,9 +28,10 @@ public class AndroidDraw  {
 	}
 	
 	
-	public void drawText(String gameTitle, int i, int j, Paint guiText) {
+	public void drawText(String text, int x, int y, int color) {
+		m_guiText.setColor(color);
 		
-		m_drawTarget.drawText(gameTitle, i, j, guiText );
+		m_drawTarget.drawText(text, x, y, m_guiText );
 	}
 	
 	void drawText(String gameTitle, int i, int j) {

@@ -1,6 +1,8 @@
 package com.spellofplay.dsp.controller;
 
 
+import android.graphics.Color;
+
 import com.spellofplay.common.view.Input;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IEventTarget;
@@ -75,7 +77,7 @@ class GameController {
 		if (masterView.updateAnimations(model, elapsedTimeSeconds)) {
 			eventTarget.updateEnemies(multipleCharacterListenter);
 		}
-		drawable.drawText("Enemy is moving", 200, 10, drawable.m_guiText);
+		drawable.drawText("Enemy is moving", 200, 10, Color.WHITE);
 	}
 
 	

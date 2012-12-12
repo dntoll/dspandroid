@@ -101,7 +101,7 @@ public class SimpleGui {
 			
 			int textPosY = height / 2 - (int)m_guiText.getTextSize();
 			
-			a_draw.drawText(text, x, y + textPosY, m_guiText);
+			a_draw.drawText(text, x, y + textPosY, Color.WHITE);
 			m_guiText.setColor(Color.WHITE);
 			m_guiText.setAlpha(255);
 			
