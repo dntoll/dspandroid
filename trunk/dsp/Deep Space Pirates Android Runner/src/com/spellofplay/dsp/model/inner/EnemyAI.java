@@ -2,7 +2,7 @@ package com.spellofplay.dsp.model.inner;
 
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
-import com.spellofplay.dsp.model.MultiMovementListeners;
+import com.spellofplay.dsp.model.RuleBook;
 
 class EnemyAI {
 

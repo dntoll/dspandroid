@@ -4,6 +4,7 @@ import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.RuleBook;
 
 public abstract class Character implements ICharacter  {
 	private ModelPosition position = new ModelPosition();

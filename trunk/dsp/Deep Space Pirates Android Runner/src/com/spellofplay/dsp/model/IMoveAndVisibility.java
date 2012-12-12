@@ -1,5 +1,7 @@
 package com.spellofplay.dsp.model;
 
+import com.spellofplay.dsp.model.inner.MultiMovementListeners;
+
 public interface IMoveAndVisibility {
 	boolean lineOfSight(ICharacter cha1, ICharacter cha2);
 	boolean lineOfSight(ModelPosition cha1, ModelPosition cha2);

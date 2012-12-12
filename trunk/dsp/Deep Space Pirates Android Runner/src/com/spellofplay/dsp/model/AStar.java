@@ -16,18 +16,18 @@ public class AStar {
 	public List<ModelPosition> path;
 	private SearchResult state;
 	private static final float HEURISTICSMODIFIER = 1.5f;
-    private boolean m_doesNearSearch;
-    private float m_nearDistance;
-    private int m_nVisitedNodes;
-    private List<Node> m_listOpen;
-    private List<Node> m_listClosed;
+    private boolean isNearSearch;
+    private float nearDistance;
+    private int numberOfVisitedNodes;
+    private List<Node> openList;
+    private List<Node> closedList;
 	
-    private IMoveAndVisibility m_map;
-    private ModelPosition m_start, m_end;
+    private IMoveAndVisibility movementAndVisibility;
+    private ModelPosition startPosition, goalPosition;
 	
 	public AStar(IMoveAndVisibility a_map) 
     {
-        m_map = a_map;
+        movementAndVisibility = a_map;
         path = new ArrayList<ModelPosition>();
         state = SearchResult.SearchNotDone;
     }
@@ -52,15 +52,15 @@ public class AStar {
         {
             return state;
         }
-        if (m_doesNearSearch == false && m_map.isMovePossible(m_end) == false)
+        if (isNearSearch == false && movementAndVisibility.isMovePossible(goalPosition) == false)
         {
         	return doFailedSearch();
         }
-        m_nVisitedNodes = 0;
+        numberOfVisitedNodes = 0;
 
-        while(m_listOpen.size() > 0)
+        while(openList.size() > 0)
         {
-            if (m_nVisitedNodes > a_maxNodes) {
+            if (numberOfVisitedNodes > a_maxNodes) {
                 state = SearchResult.SearchNotDone;
                 return SearchResult.SearchNotDone;
             }
@@ -86,9 +86,9 @@ public class AStar {
     {
         
         path = new ArrayList<ModelPosition>();
-        m_doesNearSearch = a_nearSearch;
-        m_nearDistance = a_distance;
-        m_nVisitedNodes = 0;
+        isNearSearch = a_nearSearch;
+        nearDistance = a_distance;
+        numberOfVisitedNodes = 0;
         state = SearchResult.SearchNotDone;
         Node startNode = new Node();
         startNode.m_nCostFromstart = 0.0f;
@@ -96,13 +96,13 @@ public class AStar {
         startNode.m_node = a_start;
         startNode.m_parent = null;
         
-        m_listOpen = new ArrayList<Node>();
-        m_listClosed = new ArrayList<Node>();
+        openList = new ArrayList<Node>();
+        closedList = new ArrayList<Node>();
 
-        m_listOpen.add(startNode);
+        openList.add(startNode);
         
-        m_start = a_start;
-        m_end = a_end;
+        startPosition = a_start;
+        goalPosition = a_end;
     }
     
     
@@ -153,7 +153,7 @@ public class AStar {
         if (a_node.m_parent != null) {
 	        CreatePath(a_node.m_parent);
         }
-        if (a_node.m_node.equals(m_start)) {
+        if (a_node.m_node.equals(startPosition)) {
     		
         } else {
     		
@@ -166,12 +166,12 @@ public class AStar {
     {
 
         //Inga flera noder att söka igenom
-        if (m_listOpen.size() == 0) {
+        if (openList.size() == 0) {
 	        return SearchResult.SearchFailedNoPath;
         }
         //Hämta första noden i open
-        Node pNode = m_listOpen.get(0);
-        m_listOpen.remove(0);
+        Node pNode = openList.get(0);
+        openList.remove(0);
     	
         //Har vi nått fram
         if (IsAGoalNode(pNode)) {
@@ -190,14 +190,14 @@ public class AStar {
 	        
 	        try {
 		        //sortera listan
-		        Collections.sort(m_listOpen);
+		        Collections.sort(openList);
 	        } catch (Exception e) {
 	        	
 	        }
 	        
         }
 
-        m_listClosed.add(pNode);
+        closedList.add(pNode);
         return SearchResult.SearchNotDone;
     }
 
@@ -210,7 +210,7 @@ public class AStar {
 		}
 
 
-		if (m_map.isMovePossible(new ModelPosition(pNode.m_node.x + x, pNode.m_node.y + y)) == true)
+		if (movementAndVisibility.isMovePossible(new ModelPosition(pNode.m_node.x + x, pNode.m_node.y + y)) == true)
 		{
 		    Node NewNode = new Node();
 		    
@@ -236,36 +236,36 @@ public class AStar {
 
 	private boolean canMoveDiagonal(Node pNode, int y, int x) {
 		if (x == y || x == -y) {
-		    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.x + x, pNode.m_node.y)) == false)
+		    if (movementAndVisibility.isMovePossible(new ModelPosition(pNode.m_node.x + x, pNode.m_node.y)) == false)
 				return false;
-		    if (m_map.isMovePossible(new ModelPosition(pNode.m_node.x, pNode.m_node.y + y)) == false)
+		    if (movementAndVisibility.isMovePossible(new ModelPosition(pNode.m_node.x, pNode.m_node.y + y)) == false)
 				return false;
 		}
 		return true;
 	}
 
 	private void visitNode(Node pNode, Node NewNode, float dNewCost) {
-		m_nVisitedNodes++;
+		numberOfVisitedNodes++;
 
 		NewNode.m_parent = pNode;
 		NewNode.m_nCostFromstart = dNewCost;
-		NewNode.m_nCostToGoal = TraverseCost(NewNode.m_node, m_end) * HEURISTICSMODIFIER;
+		NewNode.m_nCostToGoal = TraverseCost(NewNode.m_node, goalPosition) * HEURISTICSMODIFIER;
 		removeFromClosed(NewNode);
 		removeFromOpen(NewNode);
-		m_listOpen.add(NewNode);
+		openList.add(NewNode);
 	}
 
 	
 
 	private boolean IsAGoalNode(Node pNode)
     {
-        if (m_doesNearSearch == false) {
-	        return pNode.m_node.equals(m_end);
+        if (isNearSearch == false) {
+	        return pNode.m_node.equals(goalPosition);
         }
         else
         {
-            return pNode.m_node.sub(m_end).length() <= m_nearDistance &&
-            m_map.hasClearSight(pNode.m_node, m_end);
+            return pNode.m_node.sub(goalPosition).length() <= nearDistance &&
+            movementAndVisibility.hasClearSight(pNode.m_node, goalPosition);
         }
     }
 
@@ -274,7 +274,7 @@ public class AStar {
     
 
     private boolean ExistInOpen(ModelPosition a_node) {
-        for (Node iter : m_listOpen) {
+        for (Node iter : openList) {
 	        if (iter.m_node.equals(a_node)) {
 		        return true;
 	        }
@@ -283,7 +283,7 @@ public class AStar {
     }
 
     private boolean ExistInClosed(ModelPosition a_node) {
-    	for (Node iter : m_listClosed) {
+    	for (Node iter : closedList) {
 	        if (iter.m_node.equals(a_node)) {
 		        return true;
 	        }
@@ -296,11 +296,11 @@ public class AStar {
 		while (change)
 		{
 		    change = false;
-		    for( Node iter : m_listOpen)
+		    for( Node iter : openList)
 		    {
 		        if (iter.isSameLocation(NewNode))
 		        {
-		            m_listOpen.remove(iter);
+		            openList.remove(iter);
 			        change = true;
 			        break;
 		        }
@@ -313,11 +313,11 @@ public class AStar {
 		while (change) {
 		    change = false;
 		    
-		    for(Node iter : m_listClosed)
+		    for(Node iter : closedList)
 		    {
 		        if (iter.isSameLocation(NewNode))
 		        {
-		            m_listClosed.remove(iter);
+		            closedList.remove(iter);
 			        change = true;
 			        break;
 		        }
@@ -331,7 +331,7 @@ public class AStar {
     	boolean foundImprovment = false;
 
        
-        for(Node iter : m_listOpen)
+        for(Node iter : openList)
         {
 	        if (iter.m_node.equals(a_nNode.m_node))
 	        {
@@ -342,10 +342,8 @@ public class AStar {
 		        }
 	        }
         }
-    	
-        //iter = m_listClosed.begin();
-        //for (; iter != m_listClosed.end(); iter++)
-        for(Node iter : m_listClosed)
+
+        for(Node iter : closedList)
         {
 	        if (iter.m_node.equals(a_nNode.m_node))
 	        {

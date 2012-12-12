@@ -8,7 +8,7 @@ import com.spellofplay.dsp.model.CharacterIterable;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.MultiMovementListeners;
+import com.spellofplay.dsp.model.RuleBook;
 
 public class CharacterCollection<T extends Character> implements Iterable<T>{
 

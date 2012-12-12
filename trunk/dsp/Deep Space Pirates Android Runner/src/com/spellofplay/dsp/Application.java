@@ -2,6 +2,7 @@ package com.spellofplay.dsp;
 
 
 import com.spellofplay.dsp.controller.MasterController;
+import com.spellofplay.dsp.model.inner.ModelFacade;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.common.view.Input;
 
@@ -35,7 +36,9 @@ public class Application extends View implements IUpdateable {
 		
 		ConcreteTexture texture = new ConcreteTexture(getBitmapFromDrawable(tilesDrawable));
 		ConcreteTexture player = new ConcreteTexture(getBitmapFromDrawable(playerDrawable));
-        m_master = new MasterController(m_input, texture, player);
+		
+		ModelFacade model = new ModelFacade();
+        m_master = new MasterController(m_input, texture, player, model, model);
         
         
         m_sleepHandler.sleep(this, 100);
