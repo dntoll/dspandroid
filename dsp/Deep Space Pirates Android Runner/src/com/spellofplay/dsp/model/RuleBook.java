@@ -1,15 +1,13 @@
-package com.spellofplay.dsp.model.inner;
+package com.spellofplay.dsp.model;
 
 import java.util.Random;
 
-import com.spellofplay.dsp.model.ICharacter;
-import com.spellofplay.dsp.model.IMoveAndVisibility;
 
 public class RuleBook {
 
 	private static Random m_die = new Random();
 	
-	static boolean DetermineFireSuccess(ICharacter character, ICharacter fireTarget, boolean targetHasCover) {
+	public static boolean DetermineFireSuccess(ICharacter character, ICharacter fireTarget, boolean targetHasCover) {
 
 		float toHitChance = getToHitChance(character, fireTarget, targetHasCover);
 		
@@ -22,7 +20,7 @@ public class RuleBook {
 		
 	}
 	
-	static boolean couldFireIfHadTime(ICharacter character, ICharacter fireTarget, IMoveAndVisibility a_moveAndVisibility) {
+	public static boolean couldFireIfHadTime(ICharacter character, ICharacter fireTarget, IMoveAndVisibility a_moveAndVisibility) {
 		if (a_moveAndVisibility.hasClearSight(character, fireTarget) == false)
 			return false;
 		

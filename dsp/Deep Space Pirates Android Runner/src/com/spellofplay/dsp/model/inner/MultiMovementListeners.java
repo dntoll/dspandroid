@@ -1,7 +1,11 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.ICharacterListener;
+import com.spellofplay.dsp.model.IMoveAndVisibility;
 
 
 //TODO maybe this is also a charactercollection?

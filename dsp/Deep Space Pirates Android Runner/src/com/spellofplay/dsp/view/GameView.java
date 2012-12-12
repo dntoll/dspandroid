@@ -7,8 +7,8 @@ import com.spellofplay.dsp.model.CharacterIterable;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IModel;
+import com.spellofplay.dsp.model.RuleBook;
 import com.spellofplay.dsp.model.Vector2;
-import com.spellofplay.dsp.model.inner.RuleBook;
 
 
 class GameView implements ICharacterListener {

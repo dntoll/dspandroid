@@ -6,7 +6,6 @@ import android.view.KeyEvent;
 
 import com.spellofplay.dsp.model.IEventTarget;
 import com.spellofplay.dsp.model.IModel;
-import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.ITexture;
 import com.spellofplay.dsp.view.MasterView;
@@ -14,9 +13,9 @@ import com.spellofplay.dsp.view.SimpleGui;
 import com.spellofplay.common.view.Input;
 
 public class MasterController {
-	private ModelFacade _model = new ModelFacade();
-	private IEventTarget eventTarget = _model;
-	private IModel model = _model;
+	
+	private IEventTarget eventTarget;
+	private IModel model;
 	private GameController game;
 	private LevelUpController levelup;
 	private MasterView masterView;
@@ -25,11 +24,11 @@ public class MasterController {
 	private boolean showMenu = true;
 	
 	
-	public MasterController(Input input, ITexture enemyAndTilesTexture, ITexture playerTexture) {
+	public MasterController(Input input, ITexture enemyAndTilesTexture, ITexture playerTexture, IEventTarget target, IModel model) {
 		
-		ModelFacade _model = new ModelFacade();
-		eventTarget = _model;
-		model = _model;
+		
+		this.eventTarget = target;
+		this.model = model;
 		
 		this.masterView = new MasterView(enemyAndTilesTexture, playerTexture, model);
 		this.game = new GameController(masterView, model);

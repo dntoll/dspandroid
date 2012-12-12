@@ -1,10 +1,14 @@
-package com.spellofplay.dsp.model;
+package com.spellofplay.dsp.model.inner;
 
-import com.spellofplay.dsp.model.inner.CharacterCollection;
-import com.spellofplay.dsp.model.inner.Enemy;
-import com.spellofplay.dsp.model.inner.Game;
-import com.spellofplay.dsp.model.inner.RuleBook;
-import com.spellofplay.dsp.model.inner.Soldier;
+import com.spellofplay.dsp.model.CharacterIterable;
+import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.ICharacterListener;
+import com.spellofplay.dsp.model.IEventTarget;
+import com.spellofplay.dsp.model.IModel;
+import com.spellofplay.dsp.model.IMoveAndVisibility;
+import com.spellofplay.dsp.model.ModelPosition;
+import com.spellofplay.dsp.model.RuleBook;
+import com.spellofplay.dsp.model.TileType;
 
 
 public class ModelFacade implements IModel, IEventTarget {
