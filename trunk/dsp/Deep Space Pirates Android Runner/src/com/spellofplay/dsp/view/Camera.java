@@ -11,12 +11,13 @@ class Camera {
 
 	private int m_screenWidth;
 	private int m_screenHeight;
-	ViewPosition m_displacement = new ViewPosition(0,0);
+	
 	
 	private static final int m_scale = 32;
 	private boolean m_isScrolling = false;
 	private Point m_scrollStartPos = new Point();
 	
+	private ViewPosition m_displacement = new ViewPosition(0,0);
 	private ViewPosition m_targetDisplacement = new ViewPosition(0,0);
 	
 	
@@ -155,6 +156,10 @@ class Camera {
 		}
 		
 		displacementWithinLevel();
+	}
+
+	public ViewPosition getDisplacement() {
+		return m_displacement;
 	}
 
 

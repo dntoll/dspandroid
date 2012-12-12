@@ -1,6 +1,7 @@
 package com.spellofplay.dsp.controller;
 
 
+import android.graphics.Color;
 import android.view.KeyEvent;
 
 import com.spellofplay.dsp.model.IEventTarget;
@@ -108,7 +109,7 @@ public class MasterController {
 	private void drawGameWhenItsOver(AndroidDraw drawable, float elapsedTimeSeconds, String message) {
 		masterView.updateAnimations(model, elapsedTimeSeconds);
 		masterView.drawGame(drawable, model, elapsedTimeSeconds);
-		drawable.drawText(message, 200, 10, drawable.m_guiText);
+		drawable.drawText(message, 200, 10, Color.WHITE);
 	}
 	
 	private void newLevel() {

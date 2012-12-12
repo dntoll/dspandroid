@@ -104,7 +104,7 @@ public class InteractionView {
 		return m_selectedSoldier;
 	}
 
-	void updateSelections(IModel a_model, Camera camera, int width, int height) {
+	void updateSelections(IModel a_model, Camera camera) {
 		if (m_selectedSoldier == null || m_selectedSoldier.getTimeUnits() == 0) {
 			selectNextSoldier(a_model, camera);
 		}

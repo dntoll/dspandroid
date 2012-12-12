@@ -19,13 +19,13 @@ public class LogView implements ICharacterListener {
 		int top = 0;
 		Rect dst = new Rect((int)((float)drawable.getWindowWidth() * 0.8f), top, drawable.getWindowWidth(), (int)((float)drawable.getWindowHeight()*0.6f));
 		drawable.drawRect(dst, Color.argb(128, 0, 0, 0));
-		drawable.m_guiText.setColor(Color.WHITE);
-		drawable.drawText("Log " + m_log.size() + " " + m_logMessage, 20, top + 32 , drawable.m_guiText);
+		
+		drawable.drawText("Log " + m_log.size() + " " + m_logMessage, 20, top + 32, Color.WHITE);
 		
 		int item = 0;
 		for (String s : m_log) {
 			int place = m_log.size() - item;
-			drawable.drawText(s, dst.left+8, top + 32 +place*24 , drawable.m_guiText);	
+			drawable.drawText(s, dst.left+8, top + 32 +place*24 , Color.WHITE);	
 			item++;
 		}
 	}
