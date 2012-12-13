@@ -14,7 +14,7 @@ public class SimpleGui {
 	public static final int BUTTON_HEIGHT = 32;
 	public static final int BUTTON_WIDTH = 64;
 	
-	private Paint m_guiText = new Paint();
+	//private Paint m_guiText = new Paint();
 	private List<DrawCall> m_drawCalls = new ArrayList<DrawCall>();
 
 	public boolean DoButtonCentered(int x, int y, String a_text, Input a_input) {
@@ -83,27 +83,20 @@ public class SimpleGui {
 		}
 		
 		public void Draw(AndroidDraw a_draw) {
-			m_guiText.setColor(Color.BLACK); 
-			m_guiText.setStyle(Style.STROKE);
+			a_draw.drawRect(left, top, right, bottom, Color.BLACK);
 			
-			a_draw.drawRect(left, top, right, bottom, m_guiText);
-			m_guiText.setStyle(Style.FILL);
+			int color = Color.BLACK;
+
 			if (mouseOver && isDragging) {
-				m_guiText.setColor(Color.LTGRAY); 
+				color = Color.LTGRAY; 
 			} else {
-				m_guiText.setColor(Color.GRAY); 
+				color = Color.GRAY; 
 			}
-			a_draw.drawRect(left+1, top+1, right-1, bottom-1, m_guiText);
+			a_draw.drawRect(left+1, top+1, right-1, bottom-1, color);
 			
-			m_guiText.setColor(Color.WHITE);
-			
-			m_guiText.setTextAlign(Align.CENTER);
-			
-			int textPosY = height / 2 - (int)m_guiText.getTextSize();
+			int textPosY = height / 2 - 8;
 			
 			a_draw.drawText(text, x, y + textPosY, Color.WHITE);
-			m_guiText.setColor(Color.WHITE);
-			m_guiText.setAlpha(255);
 			
 		}
 	}

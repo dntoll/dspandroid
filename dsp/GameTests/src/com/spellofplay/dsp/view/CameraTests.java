@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import android.graphics.PointF;
-
 import com.spellofplay.dsp.model.ModelPosition;
 
 public class CameraTests {
@@ -13,11 +11,11 @@ public class CameraTests {
 	@Test
 	public void testToViewPos() {
 		Camera cam = new Camera();
-		cam.m_scale = 2;
-		cam.m_displacement = new ViewPosition(16, 16);
+		float scale = cam.getScale();
+		
 		
 		ModelPosition input = new ModelPosition(7, 2);
-		ViewPosition expected = new ViewPosition(16 + 7 * 2, 16 + 2 *2);
+		ViewPosition expected = new ViewPosition(cam.getDisplacement().m_x + 7 * scale, cam.getDisplacement().m_y + 2 *scale);
 		
 		ViewPosition actual = cam.toViewPos(input);
 		assertEquals(expected.m_x, actual.m_x, 0);
@@ -27,10 +25,10 @@ public class CameraTests {
 	@Test
 	public void testToViewScale() {
 		Camera cam = new Camera();
-		cam.m_scale = 2.33f;
+		
 		
 		float input = 4.3f;
-		float expected = cam.m_scale  * input;;
+		float expected = cam.getScale()  * input;
 		
 		
 		float actual = cam.toViewScale(input);
