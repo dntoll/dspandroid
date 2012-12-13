@@ -68,8 +68,7 @@ public class InteractionView {
 		}
 		
 		if (a_input.IsDragging()) {
-			m_camera.DoScroll( 	a_width, 
-					a_height, 
+			m_camera.DoScroll( 	a_width, a_height, 
 					(int)(a_input.m_mousePosition.x - a_input.m_dragFrom.x), 
 					(int)(a_input.m_mousePosition.y - a_input.m_dragFrom.y));
 		} else {
