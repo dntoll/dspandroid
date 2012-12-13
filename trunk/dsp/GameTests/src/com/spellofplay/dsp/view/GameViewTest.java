@@ -1,24 +1,7 @@
 package com.spellofplay.dsp.view;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import junit.framework.Assert;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import android.graphics.PointF;
-
-import com.spellofplay.dsp.model.IModel;
-import com.spellofplay.dsp.model.ModelPosition;
-import com.spellofplay.dsp.model.Soldier;
-
 public class GameViewTest {
-
+/*
 	IModel mockedModel;
 	IInput mockedInput;
 	GameView sut;
@@ -95,6 +78,6 @@ public class GameViewTest {
 		
 		assertEquals(null, actual);
 		
-	}
+	}*/
 
 }

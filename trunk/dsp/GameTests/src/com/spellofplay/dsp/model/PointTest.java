@@ -1,6 +1,5 @@
 package com.spellofplay.dsp.model;
 
-import static org.junit.Assert.*;
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -13,16 +12,16 @@ public class PointTest {
 		
 		ModelPosition other = new ModelPosition(3, -5);
 		
-		ModelPosition actual = sut.sub(other);
+		Vector2 actual = sut.sub(other);
 		
-		Assert.assertEquals(-1, actual.m_x);
-		Assert.assertEquals(8, actual.m_y);
+		Assert.assertEquals(-1, actual.x);
+		Assert.assertEquals(8, actual.y);
 	}
 	
 	
 	@Test
 	public void testLength() {
-		ModelPosition sut = new ModelPosition(2, 3);
+		Vector2 sut = new Vector2(2, 3);
 		
 		float actual = sut.length();
 		
