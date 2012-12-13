@@ -45,12 +45,6 @@ public class Vector2 {
 		return other.x == x && other.y == y;
 	}
 
-	public Vector2 sub(float f, float g) {
-		x -= f;
-		y -= g;
-		return this;
-	}
-
 	public float getRotation() {
 		return STARTING_DIRECTION_LEFT +(float)(Math.atan2(y, x) * 180.0 / Math.PI);
 	}

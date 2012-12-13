@@ -6,33 +6,24 @@ import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.RuleBook;
 
-public abstract class Character implements ICharacter  {
+class Character implements ICharacter  {
 	private ModelPosition position = new ModelPosition();
 	
 	private PathFinder pathFinder = new PathFinder();
 	
-	protected int maxTimeUnits = 3;
-	protected int maxHitPoints = 5;
+	protected SkillSet skills;
+	
 	private int watchTimeUnits = 0;
-	protected int timeUnits = maxTimeUnits;
-	protected int hitPoints = maxHitPoints;
-	protected int m_experience = 0;
+	protected int timeUnits;
+	protected int hitPoints;
+	protected Experience experience = new Experience();
 	
-	public int getMaxTimeUnits() {
-		return maxTimeUnits;
+	Character(ModelPosition startPosition, SkillSet skillSet) {
+		skills = skillSet;
+		reset(startPosition);
 	}
 	
-	public int getMaxHitPoints() {
-		return maxHitPoints;
-	}
-
-	Character(ModelPosition startPosition, int a_maxTimeUnits) {
-		position.x = startPosition.x;
-		position.y = startPosition.y;
-		maxTimeUnits = timeUnits = a_maxTimeUnits;
-	}
-	
-	public void doWatch() {
+	void doWatch() {
 		watchTimeUnits = timeUnits;
 		timeUnits = 0;
 	}
@@ -40,7 +31,13 @@ public abstract class Character implements ICharacter  {
 	void reset(ModelPosition startLocation) {
 		position = startLocation;
 		startNewRound();
-		hitPoints = maxHitPoints;
+		hitPoints = skills.getHitPoints();
+	}
+	
+	void startNewRound() {
+		timeUnits = skills.getTimeUnits();
+		watchTimeUnits = 0;
+		pathFinder.stopAllSearches();
 	}
 	
 	public ModelPosition getPosition() {
@@ -48,7 +45,7 @@ public abstract class Character implements ICharacter  {
 	}
 	
 	public boolean hasExperience() {
-		return m_experience > 0;
+		return experience.experience > 0;
 	}
 
 	public float getRadius() {
@@ -63,23 +60,26 @@ public abstract class Character implements ICharacter  {
 		return 1;
 	}
 	
+	public SkillSet getSkills() {
+		return skills;
+	}
+	
+	@Override
+	public float getRange() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	@Override
 	public int getHitPoints() {
 		return hitPoints;
 	}
-	
-	
+
 	public int getTimeUnits() {
 		return timeUnits;
 	}
 	public int getWatchTimeUnits() {
 		return watchTimeUnits;
-	}
-
-	void startNewRound() {
-		timeUnits = maxTimeUnits;
-		watchTimeUnits = 0;
-		pathFinder.stopAllSearches();
 	}
 	
 	public boolean hasWatch() {
@@ -87,9 +87,7 @@ public abstract class Character implements ICharacter  {
 	}
 	
 	void setDestination(ModelPosition destination, IMoveAndVisibility map, float distance) {
-		
 		pathFinder.setDestination(map, position, destination, distance > 0.0f, distance);
-		
 	}
 	
 	boolean canMove() {
@@ -113,7 +111,7 @@ public abstract class Character implements ICharacter  {
 		clistener.moveTo(this);
 	}
 		
-	public boolean fireAt(ICharacter fireTarget, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
+	boolean fireAt(ICharacter fireTarget, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
 		if (RuleBook.canFireAt(this, fireTarget, moveAndVisibility) == false) {
 			a_listener.cannotFireAt(this, fireTarget);
 			return false;
@@ -124,7 +122,7 @@ public abstract class Character implements ICharacter  {
 			Character target = (Character)fireTarget;
 			target.hitPoints -= getDamage();
 			a_listener.fireAt(this, fireTarget, true);
-			m_experience++;
+			experience.experience++;
 			return true;
 		} else {
 			a_listener.fireAt(this, fireTarget, false);
@@ -137,7 +135,7 @@ public abstract class Character implements ICharacter  {
 		return position.sub(other.getPosition()).length();
 	}
 
-	public void watchMovement(ICharacter mover,	IMoveAndVisibility moveAndVisibility, ICharacterListener listener) {
+	void watchMovement(ICharacter mover,	IMoveAndVisibility moveAndVisibility, ICharacterListener listener) {
 		
 		if (RuleBook.canFireAt(this, mover, moveAndVisibility) == true) {
 			fireAt(mover, moveAndVisibility, listener);
@@ -155,5 +153,7 @@ public abstract class Character implements ICharacter  {
 	void stopAllMovement() {
 		getPathFinder().stopAllSearches();
 	}
+
+	
 	
 }

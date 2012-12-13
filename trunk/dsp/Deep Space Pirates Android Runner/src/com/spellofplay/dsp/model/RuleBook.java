@@ -2,6 +2,8 @@ package com.spellofplay.dsp.model;
 
 import java.util.Random;
 
+import com.spellofplay.dsp.model.ISkillSet.SkillType;
+
 
 public class RuleBook {
 
@@ -47,9 +49,13 @@ public class RuleBook {
 		return true;
 	}
 	
-	
+	//TODO: Tighten interface to ISKill * 2, distance and cover
 	public static float getToHitChance(ICharacter character, ICharacter fireTarget, boolean targetHasCover) {
-		 float toHitChance = 0.5f + character.getFireSkill() - fireTarget.getDodgeSkill();
+		
+		 ISkill fireSkill = character.getSkills().getSkill(SkillType.FIRESKILL);
+		 ISkill dodgeSkill = character.getSkills().getSkill(SkillType.DODGESKILL);
+		
+		 float toHitChance = 0.5f + (float)(fireSkill.getValue() - dodgeSkill.getValue()) * 0.1f;
 		 
 		 float length = character.distance(fireTarget);
 		 

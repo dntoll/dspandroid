@@ -6,9 +6,6 @@ import java.util.List;
 import com.spellofplay.common.view.Input;
 
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Paint.Align;
-import android.graphics.Paint.Style;
 
 public class SimpleGui {
 	public static final int BUTTON_HEIGHT = 32;

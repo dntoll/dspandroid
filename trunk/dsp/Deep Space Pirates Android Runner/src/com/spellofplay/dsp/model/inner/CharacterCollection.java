@@ -10,7 +10,7 @@ import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.RuleBook;
 
-public class CharacterCollection<T extends Character> implements Iterable<T>{
+class CharacterCollection<T extends Character> implements Iterable<T>{
 
 	private List<T> characters;
 	
@@ -18,7 +18,7 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		this.characters = characters;
 	}
 
-	public int size() {
+	int size() {
 		return characters.size();
 	}
 	
@@ -31,7 +31,7 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		return false;
 	}
 
-	public CharacterCollection<T> thatCanSee(IMoveAndVisibility visibility, ICharacter target) {
+	CharacterCollection<T> thatCanSee(IMoveAndVisibility visibility, ICharacter target) {
 		List<T> soldiersThatCanSee = new ArrayList<T>();
 		
 		for (T character : characters) {
@@ -105,7 +105,7 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 
 
 
-	public T getClosest(ModelPosition position) {
+	T getClosest(ModelPosition position) {
 		float closestDistance = Float.MAX_VALUE;
 		T closest = null;
 		for (T s : characters) {
@@ -123,7 +123,7 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		return size() == 0;
 	}
 
-	public CharacterCollection<T> couldShootIfHadTime(ICharacter enemy, IMoveAndVisibility moveAndVisibility) {
+	CharacterCollection<T> couldShootIfHadTime(ICharacter enemy, IMoveAndVisibility moveAndVisibility) {
 		List<T> soldiersThatCanSee = new ArrayList<T>();
 		for(T soldier : characters) {
 			
@@ -134,7 +134,7 @@ public class CharacterCollection<T extends Character> implements Iterable<T>{
 		return new CharacterCollection<T>(soldiersThatCanSee);
 	}
 
-	public CharacterCollection<T> canBeShotBy(ICharacter selectedSoldier, IMoveAndVisibility moveAndVisibility) {
+	CharacterCollection<T> canBeShotBy(ICharacter selectedSoldier, IMoveAndVisibility moveAndVisibility) {
 		
 		List<T> charactersThatCanBeShot = new ArrayList<T>();
 		for(T character : characters) {

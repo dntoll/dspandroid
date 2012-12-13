@@ -13,7 +13,7 @@ import com.spellofplay.dsp.model.inner.levelgenerator.LevelGenerator;
 import com.spellofplay.dsp.model.inner.levelgenerator.LevelHasToFewEnemiesException;
 import com.spellofplay.dsp.model.inner.levelgenerator.LevelHasToFewSoldierPositions;
 
-public class Game implements IMoveAndVisibility {
+class Game implements IMoveAndVisibility {
 
 	private Soldier[] m_soldiers = new Soldier[Preferences.MAX_SOLDIERS];
 	private Enemy[] m_enemies = new Enemy[Preferences.MAX_ENEMIES];
@@ -58,7 +58,7 @@ public class Game implements IMoveAndVisibility {
 		return ret;
 	}
 
-	public void startLevel(int a_level) {
+	void startLevel(int a_level) {
 		
 		
 		
@@ -89,7 +89,7 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	
-	public void doMoveTo(ICharacter selectedSoldier, ModelPosition destination) {
+	void doMoveTo(ICharacter selectedSoldier, ModelPosition destination) {
 		
 		Character soldier = (Character)selectedSoldier;
 		
@@ -97,7 +97,7 @@ public class Game implements IMoveAndVisibility {
 		
 	}
 
-	public void movePlayers(ICharacterListener clistener) {
+	void movePlayers(ICharacterListener clistener) {
 		
 		
 		MultiMovementListeners multiListener= getSoldierListeners();
@@ -157,20 +157,21 @@ public class Game implements IMoveAndVisibility {
 	}
 
 	
-	public void updateEnemies(ICharacterListener clistener) {
+	void updateEnemies(ICharacterListener clistener) {
 		CharacterCollection<Enemy> enemies = getAliveEnemies();
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		MultiMovementListeners multiListener= getEnemyListeners();
 		EnemyAI ai = new EnemyAI();
 		ai.think(enemies, soldiers, this, clistener, multiListener);
+		updateEnemySights();
 	}
 
-	public void startNewSoldierRound() {
+	void startNewSoldierRound() {
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		soldiers.startNewRound();
 		
 	}
-	public void startNewEnemyRound() {	
+	void startNewEnemyRound() {	
 		CharacterCollection<Enemy> enemies = getAliveEnemies();
 		enemies.startNewRound();
 	}
@@ -257,19 +258,19 @@ public class Game implements IMoveAndVisibility {
 		return m_level.hasCoverFrom(target.getPosition(), attacker.getPosition().sub(target.getPosition()));
 	}
 
-	public TileType getTile(int x, int y) {
+	TileType getTile(int x, int y) {
 		return m_level.GetTile(x, y);
 	}
 
-	public boolean canMove(ModelPosition clickOnLevelPosition) {
+	boolean canMove(ModelPosition clickOnLevelPosition) {
 		return m_level.canMove(clickOnLevelPosition);
 	}
 
-	public boolean hasDoorCloseToIt(ModelPosition position) {
+	boolean hasDoorCloseToIt(ModelPosition position) {
 		return m_level.hasDoorCloseToIt(position);
 	}
 
-	public void open(ModelPosition position) {
+	void open(ModelPosition position) {
 		m_level.open(position);
 		
 	}

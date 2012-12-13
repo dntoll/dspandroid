@@ -6,6 +6,7 @@ import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IEventTarget;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
+import com.spellofplay.dsp.model.ISkillSet;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.RuleBook;
 import com.spellofplay.dsp.model.TileType;
@@ -167,23 +168,12 @@ public class ModelFacade implements IModel, IEventTarget {
 	}
 
 	@Override
-	public void addTimeUnits(ICharacter soldier) {
+	public void spendExperience(ICharacter soldier, ISkillSet.SkillType skillType ) {
 		Soldier selected  = (Soldier)soldier;
-		selected.addMaxTimeUnits();
+		selected.spendExperience(skillType);
 		
 	}
 
-	@Override
-	public void addShootSkill(ICharacter soldier) {
-		Soldier selected  = (Soldier)soldier;
-		selected.addShootSkill();
-	}
-
-	@Override
-	public void addDodgeSkill(ICharacter soldier) {
-		Soldier selected  = (Soldier)soldier;
-		selected.addDodgeSkill();
-	}
 
 	
 }

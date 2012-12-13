@@ -5,6 +5,8 @@ import com.spellofplay.common.view.Input;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IEventTarget;
 import com.spellofplay.dsp.model.IModel;
+import com.spellofplay.dsp.model.ISkill;
+import com.spellofplay.dsp.model.ISkillSet;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.SimpleGui;
 
@@ -47,19 +49,20 @@ class LevelUpController {
 		
 		
 		drawable.drawText("Level up", 16, halfHeight - 32, Color.WHITE);
+
+		ISkillSet skills = soldier.getSkills();
 		
-		drawable.drawText("Time Units " + soldier.getMaxTimeUnits(), 16, halfHeight, Color.WHITE);
-		if (gui.DoButtonCentered(halfWidth, halfHeight, "Time Units", input)) {
-			eventTarget.addTimeUnits(soldier);
+		for (ISkillSet.SkillType type : ISkillSet.SkillType.values()) {
+		
+			ISkill skill = skills.getSkill(type);
+			drawable.drawText(type.toString() + skill.getValue(), 16, halfHeight , Color.BLACK);
+			if (gui.DoButtonCentered(halfWidth, halfHeight, "+", input)) {
+				eventTarget.spendExperience(soldier, type);
+			}
+			
+			halfHeight += 32;
 		}
-		drawable.drawText("Fire Skill " + soldier.getFireSkill(), 16, halfHeight += SimpleGui.BUTTON_HEIGHT, Color.WHITE);
-		if (gui.DoButtonCentered(halfWidth, halfHeight , "shoot skill", input)) {
-			eventTarget.addShootSkill(soldier);
-		}
-		drawable.drawText("Dodge Skill " + soldier.getDodgeSkill(), 16, halfHeight += SimpleGui.BUTTON_HEIGHT, Color.WHITE);
-		if (gui.DoButtonCentered(halfWidth, halfHeight , "dodge skill", input)) {
-			eventTarget.addDodgeSkill(soldier);
-		}
+		
 		
 		
 	}
