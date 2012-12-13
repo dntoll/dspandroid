@@ -62,7 +62,7 @@ class VisualCharacter {
 		dst.bottom = dst.top + 4;
 		drawable.drawRect(dst, Color.BLACK);
 		
-		float percentHp = (float)m_modelCharacter.getHitPoints() / (float)m_modelCharacter.getMaxHitPoints();
+		float percentHp = (float)m_modelCharacter.getHitPoints() / (float)m_modelCharacter.getSkills().getMaxHitPoints();
 		int width = (int)(((float)(dst.right - dst.left - 2)) * percentHp);
 		dst.top = dst.top +1;
 		dst.bottom = dst.top +2;

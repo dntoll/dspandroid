@@ -1,12 +1,15 @@
 package com.spellofplay.dsp.model.inner;
 
+import java.util.Random;
+
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
+import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.RuleBook;
 
 class EnemyAI {
 
-	
+	private Random rand = new Random();
 
 	public void think(CharacterCollection<Enemy> enemies, CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility, ICharacterListener a_clistener, MultiMovementListeners movementListeners) {
 		
@@ -73,8 +76,19 @@ class EnemyAI {
 				enemy.setDestination(closestThatWeHaveSeen.getPosition(), a_moveAndVisibility, 1);
 				a_clistener.enemyAILog("going for the once visible", enemy);
 			} else {
-				enemy.doWatch();
-				a_clistener.enemyAILog("no visible soldiers, watch", enemy);
+				
+				if (rand.nextInt(3) == 0) {
+					enemy.doWatch();
+					a_clistener.enemyAILog("no visible soldiers, watch", enemy);
+				} else {
+					int xmove = rand.nextBoolean() ? -1 : 1;
+					int ymove = rand.nextBoolean() ? -1 : 1;
+					ModelPosition target = new ModelPosition(xmove+ enemy.getPosition().x, ymove + enemy.getPosition().y);
+					
+					enemy.setDestination(target, a_moveAndVisibility, 0);	
+					
+					a_clistener.enemyAILog("no visible soldiers, random move", enemy);
+				}
 			}
 		}
 	}

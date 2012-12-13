@@ -16,7 +16,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class Application extends View implements IUpdateable {
+class Application extends View implements IUpdateable {
 	
 	private MasterController m_master = null;//new MasterController(context)
 	private AndroidDraw m_draw = new AndroidDraw();

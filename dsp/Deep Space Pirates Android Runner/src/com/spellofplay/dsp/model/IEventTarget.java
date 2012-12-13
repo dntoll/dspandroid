@@ -1,5 +1,7 @@
 package com.spellofplay.dsp.model;
 
+import com.spellofplay.dsp.model.ISkillSet.SkillType;
+
 public interface IEventTarget {
 
 	public abstract void updatePlayers(ICharacterListener clistener);
@@ -22,10 +24,6 @@ public interface IEventTarget {
 
 	public abstract void newLevel();
 
-	public abstract void addTimeUnits(ICharacter soldier);
-
-	public abstract void addShootSkill(ICharacter soldier);
-
-	public abstract void addDodgeSkill(ICharacter soldier);
+	public abstract void spendExperience(ICharacter soldier, SkillType skillType);
 
 }

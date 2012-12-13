@@ -7,22 +7,16 @@ import java.util.Map;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 
-public class Enemy extends Character {
+class Enemy extends Character {
 
 	private Map<Soldier, ModelPosition> m_soldiersLastPositions = new HashMap<Soldier, ModelPosition>();
 	
-	Enemy(ModelPosition startPosition) {
-		super(startPosition, 5);
-		hitPoints = maxHitPoints = 2;
-
-	}
 	
-	public float getFireSkill() {
-		return 0.7f;
-	}
+	private static int[] values = {4,4,4,4};
+	Enemy(ModelPosition startPosition) {
+		super(startPosition, new SkillSet(values));
+		hitPoints = 2;
 
-	public float getDodgeSkill() {
-		return 0.4f;
 	}
 	
 	@Override
