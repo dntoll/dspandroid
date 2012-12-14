@@ -1,690 +1,3062 @@
 <class-diagram version="1.0.11" icons="false" automaticImage="PNG" always-add-relationships="true" 
   generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <package id="1" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.controller" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/dsp/controller" binary="false">    
-    <position height="-1" width="-1" x="289" y="66"/>    
-    <display autosize="true" stereotype="false"/>  
-  </package>  
-  <class id="2" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.VisibilityView" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/VisibilityView.java" binary="false">    
-    <position height="22" width="83" x="701" y="577"/>    
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.common.view.RotatedTile" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/common/view/RotatedTile.java" binary="false">    
+    <position height="22" width="72" x="3441" y="595"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="3" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.LevelDrawer" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/dsp/view/LevelDrawer.java" binary="false">    
-    <position height="22" width="80" x="1109" y="577"/>    
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.common.view.Mesh" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/common/view/Mesh.java" binary="false">    
+    <position height="22" width="39" x="3464" y="853"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="4" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.ViewPosition" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/ViewPosition.java" binary="false">    
-    <position height="22" width="82" x="1027" y="701"/>    
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.common.view.Input" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/common/view/Input.java" binary="false">    
+    <position height="22" width="36" x="3546" y="657"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="5" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.VisualCharacter" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/VisualCharacter.java" binary="false">    
-    <position height="22" width="100" x="1271" y="577"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="6" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.SimpleGui.DrawButton" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/SimpleGui.java" binary="false">    
-    <position height="-1" width="-1" x="321" y="444"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="7" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.ShotAnimation" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/ShotAnimation.java" binary="false">    
-    <position height="22" width="91" x="1216" y="453"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="8" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.SimpleGui.DrawCall" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/SimpleGui.java" binary="false">    
-    <position height="-1" width="-1" x="183" y="310"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="9" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.AndroidDraw" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/dsp/view/AndroidDraw.java" binary="false">    
-    <position height="-1" width="-1" x="437" y="554"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="10" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.LogView" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/dsp/view/LogView.java" binary="false">    
-    <position height="-1" width="-1" x="846" y="263"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="11" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.GameView" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/dsp/view/GameView.java" binary="false">    
-    <position height="22" width="69" x="1109" y="329"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="12" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.CharacterDrawer" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/CharacterDrawer.java" binary="false">    
-    <position height="22" width="107" x="1328" y="391"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="13" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.Camera" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/dsp/view/Camera.java" binary="false">    
-    <position height="-1" width="-1" x="454" y="314"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="14" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.ShotAnimation.Shot" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/ShotAnimation.java" binary="false">    
-    <position height="22" width="34" x="1216" y="515"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="15" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.MasterView" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/dsp/view/MasterView.java" binary="false">    
-    <position height="-1" width="-1" x="851" y="51"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="16" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.MovementMapView" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/MovementMapView.java" binary="false">    
-    <position height="22" width="119" x="887" y="577"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <enumeration id="17" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.VisibilityView.Visibility" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/VisibilityView.java" binary="false">    
-    <position height="22" width="55" x="701" y="639"/>    
+  <enumeration id="4" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.common.view.Rotation" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/common/view/Rotation.java" binary="false">    
+    <position height="22" width="55" x="3527" y="915"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </enumeration>  
-  <interface id="18" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.ITexture" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/ITexture.java" binary="false">    
-    <position height="-1" width="-1" x="878" y="331"/>    
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.SleepHandler" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/SleepHandler.java" binary="false">    
+    <position height="22" width="84" x="884" y="161"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.MainActivity" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/MainActivity.java" binary="false">    
+    <position height="22" width="76" x="884" y="37"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.ConcreteTexture" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/ConcreteTexture.java" binary="false">    
+    <position height="22" width="103" x="3889" y="161"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.Application" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/Application.java" binary="false">    
+    <position height="22" width="71" x="2628" y="99"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="9" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.IUpdateable" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/IUpdateable.java" binary="false">    
+    <position height="22" width="75" x="43" y="223"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </interface>  
-  <class id="19" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.SimpleGui" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/dsp/view/SimpleGui.java" binary="false">    
-    <position height="-1" width="-1" x="275" y="197"/>    
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.controller.MultiCharacterListener" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/controller/MultiCharacterListener.java" 
+    binary="false">    
+    <position height="22" width="139" x="1123" y="657"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="20" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.common.view.RotatedTile" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/common/view/RotatedTile.java" binary="false">    
-    <position height="-1" width="-1" x="824" y="852"/>    
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.controller.LevelUpController" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/controller/LevelUpController.java" binary="false">    
+    <position height="22" width="109" x="1262" y="533"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="21" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.common.view.Mesh" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/common/view/Mesh.java" binary="false">    
-    <position height="-1" width="-1" x="728" y="852"/>    
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.controller.GameController" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/controller/GameController.java" binary="false">    
+    <position height="22" width="97" x="2303" y="347"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="22" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.common.view.Input" project="MainActivity" 
-    file="/MainActivity/src/com/spellofplay/common/view/Input.java" binary="false">    
-    <position height="-1" width="-1" x="513" y="254"/>    
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.controller.MasterController" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/controller/MasterController.java" binary="false">    
+    <position height="22" width="104" x="2628" y="285"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <enumeration id="23" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.common.view.Rotation" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/common/view/Rotation.java" binary="false">    
-    <position height="-1" width="-1" x="776" y="914"/>    
+  <enumeration id="14" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.AStar.SearchResult" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/AStar.java" binary="false">    
+    <position height="22" width="85" x="1900" y="657"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </enumeration>  
-  <class id="24" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.InteractionView" 
-    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/InteractionView.java" binary="false">    
-    <position height="22" width="97" x="797" y="125"/>    
+  <interface id="15" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.ICharacterListener" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/ICharacterListener.java" binary="false">    
+    <position height="22" width="115" x="926" y="729"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <enumeration id="16" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.ISkillSet.SkillType" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/ISkillSet.java" binary="false">    
+    <position height="22" width="58" x="381" y="915"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.ModelPosition" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/ModelPosition.java" binary="false">    
+    <position height="22" width="88" x="2089" y="853"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <dependency id="25">    
-    <bendpoint x="1280" y="515"/>    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="26">    
-    <bendpoint x="1219" y="577"/>    
-    <bendpoint x="1219" y="639"/>    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="27">    
-    <bendpoint x="1422" y="515"/>    
-    <bendpoint x="1422" y="577"/>    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="28">    
-    <bendpoint x="835" y="391"/>    
-    <bendpoint x="835" y="453"/>    
-    <bendpoint x="814" y="515"/>    
-    <bendpoint x="670" y="577"/>    
-    <bendpoint x="670" y="639"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="29">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="30">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="31">    
-    <bendpoint x="1036" y="453"/>    
-    <bendpoint x="1036" y="515"/>    
-    <bendpoint x="1036" y="577"/>    
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.Vector2" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/model/Vector2.java" binary="false">    
+    <position height="22" width="52" x="2198" y="915"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="19" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.IModel" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/IModel.java" binary="false">    
+    <position height="22" width="45" x="1689" y="595"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <enumeration id="20" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.TileType" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/TileType.java" binary="false">    
+    <position height="22" width="54" x="1829" y="853"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.AStar.Node" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/AStar.java" binary="false">    
+    <position height="22" width="37" x="2025" y="657"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.CharacterIterable" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/CharacterIterable.java" binary="false">    
+    <position height="22" width="108" x="1512" y="657"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="23" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.ISkill" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/ISkill.java" binary="false">    
+    <position height="22" width="35" x="306" y="915"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <interface id="24" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.IEventTarget" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/IEventTarget.java" binary="false">    
+    <position height="22" width="78" x="1081" y="595"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <interface id="25" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.ISkillSet" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/ISkillSet.java" binary="false">    
+    <position height="22" width="54" x="421" y="853"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <class id="26" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.AStar" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/model/AStar.java" binary="false">    
+    <position height="22" width="40" x="2000" y="595"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="27" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.RuleBook" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/model/RuleBook.java" binary="false">    
+    <position height="22" width="62" x="559" y="533"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="28" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.ICharacter" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/ICharacter.java" binary="false">    
+    <position height="22" width="68" x="1409" y="791"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <class id="29" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.Preferences" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/Preferences.java" binary="false">    
+    <position height="22" width="79" x="2610" y="853"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="30" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.IMoveAndVisibility" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/IMoveAndVisibility.java" binary="false">    
+    <position height="22" width="110" x="826" y="657"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <class id="31" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Character" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/Character.java" binary="false">    
+    <position height="22" width="65" x="652" y="471"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="32" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Enemy" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/Enemy.java" binary="false">    
+    <position height="22" width="46" x="347" y="533"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="33" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Game" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/Game.java" binary="false">    
+    <position height="22" width="41" x="849" y="223"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="34" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Experience" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/Experience.java" binary="false">    
+    <position height="22" width="72" x="265" y="791"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="35" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Skill" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/Skill.java" binary="false">    
+    <position height="22" width="32" x="263" y="729"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="36" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Line" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/Line.java" binary="false">    
+    <position height="22" width="32" x="284" y="409"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="37" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.MultiMovementListeners" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/MultiMovementListeners.java" 
+    binary="false">    
+    <position height="22" width="148" x="734" y="409"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="38" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.ModelFacade" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/ModelFacade.java" binary="false">    
+    <position height="22" width="83" x="1029" y="161"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="39" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.EnemyAI" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/EnemyAI.java" binary="false">    
+    <position height="22" width="57" x="771" y="285"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="40" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.PathFinder" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/PathFinder.java" binary="false">    
+    <position height="22" width="69" x="1432" y="533"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="41" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Level" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/Level.java" binary="false">    
+    <position height="22" width="38" x="1603" y="791"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="42" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.SoldierMemory" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/SoldierMemory.java" binary="false">    
+    <position height="22" width="94" x="564" y="285"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="43" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.SkillSet" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/SkillSet.java" binary="false">    
+    <position height="22" width="51" x="231" y="657"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="44" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.CharacterCollection" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/CharacterCollection.java" 
+    binary="false">    
+    <position height="22" width="142" x="524" y="347"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="45" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.Soldier" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/Soldier.java" binary="false">    
+    <position height="22" width="48" x="223" y="595"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="46" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.model.inner.levelgenerator.Room" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/model/inner/levelgenerator/Room.java" 
+    binary="false">    
+    <position height="22" width="41" x="1814" y="729"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="47" corner="BOTTOM_RIGHT" language="java" 
+    name="com.spellofplay.dsp.model.inner.levelgenerator.LevelHasToFewEnemiesException" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/model/inner/levelgenerator/LevelHasToFewEnemiesException.java" 
+    binary="false">    
+    <position height="22" width="201" x="884" y="853"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="48" corner="BOTTOM_RIGHT" language="java" 
+    name="com.spellofplay.dsp.model.inner.levelgenerator.LevelHasToFewSoldierPositions" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/model/inner/levelgenerator/LevelHasToFewSoldierPositions.java" 
+    binary="false">    
+    <position height="22" width="189" x="1125" y="853"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="49" corner="BOTTOM_RIGHT" language="java" 
+    name="com.spellofplay.dsp.model.inner.levelgenerator.LevelGenerator" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/model/inner/levelgenerator/LevelGenerator.java" binary="false">    
+    <position height="22" width="95" x="1681" y="657"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="50" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.VisibilityView" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/VisibilityView.java" binary="false">    
+    <position height="22" width="83" x="2364" y="533"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="51" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.LevelDrawer" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/LevelDrawer.java" binary="false">    
+    <position height="22" width="80" x="3237" y="533"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="52" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.ViewPosition" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/ViewPosition.java" binary="false">    
+    <position height="22" width="82" x="2904" y="853"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="53" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.VisualCharacter" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/VisualCharacter.java" binary="false">    
+    <position height="22" width="100" x="3007" y="729"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="54" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.SimpleGui.DrawButton" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/SimpleGui.java" binary="false">    
+    <position height="22" width="75" x="3643" y="729"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="55" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.ShotAnimation" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/ShotAnimation.java" binary="false">    
+    <position height="22" width="91" x="3121" y="595"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="56" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.SimpleGui.DrawCall" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/SimpleGui.java" binary="false">    
+    <position height="22" width="61" x="3643" y="657"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="57" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.AndroidDraw" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/AndroidDraw.java" binary="false">    
+    <position height="22" width="82" x="3361" y="791"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="58" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.LogView" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/view/LogView.java" binary="false">    
+    <position height="22" width="57" x="2301" y="657"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="59" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.GameView" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/view/GameView.java" binary="false">    
+    <position height="22" width="69" x="2628" y="471"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="60" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.CharacterDrawer" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/CharacterDrawer.java" binary="false">    
+    <position height="22" width="107" x="3081" y="533"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="61" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.Camera" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/view/Camera.java" binary="false">    
+    <position height="22" width="53" x="2862" y="791"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="62" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.InteractionView" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/InteractionView.java" binary="false">    
+    <position height="22" width="97" x="2000" y="533"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="63" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.ShotAnimation.Shot" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/ShotAnimation.java" binary="false">    
+    <position height="22" width="34" x="3178" y="657"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="64" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.MasterView" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/view/MasterView.java" binary="false">    
+    <position height="22" width="76" x="2628" y="409"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="65" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.MovementMapView" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/MovementMapView.java" binary="false">    
+    <position height="22" width="119" x="2689" y="595"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <enumeration id="66" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.VisibilityView.Visibility" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/VisibilityView.java" binary="false">    
+    <position height="22" width="55" x="2143" y="595"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <interface id="67" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.ITexture" 
+    project="MainActivity" file="/MainActivity/src/com/spellofplay/dsp/view/ITexture.java" binary="false">    
+    <position height="22" width="54" x="3809" y="853"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <class id="68" corner="BOTTOM_RIGHT" language="java" name="com.spellofplay.dsp.view.SimpleGui" project="MainActivity" 
+    file="/MainActivity/src/com/spellofplay/dsp/view/SimpleGui.java" binary="false">    
+    <position height="22" width="65" x="3700" y="595"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <dependency id="69">    
+    <bendpoint x="1741" y="409"/>    
+    <bendpoint x="1741" y="471"/>    
     <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="13"/>  
+    <end type="TARGET" refId="62"/>  
   </dependency>  
-  <dependency id="32">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="9"/>  
+  <dependency id="70">    
+    <bendpoint x="3837" y="347"/>    
+    <bendpoint x="3849" y="409"/>    
+    <bendpoint x="3860" y="471"/>    
+    <bendpoint x="3870" y="533"/>    
+    <bendpoint x="3879" y="595"/>    
+    <bendpoint x="3881" y="657"/>    
+    <bendpoint x="3881" y="729"/>    
+    <bendpoint x="3881" y="791"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="67"/>  
   </dependency>  
-  <dependency id="33">    
-    <bendpoint x="1521" y="391"/>    
-    <bendpoint x="1521" y="453"/>    
-    <bendpoint x="1521" y="515"/>    
-    <bendpoint x="1582" y="577"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="9"/>  
+  <dependency id="71">    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="57"/>  
   </dependency>  
-  <dependency id="34">    
-    <bendpoint x="649" y="329"/>    
-    <bendpoint x="649" y="391"/>    
-    <bendpoint x="649" y="453"/>    
-    <bendpoint x="649" y="515"/>    
-    <bendpoint x="649" y="577"/>    
-    <bendpoint x="649" y="639"/>    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="35">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <nesting id="36">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="8"/>  
-  </nesting>  
-  <association id="37">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="38" name="rotation"/>      
-      <multiplicity id="39" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <dependency id="40">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="22"/>  
-  </dependency>  
-  <association id="41">    
-    <bendpoint x="1337" y="453"/>    
-    <bendpoint x="1337" y="515"/>    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="42" name="m_characters"/>      
-      <multiplicity id="43" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <dependency id="44">    
-    <bendpoint x="1275" y="639"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <association id="45">    
-    <bendpoint x="898" y="391"/>    
-    <bendpoint x="898" y="453"/>    
-    <bendpoint x="898" y="515"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="46" name="movementView"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <dependency id="48">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="49">    
-    <bendpoint x="1078" y="577"/>    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <dependency id="50">    
-    <bendpoint x="919" y="453"/>    
-    <bendpoint x="877" y="515"/>    
-    <bendpoint x="814" y="577"/>    
-    <bendpoint x="814" y="639"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="51">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <association id="52">    
-    <bendpoint x="856" y="391"/>    
-    <bendpoint x="856" y="453"/>    
-    <bendpoint x="856" y="515"/>    
-    <bendpoint x="856" y="577"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="53" name="camera"/>      
-      <multiplicity id="54" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="55">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="56" name="m_view"/>      
-      <multiplicity id="57" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="58">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="59" name="visibilityMap"/>      
-      <multiplicity id="60" minimum="0" maximum="2147483647"/>    
+  <association id="72">    
+    <bendpoint x="2144" y="657"/>    
+    <bendpoint x="2154" y="729"/>    
+    <bendpoint x="2165" y="791"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="73" name="path"/>      
+      <multiplicity id="74" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="61">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="62" name="m_shotAnimation"/>      
-      <multiplicity id="63" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <dependency id="64">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <dependency id="65">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="20"/>  
-  </dependency>  
-  <dependency id="66">    
-    <bendpoint x="1401" y="577"/>    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="67">    
-    <bendpoint x="1865" y="329"/>    
-    <bendpoint x="1865" y="391"/>    
-    <bendpoint x="1865" y="453"/>    
-    <bendpoint x="1865" y="515"/>    
-    <bendpoint x="1865" y="577"/>    
-    <bendpoint x="1865" y="639"/>    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <association id="68">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="69" name="calculationMap"/>      
-      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <nesting id="71">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="6"/>  
-  </nesting>  
-  <nesting id="72">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="14"/>  
-  </nesting>  
-  <dependency id="73">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="74">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
   <dependency id="75">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="13"/>  
+    <bendpoint x="336" y="285"/>    
+    <bendpoint x="315" y="347"/>    
+    <bendpoint x="169" y="409"/>    
+    <bendpoint x="169" y="471"/>    
+    <bendpoint x="211" y="533"/>    
+    <bendpoint x="301" y="595"/>    
+    <bendpoint x="333" y="657"/>    
+    <bendpoint x="472" y="729"/>    
+    <bendpoint x="535" y="791"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="47"/>  
   </dependency>  
-  <association id="76">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="77" name="m_targetDisplacement"/>      
-      <multiplicity id="78" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
+  <dependency id="76">    
+    <bendpoint x="2574" y="471"/>    
+    <bendpoint x="2574" y="533"/>    
+    <bendpoint x="2574" y="595"/>    
+    <bendpoint x="2577" y="657"/>    
+    <bendpoint x="2535" y="729"/>    
+    <bendpoint x="2514" y="791"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="77">    
+    <bendpoint x="3368" y="471"/>    
+    <bendpoint x="3368" y="533"/>    
+    <bendpoint x="3368" y="595"/>    
+    <bendpoint x="3347" y="657"/>    
+    <bendpoint x="3326" y="729"/>    
+    <bendpoint x="3263" y="791"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <realization id="78">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
   <dependency id="79">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="9"/>  
+    <bendpoint x="3585" y="409"/>    
+    <bendpoint x="3585" y="471"/>    
+    <bendpoint x="3585" y="533"/>    
+    <bendpoint x="3585" y="595"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="3"/>  
   </dependency>  
   <dependency id="80">    
-    <bendpoint x="1387" y="453"/>    
-    <bendpoint x="1443" y="515"/>    
-    <bendpoint x="1464" y="577"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="9"/>  
+    <bendpoint x="3158" y="729"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="61"/>  
   </dependency>  
-  <dependency id="81">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="82">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="83">    
-    <bendpoint x="1057" y="515"/>    
-    <bendpoint x="1057" y="577"/>    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <association id="84">    
-    <bendpoint x="1500" y="453"/>    
-    <bendpoint x="1542" y="515"/>    
-    <bendpoint x="1624" y="577"/>    
-    <bendpoint x="1624" y="639"/>    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="85" name="m_player"/>      
-      <multiplicity id="86" minimum="0" maximum="1"/>    
+  <association id="81">    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="82" name="level"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
+    <end type="TARGET" refId="51" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <dependency id="87">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <dependency id="88">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="22"/>  
-  </dependency>  
-  <dependency id="89">    
-    <bendpoint x="966" y="639"/>    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="90">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <nesting id="91">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="17"/>  
-  </nesting>  
-  <dependency id="92">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <dependency id="93">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <dependency id="94">    
-    <bendpoint x="1422" y="639"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <dependency id="95">    
-    <bendpoint x="1337" y="329"/>    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="12"/>  
-  </dependency>  
-  <dependency id="96">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <generalization id="97">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <association id="98">    
-    <bendpoint x="1254" y="639"/>    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="99" name="theTextureMap"/>      
-      <multiplicity id="100" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="101">    
-    <bendpoint x="1118" y="391"/>    
-    <bendpoint x="1118" y="453"/>    
-    <bendpoint x="1118" y="515"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="102" name="level"/>      
-      <multiplicity id="103" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <dependency id="104">    
-    <bendpoint x="1823" y="329"/>    
-    <bendpoint x="1823" y="391"/>    
-    <bendpoint x="1823" y="453"/>    
-    <bendpoint x="1808" y="515"/>    
-    <bendpoint x="1802" y="577"/>    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <association id="105">    
-    <bendpoint x="1760" y="453"/>    
-    <bendpoint x="1760" y="515"/>    
-    <bendpoint x="1823" y="577"/>    
-    <bendpoint x="1823" y="639"/>    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="106" name="m_texture"/>      
-      <multiplicity id="107" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="108">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="109" name="m_drawCalls"/>      
-      <multiplicity id="110" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <dependency id="111">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <dependency id="112">    
-    <end type="SOURCE" refId="1"/>    
+  <dependency id="84">    
+    <bendpoint x="1017" y="285"/>    
+    <bendpoint x="1038" y="347"/>    
+    <bendpoint x="1038" y="409"/>    
+    <bendpoint x="1041" y="471"/>    
+    <bendpoint x="1030" y="533"/>    
+    <bendpoint x="1008" y="595"/>    
+    <bendpoint x="1008" y="657"/>    
+    <end type="SOURCE" refId="33"/>    
     <end type="TARGET" refId="15"/>  
   </dependency>  
-  <association id="113">    
-    <bendpoint x="814" y="391"/>    
-    <bendpoint x="793" y="453"/>    
-    <bendpoint x="793" y="515"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="114" name="visibility"/>      
-      <multiplicity id="115" minimum="0" maximum="1"/>    
+  <association id="85">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="86" name="movementAndVisibility"/>      
+      <multiplicity id="87" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="30" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="116">    
-    <bendpoint x="793" y="329"/>    
-    <bendpoint x="793" y="391"/>    
-    <bendpoint x="814" y="453"/>    
-    <bendpoint x="835" y="515"/>    
-    <bendpoint x="835" y="577"/>    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="117" name="m_camera"/>      
-      <multiplicity id="118" minimum="0" maximum="1"/>    
+  <association id="88">    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="89" name="visibility"/>      
+      <multiplicity id="90" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
+    <end type="TARGET" refId="50" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="92" name="mUpdater"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="95" name="m_selectedPath"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="97">    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="98">    
+    <bendpoint x="1468" y="285"/>    
+    <bendpoint x="1531" y="347"/>    
+    <bendpoint x="1594" y="409"/>    
+    <bendpoint x="1699" y="471"/>    
+    <bendpoint x="2127" y="533"/>    
+    <bendpoint x="2270" y="595"/>    
+    <bendpoint x="2270" y="657"/>    
+    <bendpoint x="2270" y="729"/>    
+    <bendpoint x="2270" y="791"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="99">    
+    <bendpoint x="556" y="409"/>    
+    <bendpoint x="556" y="471"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="100">    
+    <bendpoint x="2448" y="595"/>    
+    <bendpoint x="2598" y="657"/>    
+    <bendpoint x="2682" y="729"/>    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="101" name="m_camera"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="103">    
+    <bendpoint x="127" y="223"/>    
+    <bendpoint x="127" y="285"/>    
+    <bendpoint x="127" y="347"/>    
+    <bendpoint x="127" y="409"/>    
+    <bendpoint x="127" y="471"/>    
+    <bendpoint x="127" y="533"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <realization id="104">    
+    <bendpoint x="1636" y="471"/>    
+    <bendpoint x="1552" y="533"/>    
+    <bendpoint x="1355" y="595"/>    
+    <bendpoint x="1313" y="657"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <association id="105">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="106" name="listeners"/>      
+      <multiplicity id="107" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="108">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="109">    
+    <bendpoint x="3776" y="657"/>    
+    <bendpoint x="3755" y="729"/>    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <nesting id="110">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="56"/>  
+  </nesting>  
+  <nesting id="111">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <dependency id="112">    
+    <bendpoint x="3042" y="657"/>    
+    <bendpoint x="2976" y="729"/>    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="113">    
+    <bendpoint x="3326" y="595"/>    
+    <bendpoint x="3368" y="657"/>    
+    <bendpoint x="3410" y="729"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="114">    
+    <bendpoint x="2039" y="729"/>    
+    <end type="SOURCE" refId="58"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="115">    
+    <bendpoint x="3284" y="595"/>    
+    <bendpoint x="3326" y="657"/>    
+    <bendpoint x="3389" y="729"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="116">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="117">    
+    <bendpoint x="1475" y="409"/>    
+    <bendpoint x="1189" y="471"/>    
+    <bendpoint x="1168" y="533"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <dependency id="118">    
+    <bendpoint x="3284" y="729"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
   <dependency id="119">    
+    <bendpoint x="1913" y="729"/>    
+    <bendpoint x="1913" y="791"/>    
+    <bendpoint x="1913" y="853"/>    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="120">    
+    <bendpoint x="1783" y="729"/>    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="41"/>  
+  </dependency>  
+  <dependency id="121">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="39"/>  
+  </dependency>  
+  <dependency id="122">    
+    <bendpoint x="148" y="223"/>    
+    <bendpoint x="148" y="285"/>    
+    <bendpoint x="148" y="347"/>    
+    <bendpoint x="148" y="409"/>    
+    <bendpoint x="148" y="471"/>    
+    <bendpoint x="148" y="533"/>    
+    <bendpoint x="148" y="595"/>    
+    <bendpoint x="148" y="657"/>    
+    <bendpoint x="148" y="729"/>    
+    <bendpoint x="148" y="791"/>    
+    <bendpoint x="190" y="853"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="123">    
+    <bendpoint x="717" y="595"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <association id="124">    
+    <bendpoint x="3606" y="595"/>    
+    <bendpoint x="3755" y="657"/>    
+    <bendpoint x="3818" y="729"/>    
+    <bendpoint x="3818" y="791"/>    
+    <end type="SOURCE" refId="51" navigable="false">      
+      <attribute id="125" name="theTextureMap"/>      
+      <multiplicity id="126" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="67" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="127">    
+    <bendpoint x="1292" y="657"/>    
+    <bendpoint x="1292" y="729"/>    
+    <bendpoint x="1292" y="791"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="128">    
+    <bendpoint x="274" y="471"/>    
+    <bendpoint x="253" y="533"/>    
+    <bendpoint x="322" y="595"/>    
+    <bendpoint x="312" y="657"/>    
+    <bendpoint x="430" y="729"/>    
+    <bendpoint x="451" y="791"/>    
+    <bendpoint x="505" y="853"/>    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="129" name="m_pos2"/>      
+      <multiplicity id="130" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="131">    
+    <bendpoint x="2249" y="595"/>    
+    <bendpoint x="2388" y="657"/>    
+    <bendpoint x="2409" y="729"/>    
+    <bendpoint x="2451" y="791"/>    
+    <bendpoint x="2451" y="853"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="132">    
+    <bendpoint x="933" y="347"/>    
+    <bendpoint x="975" y="409"/>    
+    <bendpoint x="977" y="471"/>    
+    <bendpoint x="988" y="533"/>    
+    <bendpoint x="987" y="595"/>    
+    <bendpoint x="987" y="657"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <realization id="133">    
+    <bendpoint x="388" y="729"/>    
+    <bendpoint x="430" y="791"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <dependency id="134">    
+    <bendpoint x="2221" y="791"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="135">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <association id="136">    
+    <end type="SOURCE" refId="61" navigable="false">      
+      <attribute id="137" name="m_displacement"/>      
+      <multiplicity id="138" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="52" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="139">    
+    <bendpoint x="2922" y="533"/>    
+    <bendpoint x="2922" y="595"/>    
+    <bendpoint x="2895" y="657"/>    
+    <bendpoint x="2871" y="729"/>    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="140" name="camera"/>      
+      <multiplicity id="141" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="142">    
+    <bendpoint x="2616" y="595"/>    
+    <bendpoint x="2724" y="657"/>    
+    <bendpoint x="2766" y="729"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="143">    
+    <bendpoint x="2987" y="791"/>    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <dependency id="144">    
+    <bendpoint x="294" y="223"/>    
+    <bendpoint x="294" y="285"/>    
+    <bendpoint x="336" y="347"/>    
+    <bendpoint x="253" y="409"/>    
+    <bendpoint x="316" y="471"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="145">    
+    <bendpoint x="633" y="595"/>    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="146">    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="147">    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="148">    
+    <bendpoint x="507" y="595"/>    
+    <bendpoint x="480" y="657"/>    
+    <bendpoint x="514" y="729"/>    
+    <bendpoint x="472" y="791"/>    
+    <bendpoint x="390" y="853"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <association id="149">    
+    <end type="SOURCE" refId="51" navigable="false">      
+      <attribute id="150" name="model"/>      
+      <multiplicity id="151" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="152">    
+    <bendpoint x="535" y="409"/>    
+    <bendpoint x="531" y="471"/>    
+    <bendpoint x="528" y="533"/>    
+    <bendpoint x="549" y="595"/>    
+    <bendpoint x="585" y="657"/>    
+    <bendpoint x="745" y="729"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <generalization id="153">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <dependency id="154">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="155">    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <association id="156">    
+    <bendpoint x="2289" y="471"/>    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="157" name="m_actionView"/>      
+      <multiplicity id="158" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="62" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="159">    
+    <bendpoint x="1210" y="595"/>    
+    <bendpoint x="1071" y="657"/>    
+    <bendpoint x="1071" y="729"/>    
+    <bendpoint x="948" y="791"/>    
+    <bendpoint x="948" y="853"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="160">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="22"/>  
   </dependency>  
-  <association id="120">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="121" name="m_characterDrawer"/>      
-      <multiplicity id="122" minimum="0" maximum="1"/>    
+  <association id="161">    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="162" name="fireTarget"/>      
+      <multiplicity id="163" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
+    <end type="TARGET" refId="53" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="123">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="124" name="m_displacement"/>      
-      <multiplicity id="125" minimum="0" maximum="1"/>    
+  <dependency id="164">    
+    <bendpoint x="695" y="285"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="44"/>  
+  </dependency>  
+  <association id="165">    
+    <bendpoint x="2312" y="409"/>    
+    <bendpoint x="2312" y="471"/>    
+    <bendpoint x="2312" y="533"/>    
+    <bendpoint x="2312" y="595"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="166" name="logger"/>      
+      <multiplicity id="167" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="58" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="126">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="127" name="activeShots"/>      
-      <multiplicity id="128" minimum="0" maximum="2147483647"/>    
+  <association id="168">    
+    <bendpoint x="1059" y="285"/>    
+    <bendpoint x="1101" y="347"/>    
+    <bendpoint x="1133" y="409"/>    
+    <bendpoint x="1168" y="471"/>    
+    <bendpoint x="1210" y="533"/>    
+    <bendpoint x="1313" y="595"/>    
+    <bendpoint x="1397" y="657"/>    
+    <bendpoint x="1502" y="729"/>    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="169" name="m_level"/>      
+      <multiplicity id="170" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="41" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="171">    
+    <bendpoint x="2102" y="657"/>    
+    <bendpoint x="2102" y="729"/>    
+    <bendpoint x="2081" y="791"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="172" name="goalPosition"/>      
+      <multiplicity id="173" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="174">    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="175">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="176">    
+    <bendpoint x="106" y="223"/>    
+    <bendpoint x="106" y="285"/>    
+    <bendpoint x="106" y="347"/>    
+    <bendpoint x="106" y="409"/>    
+    <bendpoint x="106" y="471"/>    
+    <bendpoint x="106" y="533"/>    
+    <bendpoint x="169" y="595"/>    
+    <bendpoint x="253" y="657"/>    
+    <bendpoint x="346" y="729"/>    
+    <bendpoint x="388" y="791"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <association id="177">    
+    <bendpoint x="3347" y="595"/>    
+    <bendpoint x="3452" y="657"/>    
+    <bendpoint x="3515" y="729"/>    
+    <bendpoint x="3557" y="791"/>    
+    <end type="SOURCE" refId="60" navigable="false">      
+      <attribute id="178" name="m_texture"/>      
+      <multiplicity id="179" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="67" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="180">    
+    <bendpoint x="2165" y="657"/>    
+    <bendpoint x="2186" y="729"/>    
+    <bendpoint x="2207" y="791"/>    
+    <bendpoint x="2207" y="853"/>    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="181">    
+    <bendpoint x="232" y="791"/>    
+    <bendpoint x="211" y="853"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <dependency id="182">    
+    <bendpoint x="2228" y="595"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <generalization id="183">    
+    <bendpoint x="423" y="533"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <dependency id="184">    
+    <bendpoint x="1720" y="729"/>    
+    <bendpoint x="1720" y="791"/>    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="185">    
+    <bendpoint x="672" y="533"/>    
+    <bendpoint x="570" y="595"/>    
+    <bendpoint x="564" y="657"/>    
+    <bendpoint x="619" y="729"/>    
+    <bendpoint x="577" y="791"/>    
+    <bendpoint x="577" y="853"/>    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="186">    
+    <bendpoint x="1481" y="657"/>    
+    <bendpoint x="1460" y="729"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="187">    
+    <bendpoint x="2880" y="595"/>    
+    <bendpoint x="2661" y="657"/>    
+    <bendpoint x="2514" y="729"/>    
+    <bendpoint x="2493" y="791"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="188">    
+    <bendpoint x="1132" y="729"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="189">    
+    <bendpoint x="2409" y="595"/>    
+    <bendpoint x="2409" y="657"/>    
+    <bendpoint x="2207" y="729"/>    
+    <bendpoint x="2123" y="791"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="190">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="191" name="state"/>      
+      <multiplicity id="192" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="129">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="130" name="m_camera"/>      
-      <multiplicity id="131" minimum="0" maximum="1"/>    
+  <association id="193">    
+    <bendpoint x="2123" y="657"/>    
+    <bendpoint x="2123" y="729"/>    
+    <bendpoint x="2102" y="791"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="194" name="startPosition"/>      
+      <multiplicity id="195" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
+    <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <dependency id="132">    
-    <bendpoint x="1802" y="391"/>    
-    <bendpoint x="1802" y="453"/>    
-    <bendpoint x="1829" y="515"/>    
-    <bendpoint x="1844" y="577"/>    
-    <bendpoint x="1844" y="639"/>    
+  <dependency id="196">    
+    <bendpoint x="1029" y="595"/>    
+    <bendpoint x="753" y="657"/>    
+    <bendpoint x="682" y="729"/>    
+    <bendpoint x="556" y="791"/>    
     <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="197">    
+    <bendpoint x="430" y="285"/>    
+    <bendpoint x="430" y="347"/>    
+    <bendpoint x="430" y="409"/>    
+    <bendpoint x="465" y="471"/>    
+    <bendpoint x="465" y="533"/>    
+    <bendpoint x="465" y="595"/>    
+    <bendpoint x="543" y="657"/>    
+    <bendpoint x="640" y="729"/>    
+    <bendpoint x="661" y="791"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="198">    
+    <bendpoint x="3347" y="533"/>    
+    <bendpoint x="3410" y="595"/>    
+    <bendpoint x="3431" y="657"/>    
+    <bendpoint x="3431" y="729"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <nesting id="199">    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="66"/>  
+  </nesting>  
+  <dependency id="200">    
+    <bendpoint x="3111" y="657"/>    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <association id="201">    
+    <end type="SOURCE" refId="55" navigable="false">      
+      <attribute id="202" name="activeShots"/>      
+      <multiplicity id="203" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="63" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="204">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="205" name="openList"/>      
+      <multiplicity id="206" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="207">    
+    <bendpoint x="423" y="471"/>    
+    <bendpoint x="472" y="409"/>    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="44"/>  
+  </dependency>  
+  <association id="208">    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="209" name="m_characterDrawer"/>      
+      <multiplicity id="210" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="60" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="211">    
+    <bendpoint x="3090" y="595"/>    
+    <bendpoint x="3090" y="657"/>    
+    <end type="SOURCE" refId="60" navigable="false">      
+      <attribute id="212" name="m_characters"/>      
+      <multiplicity id="213" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="214">    
+    <bendpoint x="1636" y="409"/>    
+    <bendpoint x="1535" y="471"/>    
+    <bendpoint x="1531" y="533"/>    
+    <bendpoint x="1418" y="595"/>    
+    <bendpoint x="1418" y="657"/>    
+    <bendpoint x="1418" y="729"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="215">    
+    <bendpoint x="1531" y="285"/>    
+    <bendpoint x="1911" y="347"/>    
+    <bendpoint x="2291" y="409"/>    
+    <bendpoint x="2443" y="471"/>    
+    <bendpoint x="2595" y="533"/>    
+    <bendpoint x="2658" y="595"/>    
+    <bendpoint x="2682" y="657"/>    
+    <bendpoint x="2640" y="729"/>    
+    <bendpoint x="2682" y="791"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <association id="216">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="217" name="game"/>      
+      <multiplicity id="218" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="219">    
+    <bendpoint x="2291" y="729"/>    
+    <bendpoint x="2291" y="791"/>    
+    <end type="SOURCE" refId="58"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="220">    
+    <bendpoint x="1080" y="223"/>    
+    <bendpoint x="1080" y="285"/>    
+    <bendpoint x="1080" y="347"/>    
+    <bendpoint x="1070" y="409"/>    
+    <bendpoint x="1062" y="471"/>    
+    <bendpoint x="1009" y="533"/>    
+    <bendpoint x="966" y="595"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="221">    
+    <bendpoint x="777" y="533"/>    
+    <bendpoint x="801" y="595"/>    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="222">    
+    <bendpoint x="409" y="409"/>    
+    <bendpoint x="337" y="471"/>    
+    <bendpoint x="274" y="533"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <dependency id="223">    
+    <bendpoint x="2958" y="657"/>    
+    <bendpoint x="3179" y="729"/>    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="224">    
+    <bendpoint x="1636" y="533"/>    
+    <bendpoint x="1271" y="595"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <association id="225">    
+    <bendpoint x="1615" y="347"/>    
+    <bendpoint x="1615" y="409"/>    
+    <bendpoint x="1615" y="471"/>    
+    <bendpoint x="1615" y="533"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="226" name="model"/>      
+      <multiplicity id="227" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="228">    
+    <bendpoint x="3263" y="595"/>    
+    <bendpoint x="3305" y="657"/>    
+    <bendpoint x="3347" y="729"/>    
+    <bendpoint x="3330" y="791"/>    
+    <bendpoint x="3330" y="853"/>    
+    <end type="SOURCE" refId="60" navigable="false">      
+      <attribute id="229" name="m_enemiesSeenThisRound"/>      
+      <multiplicity id="230" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="231">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="232" name="closedList"/>      
+      <multiplicity id="233" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="234">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <association id="235">    
+    <bendpoint x="3627" y="409"/>    
+    <bendpoint x="3669" y="471"/>    
+    <bendpoint x="3690" y="533"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="236" name="m_gui"/>      
+      <multiplicity id="237" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="68" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="238">    
+    <bendpoint x="325" y="729"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="239">    
+    <bendpoint x="2745" y="657"/>    
+    <bendpoint x="2703" y="729"/>    
+    <bendpoint x="2703" y="791"/>    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <nesting id="240">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="14"/>  
+  </nesting>  
+  <association id="241">    
+    <bendpoint x="3221" y="729"/>    
+    <bendpoint x="3242" y="791"/>    
+    <bendpoint x="3242" y="853"/>    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="242" name="attackerModelPos"/>      
+      <multiplicity id="243" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="244">    
+    <bendpoint x="2060" y="729"/>    
+    <bendpoint x="2060" y="791"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="245" name="m_node"/>      
+      <multiplicity id="246" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="247">    
+    <bendpoint x="1101" y="285"/>    
+    <bendpoint x="1256" y="347"/>    
+    <bendpoint x="1412" y="409"/>    
+    <bendpoint x="1454" y="471"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="248">    
+    <bendpoint x="1831" y="791"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="249">    
+    <bendpoint x="315" y="285"/>    
+    <bendpoint x="294" y="347"/>    
+    <bendpoint x="148" y="409"/>    
+    <bendpoint x="148" y="471"/>    
+    <bendpoint x="148" y="533"/>    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="250" name="m_soldiers"/>      
+      <multiplicity id="251" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="45" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <realization id="252">    
+    <bendpoint x="1741" y="533"/>    
+    <bendpoint x="1564" y="595"/>    
+    <bendpoint x="1376" y="657"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <association id="253">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="254" name="skills"/>      
+      <multiplicity id="255" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="256">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="257" name="masterView"/>      
+      <multiplicity id="258" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="259">    
+    <bendpoint x="2838" y="595"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="260" name="input"/>      
+      <multiplicity id="261" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="262">    
+    <bendpoint x="3606" y="409"/>    
+    <bendpoint x="3606" y="471"/>    
+    <bendpoint x="3648" y="533"/>    
+    <bendpoint x="3669" y="595"/>    
+    <bendpoint x="3612" y="657"/>    
+    <bendpoint x="3557" y="729"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="263">    
+    <bendpoint x="3606" y="533"/>    
+    <bendpoint x="3795" y="595"/>    
+    <bendpoint x="3818" y="657"/>    
+    <bendpoint x="3839" y="729"/>    
+    <bendpoint x="3839" y="791"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="264">    
+    <bendpoint x="2367" y="595"/>    
+    <bendpoint x="2472" y="657"/>    
+    <bendpoint x="2556" y="729"/>    
+    <bendpoint x="2661" y="791"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <association id="265">    
+    <bendpoint x="2945" y="791"/>    
+    <end type="SOURCE" refId="53" navigable="false">      
+      <attribute id="266" name="m_lastPositionSeen"/>      
+      <multiplicity id="267" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="268">    
+    <bendpoint x="409" y="285"/>    
+    <bendpoint x="420" y="347"/>    
+    <bendpoint x="346" y="409"/>    
+    <bendpoint x="358" y="471"/>    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="269" name="m_enemies"/>      
+      <multiplicity id="270" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="271">    
+    <bendpoint x="1481" y="729"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="272" name="characters"/>      
+      <multiplicity id="273" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="274">    
+    <bendpoint x="3648" y="471"/>    
+    <bendpoint x="3742" y="533"/>    
+    <bendpoint x="3837" y="595"/>    
+    <bendpoint x="3860" y="657"/>    
+    <bendpoint x="3860" y="729"/>    
+    <bendpoint x="3860" y="791"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="275">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <association id="276">    
+    <bendpoint x="3711" y="347"/>    
+    <bendpoint x="3711" y="409"/>    
+    <bendpoint x="3711" y="471"/>    
+    <bendpoint x="3711" y="533"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="277" name="gui"/>      
+      <multiplicity id="278" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="68" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="279">    
+    <bendpoint x="693" y="533"/>    
+    <bendpoint x="654" y="595"/>    
+    <bendpoint x="648" y="657"/>    
+    <bendpoint x="724" y="729"/>    
+    <bendpoint x="969" y="791"/>    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="280" name="position"/>      
+      <multiplicity id="281" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="282">    
+    <bendpoint x="882" y="471"/>    
+    <bendpoint x="882" y="533"/>    
+    <bendpoint x="864" y="595"/>    
+    <bendpoint x="795" y="657"/>    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="283">    
+    <bendpoint x="1397" y="595"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="284">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <realization id="285">    
+    <bendpoint x="714" y="533"/>    
+    <bendpoint x="675" y="595"/>    
+    <bendpoint x="669" y="657"/>    
+    <bendpoint x="787" y="729"/>    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <dependency id="286">    
+    <bendpoint x="378" y="285"/>    
+    <bendpoint x="378" y="347"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <association id="287">    
+    <end type="SOURCE" refId="50" navigable="false">      
+      <attribute id="288" name="visibilityMap"/>      
+      <multiplicity id="289" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="66" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="290">    
+    <bendpoint x="472" y="347"/>    
+    <bendpoint x="367" y="409"/>    
+    <bendpoint x="295" y="471"/>    
+    <bendpoint x="232" y="533"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <nesting id="291">    
+    <bendpoint x="3734" y="657"/>    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="54"/>  
+  </nesting>  
+  <dependency id="292">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="293">    
+    <bendpoint x="2943" y="595"/>    
+    <bendpoint x="3103" y="657"/>    
+    <bendpoint x="3263" y="729"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <association id="294">    
+    <bendpoint x="768" y="471"/>    
+    <bendpoint x="735" y="533"/>    
+    <bendpoint x="696" y="595"/>    
+    <bendpoint x="690" y="657"/>    
+    <bendpoint x="808" y="729"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="295" name="listeners"/>      
+      <multiplicity id="296" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="297">    
+    <bendpoint x="3016" y="791"/>    
+    <bendpoint x="3016" y="853"/>    
+    <end type="SOURCE" refId="53"/>    
     <end type="TARGET" refId="18"/>  
   </dependency>  
-  <dependency id="133">    
-    <end type="SOURCE" refId="1"/>    
+  <dependency id="298">    
+    <bendpoint x="893" y="99"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="299">    
+    <bendpoint x="3473" y="657"/>    
+    <bendpoint x="3536" y="729"/>    
+    <bendpoint x="3536" y="791"/>    
+    <bendpoint x="3536" y="853"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="300" name="rotation"/>      
+      <multiplicity id="301" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="302">    
+    <end type="SOURCE" refId="41" navigable="false">      
+      <attribute id="303" name="m_tiles"/>      
+      <multiplicity id="304" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="305">    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="306" name="m_view"/>      
+      <multiplicity id="307" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="59" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="308">    
+    <bendpoint x="2490" y="595"/>    
+    <bendpoint x="2514" y="657"/>    
+    <bendpoint x="2472" y="729"/>    
+    <bendpoint x="2430" y="791"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="309">    
+    <bendpoint x="2148" y="533"/>    
+    <bendpoint x="2030" y="595"/>    
+    <bendpoint x="1869" y="657"/>    
+    <bendpoint x="1762" y="729"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <association id="310">    
+    <bendpoint x="507" y="533"/>    
+    <bendpoint x="423" y="595"/>    
+    <bendpoint x="375" y="657"/>    
+    <bendpoint x="409" y="729"/>    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="311" name="experience"/>      
+      <multiplicity id="312" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="313">    
+    <bendpoint x="444" y="595"/>    
+    <bendpoint x="522" y="657"/>    
+    <bendpoint x="661" y="729"/>    
+    <bendpoint x="703" y="791"/>    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="314" name="m_soldiersLastPositions"/>      
+      <multiplicity id="315" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="316">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="317">    
+    <bendpoint x="903" y="471"/>    
+    <bendpoint x="903" y="533"/>    
+    <bendpoint x="903" y="595"/>    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="318">    
+    <bendpoint x="780" y="347"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <association id="319">    
+    <bendpoint x="2964" y="471"/>    
+    <bendpoint x="2964" y="533"/>    
+    <bendpoint x="2964" y="595"/>    
+    <bendpoint x="2916" y="657"/>    
+    <bendpoint x="2892" y="729"/>    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="320" name="m_camera"/>      
+      <multiplicity id="321" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="322">    
+    <bendpoint x="273" y="223"/>    
+    <bendpoint x="273" y="285"/>    
+    <bendpoint x="273" y="347"/>    
+    <bendpoint x="190" y="409"/>    
+    <bendpoint x="232" y="471"/>    
+    <bendpoint x="316" y="533"/>    
+    <bendpoint x="381" y="595"/>    
+    <bendpoint x="459" y="657"/>    
+    <bendpoint x="598" y="729"/>    
+    <bendpoint x="640" y="791"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="323">    
+    <bendpoint x="2070" y="595"/>    
+    <bendpoint x="2535" y="657"/>    
+    <bendpoint x="2808" y="729"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="324">    
+    <bendpoint x="1122" y="285"/>    
+    <bendpoint x="1277" y="347"/>    
+    <bendpoint x="1433" y="409"/>    
+    <bendpoint x="1503" y="471"/>    
+    <bendpoint x="1573" y="533"/>    
+    <bendpoint x="1573" y="595"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="325">    
+    <bendpoint x="3284" y="791"/>    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <association id="326">    
+    <bendpoint x="3753" y="161"/>    
+    <bendpoint x="3753" y="223"/>    
+    <bendpoint x="3753" y="285"/>    
+    <bendpoint x="3753" y="347"/>    
+    <bendpoint x="3732" y="409"/>    
+    <bendpoint x="3690" y="471"/>    
+    <bendpoint x="3669" y="533"/>    
+    <bendpoint x="3648" y="595"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="327" name="m_input"/>      
+      <multiplicity id="328" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="329">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="330" name="gui"/>      
+      <multiplicity id="331" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="68" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="332">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="333" name="eventTarget"/>      
+      <multiplicity id="334" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="335">    
+    <bendpoint x="738" y="347"/>    
+    <bendpoint x="640" y="409"/>    
+    <bendpoint x="621" y="471"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="336">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="337" name="m_application"/>      
+      <multiplicity id="338" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="339">    
+    <bendpoint x="1573" y="347"/>    
+    <bendpoint x="1454" y="409"/>    
+    <bendpoint x="1412" y="471"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="340" name="levelup"/>      
+      <multiplicity id="341" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="342">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="343" name="previouslyObservedEnemies"/>      
+      <multiplicity id="344" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="44" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <realization id="345">    
+    <bendpoint x="3902" y="223"/>    
+    <bendpoint x="3902" y="285"/>    
+    <bendpoint x="3902" y="347"/>    
+    <bendpoint x="3902" y="409"/>    
+    <bendpoint x="3902" y="471"/>    
+    <bendpoint x="3902" y="533"/>    
+    <bendpoint x="3902" y="595"/>    
+    <bendpoint x="3902" y="657"/>    
+    <bendpoint x="3902" y="729"/>    
+    <bendpoint x="3902" y="791"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="67"/>  
+  </realization>  
+  <dependency id="346">    
+    <bendpoint x="3048" y="595"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="347">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="348">    
+    <bendpoint x="2637" y="533"/>    
+    <bendpoint x="2637" y="595"/>    
+    <bendpoint x="2640" y="657"/>    
+    <bendpoint x="2577" y="729"/>    
+    <bendpoint x="2556" y="791"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="349">    
+    <bendpoint x="1573" y="409"/>    
+    <bendpoint x="1433" y="471"/>    
+    <bendpoint x="1231" y="533"/>    
+    <bendpoint x="1231" y="595"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="350" name="multipleCharacterListenter"/>      
+      <multiplicity id="351" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="352">    
+    <bendpoint x="367" y="729"/>    
+    <bendpoint x="367" y="791"/>    
+    <bendpoint x="369" y="853"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <association id="353">    
+    <bendpoint x="1762" y="533"/>    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="354" name="model"/>      
+      <multiplicity id="355" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="356">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="357" name="m_parent"/>      
+      <multiplicity id="358" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="359">    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="360">    
+    <bendpoint x="1481" y="595"/>    
+    <bendpoint x="1460" y="657"/>    
+    <bendpoint x="1671" y="729"/>    
+    <bendpoint x="1671" y="791"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="361">    
+    <bendpoint x="717" y="285"/>    
+    <bendpoint x="717" y="347"/>    
+    <bendpoint x="661" y="409"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <generalization id="362">    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="56"/>  
+  </generalization>  
+  <dependency id="363">    
+    <bendpoint x="912" y="347"/>    
+    <bendpoint x="954" y="409"/>    
+    <bendpoint x="947" y="471"/>    
+    <bendpoint x="936" y="533"/>    
+    <bendpoint x="924" y="595"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <association id="364">    
+    <bendpoint x="1864" y="791"/>    
+    <end type="SOURCE" refId="46" navigable="false">      
+      <attribute id="365" name="upperLeftCorner"/>      
+      <multiplicity id="366" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="367">    
+    <bendpoint x="3732" y="347"/>    
+    <bendpoint x="3754" y="409"/>    
+    <bendpoint x="3775" y="471"/>    
+    <bendpoint x="3796" y="533"/>    
+    <bendpoint x="3816" y="595"/>    
+    <bendpoint x="3797" y="657"/>    
+    <bendpoint x="3776" y="729"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="368">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <dependency id="369">    
+    <bendpoint x="1947" y="595"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <realization id="370">    
+    <end type="SOURCE" refId="58"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <dependency id="371">    
+    <bendpoint x="1050" y="657"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="372">    
+    <bendpoint x="1934" y="729"/>    
+    <bendpoint x="1934" y="791"/>    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <nesting id="373">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="16"/>  
+  </nesting>  
+  <association id="374">    
+    <bendpoint x="2637" y="347"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="375" name="masterView"/>      
+      <multiplicity id="376" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="377">    
+    <bendpoint x="2009" y="595"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="378">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="47"/>  
+  </dependency>  
+  <dependency id="379">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="44"/>  
+  </dependency>  
+  <dependency id="380">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="48"/>  
+  </dependency>  
+  <dependency id="381">    
+    <bendpoint x="1785" y="595"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="382">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="383">    
+    <bendpoint x="2270" y="223"/>    
+    <bendpoint x="2270" y="285"/>    
+    <bendpoint x="2270" y="347"/>    
+    <bendpoint x="2270" y="409"/>    
+    <bendpoint x="2310" y="471"/>    
+    <bendpoint x="2333" y="533"/>    
+    <bendpoint x="2388" y="595"/>    
+    <bendpoint x="2430" y="657"/>    
+    <bendpoint x="2430" y="729"/>    
+    <bendpoint x="2409" y="791"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="384">    
+    <bendpoint x="486" y="533"/>    
+    <bendpoint x="360" y="595"/>    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="385" name="skills"/>      
+      <multiplicity id="386" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="387">    
+    <bendpoint x="1762" y="471"/>    
+    <bendpoint x="1699" y="533"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="388">    
+    <bendpoint x="2985" y="471"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="60"/>  
+  </dependency>  
+  <dependency id="389">    
+    <bendpoint x="1334" y="595"/>    
+    <bendpoint x="1355" y="657"/>    
+    <bendpoint x="1355" y="729"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="390">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="391">    
+    <bendpoint x="2943" y="533"/>    
+    <bendpoint x="2985" y="595"/>    
+    <bendpoint x="3000" y="657"/>    
+    <bendpoint x="2955" y="729"/>    
+    <bendpoint x="2966" y="791"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <dependency id="392">    
+    <bendpoint x="975" y="347"/>    
+    <bendpoint x="1091" y="409"/>    
+    <bendpoint x="1210" y="471"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="393">    
+    <bendpoint x="577" y="409"/>    
+    <bendpoint x="614" y="471"/>    
+    <bendpoint x="651" y="533"/>    
+    <bendpoint x="612" y="595"/>    
+    <bendpoint x="606" y="657"/>    
+    <bendpoint x="703" y="729"/>    
+    <bendpoint x="724" y="791"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="394">    
+    <bendpoint x="211" y="471"/>    
+    <bendpoint x="169" y="533"/>    
+    <bendpoint x="190" y="595"/>    
+    <bendpoint x="169" y="657"/>    
+    <bendpoint x="169" y="729"/>    
+    <bendpoint x="190" y="791"/>    
+    <bendpoint x="253" y="853"/>    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="395" name="m_pos1"/>      
+      <multiplicity id="396" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="397">    
+    <bendpoint x="2829" y="657"/>    
+    <bendpoint x="2829" y="729"/>    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="398">    
+    <bendpoint x="493" y="347"/>    
+    <bendpoint x="493" y="409"/>    
+    <bendpoint x="444" y="471"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <association id="399">    
+    <end type="SOURCE" refId="40" navigable="false">      
+      <attribute id="400" name="m_pathFinder"/>      
+      <multiplicity id="401" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="402">    
+    <bendpoint x="3543" y="595"/>    
+    <bendpoint x="3515" y="657"/>    
+    <bendpoint x="3599" y="729"/>    
+    <bendpoint x="3599" y="791"/>    
+    <bendpoint x="3599" y="853"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="403">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="404" name="model"/>      
+      <multiplicity id="405" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="406">    
+    <bendpoint x="3564" y="471"/>    
+    <bendpoint x="3564" y="533"/>    
+    <bendpoint x="3564" y="595"/>    
+    <bendpoint x="3494" y="657"/>    
+    <bendpoint x="3494" y="729"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <association id="407">    
+    <end type="SOURCE" refId="61" navigable="false">      
+      <attribute id="408" name="m_targetDisplacement"/>      
+      <multiplicity id="409" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="52" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <realization id="410">    
+    <bendpoint x="996" y="285"/>    
+    <bendpoint x="996" y="347"/>    
+    <bendpoint x="1017" y="409"/>    
+    <bendpoint x="998" y="471"/>    
+    <bendpoint x="967" y="533"/>    
+    <bendpoint x="945" y="595"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <association id="411">    
+    <end type="SOURCE" refId="41" navigable="false">      
+      <attribute id="412" name="m_playerStartPositions"/>      
+      <multiplicity id="413" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="414">    
+    <bendpoint x="2766" y="853"/>    
+    <end type="SOURCE" refId="61"/>    
     <end type="TARGET" refId="18"/>  
   </dependency>  
-  <dependency id="134">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="10"/>  
+  <dependency id="415">    
+    <bendpoint x="1806" y="657"/>    
+    <bendpoint x="1885" y="729"/>    
+    <bendpoint x="1885" y="791"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="20"/>  
   </dependency>  
-  <association id="135">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="136" name="fireTarget"/>      
-      <multiplicity id="137" minimum="0" maximum="1"/>    
+  <association id="416">    
+    <bendpoint x="1412" y="347"/>    
+    <bendpoint x="1279" y="409"/>    
+    <bendpoint x="1147" y="471"/>    
+    <bendpoint x="1147" y="533"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="417" name="eventTarget"/>      
+      <multiplicity id="418" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="419">    
+    <end type="SOURCE" refId="61"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <association id="420">    
+    <bendpoint x="3648" y="347"/>    
+    <bendpoint x="3648" y="409"/>    
+    <bendpoint x="3627" y="471"/>    
+    <bendpoint x="3627" y="533"/>    
+    <bendpoint x="3627" y="595"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="421" name="input"/>      
+      <multiplicity id="422" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="423">    
+    <bendpoint x="1806" y="595"/>    
+    <bendpoint x="1650" y="657"/>    
+    <bendpoint x="1650" y="729"/>    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="424" name="m_selectedEnemy"/>      
+      <multiplicity id="425" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="426">    
+    <end type="SOURCE" refId="68" navigable="false">      
+      <attribute id="427" name="m_drawCalls"/>      
+      <multiplicity id="428" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="56" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="429">    
+    <bendpoint x="2640" y="791"/>    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <association id="430">    
+    <end type="SOURCE" refId="41" navigable="false">      
+      <attribute id="431" name="m_enemyPositions"/>      
+      <multiplicity id="432" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="433">    
+    <bendpoint x="357" y="285"/>    
+    <bendpoint x="357" y="347"/>    
+    <bendpoint x="211" y="409"/>    
+    <bendpoint x="253" y="471"/>    
+    <bendpoint x="295" y="533"/>    
+    <bendpoint x="364" y="595"/>    
+    <bendpoint x="396" y="657"/>    
+    <bendpoint x="535" y="729"/>    
+    <bendpoint x="598" y="791"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="48"/>  
+  </dependency>  
+  <dependency id="434">    
+    <bendpoint x="759" y="347"/>    
+    <bendpoint x="682" y="409"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="435">    
+    <bendpoint x="1720" y="471"/>    
+    <bendpoint x="1657" y="533"/>    
+    <bendpoint x="1543" y="595"/>    
+    <bendpoint x="1439" y="657"/>    
+    <bendpoint x="1439" y="729"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="436">    
+    <bendpoint x="399" y="347"/>    
+    <bendpoint x="232" y="409"/>    
+    <bendpoint x="190" y="471"/>    
+    <bendpoint x="190" y="533"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <dependency id="437">    
+    <bendpoint x="1439" y="595"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="438">    
+    <bendpoint x="3200" y="729"/>    
+    <bendpoint x="3200" y="791"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <dependency id="439">    
+    <bendpoint x="1143" y="223"/>    
+    <bendpoint x="1143" y="285"/>    
+    <bendpoint x="1128" y="347"/>    
+    <bendpoint x="1112" y="409"/>    
+    <bendpoint x="1092" y="471"/>    
+    <bendpoint x="1071" y="533"/>    
+    <bendpoint x="1050" y="595"/>    
+    <bendpoint x="1029" y="657"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="440">    
+    <bendpoint x="528" y="595"/>    
+    <bendpoint x="501" y="657"/>    
+    <bendpoint x="577" y="729"/>    
+    <bendpoint x="514" y="791"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <association id="441">    
+    <bendpoint x="598" y="409"/>    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="442" name="characters"/>      
+      <multiplicity id="443" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="444">    
+    <bendpoint x="1678" y="409"/>    
+    <bendpoint x="1678" y="471"/>    
+    <bendpoint x="1678" y="533"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="445" name="model"/>      
+      <multiplicity id="446" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="447">    
+    <bendpoint x="1848" y="657"/>    
+    <bendpoint x="1997" y="729"/>    
+    <bendpoint x="1997" y="791"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="448">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="41"/>  
+  </dependency>  
+  <dependency id="449">    
+    <bendpoint x="2787" y="657"/>    
+    <bendpoint x="2787" y="729"/>    
+    <bendpoint x="2787" y="791"/>    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <dependency id="450">    
+    <bendpoint x="912" y="409"/>    
+    <bendpoint x="1020" y="471"/>    
+    <bendpoint x="1189" y="533"/>    
+    <bendpoint x="1376" y="595"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="451">    
+    <bendpoint x="2511" y="595"/>    
+    <bendpoint x="2249" y="657"/>    
+    <bendpoint x="1976" y="729"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="452">    
+    <bendpoint x="3069" y="595"/>    
+    <bendpoint x="3021" y="657"/>    
+    <bendpoint x="2934" y="729"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="453">    
+    <bendpoint x="619" y="409"/>    
+    <bendpoint x="747" y="471"/>    
+    <bendpoint x="819" y="533"/>    
+    <bendpoint x="822" y="595"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="454">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="455">    
+    <bendpoint x="451" y="347"/>    
+    <bendpoint x="388" y="409"/>    
+    <bendpoint x="388" y="471"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="456">    
+    <bendpoint x="2703" y="657"/>    
+    <bendpoint x="2619" y="729"/>    
+    <bendpoint x="2577" y="791"/>    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="457">    
+    <bendpoint x="2532" y="409"/>    
+    <bendpoint x="2532" y="471"/>    
+    <bendpoint x="2532" y="533"/>    
+    <bendpoint x="2532" y="595"/>    
+    <bendpoint x="2556" y="657"/>    
+    <bendpoint x="2493" y="729"/>    
+    <bendpoint x="2472" y="791"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="458">    
+    <bendpoint x="2859" y="533"/>    
+    <bendpoint x="2859" y="595"/>    
+    <bendpoint x="2808" y="657"/>    
+    <bendpoint x="2745" y="729"/>    
+    <bendpoint x="2745" y="791"/>    
+    <bendpoint x="2745" y="853"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="459">    
+    <bendpoint x="966" y="657"/>    
+    <bendpoint x="829" y="729"/>    
+    <bendpoint x="682" y="791"/>    
+    <bendpoint x="682" y="853"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="460">    
+    <bendpoint x="3263" y="657"/>    
+    <bendpoint x="3305" y="729"/>    
+    <bendpoint x="3305" y="791"/>    
+    <bendpoint x="3305" y="853"/>    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="461">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="462">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <association id="463">    
+    <bendpoint x="1827" y="595"/>    
+    <bendpoint x="1827" y="657"/>    
+    <bendpoint x="1741" y="729"/>    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="464" name="m_selectedSoldier"/>      
+      <multiplicity id="465" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="466">    
+    <bendpoint x="211" y="729"/>    
+    <bendpoint x="169" y="791"/>    
+    <bendpoint x="169" y="853"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="467">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="468">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <association id="469">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="470" name="m_soldierMemory"/>      
+      <multiplicity id="471" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="472">    
+    <bendpoint x="1489" y="285"/>    
+    <bendpoint x="1594" y="347"/>    
+    <bendpoint x="1889" y="409"/>    
+    <bendpoint x="2183" y="471"/>    
+    <bendpoint x="2477" y="533"/>    
+    <bendpoint x="2469" y="595"/>    
+    <bendpoint x="2493" y="657"/>    
+    <bendpoint x="2472" y="729"/>    
+    <bendpoint x="2535" y="791"/>    
+    <bendpoint x="2535" y="853"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="473">    
+    <bendpoint x="998" y="161"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <dependency id="474">    
+    <bendpoint x="2291" y="595"/>    
+    <bendpoint x="2186" y="657"/>    
+    <bendpoint x="1955" y="729"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="475">    
+    <bendpoint x="858" y="285"/>    
+    <bendpoint x="858" y="347"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <realization id="476">    
+    <bendpoint x="1164" y="223"/>    
+    <bendpoint x="1164" y="285"/>    
+    <bendpoint x="1159" y="347"/>    
+    <bendpoint x="1154" y="409"/>    
+    <bendpoint x="1140" y="471"/>    
+    <bendpoint x="1126" y="533"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <association id="477">    
+    <bendpoint x="3305" y="595"/>    
+    <bendpoint x="3389" y="657"/>    
+    <bendpoint x="3452" y="729"/>    
+    <bendpoint x="3494" y="791"/>    
+    <end type="SOURCE" refId="60" navigable="false">      
+      <attribute id="478" name="m_player"/>      
+      <multiplicity id="479" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="67" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="480">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="481" name="game"/>      
+      <multiplicity id="482" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="483">    
+    <bendpoint x="895" y="729"/>    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="484">    
+    <bendpoint x="1909" y="853"/>    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="485">    
+    <bendpoint x="343" y="595"/>    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="43"/>  
+  </dependency>  
+  <dependency id="486">    
+    <bendpoint x="2018" y="729"/>    
+    <bendpoint x="2144" y="791"/>    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <nesting id="487">    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="63"/>  
+  </nesting>  
+  <dependency id="488">    
+    <bendpoint x="514" y="409"/>    
+    <bendpoint x="486" y="471"/>    
+    <bendpoint x="444" y="533"/>    
+    <bendpoint x="402" y="595"/>    
+    <bendpoint x="417" y="657"/>    
+    <bendpoint x="493" y="729"/>    
+    <bendpoint x="493" y="791"/>    
+    <bendpoint x="526" y="853"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="489">    
+    <bendpoint x="388" y="223"/>    
+    <bendpoint x="388" y="285"/>    
+    <bendpoint x="441" y="347"/>    
+    <bendpoint x="451" y="409"/>    
+    <bendpoint x="507" y="471"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="490">    
+    <bendpoint x="1189" y="595"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="491">    
+    <bendpoint x="354" y="657"/>    
+    <bendpoint x="556" y="729"/>    
+    <bendpoint x="619" y="791"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="492">    
+    <bendpoint x="1092" y="657"/>    
+    <bendpoint x="1092" y="729"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="493">    
+    <bendpoint x="2112" y="595"/>    
+    <bendpoint x="2228" y="657"/>    
+    <bendpoint x="2228" y="729"/>    
+    <bendpoint x="2228" y="791"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="494">    
+    <bendpoint x="2553" y="595"/>    
+    <bendpoint x="2619" y="657"/>    
+    <bendpoint x="2598" y="729"/>    
+    <bendpoint x="2619" y="791"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="495">    
+    <bendpoint x="3578" y="729"/>    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="496">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="497">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="43"/>  
+  </dependency>  
+  <association id="498">    
+    <bendpoint x="1798" y="791"/>    
+    <bendpoint x="1798" y="853"/>    
+    <end type="SOURCE" refId="46" navigable="false">      
+      <attribute id="499" name="sizes"/>      
+      <multiplicity id="500" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="501">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="502" name="m_sleepHandler"/>      
+      <multiplicity id="503" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <dependency id="138">    
-    <end type="SOURCE" refId="1"/>    
+  <dependency id="504">    
+    <bendpoint x="3006" y="595"/>    
+    <bendpoint x="2979" y="657"/>    
+    <bendpoint x="2913" y="729"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="505">    
+    <bendpoint x="1675" y="595"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="506">    
+    <bendpoint x="591" y="595"/>    
+    <bendpoint x="627" y="657"/>    
+    <bendpoint x="766" y="729"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="507">    
+    <bendpoint x="756" y="533"/>    
+    <bendpoint x="759" y="595"/>    
+    <bendpoint x="774" y="657"/>    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="508">    
+    <bendpoint x="3284" y="657"/>    
+    <bendpoint x="3368" y="729"/>    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="509">    
+    <end type="SOURCE" refId="60"/>    
     <end type="TARGET" refId="19"/>  
   </dependency>  
-  <dependency id="139">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="9"/>  
+  <dependency id="510">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="38"/>  
   </dependency>  
-  <dependency id="140">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="4"/>  
+  <dependency id="511">    
+    <bendpoint x="1510" y="223"/>    
+    <bendpoint x="1510" y="285"/>    
+    <bendpoint x="1391" y="347"/>    
+    <bendpoint x="1391" y="409"/>    
+    <bendpoint x="1391" y="471"/>    
+    <bendpoint x="1401" y="533"/>    
+    <bendpoint x="1460" y="595"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="22"/>  
   </dependency>  
-  <dependency id="141">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="9"/>  
+  <dependency id="512">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="25"/>  
   </dependency>  
-  <association id="142">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="143" name="m_actionView"/>      
-      <multiplicity id="144" minimum="0" maximum="1"/>    
+  <dependency id="513">    
+    <bendpoint x="2901" y="595"/>    
+    <bendpoint x="2766" y="657"/>    
+    <bendpoint x="2661" y="729"/>    
+    <bendpoint x="2598" y="791"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="514">    
+    <bendpoint x="3858" y="161"/>    
+    <bendpoint x="3858" y="223"/>    
+    <bendpoint x="3858" y="285"/>    
+    <bendpoint x="3858" y="347"/>    
+    <bendpoint x="3858" y="409"/>    
+    <bendpoint x="3858" y="471"/>    
+    <bendpoint x="3858" y="533"/>    
+    <bendpoint x="3858" y="595"/>    
+    <bendpoint x="3839" y="657"/>    
+    <bendpoint x="3797" y="729"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="515" name="m_draw"/>      
+      <multiplicity id="516" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="517">    
+    <bendpoint x="1038" y="223"/>    
+    <bendpoint x="1038" y="285"/>    
+    <bendpoint x="1017" y="347"/>    
+    <bendpoint x="996" y="409"/>    
+    <bendpoint x="926" y="471"/>    
+    <bendpoint x="861" y="533"/>    
+    <bendpoint x="780" y="595"/>    
+    <bendpoint x="732" y="657"/>    
+    <bendpoint x="871" y="729"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="518">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="519">    
+    <bendpoint x="1292" y="595"/>    
+    <bendpoint x="1334" y="657"/>    
+    <bendpoint x="1153" y="729"/>    
+    <bendpoint x="853" y="791"/>    
+    <bendpoint x="853" y="853"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="520">    
+    <bendpoint x="3242" y="595"/>    
+    <bendpoint x="3242" y="657"/>    
+    <bendpoint x="3242" y="729"/>    
+    <bendpoint x="3221" y="791"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <dependency id="521">    
+    <bendpoint x="1059" y="347"/>    
+    <bendpoint x="1307" y="409"/>    
+    <bendpoint x="1556" y="471"/>    
+    <bendpoint x="1720" y="533"/>    
+    <bendpoint x="2091" y="595"/>    
+    <bendpoint x="2207" y="657"/>    
+    <bendpoint x="2186" y="729"/>    
+    <bendpoint x="2186" y="791"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="522">    
+    <bendpoint x="2667" y="533"/>    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="523" name="movementView"/>      
+      <multiplicity id="524" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="65" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="525">    
+    <end type="SOURCE" refId="61"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="526">    
+    <end type="SOURCE" refId="60" navigable="false">      
+      <attribute id="527" name="m_shotAnimation"/>      
+      <multiplicity id="528" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="55" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="529">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="530" name="pathFinder"/>      
+      <multiplicity id="531" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <realization id="532">    
+    <bendpoint x="1552" y="223"/>    
+    <bendpoint x="1552" y="285"/>    
+    <bendpoint x="1552" y="347"/>    
+    <bendpoint x="1552" y="409"/>    
+    <bendpoint x="1577" y="471"/>    
+    <bendpoint x="1594" y="533"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <dependency id="533">    
+    <bendpoint x="1783" y="533"/>    
+    <bendpoint x="1764" y="595"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="534">    
+    <bendpoint x="3027" y="595"/>    
+    <bendpoint x="2937" y="657"/>    
+    <bendpoint x="2850" y="729"/>    
+    <bendpoint x="2831" y="791"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="535">    
+    <bendpoint x="2724" y="729"/>    
+    <end type="SOURCE" refId="58"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="536">    
+    <bendpoint x="954" y="285"/>    
+    <bendpoint x="954" y="347"/>    
+    <bendpoint x="933" y="409"/>    
+    <bendpoint x="865" y="471"/>    
+    <bendpoint x="798" y="533"/>    
+    <bendpoint x="738" y="595"/>    
+    <bendpoint x="711" y="657"/>    
+    <bendpoint x="850" y="729"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <association id="537">    
+    <bendpoint x="2451" y="657"/>    
+    <bendpoint x="2081" y="729"/>    
+    <end type="SOURCE" refId="65" navigable="false">      
+      <attribute id="538" name="m_soldierForWhomMapIsValid"/>      
+      <multiplicity id="539" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="540">    
+    <bendpoint x="696" y="347"/>    
+    <bendpoint x="703" y="409"/>    
+    <bendpoint x="789" y="471"/>    
+    <bendpoint x="840" y="533"/>    
+    <bendpoint x="843" y="595"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="541">    
+    <bendpoint x="2595" y="595"/>    
+    <bendpoint x="2866" y="657"/>    
+    <bendpoint x="3137" y="729"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <dependency id="542">    
+    <bendpoint x="190" y="657"/>    
+    <bendpoint x="190" y="729"/>    
+    <bendpoint x="211" y="791"/>    
+    <bendpoint x="232" y="853"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <association id="543">    
+    <end type="SOURCE" refId="53" navigable="false">      
+      <attribute id="544" name="m_modelCharacter"/>      
+      <multiplicity id="545" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="546">    
+    <bendpoint x="2637" y="161"/>    
+    <bendpoint x="2637" y="223"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="547" name="m_master"/>      
+      <multiplicity id="548" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="549">    
+    <bendpoint x="3389" y="595"/>    
+    <bendpoint x="3410" y="657"/>    
+    <bendpoint x="3473" y="729"/>    
+    <bendpoint x="3473" y="791"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="550">    
+    <bendpoint x="232" y="657"/>    
+    <bendpoint x="232" y="729"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="551">    
+    <bendpoint x="874" y="729"/>    
+    <bendpoint x="874" y="791"/>    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="552">    
+    <bendpoint x="486" y="595"/>    
+    <bendpoint x="438" y="657"/>    
+    <bendpoint x="451" y="729"/>    
+    <bendpoint x="409" y="791"/>    
+    <bendpoint x="348" y="853"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="553">    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="46"/>  
+  </dependency>  
+  <dependency id="554">    
+    <bendpoint x="533" y="223"/>    
+    <bendpoint x="533" y="285"/>    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="44"/>  
+  </dependency>  
+  <association id="555">    
+    <end type="SOURCE" refId="50" navigable="false">      
+      <attribute id="556" name="calculationMap"/>      
+      <multiplicity id="557" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="66" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
   <classifier-display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 

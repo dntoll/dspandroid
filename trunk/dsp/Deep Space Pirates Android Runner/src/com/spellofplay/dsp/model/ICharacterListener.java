@@ -11,4 +11,8 @@ public interface ICharacterListener {
 
 	void moveTo(ICharacter character);
 
+	void soldierSpotsNewEnemy();
+
+	void enemySpotsNewSoldier();
+
 }

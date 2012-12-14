@@ -18,5 +18,15 @@ class Soldier extends Character {
 	void spendExperience(SkillType skillType) {
 		skills.spendExperience(skillType, experience);
 	}
+
+	@Override
+	public int getFireCost() {
+		return 3;
+	}
+
+	@Override
+	protected int getDamage() {
+		return 1;
+	}
 	
 }

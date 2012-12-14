@@ -4,6 +4,7 @@ package com.spellofplay.dsp.model.inner;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 
@@ -24,22 +25,36 @@ class Enemy extends Character {
 		return 12.0f;
 	}
 	
+	public int getFireCost() {
+		return 3;
+	}
 	
-	void updateSights(CharacterCollection<Soldier> soldiers, CharacterCollection<Enemy> friends, IMoveAndVisibility a_moveAndVisibility) { 
+	public int getDamage() {
+		return 1;
+	}
+	
+	
+	boolean updateSights(CharacterCollection<Soldier> soldiers, CharacterCollection<Enemy> friends, IMoveAndVisibility a_moveAndVisibility, ICharacterListener clistener) { 
 		CharacterCollection<Soldier> soldiersThatEnemyCanSee = soldiers.thatCanSee(a_moveAndVisibility, this);
 		CharacterCollection<Enemy> friendsThatCanSeeMe = friends.thatCanSee(a_moveAndVisibility, this);
-		
+		boolean didSpotNewSoldiers = false;
 		
 		for (Soldier soldier : soldiersThatEnemyCanSee) {
+			if (m_soldiersLastPositions.containsKey(soldier) == false) {
+				clistener.enemySpotsNewSoldier();
+			}
 			spot(soldier);
 		
 			for (Enemy friend : friendsThatCanSeeMe) {
 				friend.spot(soldier);
 			}
 		}
+		
+		return didSpotNewSoldiers;
 	}
 
 	private void spot(Soldier soldier) {
+		
 		m_soldiersLastPositions.put(soldier, soldier.getPosition() );
 	}
 	

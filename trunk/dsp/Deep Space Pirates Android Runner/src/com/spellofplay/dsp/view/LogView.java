@@ -60,4 +60,14 @@ public class LogView implements ICharacterListener {
 		m_logMessage = string;
 		m_log.add(string + enemy.getPosition().x + ":" + enemy.getPosition().y );
 	}
+
+	@Override
+	public void enemySpotsNewSoldier() {
+		m_log.add("Enemy spotted soldier");
+	}
+
+	@Override
+	public void soldierSpotsNewEnemy() {
+		m_log.add("Soldier spotted enemy");
+	}
 }
