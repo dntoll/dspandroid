@@ -44,4 +44,19 @@ class MultiCharacterListener implements ICharacterListener{
 		}
 	}
 
+	@Override
+	public void enemySpotsNewSoldier() {
+		for (ICharacterListener l : listeners) {
+			l.enemySpotsNewSoldier();
+		}
+	}
+
+	@Override
+	public void soldierSpotsNewEnemy() {
+		for (ICharacterListener l : listeners) {
+			l.soldierSpotsNewEnemy();
+		}
+	}
+
+
 }

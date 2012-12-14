@@ -88,6 +88,17 @@ public class MasterView implements ICharacterListener {
 	public void open() {
 		m_view.open();
 	}
+
+	@Override
+	public void enemySpotsNewSoldier() {
+		m_view.enemySpotsNewSoldier();
+	}
+
+	@Override
+	public void soldierSpotsNewEnemy() {
+		m_view.soldierSpotsNewEnemy();
+		
+	}
 	
 	
 

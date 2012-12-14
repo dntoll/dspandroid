@@ -6,7 +6,7 @@ import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.RuleBook;
 
-class Character implements ICharacter  {
+abstract class Character implements ICharacter  {
 	private ModelPosition position = new ModelPosition();
 	
 	private PathFinder pathFinder = new PathFinder();
@@ -52,23 +52,13 @@ class Character implements ICharacter  {
 		return 0.5f;
 	}
 	
-	public int getFireCost() {
-		return 3;
-	}
 	
-	public int getDamage() {
-		return 1;
-	}
 	
 	public SkillSet getSkills() {
 		return skills;
 	}
 	
-	@Override
-	public float getRange() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	
 	@Override
 	public int getHitPoints() {
@@ -130,6 +120,8 @@ class Character implements ICharacter  {
 		}
 		
 	}
+
+	protected abstract int getDamage();
 
 	public float distance(ICharacter other) {
 		return position.sub(other.getPosition()).length();

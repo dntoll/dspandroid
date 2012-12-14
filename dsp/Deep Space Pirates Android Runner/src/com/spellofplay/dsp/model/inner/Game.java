@@ -110,8 +110,8 @@ class Game implements IMoveAndVisibility {
 			moveCharacter(clistener, multiListener, s);
 		}
 
-		updateEnemySights();
-		updateSoldierSights();
+		updateEnemySights(clistener);
+		updateSoldierSights(clistener);
 	}
 	@Override
 	public void moveCharacter(ICharacterListener clistener, MultiMovementListeners multiListener, ICharacter cha) {
@@ -127,23 +127,27 @@ class Game implements IMoveAndVisibility {
 	
 	private SoldierMemory m_soldierMemory = new SoldierMemory();
 	
-	private void updateSoldierSights() {
+	private void updateSoldierSights(ICharacterListener clistener) {
 		CharacterCollection<Enemy> enemies = getAliveEnemies();
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
 		if (m_soldierMemory.seeNewEnemies(soldiers, enemies, this) )
 		{
 			soldiers.stopAllMovement();
 			m_soldierMemory.updateSights(soldiers, enemies, this);
+			clistener.soldierSpotsNewEnemy();
 		}
 		
 	}
 
-	private void updateEnemySights() {
+	private void updateEnemySights(ICharacterListener clistener) {
 		CharacterCollection<Enemy> enemies = getAliveEnemies();
 		CharacterCollection<Soldier> soldiers = getAliveSoldiers();
+
 		for (Enemy enemy : enemies) {
-			enemy.updateSights(soldiers, enemies, this);
+			enemy.updateSights(soldiers, enemies, this, clistener);
 		}
+		
+		
 	}
 
 	private MultiMovementListeners getSoldierListeners() {
@@ -163,7 +167,7 @@ class Game implements IMoveAndVisibility {
 		MultiMovementListeners multiListener= getEnemyListeners();
 		EnemyAI ai = new EnemyAI();
 		ai.think(enemies, soldiers, this, clistener, multiListener);
-		updateEnemySights();
+		updateEnemySights(clistener);
 	}
 
 	void startNewSoldierRound() {

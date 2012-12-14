@@ -95,16 +95,7 @@ class GameView implements ICharacterListener {
 		movementView.update();
 	}
 
-	@Override
-	public void cannotFireAt(ICharacter character, ICharacter fireTarget) {
-		
-	}
-
-
-	@Override
-	public void enemyAILog(String string, ICharacter enemy) {
-		
-	}
+	
 
 
 	@Override
@@ -135,6 +126,29 @@ class GameView implements ICharacterListener {
 	public void open() {
 		visibility.recalculateVisibility(model);
 		movementView.update();
+	}
+	
+	@Override
+	public void cannotFireAt(ICharacter character, ICharacter fireTarget) {
+		
+	}
+
+
+	@Override
+	public void enemyAILog(String string, ICharacter enemy) {
+		
+	}
+
+	@Override
+	public void enemySpotsNewSoldier() {
+
+		
+	}
+
+	@Override
+	public void soldierSpotsNewEnemy() {
+		
+		
 	}
 
 	
