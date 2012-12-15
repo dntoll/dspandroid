@@ -33,9 +33,7 @@ class LevelUpController {
 		
 		for ( ICharacter soldier : model.getAliveSoldiers()) {
 			if (soldier.canSpendExperience()) {
-				
 				doSpendExperience(soldier, drawable);
-				
 				return false;
 			}
 		}
@@ -64,9 +62,6 @@ class LevelUpController {
 			
 			halfHeight += 32;
 		}
-		
-		
-		
 	}
 
 }
