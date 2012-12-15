@@ -1,5 +1,6 @@
 package com.spellofplay.dsp.model.inner;
 
+import com.spellofplay.dsp.model.Experience;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
@@ -44,8 +45,8 @@ abstract class Character implements ICharacter  {
 		return position;
 	}
 	
-	public boolean hasExperience() {
-		return experience.experience > 0;
+	public boolean canSpendExperience() {
+		return skills.canSpendExperience(experience);
 	}
 
 	public float getRadius() {
@@ -144,6 +145,11 @@ abstract class Character implements ICharacter  {
 
 	void stopAllMovement() {
 		getPathFinder().stopAllSearches();
+	}
+
+	@Override
+	public Experience getExperience() {
+		return experience;
 	}
 
 	

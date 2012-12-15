@@ -1,5 +1,6 @@
 package com.spellofplay.dsp.model.inner;
 
+import com.spellofplay.dsp.model.Experience;
 import com.spellofplay.dsp.model.ISkill;
 
 class Skill implements ISkill{
@@ -12,6 +13,9 @@ class Skill implements ISkill{
 	public int getValue() {
 		return value;
 	}
+	public boolean canImprove(Experience stash) {
+		return stash.experience >= value;
+	}
 	
 	void improve(Experience stash) {
 		if (canImprove(stash)) {
@@ -20,7 +24,5 @@ class Skill implements ISkill{
 		}
 	}
 
-	private boolean canImprove(Experience stash) {
-		return stash.experience >= value;
-	}
+	
 }

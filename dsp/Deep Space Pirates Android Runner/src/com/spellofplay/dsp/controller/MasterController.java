@@ -8,9 +8,9 @@ import com.spellofplay.dsp.model.IEventTarget;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.ITexture;
+import com.spellofplay.dsp.view.Input;
 import com.spellofplay.dsp.view.MasterView;
 import com.spellofplay.dsp.view.SimpleGui;
-import com.spellofplay.common.view.Input;
 
 public class MasterController {
 	

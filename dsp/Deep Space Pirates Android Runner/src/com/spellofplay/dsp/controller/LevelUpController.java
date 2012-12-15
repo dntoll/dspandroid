@@ -1,13 +1,13 @@
 package com.spellofplay.dsp.controller;
 
 import android.graphics.Color;
-import com.spellofplay.common.view.Input;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IEventTarget;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ISkill;
 import com.spellofplay.dsp.model.ISkillSet;
 import com.spellofplay.dsp.view.AndroidDraw;
+import com.spellofplay.dsp.view.Input;
 import com.spellofplay.dsp.view.SimpleGui;
 
 class LevelUpController {
@@ -32,7 +32,7 @@ class LevelUpController {
 	boolean doLevelUp(AndroidDraw drawable) {
 		
 		for ( ICharacter soldier : model.getAliveSoldiers()) {
-			if (soldier.hasExperience()) {
+			if (soldier.canSpendExperience()) {
 				
 				doSpendExperience(soldier, drawable);
 				
@@ -55,7 +55,9 @@ class LevelUpController {
 		for (ISkillSet.SkillType type : ISkillSet.SkillType.values()) {
 		
 			ISkill skill = skills.getSkill(type);
-			drawable.drawText(type.toString() + skill.getValue(), 16, halfHeight , Color.BLACK);
+			drawable.drawText(type.toString() + skill.getValue(), 96, halfHeight , Color.BLACK);
+			
+			if (skill.canImprove(soldier.getExperience()))
 			if (gui.DoButtonCentered(halfWidth, halfHeight, "+", input)) {
 				eventTarget.spendExperience(soldier, type);
 			}

@@ -4,7 +4,7 @@ package com.spellofplay.dsp;
 import com.spellofplay.dsp.controller.MasterController;
 import com.spellofplay.dsp.model.inner.ModelFacade;
 import com.spellofplay.dsp.view.AndroidDraw;
-import com.spellofplay.common.view.Input;
+import com.spellofplay.dsp.view.Input;
 
 import android.app.Activity;
 import android.content.Context;
