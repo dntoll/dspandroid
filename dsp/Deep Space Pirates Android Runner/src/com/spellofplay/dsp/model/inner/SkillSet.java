@@ -48,5 +48,25 @@ class SkillSet implements ISkillSet{
 		
 		return false;
 	}
+
+	
+
+	public String getCommaSeparatedString() {
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i< SkillType.values().length; i++) {
+			int value = skills[i].getValue();
+			builder.append(value);
+			builder.append(',');
+		}
+		return builder.toString();
+	}
+	
+	public void fromCommaSeparatedString(String values) {
+		String[] parts = values.split(",");
+		for (int i = 0; i< SkillType.values().length && i < parts.length; i++) {
+			int value = Integer.parseInt(parts[i]);
+			skills[i] = new Skill(value);
+		}
+	}
 	
 }

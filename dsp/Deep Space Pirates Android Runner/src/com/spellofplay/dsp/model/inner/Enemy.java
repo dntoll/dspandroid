@@ -73,4 +73,6 @@ class Enemy extends Character {
 		}
 		return closest;
 	}
+
+	
 }

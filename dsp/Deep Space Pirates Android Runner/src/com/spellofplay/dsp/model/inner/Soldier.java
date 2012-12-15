@@ -28,5 +28,9 @@ class Soldier extends Character {
 	protected int getDamage() {
 		return 1;
 	}
+
+	
+
+	
 	
 }

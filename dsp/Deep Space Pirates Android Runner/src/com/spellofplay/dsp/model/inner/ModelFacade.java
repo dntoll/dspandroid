@@ -1,5 +1,7 @@
 package com.spellofplay.dsp.model.inner;
 
+import android.content.SharedPreferences;
+
 import com.spellofplay.dsp.model.CharacterIterable;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
@@ -15,7 +17,7 @@ import com.spellofplay.dsp.model.TileType;
 public class ModelFacade implements IModel, IEventTarget {
 	
 	private Game game = new Game();
-	private int currentLevel;
+	
 
 	@Override
 	public String getGameTitle() {
@@ -138,13 +140,11 @@ public class ModelFacade implements IModel, IEventTarget {
 	
 	@Override
 	public void startNewGame() {
-		currentLevel = 0;
-		game.startLevel(currentLevel);
+		game.startNewGame();
 	}
 	
 	public void newLevel() {
-		currentLevel++;
-		game.startLevel(currentLevel);
+		game.newLevel();
 	}
 	
 	@Override
@@ -172,6 +172,14 @@ public class ModelFacade implements IModel, IEventTarget {
 		Soldier selected  = (Soldier)soldier;
 		selected.spendExperience(skillType);
 		
+	}
+
+	public void Load(SharedPreferences settings) {
+		game.Load(settings);
+	}
+
+	public void Save(SharedPreferences settings) {
+		game.Save(settings);
 	}
 
 
