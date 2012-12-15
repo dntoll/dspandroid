@@ -2,7 +2,6 @@ package com.spellofplay.dsp.view;
 
 import android.graphics.Color;
 
-import com.spellofplay.common.view.Input;
 import com.spellofplay.dsp.model.AStar;
 import com.spellofplay.dsp.model.CharacterIterable;
 import com.spellofplay.dsp.model.ICharacter;

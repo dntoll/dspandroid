@@ -1,6 +1,7 @@
 package com.spellofplay.dsp.model;
 
 
+
 public interface ICharacter {
 	abstract public ModelPosition getPosition();
 	abstract public int getTimeUnits();
@@ -13,8 +14,9 @@ public interface ICharacter {
 	abstract public float getRadius();
 	abstract public int getWatchTimeUnits();
 	abstract public int getFireCost();
-	abstract boolean hasExperience();
+	abstract boolean canSpendExperience();
 	
 	abstract ISkillSet getSkills();
+	abstract Experience getExperience();
 
 }

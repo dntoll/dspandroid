@@ -1,6 +1,5 @@
 package com.spellofplay.dsp.view;
 
-import com.spellofplay.common.view.Mesh;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

@@ -3,8 +3,6 @@ package com.spellofplay.dsp.view;
 import android.graphics.Color;
 import android.graphics.Rect;
 
-import com.spellofplay.common.view.Mesh;
-import com.spellofplay.common.view.RotatedTile;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;

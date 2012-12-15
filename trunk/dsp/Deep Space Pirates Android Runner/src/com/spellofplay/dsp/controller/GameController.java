@@ -3,12 +3,12 @@ package com.spellofplay.dsp.controller;
 
 import android.graphics.Color;
 
-import com.spellofplay.common.view.Input;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.IEventTarget;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.view.AndroidDraw;
+import com.spellofplay.dsp.view.Input;
 import com.spellofplay.dsp.view.InteractionView;
 import com.spellofplay.dsp.view.LogView;
 import com.spellofplay.dsp.view.MasterView;
