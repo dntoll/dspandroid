@@ -8,12 +8,10 @@ import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.RuleBook;
 
 abstract class Character implements ICharacter  {
-	private ModelPosition position = new ModelPosition();
-	
 	private PathFinder pathFinder = new PathFinder();
 	
+	private ModelPosition position = new ModelPosition();
 	protected SkillSet skills;
-	
 	private int watchTimeUnits = 0;
 	protected int timeUnits;
 	protected int hitPoints;
@@ -152,6 +150,43 @@ abstract class Character implements ICharacter  {
 		return experience;
 	}
 
+	public String SaveToString() {
+		StringBuilder soldier = new StringBuilder();
+		
+		soldier.append(position.x);
+		soldier.append(":");
+		soldier.append(position.y);
+		soldier.append(":");
+		soldier.append(watchTimeUnits);
+		soldier.append(":");
+		soldier.append(timeUnits);
+		soldier.append(":");
+		soldier.append(hitPoints);
+		soldier.append(":");
+		soldier.append(experience.experience);
+		soldier.append(":");
+		soldier.append(skills.getCommaSeparatedString());
 	
+		return soldier.toString();
+	}
+	
+	public void LoadFromString(String savedSoldier) {
+		if (savedSoldier == "")
+			return;
+		try {
+			String[] parts = savedSoldier.split(":");
+			position.x = Integer.parseInt(parts[0]);
+			position.y = Integer.parseInt(parts[1]);
+			watchTimeUnits = Integer.parseInt(parts[2]);
+			timeUnits = Integer.parseInt(parts[3]);
+			hitPoints = Integer.parseInt(parts[4]);
+			experience.experience = Integer.parseInt(parts[5]);
+			String skills = parts[6];
+			
+			this.skills.fromCommaSeparatedString(skills);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw e;
+		}
+	}
 	
 }

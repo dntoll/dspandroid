@@ -13,7 +13,6 @@ class VisibilityView {
 	private enum Visibility {
 		NeverSeen,
 		NotSeen,
-		//SeenBySelected,
 		SeenByAll	
 	}
 	

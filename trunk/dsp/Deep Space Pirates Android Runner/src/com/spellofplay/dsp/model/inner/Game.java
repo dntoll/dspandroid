@@ -3,6 +3,9 @@ package com.spellofplay.dsp.model.inner;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
@@ -18,14 +21,19 @@ class Game implements IMoveAndVisibility {
 	private Soldier[] m_soldiers = new Soldier[Preferences.MAX_SOLDIERS];
 	private Enemy[] m_enemies = new Enemy[Preferences.MAX_ENEMIES];
 	private Level m_level = new Level();
+	private int currentLevel;
 	
 	public Game() {
 		
 		for (int i = 0; i < Preferences.MAX_SOLDIERS; i++) {
 			m_soldiers[i] = new Soldier(new ModelPosition(5,5));
+			m_soldiers[i].hitPoints = 0;
 		}
-		
-		startLevel(0);
+		for (int i = 0; i < Preferences.MAX_ENEMIES; i++) {
+			m_enemies[i] = new Enemy(new ModelPosition(5,5));
+			m_enemies[i].hitPoints = 0;
+		}
+		startNewGame();
 	}
 	
 	public CharacterCollection<Soldier> getAliveSoldiers() {
@@ -59,20 +67,13 @@ class Game implements IMoveAndVisibility {
 	}
 
 	void startLevel(int a_level) {
-		
-		
-		
 		LevelGenerator gen = new LevelGenerator(a_level);
 		
 		gen.generate(m_level);
 
 		try {
 			for (int i = 0; i < Preferences.MAX_SOLDIERS; i++) {
-				if (m_soldiers[i] != null) {
-					m_soldiers[i].reset(m_level.getStartLocation(i));
-				} else {
-					m_soldiers[i] = null;
-				}
+				m_soldiers[i].reset(m_level.getStartLocation(i));
 			}
 		} catch (LevelHasToFewSoldierPositions e) {
 			
@@ -276,6 +277,54 @@ class Game implements IMoveAndVisibility {
 
 	void open(ModelPosition position) {
 		m_level.open(position);
+		
+	}
+
+	public void Load(SharedPreferences settings) {
+		
+		currentLevel = settings.getInt("currentLevel", 0);
+		
+		String savedLevel = settings.getString(m_level.getClass().getName(), "");
+		m_level.LoadFromString(savedLevel);
+		
+		for (int i = 0; i< Preferences.MAX_SOLDIERS; i++) {
+			String savedSoldier = settings.getString(m_soldiers[i].getClass().getName() + i, "");
+			m_soldiers[i].LoadFromString(savedSoldier);
+		}
+		
+		for (int i = 0; i< Preferences.MAX_ENEMIES; i++) {
+			String savedEnemy = settings.getString(m_enemies[i].getClass().getName() + i, "");
+			m_enemies[i].LoadFromString(savedEnemy);
+		}
+	}
+
+	public void Save(SharedPreferences settings) {
+		Editor editor= settings.edit();
+		
+		editor.putInt("currentLevel", currentLevel);
+		editor.putString(this.getClass().getName(), m_level.SaveToString());
+		
+		for (int i = 0; i< Preferences.MAX_SOLDIERS; i++) {
+			String savedSoldier = m_soldiers[i].SaveToString();
+			editor.putString(m_soldiers[i].getClass().getName() + i, savedSoldier);
+		}
+		
+		for (int i = 0; i< Preferences.MAX_ENEMIES; i++) {
+			String savedSoldier = m_enemies[i].SaveToString();
+			editor.putString(m_enemies[i].getClass().getName() + i, savedSoldier);
+		}
+		
+		editor.commit();
+	}
+
+	public void startNewGame() {
+		currentLevel  = 0;
+		startLevel(0);
+	}
+
+	public void newLevel() {
+		currentLevel++;
+		startLevel(currentLevel);
 		
 	}
 

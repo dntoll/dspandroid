@@ -299,4 +299,32 @@ public class Level {
 	void openAt(int x, int y) {
 		m_tiles[x][y] = TileType.TileEmpty;
 	}
+
+	public void LoadFromString(String level) {
+		
+		
+		if (level != "") {
+			int index = 0;
+			for (int x = 0; x < Preferences.WIDTH; x++) {
+				for (int y = 0; y < Preferences.HEIGHT; y++) {
+					 int enumIndex = level.charAt(index)-'0';
+					 m_tiles[x][y] = TileType.values()[enumIndex];
+					 index++;
+				}
+			}
+		}
+		
+	}
+
+	public String SaveToString() {
+		StringBuilder strbuff = new StringBuilder();
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				int ordinal = m_tiles[x][y].ordinal();
+				strbuff.append(ordinal);
+			}
+		}
+		return strbuff.toString();
+		
+	}
 }

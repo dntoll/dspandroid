@@ -8,6 +8,7 @@ import com.spellofplay.dsp.view.Input;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -21,6 +22,7 @@ class Application extends View implements IUpdateable {
 	private MasterController m_master = null;//new MasterController(context)
 	private AndroidDraw m_draw = new AndroidDraw();
 	private Input m_input = new Input();
+	ModelFacade model = new ModelFacade();
 	
 	private Activity m_activity;
 	
@@ -37,7 +39,7 @@ class Application extends View implements IUpdateable {
 		ConcreteTexture texture = new ConcreteTexture(getBitmapFromDrawable(tilesDrawable));
 		ConcreteTexture player = new ConcreteTexture(getBitmapFromDrawable(playerDrawable));
 		
-		ModelFacade model = new ModelFacade();
+		
         m_master = new MasterController(m_input, texture, player, model, model);
         
         
@@ -117,18 +119,27 @@ class Application extends View implements IUpdateable {
         m_lastTime = now;
 	}
 	
-	void Stop() {
+	
+	
+	
+	
+	void Stop(SharedPreferences settings) {
 		m_sleepHandler.m_stop = true;
 		
 		m_master.ShowMenu();
 		
+		
+		model.Save(settings);
 	}
 
 
-	void Resume() {
+	void Resume(SharedPreferences settings) {
 		m_sleepHandler.m_stop = false;
 		m_sleepHandler.sleep(this, 50);
 		m_input.IsMouseClicked(); 
+		
+		
+		model.Load(settings);
 	}
 	
 

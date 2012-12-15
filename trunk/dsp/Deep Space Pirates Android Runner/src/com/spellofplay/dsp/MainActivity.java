@@ -1,11 +1,16 @@
 package com.spellofplay.dsp;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Window;
 
+@SuppressWarnings("ucd")
 public class MainActivity  extends Activity {
+	
+	public static final String PREFS_NAME = "MyPrefsFile";
+	
 	Application m_application;
 	
     /** Called when the activity is first created. */
@@ -17,24 +22,22 @@ public class MainActivity  extends Activity {
         
         
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //setContentView(R.layout.main);
-        
         setContentView(m_application);
         
     }
     
     @Override
     public void onPause() {
-    	//
-    	m_application.Stop();
-    	//m_master = null;
+    	SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+    	m_application.Stop(settings);
     	super.onPause();
     }
     
     @Override
     public void onResume() {
     	if (m_application != null && m_application.m_sleepHandler != null) {
-    		m_application.Resume();
+    		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+    		m_application.Resume(settings);
     	}
     	super.onResume();
     }
