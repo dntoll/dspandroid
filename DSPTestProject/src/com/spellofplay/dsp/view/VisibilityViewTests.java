@@ -9,7 +9,7 @@ import com.spellofplay.dsp.model.inner.PersistanceStub;
 
 public class VisibilityViewTests extends TestCase {
 
-	public void testLoad() {
+	public void testLoad() throws Exception {
 		VisibilityView pre = new VisibilityView();
 		PersistanceStub persistence = new PersistanceStub();
 		IModel modelStub = new ModelFacade();
@@ -24,7 +24,7 @@ public class VisibilityViewTests extends TestCase {
 		sut.Load(persistence);
 		
 		boolean isSame = sut.hasSameExploredVisibility(pre);
-		assertFalse(isSame);
+		assertTrue(isSame);
 		
 		isSame = pre.hasSameExploredVisibility(pre);
 		assertTrue(isSame);
@@ -36,7 +36,7 @@ public class VisibilityViewTests extends TestCase {
 		assertTrue(VisibilityView.Visibility.NeverSeen.hasSameExploredVisibility( VisibilityView.Visibility.NeverSeen));
 		assertFalse(VisibilityView.Visibility.NotSeen.hasSameExploredVisibility( VisibilityView.Visibility.NeverSeen));
 		assertFalse(VisibilityView.Visibility.NeverSeen.hasSameExploredVisibility( VisibilityView.Visibility.SeenByAll));
-		assertFalse(VisibilityView.Visibility.SeenByAll.hasSameExploredVisibility( VisibilityView.Visibility.NotSeen));
+		assertTrue(VisibilityView.Visibility.SeenByAll.hasSameExploredVisibility( VisibilityView.Visibility.NotSeen));
 	}
 	
 	

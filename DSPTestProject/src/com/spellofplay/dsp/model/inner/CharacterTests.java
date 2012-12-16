@@ -54,4 +54,18 @@ public class CharacterTests extends TestCase {
 		
 		theseShouldNotBeSame();
 	}
+	
+	public void testResetResetsExperience()  {
+		notEqual.experience.experience = 5;
+		notEqual.reset(new ModelPosition());
+		
+		assertEquals(0, notEqual.experience.experience);
+	}
+	
+	public void testResetResetsHitPoints()  {
+		notEqual.hitPoints = 1;
+		notEqual.reset(new ModelPosition());
+		
+		assertEquals(notEqual.getSkills().getMaxHitPoints(), notEqual.hitPoints);
+	}
 }
