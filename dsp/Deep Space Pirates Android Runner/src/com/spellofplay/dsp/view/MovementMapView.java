@@ -17,10 +17,9 @@ class MovementMapView {
 		m_movementMap  = new int[Preferences.WIDTH][];
 		for (int x = 0; x< Preferences.WIDTH; x++) {
 			m_movementMap[x] = new int[Preferences.HEIGHT];
-			for (int y = 0; y< Preferences.HEIGHT; y++) {
-				m_movementMap[x][y] = 1000;
-			}
 		}
+		
+		resetMap();
 	}
 	
 	
@@ -33,11 +32,7 @@ class MovementMapView {
 		m_soldierForWhomMapIsValid = selected;
 		m_mustUpdate = false;
 		
-		for (int x = 0; x < Preferences.WIDTH; x++) {
-			for (int y = 0; y < Preferences.HEIGHT; y++) {
-				m_movementMap[x][y] = 1000;
-			}
-		}
+		resetMap();
 		
 		if (selected != null) {
 			m_movementMap[selected.getPosition().x][selected.getPosition().y] = 0;
@@ -56,6 +51,16 @@ class MovementMapView {
 						}
 					}
 				}
+			}
+		}
+	}
+
+
+
+	private void resetMap() {
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				m_movementMap[x][y] = 1000;
 			}
 		}
 	}

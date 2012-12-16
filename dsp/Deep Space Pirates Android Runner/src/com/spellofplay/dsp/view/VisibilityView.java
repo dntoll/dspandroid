@@ -189,7 +189,8 @@ class VisibilityView {
 		persistence.putString("Visibility", data);
 	}
 
-	public boolean hasSameExploredVisibility(VisibilityView pre) {
+// TODO from UCDetector: Method "VisibilityView.hasSameExploredVisibility(VisibilityView)" is only called from tests
+	public boolean hasSameExploredVisibility(VisibilityView pre) { // NO_UCD (test only)
 		for (int x = 0; x < Preferences.WIDTH; x++) {
 			for (int y = 0; y < Preferences.HEIGHT; y++) {
 				if (calculationMap[x][y].hasSameExploredVisibility(pre.calculationMap[x][y]) == false) {

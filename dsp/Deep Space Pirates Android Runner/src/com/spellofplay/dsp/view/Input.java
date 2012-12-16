@@ -5,15 +5,15 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 public class Input {
-	public PointF m_mousePosition = new PointF();
-	public PointF m_dragFrom = new PointF();
+	PointF m_mousePosition = new PointF();
+	PointF m_dragFrom = new PointF();
 	
-	public boolean m_isDragging = false;
-	boolean m_dragClick = false;
+	private boolean m_isDragging = false;
+	private boolean m_dragClick = false;
 	
-	static int g_keys = 129;
-	boolean m_keyDown[];
-	boolean m_keyClicked[];
+	private static int g_keys = 129;
+	private boolean m_keyDown[];
+	private boolean m_keyClicked[];
 	
 	public Input() {
 		m_keyDown = new boolean[g_keys];
@@ -108,7 +108,7 @@ public class Input {
 	}
 
 
-	public boolean IsDragging() {
+	boolean IsDragging() {
 		return m_isDragging;
 	}
 }

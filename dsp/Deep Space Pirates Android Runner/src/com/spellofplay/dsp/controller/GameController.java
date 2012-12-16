@@ -16,7 +16,7 @@ import com.spellofplay.dsp.view.SimpleGui;
 
 class GameController {
 	
-	private SimpleGui m_gui = new SimpleGui();
+	private SimpleGui simpleGui = new SimpleGui();
 	private MasterView masterView;
 	private LogView logger = new LogView();
 	private IModel model;
@@ -49,7 +49,7 @@ class GameController {
 		masterView.drawGame(drawable, model, elapsedTimeSeconds);
 		
 		logger.draw(drawable);
-		m_gui.DrawGui(drawable);
+		simpleGui.DrawGui(drawable);
 		
 	}
 	
@@ -96,25 +96,25 @@ class GameController {
 		int height = drawable.getWindowHeight();
 		if (selectedSoldier != null) {
 			int y = height - SimpleGui.BUTTON_HEIGHT-16;
-			if (m_gui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH, y, "Watch", input)) {
+			if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH, y, "Watch", input)) {
 				eventTarget.doWatch(selectedSoldier);
 			}
 			
 			if (actionView.hasDestination(model)) {
-				if (m_gui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*2, y, "Move", input)) {
+				if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*2, y, "Move", input)) {
 					ModelPosition destination = actionView.getDestination(model);
 					eventTarget.doMoveTo(selectedSoldier, destination);
 					actionView.unselectPath();
 				}
 			}
 			if (actionView.getFireTarget(model) != null) {
-				if (m_gui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*3, y, "Fire", input)) {
+				if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*3, y, "Fire", input)) {
 					ICharacter fireTarget = actionView.getFireTarget(model);
 					eventTarget.fireAt(selectedSoldier, fireTarget, multipleCharacterListenter);
 				}
 			}
 			if (model.hasDoorCloseToIt(selectedSoldier)) {
-				if (m_gui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*4, y, "Open", input)) {
+				if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*4, y, "Open", input)) {
 					eventTarget.open(selectedSoldier);
 					masterView.open();
 				}

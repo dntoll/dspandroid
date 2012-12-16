@@ -7,21 +7,21 @@ import android.os.Message;
 
 class SleepHandler extends Handler{
 	
-	boolean m_stop = false;
-	private IUpdateable mUpdater = null;
+	boolean doStop = false;
+	private IUpdateable theUpdateable = null;
 	@Override
     public void handleMessage(Message msg) {
-		if (m_stop == false) {
-			mUpdater.update();
+		if (doStop == false) {
+			theUpdateable.update();
 		} else {
-			mUpdater = null;
+			theUpdateable = null;
 			
 			
 		}
     }
 
     void sleep(IUpdateable aUpdateable, long delayMillis) {
-    	mUpdater = aUpdateable;
+    	theUpdateable = aUpdateable;
     	this.removeMessages(0);
         sendMessageDelayed(obtainMessage(0), delayMillis);
     }
