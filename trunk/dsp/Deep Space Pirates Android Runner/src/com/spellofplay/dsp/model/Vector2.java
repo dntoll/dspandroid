@@ -48,8 +48,4 @@ public class Vector2 {
 	public float getRotation() {
 		return STARTING_DIRECTION_LEFT +(float)(Math.atan2(y, x) * 180.0 / Math.PI);
 	}
-
-
-	
-
 }

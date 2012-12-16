@@ -328,33 +328,32 @@ public class AStar {
 	private boolean IsImprovment(Node a_nNode, double a_dVal)
     {
 
-    	boolean foundImprovment = false;
-
-       
         for(Node iter : openList)
         {
-	        if (iter.m_node.equals(a_nNode.m_node))
-	        {
-		        if (a_dVal < iter.m_nCostFromstart)
-		        {
-			        //Vi har hittat en bättre väg till noden...
-			        foundImprovment = true;
-		        }
-	        }
+	        if (isImprovement(a_nNode, a_dVal, iter))
+	        	return true;
         }
 
         for(Node iter : closedList)
         {
-	        if (iter.m_node.equals(a_nNode.m_node))
-	        {
-		        if (a_dVal < iter.m_nCostFromstart)
-		        {
-			        foundImprovment = true;
-		        }
-	        }
+        	if (isImprovement(a_nNode, a_dVal, iter))
+        		return true;
         }
-        return foundImprovment;
+        return false;
     }
+
+
+
+	private boolean isImprovement(Node a_nNode, double a_dVal, Node iter) {
+		if (iter.m_node.equals(a_nNode.m_node))
+		{
+		    if (a_dVal < iter.m_nCostFromstart)
+		    {
+		        return true;
+		    }
+		}
+		return false;
+	}
 
 	
 

@@ -2,12 +2,20 @@ package com.spellofplay.dsp.view;
 
 import android.graphics.Rect;
 
-public class RotatedTile{
+class RotatedTile{
 	
-	boolean m_b[] = new boolean[4];
+	private static final int EMPTY = 0;
+	private static final int FULL = 1;
+	private static final int CORNER = 2;
+	private static final int EDGE = 3;
+	private static final int THREE = 4;
+	private static final int DIAGONAL = 5;
 	
+	private boolean m_b[] = new boolean[4];
+	private int tile;
+	Rotation rotation;
 	
-	public RotatedTile(boolean a_topLeft, boolean a_topRight, boolean a_bottomLeft, boolean a_bottomRight) {
+	RotatedTile(boolean a_topLeft, boolean a_topRight, boolean a_bottomLeft, boolean a_bottomRight) {
 		m_b[0] = a_topRight;//a_map.GetTile(a_x +1,     a_y) == a_type; //1
 		m_b[1] = a_bottomRight;//a_map.GetTile(a_x +1, a_y + 1) == a_type; //2
 		m_b[2] = a_bottomLeft;//a_map.GetTile(a_x,    a_y + 1) == a_type;//4
@@ -32,12 +40,7 @@ public class RotatedTile{
 	}
 	
 	
-	private static final int EMPTY = 0;
-	private static final int FULL = 1;
-	private static final int CORNER = 2;
-	private static final int EDGE = 3;
-	private static final int THREE = 4;
-	private static final int DIAGONAL = 5;
+	
 	
 	private  void GetTileNumber(int a_mask) {
 		
@@ -62,7 +65,7 @@ public class RotatedTile{
 
 		
 	}
-	public Rect getSrcRect(int variation, int a_tileScale) {
+	Rect getSrcRect(int variation, int a_tileScale) {
 		int shrink = 1;
 		Rect src = new Rect(tile * a_tileScale + shrink, 			   variation * a_tileScale + shrink, 
 							tile * a_tileScale + a_tileScale - shrink, a_tileScale + variation *a_tileScale - shrink);
@@ -73,7 +76,6 @@ public class RotatedTile{
 		return tile != 0;
 	}
 	
-	int tile;
-	public Rotation rotation;
+	
 	
 }

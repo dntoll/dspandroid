@@ -3,20 +3,20 @@ package com.spellofplay.dsp.model;
 
 
 public interface ICharacter {
-	abstract public ModelPosition getPosition();
-	abstract public int getTimeUnits();
-	abstract public int getHitPoints();
-	abstract public float distance(ICharacter fireTarget);
-	abstract public float getRange();
-	abstract public boolean hasTimeToFire();
+	ModelPosition getPosition();
+	int getTimeUnits();
+	int getHitPoints();
+	float distance(ICharacter fireTarget);
+	float getRange();
+	boolean hasTimeToFire();
 	
-	abstract public boolean hasWatch();
-	abstract public float getRadius();
-	abstract public int getWatchTimeUnits();
-	abstract public int getFireCost();
-	abstract boolean canSpendExperience();
+	boolean hasWatch();
+	float getRadius();
+	int getWatchTimeUnits();
+	int getFireCost();
+	boolean canSpendExperience();
 	
-	abstract ISkillSet getSkills();
-	abstract Experience getExperience();
+	ISkillSet getSkills();
+	Experience getExperience();
 
 }

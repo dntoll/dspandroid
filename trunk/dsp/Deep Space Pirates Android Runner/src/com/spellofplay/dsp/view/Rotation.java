@@ -1,6 +1,6 @@
 package com.spellofplay.dsp.view;
 
-public enum Rotation {
+enum Rotation {
 	NONE,
 	NINTY,
 	HUNDREDEIGHTY,

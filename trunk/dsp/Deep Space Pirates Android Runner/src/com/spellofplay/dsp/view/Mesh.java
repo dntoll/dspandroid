@@ -5,19 +5,19 @@ import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.Rect;
 
-public class Mesh {
+class Mesh {
 
 	
-	public VertexMode m_mode = VertexMode.TRIANGLES;
+	VertexMode m_mode = VertexMode.TRIANGLES;
 	
 	private int m_vertices;// = 3 * Map.Width * Map.Height * 2  * 2;
 	
-	public float[] m_verts;// = new float[2 * m_vertices];
-	public float[] m_texs;// = new float[2 * m_vertices];
-	public int[] m_colors;// = new int[m_vertices];
-	public short[] m_indices;// = new short[m_vertices];
+	float[] m_verts;// = new float[2 * m_vertices];
+	float[] m_texs;// = new float[2 * m_vertices];
+	int[] m_colors;// = new int[m_vertices];
+	short[] m_indices;// = new short[m_vertices];
 	
-	public Mesh(int width, int height) {
+	Mesh(int width, int height) {
 		m_vertices = 3 * width * height * 2  * 2;
 		m_verts = new float[2 * m_vertices];
 		m_texs = new float[2 * m_vertices];
@@ -27,11 +27,11 @@ public class Mesh {
 		clear();
 	}
 	
-	PointF[] m_texcoords = new PointF[4];
+	private PointF[] m_texcoords = new PointF[4];
 	
 	private int m_numTriangles = 0;
 
-	public void clear() {
+	private void clear() {
 		
 		m_numTriangles = 0;
 		
@@ -45,7 +45,7 @@ public class Mesh {
 		}
 	}
 
-	public void AddRectangle(Rect src, Rect dst, Rotation rotation) {
+	void AddRectangle(Rect src, Rect dst, Rotation rotation) {
 		//Triangle 1
 		//0, 1
 		//2,
@@ -132,14 +132,14 @@ public class Mesh {
 		return m_texcoords;
 	}
 
-	public int GetVerticeCount() {
+	int GetVerticeCount() {
 		
 		return m_numTriangles * 3 * 2;
 	}
 
 	
 
-	public int GetIndexCount() {
+	int GetIndexCount() {
 		// TODO Auto-generated method stub
 		return m_numTriangles * 3;
 	} 

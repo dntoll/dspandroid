@@ -122,16 +122,16 @@ public class MasterController {
 		masterView.startNewGame(model);
 	}
 
-	public void ShowMenu() {
+	public void showMenu() {
 		showMenu = true;
 	}
 
-	public void Load(IPersistance persistence) throws Exception {
-		masterView.Load(persistence, model);
+	public void load(IPersistance persistence) throws Exception {
+		masterView.load(persistence, model);
 	}
 
-	public void Save(IPersistance persistence) {
-		masterView.Save(persistence);
+	public void save(IPersistance persistence) {
+		masterView.save(persistence);
 		
 	}
 

@@ -1,7 +1,5 @@
 package com.spellofplay.dsp.model.inner;
 
-import android.content.SharedPreferences;
-
 import com.spellofplay.dsp.model.CharacterIterable;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;

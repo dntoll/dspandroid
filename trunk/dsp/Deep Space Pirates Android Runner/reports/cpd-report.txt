@@ -1,32 +1,6 @@
-Found a 9 line (73 tokens) duplication in the following files: 
-Starting at line 48 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
-Starting at line 126 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\MovementMapView.java
-
-		if (m_movementMap[x][y] <= selected.getTimeUnits()) {
-			ViewPosition vp = camera.toViewPos(x, y);
-			Rect dst = new Rect((int)vp.m_x - camera.getHalfScale(), 
-								(int)vp.m_y - camera.getHalfScale(),
-								(int)vp.m_x + camera.getHalfScale(), 
-								(int)vp.m_y + camera.getHalfScale());
-		
-		
-			if (m_movementMap[x][y] <= selected.getTimeUnits() - selected.getFireCost())	
-=====================================================================
-Found a 7 line (62 tokens) duplication in the following files: 
-Starting at line 96 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisualCharacter.java
-Starting at line 96 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
-
-					Rect dst = new Rect((int)vpos.m_x -camera.getHalfScale(), 
-							(int)vpos.m_y -camera.getHalfScale(),
-							(int)vpos.m_x + camera.getHalfScale(), 
-							(int)vpos.m_y + camera.getHalfScale());
-					
-					
-					drawable.drawBitmap(theTextureMap, source, dst, Color.WHITE, 0);
-=====================================================================
 Found a 11 line (54 tokens) duplication in the following files: 
-Starting at line 154 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
-Starting at line 166 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+Starting at line 153 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+Starting at line 165 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
 
 		for (int y = (int)a_from.y+1; (float)y < a_to.y; y++) {
 		    float u = ((float)y - a_from.y) / dir.y;
@@ -41,8 +15,8 @@ Starting at line 166 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates An
 	private boolean stepNodesNegativeXDirection(Vector2 a_from, Vector2 a_to,
 =====================================================================
 Found a 11 line (52 tokens) duplication in the following files: 
-Starting at line 178 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
-Starting at line 190 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+Starting at line 177 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+Starting at line 189 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
 
 		for (int x = (int)a_from.x+1; (float)x < a_to.x; x++) {
 		    float u = ((float)x - a_from.x) / dir.x;
@@ -56,9 +30,28 @@ Starting at line 190 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates An
 		return true;
 	}
 =====================================================================
+Found a 4 line (45 tokens) duplication in the following files: 
+Starting at line 170 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 304 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+
+		int index = 0;
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				 int enumIndex = level.charAt(index)-'0';
+=====================================================================
+Found a 5 line (42 tokens) duplication in the following files: 
+Starting at line 180 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 315 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+
+	public String SaveToString() {
+		StringBuilder strbuff = new StringBuilder();
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				int ordinal = m_tiles[x][y].ordinal();
+=====================================================================
 Found a 6 line (39 tokens) duplication in the following files: 
-Starting at line 41 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\EnemyAI.java
-Starting at line 50 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\EnemyAI.java
+Starting at line 44 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\EnemyAI.java
+Starting at line 53 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\EnemyAI.java
 
 	private void decideWhatToDo(CharacterCollection<Soldier> soldiers, IMoveAndVisibility a_moveAndVisibility,	ICharacterListener a_clistener, Enemy enemy) {
 		
@@ -68,8 +61,8 @@ Starting at line 50 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates And
 			if (RuleBook.couldFireIfHadTime(enemy, closestThatWeCanSee, a_moveAndVisibility) == true) {
 =====================================================================
 Found a 6 line (38 tokens) duplication in the following files: 
-Starting at line 50 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
-Starting at line 63 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
+Starting at line 48 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
+Starting at line 61 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
 
 					crates.AddRectangle(rotTileBlocked.getSrcRect(variation, 32), dst, rotTileBlocked.rotation);
 					
@@ -77,6 +70,17 @@ Starting at line 63 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates And
 				
 				variation = 2;
 				rotTileBlocked = new RotatedTile(model.getTile(x, y) == TileType.TilePit,
+=====================================================================
+Found a 6 line (38 tokens) duplication in the following files: 
+Starting at line 67 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\Mesh.java
+Starting at line 91 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\Mesh.java
+
+		m_texs[triangleOffset + 1]  = coords[2].y;
+		
+		m_texs[triangleOffset + 2]  = coords[1].x;
+		m_texs[triangleOffset + 3]  = coords[1].y;
+		
+		m_texs[triangleOffset + 4]  = coords[3].x;
 =====================================================================
 Found a 5 line (35 tokens) duplication in the following files: 
 Starting at line 84 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\levelgenerator\LevelGenerator.java
@@ -91,7 +95,8 @@ Starting at line 126 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates An
 		int areaToTheRightOfParent = (int) (Preferences.WIDTH - (parent.upperLeftCorner.x + parent.sizes.x+1));
 =====================================================================
 Found a 5 line (34 tokens) duplication in the following files: 
-Starting at line 78 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 88 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 192 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
 Starting at line 32 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\levelgenerator\LevelGenerator.java
 
 	private void createWindows(Level level) {
@@ -101,8 +106,8 @@ Starting at line 32 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates And
 				if (level.isWallAndHasTwoClearSides(x,y) ) {
 =====================================================================
 Found a 4 line (33 tokens) duplication in the following files: 
-Starting at line 260 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
-Starting at line 278 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+Starting at line 259 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+Starting at line 277 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
 
 	void open(ModelPosition position) {
 		int x = position.x;
@@ -110,8 +115,8 @@ Starting at line 278 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates An
 		if (GetTile(x+1, y) == TileType.TileDoor) {
 =====================================================================
 Found a 5 line (33 tokens) duplication in the following files: 
-Starting at line 43 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
-Starting at line 90 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
+Starting at line 56 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 88 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
 
 		Rect source = new Rect(0, 256-32, 32, 256);
 		for (int x = 0; x < Preferences.WIDTH; x++) {
@@ -121,7 +126,7 @@ Starting at line 90 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates And
 =====================================================================
 Found a 3 line (32 tokens) duplication in the following files: 
 Starting at line 47 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\MovementMapView.java
-Starting at line 91 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
+Starting at line 89 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
 Starting at line 34 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\levelgenerator\LevelGenerator.java
 
 		for (int x = 0; x < Preferences.WIDTH; x++) {
@@ -137,17 +142,7 @@ Starting at line 46 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates And
 					for (int y = 0; y < Preferences.HEIGHT; y++) {
 =====================================================================
 Found a 4 line (32 tokens) duplication in the following files: 
-Starting at line 128 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
-Starting at line 64 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\MovementMapView.java
-
-			boolean hasAddedNewNodes, int x, int y, int travelCost) {
-		for (int dx = -1; dx < 2; dx++) {
-			for (int dy = -1; dy < 2; dy++) { 
-				if (validNeighbour(a_checker, x, y, dx, dy) == false)
-=====================================================================
-Found a 4 line (32 tokens) duplication in the following files: 
-Starting at line 45 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
-Starting at line 79 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 193 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
 Starting at line 47 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\MovementMapView.java
 
 				for (int x = 0; x < Preferences.WIDTH; x++) {
@@ -155,11 +150,28 @@ Starting at line 47 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates And
 					
 						if (m_movementMap[x][y] < selected.getTimeUnits()) {
 =====================================================================
+Found a 4 line (32 tokens) duplication in the following files: 
+Starting at line 138 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 64 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\MovementMapView.java
+
+			boolean hasAddedNewNodes, int x, int y, int travelCost) {
+		for (int dx = -1; dx < 2; dx++) {
+			for (int dy = -1; dy < 2; dy++) { 
+				if (validNeighbour(a_checker, x, y, dx, dy) == false)
+=====================================================================
+Found a 3 line (32 tokens) duplication in the following files: 
+Starting at line 58 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 89 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+
+				for (int x = 0; x < Preferences.WIDTH; x++) {
+					for (int y = 0; y < Preferences.HEIGHT; y++) {
+						if (isWallOrDoor(a_model, x, y)) {
+=====================================================================
 Found a 10 line (31 tokens) duplication in the following files: 
 Starting at line 334 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\AStar.java
-Starting at line 348 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\AStar.java
+Starting at line 346 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\AStar.java
 
-        for(Node iter : m_listClosed)
+        for(Node iter : closedList)
         {
 	        if (iter.m_node.equals(a_nNode.m_node))
 	        {
@@ -171,6 +183,14 @@ Starting at line 348 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates An
         }
 =====================================================================
 Found a 3 line (31 tokens) duplication in the following files: 
+Starting at line 305 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+Starting at line 317 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\Level.java
+
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				int ordinal = m_tiles[x][y].ordinal();
+=====================================================================
+Found a 3 line (31 tokens) duplication in the following files: 
 Starting at line 10 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\SoldierMemory.java
 Starting at line 18 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\SoldierMemory.java
 
@@ -179,8 +199,8 @@ Starting at line 18 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates And
 		CharacterCollection<Enemy> observedEnemies = enemies.selectThoseThatCanSeenBy(soldiers, visibility);
 =====================================================================
 Found a 6 line (31 tokens) duplication in the following files: 
-Starting at line 31 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\Camera.java
-Starting at line 36 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\Camera.java
+Starting at line 33 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\Camera.java
+Starting at line 38 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\Camera.java
 
 	ViewPosition toViewPos(ModelPosition modelPos) {
 		return new ViewPosition(modelPos.x * m_scale + m_displacement.m_x,
@@ -190,29 +210,63 @@ Starting at line 36 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates And
 	ViewPosition toViewPos(int x, int y) {
 =====================================================================
 Found a 4 line (31 tokens) duplication in the following files: 
-Starting at line 43 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
-Starting at line 29 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
+Starting at line 181 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 27 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\LevelDrawer.java
 
 		Mesh pits = new Mesh(Preferences.WIDTH, Preferences.HEIGHT);
 		
 		for (int x = 0; x < Preferences.WIDTH; x++) {
 			for (int y = 0; y < Preferences.HEIGHT; y++) {
 =====================================================================
+Found a 3 line (31 tokens) duplication in the following files: 
+Starting at line 171 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 182 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				int ordinal = calculationMap[x][y].ordinal();
+=====================================================================
+Found a 3 line (31 tokens) duplication in the following files: 
+Starting at line 56 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 181 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+
+		StringBuilder strbuff = new StringBuilder();
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+=====================================================================
 Found a 2 line (30 tokens) duplication in the following files: 
-Starting at line 45 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
-Starting at line 87 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 58 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 97 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
+Starting at line 171 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\VisibilityView.java
 Starting at line 36 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\MovementMapView.java
 Starting at line 119 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\MovementMapView.java
 
 		for (int x = 0; x < Preferences.WIDTH; x++) {
 			for (int y = 0; y < Preferences.HEIGHT; y++) {
 =====================================================================
-Found a 2 line (26 tokens) duplication in the following files: 
-Starting at line 54 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\AndroidDraw.java
-Starting at line 89 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\AndroidDraw.java
+Found a 4 line (29 tokens) duplication in the following files: 
+Starting at line 60 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\Mesh.java
+Starting at line 84 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\Mesh.java
 
-		m_path.setColor(a_color);
-		m_path.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
+		m_verts[triangleOffset + 2] = dst.right;
+		m_verts[triangleOffset + 3] = dst.top;
+		
+		m_verts[triangleOffset + 4] = dst.right;
+=====================================================================
+Found a 3 line (28 tokens) duplication in the following files: 
+Starting at line 42 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\SkillSet.java
+Starting at line 72 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\model\inner\SkillSet.java
+
+	public boolean equals(SkillSet other) {
+		for (int i = 0; i< SkillType.values().length; i++) {
+			if (skills[i].equals( other.skills[i] ) == false) {
+=====================================================================
+Found a 2 line (26 tokens) duplication in the following files: 
+Starting at line 59 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\AndroidDraw.java
+Starting at line 92 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\AndroidDraw.java
+
+		bitmapPaint.setColor(a_color);
+		bitmapPaint.setShader(new BitmapShader((Bitmap) a_textureMap.getTexture(), TileMode.CLAMP, TileMode.CLAMP));
 =====================================================================
 Found a 4 line (26 tokens) duplication in the following files: 
 Starting at line 20 of D:\daniel\programmering\eclipse_ws\Deep Space Pirates Android Runner\src\com\spellofplay\dsp\view\MovementMapView.java

@@ -3,9 +3,6 @@ package com.spellofplay.dsp.model.inner;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;

@@ -7,9 +7,9 @@ import com.spellofplay.dsp.model.inner.ModelFacade;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.Input;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -18,20 +18,20 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
+@SuppressLint("ViewConstructor")
 class Application extends View implements IUpdateable {
 	
-	private MasterController m_master = null;//new MasterController(context)
-	private AndroidDraw m_draw = new AndroidDraw();
-	private Input m_input = new Input();
-	ModelFacade model = new ModelFacade();
+	private MasterController masterController;
+	private AndroidDraw androidDraw = new AndroidDraw();
+	private Input input = new Input();
+	private ModelFacade model = new ModelFacade();
 	
-	private Activity m_activity;
+	private Activity activity;
 	
-	private long m_lastTime = 0; //THE time in millis of last frame
-	SleepHandler m_sleepHandler = new SleepHandler();
+	private long lastTime = 0; //THE time in millis of last frame
+	SleepHandler sleepHandler = new SleepHandler();
 	
 	
-
 	Application(Context context, Activity cfTimerActivity) {
         super(context);
         
@@ -43,13 +43,13 @@ class Application extends View implements IUpdateable {
 		ConcreteTexture player = new ConcreteTexture(getBitmapFromDrawable(playerDrawable));
 		
 		
-        m_master = new MasterController(m_input, texture, player, model, model);
+        masterController = new MasterController(input, texture, player, model, model);
         
         
-        m_sleepHandler.sleep(this, 100);
-        m_lastTime = System.currentTimeMillis();
+        sleepHandler.sleep(this, 100);
+        lastTime = System.currentTimeMillis();
         
-        m_activity = cfTimerActivity;
+        activity = cfTimerActivity;
         
    }
 
@@ -65,7 +65,7 @@ class Application extends View implements IUpdateable {
 	
 	@Override
 	public boolean onTouchEvent (MotionEvent event) {
-		if (m_input.onTouchEvent(event))
+		if (input.onTouchEvent(event))
 			return true;
 		return super.onTouchEvent(event);
 	   
@@ -74,14 +74,14 @@ class Application extends View implements IUpdateable {
 	
 	@Override
 	public boolean onKeyUp(int a_keyCode, KeyEvent event) {
-		if (m_input.onKeyUp(a_keyCode, event))
+		if (input.onKeyUp(a_keyCode, event))
 			return true;
 		return super.onKeyUp(a_keyCode, event);
 	}
 	
 	@Override
 	public boolean onKeyPreIme(int a_keyCode, KeyEvent event) {
-		if (m_input.onKeyPreIme(a_keyCode, event))
+		if (input.onKeyPreIme(a_keyCode, event))
 			return true;
 		return super.onKeyPreIme(a_keyCode, event);
 	}
@@ -89,37 +89,37 @@ class Application extends View implements IUpdateable {
 	
 	@Override
 	public boolean onKeyDown(int a_keyCode, KeyEvent event) {
-		if (m_input.onKeyDown(a_keyCode, event))
+		if (input.onKeyDown(a_keyCode, event))
 			return true;
 		return super.onKeyDown(a_keyCode, event);
 	}
 	
 	@Override
 	public boolean onKeyShortcut(int a_keyCode, KeyEvent event) {
-		if (m_input.onKeyShortcut(a_keyCode, event))
+		if (input.onKeyShortcut(a_keyCode, event))
 			return true;
 		return super.onKeyShortcut(a_keyCode, event);
 	}
 	
 	public void update() {
 		invalidate();
-    	m_sleepHandler.sleep(this, 10);
+    	sleepHandler.sleep(this, 10);
 	}
 	
 	@Override
     public void onDraw(Canvas canvas) {
     	
 		long now = System.currentTimeMillis();
-        long elapsedTime = now - m_lastTime;
+        long elapsedTime = now - lastTime;
         float elapsedTimeSeconds = ((float)elapsedTime)/1000.0f;
         
         super.onDraw(canvas);
         
-        m_draw.setDrawTarget(canvas);
-        if (m_master.doMenuOrGame(m_draw, elapsedTimeSeconds) == false ) {
-        	m_activity.finish();
+        androidDraw.setDrawTarget(canvas);
+        if (masterController.doMenuOrGame(androidDraw, elapsedTimeSeconds) == false ) {
+        	activity.finish();
         }
-        m_lastTime = now;
+        lastTime = now;
 	}
 	
 	
@@ -127,24 +127,24 @@ class Application extends View implements IUpdateable {
 	
 	
 	void Stop(IPersistance persistence) {
-		m_sleepHandler.m_stop = true;
+		sleepHandler.doStop = true;
 		
-		m_master.ShowMenu();
+		masterController.showMenu();
 		
 		
 		model.Save(persistence);
-		m_master.Save(persistence);
+		masterController.save(persistence);
 	}
 
 
 	void Resume(IPersistance persistence) {
-		m_sleepHandler.m_stop = false;
-		m_sleepHandler.sleep(this, 50);
-		m_input.IsMouseClicked(); 
+		sleepHandler.doStop = false;
+		sleepHandler.sleep(this, 50);
+		input.IsMouseClicked(); 
 		
 		try {
 			model.Load(persistence);
-			m_master.Load(persistence);
+			masterController.load(persistence);
 		} catch (Exception e) {
 			
 		}

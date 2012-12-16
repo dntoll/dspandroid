@@ -299,7 +299,7 @@ public class Level {
 		m_tiles[x][y] = TileType.TileEmpty;
 	}
 
-	public void LoadFromString(String level) {
+	void LoadFromString(String level) {
 
 		int index = 0;
 		for (int x = 0; x < Preferences.WIDTH; x++) {
@@ -312,7 +312,7 @@ public class Level {
 		
 	}
 
-	public String SaveToString() {
+	String SaveToString() {
 		StringBuilder strbuff = new StringBuilder();
 		for (int x = 0; x < Preferences.WIDTH; x++) {
 			for (int y = 0; y < Preferences.HEIGHT; y++) {

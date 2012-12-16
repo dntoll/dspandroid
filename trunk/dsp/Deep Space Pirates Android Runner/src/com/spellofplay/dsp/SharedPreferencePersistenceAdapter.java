@@ -4,11 +4,11 @@ import android.content.SharedPreferences;
 
 import com.spellofplay.dsp.model.inner.IPersistance;
 
-public class SharedPreferencePersistenceAdapter implements IPersistance {
+class SharedPreferencePersistenceAdapter implements IPersistance {
 
-	SharedPreferences persistence;
-	SharedPreferences.Editor editor;
-	public SharedPreferencePersistenceAdapter(SharedPreferences settings) {
+	private SharedPreferences persistence;
+	private SharedPreferences.Editor editor;
+	SharedPreferencePersistenceAdapter(SharedPreferences settings) {
 		persistence = settings;
 		editor = persistence.edit();
 	}
