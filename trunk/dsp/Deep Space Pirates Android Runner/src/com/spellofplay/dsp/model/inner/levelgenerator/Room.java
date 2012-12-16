@@ -57,26 +57,28 @@ class Room {
 
 	void addEnemies(Level level) {
 		
-		int numEnemies = random.nextInt(3);
+		final int numEnemies = random.nextInt(3);
 		for (int i = 0; i< numEnemies; i++) {
 
-			int x = upperLeftCorner.x + i+1;
-			int y = upperLeftCorner.y+1;
+			final int x = upperLeftCorner.x + i+1;
+			final int y = upperLeftCorner.y+1;
 			
-			if (level.GetTile(x, y) == TileType.TileEmpty)
+			if (level.GetTile(x, y) == TileType.TileEmpty) {
 				level.addEnemy(new ModelPosition(x, y));
+			}
 			
 		}
 	}
 
 	void addDoor(Room parent, Level level) {
-		List<ModelPosition> connections = getConnections(parent);
+		final List<ModelPosition> connections = getConnections(parent);
 		
-		if (connections.size() == 0)
-			return;
-		int doorat = random.nextInt(connections.size());
-		ModelPosition door = connections.get(doorat);
-		level.m_tiles[door.x][door.y] = TileType.TileDoor;
+		if (false == connections.isEmpty()) {
+			final int doorat = random.nextInt(connections.size());
+			final ModelPosition door = connections.get(doorat);
+			level.m_tiles[door.x][door.y] = TileType.TileDoor;
+		}
+		
 		
 		
 	}
