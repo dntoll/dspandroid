@@ -2,6 +2,7 @@ package com.spellofplay.dsp;
 
 
 import com.spellofplay.dsp.controller.MasterController;
+import com.spellofplay.dsp.model.inner.IPersistance;
 import com.spellofplay.dsp.model.inner.ModelFacade;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.Input;
@@ -28,6 +29,8 @@ class Application extends View implements IUpdateable {
 	
 	private long m_lastTime = 0; //THE time in millis of last frame
 	SleepHandler m_sleepHandler = new SleepHandler();
+	
+	
 
 	Application(Context context, Activity cfTimerActivity) {
         super(context);
@@ -123,23 +126,27 @@ class Application extends View implements IUpdateable {
 	
 	
 	
-	void Stop(SharedPreferences settings) {
+	void Stop(IPersistance persistence) {
 		m_sleepHandler.m_stop = true;
 		
 		m_master.ShowMenu();
 		
 		
-		model.Save(settings);
+		model.Save(persistence);
 	}
 
 
-	void Resume(SharedPreferences settings) {
+	void Resume(IPersistance persistence) {
 		m_sleepHandler.m_stop = false;
 		m_sleepHandler.sleep(this, 50);
 		m_input.IsMouseClicked(); 
 		
-		
-		model.Load(settings);
+		try {
+			model.Load(persistence);
+			m_master.Load(persistence);
+		} catch (Exception e) {
+			
+		}
 	}
 	
 

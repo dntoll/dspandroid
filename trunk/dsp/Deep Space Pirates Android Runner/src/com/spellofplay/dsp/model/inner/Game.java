@@ -66,8 +66,9 @@ class Game implements IMoveAndVisibility {
 		return ret;
 	}
 
-	void startLevel(int a_level) {
-		LevelGenerator gen = new LevelGenerator(a_level);
+	void startLevel(int levelIndex) {
+		currentLevel = levelIndex;
+		LevelGenerator gen = new LevelGenerator(levelIndex);
 		
 		gen.generate(m_level);
 
@@ -280,41 +281,41 @@ class Game implements IMoveAndVisibility {
 		
 	}
 
-	public void Load(SharedPreferences settings) {
+	public void Load(IPersistance settings) throws Exception {
 		
-		currentLevel = settings.getInt("currentLevel", 0);
+		currentLevel = settings.getInt("currentLevel");
 		
-		String savedLevel = settings.getString(m_level.getClass().getName(), "");
+		String savedLevel = settings.getString(m_level.getClass().getName());
 		m_level.LoadFromString(savedLevel);
 		
 		for (int i = 0; i< Preferences.MAX_SOLDIERS; i++) {
-			String savedSoldier = settings.getString(m_soldiers[i].getClass().getName() + i, "");
+			String savedSoldier = settings.getString(m_soldiers[i].getClass().getName() + i);
 			m_soldiers[i].LoadFromString(savedSoldier);
 		}
 		
 		for (int i = 0; i< Preferences.MAX_ENEMIES; i++) {
-			String savedEnemy = settings.getString(m_enemies[i].getClass().getName() + i, "");
+			String savedEnemy = settings.getString(m_enemies[i].getClass().getName() + i);
 			m_enemies[i].LoadFromString(savedEnemy);
 		}
 	}
 
-	public void Save(SharedPreferences settings) {
-		Editor editor= settings.edit();
-		
-		editor.putInt("currentLevel", currentLevel);
-		editor.putString(this.getClass().getName(), m_level.SaveToString());
+	public void Save(IPersistance settings) {
+		settings.putInt("currentLevel", currentLevel);
+		String levelString = m_level.SaveToString();
+		settings.putString(m_level.getClass().getName(), levelString);
 		
 		for (int i = 0; i< Preferences.MAX_SOLDIERS; i++) {
 			String savedSoldier = m_soldiers[i].SaveToString();
-			editor.putString(m_soldiers[i].getClass().getName() + i, savedSoldier);
+			settings.putString(m_soldiers[i].getClass().getName() + i, savedSoldier);
 		}
 		
 		for (int i = 0; i< Preferences.MAX_ENEMIES; i++) {
 			String savedSoldier = m_enemies[i].SaveToString();
-			editor.putString(m_enemies[i].getClass().getName() + i, savedSoldier);
+			settings.putString(m_enemies[i].getClass().getName() + i, savedSoldier);
 		}
 		
-		editor.commit();
+		
+		
 	}
 
 	public void startNewGame() {
@@ -326,6 +327,10 @@ class Game implements IMoveAndVisibility {
 		currentLevel++;
 		startLevel(currentLevel);
 		
+	}
+
+	public int getCurrentLevel() {
+		return currentLevel;
 	}
 
 	

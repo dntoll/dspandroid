@@ -9,6 +9,7 @@ import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.RuleBook;
 import com.spellofplay.dsp.model.Vector2;
+import com.spellofplay.dsp.model.inner.IPersistance;
 
 
 class GameView implements ICharacterListener {
@@ -149,6 +150,10 @@ class GameView implements ICharacterListener {
 	public void soldierSpotsNewEnemy() {
 		
 		
+	}
+
+	public void Load(IPersistance persistence) {
+		visibility.Load(persistence);
 	}
 
 	

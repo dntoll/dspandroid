@@ -30,6 +30,22 @@ class CharacterCollection<T extends Character> implements Iterable<T>{
 		}
 		return false;
 	}
+	
+	public boolean equals(CharacterCollection<T> other) {
+		if (characters.size() != other.size()) {
+			return false;
+		}
+		
+		for (int index = 0; index < characters.size(); index++) {
+			if (characters.get(index).equals( other.characters.get(index) )== false) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	
 
 	CharacterCollection<T> thatCanSee(IMoveAndVisibility visibility, ICharacter target) {
 		List<T> soldiersThatCanSee = new ArrayList<T>();

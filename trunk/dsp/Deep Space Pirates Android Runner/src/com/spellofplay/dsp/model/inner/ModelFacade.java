@@ -174,11 +174,11 @@ public class ModelFacade implements IModel, IEventTarget {
 		
 	}
 
-	public void Load(SharedPreferences settings) {
+	public void Load(IPersistance settings) throws Exception {
 		game.Load(settings);
 	}
 
-	public void Save(SharedPreferences settings) {
+	public void Save(IPersistance settings) {
 		game.Save(settings);
 	}
 

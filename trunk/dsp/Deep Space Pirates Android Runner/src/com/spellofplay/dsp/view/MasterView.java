@@ -3,6 +3,7 @@ package com.spellofplay.dsp.view;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IModel;
+import com.spellofplay.dsp.model.inner.IPersistance;
 
 public class MasterView implements ICharacterListener {
 
@@ -98,6 +99,10 @@ public class MasterView implements ICharacterListener {
 	public void soldierSpotsNewEnemy() {
 		m_view.soldierSpotsNewEnemy();
 		
+	}
+
+	public void Load(IPersistance persistence) {
+		m_view.Load(persistence);
 	}
 	
 	

@@ -23,6 +23,10 @@ class Skill implements ISkill{
 			value += 1;
 		}
 	}
+	
+	public boolean equals(Skill other) {
+		return value == other.value;
+	}
 
 	
 }
