@@ -22,6 +22,30 @@ abstract class Character implements ICharacter  {
 		reset(startPosition);
 	}
 	
+	
+	public boolean equals(Character other) {
+		if (position.equals(other.position) == false) {
+			return false;
+		}
+		
+		if (timeUnits != other.timeUnits)
+			return false;
+		
+		if (hitPoints != other.hitPoints)
+			return false;
+		
+		if (experience.experience != other.experience.experience)
+			return false;
+		
+		if (skills.equals(other.skills) == false)
+			return false;
+		
+		
+		return true;
+		
+		
+	}
+	
 	void doWatch() {
 		watchTimeUnits = timeUnits;
 		timeUnits = 0;

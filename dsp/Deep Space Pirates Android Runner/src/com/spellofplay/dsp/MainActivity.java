@@ -1,5 +1,7 @@
 package com.spellofplay.dsp;
 
+import com.spellofplay.dsp.model.inner.IPersistance;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +11,7 @@ import android.view.Window;
 @SuppressWarnings("ucd")
 public class MainActivity  extends Activity {
 	
-	public static final String PREFS_NAME = "MyPrefsFile";
+	public static final String PREFS_NAME = "MyPrefsFile2";
 	
 	Application m_application;
 	
@@ -28,19 +30,25 @@ public class MainActivity  extends Activity {
     
     @Override
     public void onPause() {
-    	SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-    	m_application.Stop(settings);
+    	IPersistance persistence = getPersistence();
+    	m_application.Stop(persistence);
     	super.onPause();
     }
     
     @Override
     public void onResume() {
     	if (m_application != null && m_application.m_sleepHandler != null) {
-    		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-    		m_application.Resume(settings);
+    		IPersistance persistence = getPersistence();
+    		m_application.Resume(persistence);
     	}
     	super.onResume();
     }
+
+	public IPersistance getPersistence() {
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		IPersistance persistence = new SharedPreferencePersistenceAdapter(settings);
+		return persistence;
+	}
     
     @Override
     public boolean onKeyDown(int a_keyCode, KeyEvent event) {

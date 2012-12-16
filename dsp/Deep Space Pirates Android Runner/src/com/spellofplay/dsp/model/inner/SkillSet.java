@@ -69,4 +69,13 @@ class SkillSet implements ISkillSet{
 		}
 	}
 	
+	public boolean equals(SkillSet other) {
+		for (int i = 0; i< SkillType.values().length; i++) {
+			if (skills[i].equals( other.skills[i] ) == false) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 }

@@ -8,12 +8,26 @@ import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Preferences;
 import com.spellofplay.dsp.model.TileType;
+import com.spellofplay.dsp.model.inner.IPersistance;
 
 class VisibilityView {
-	private enum Visibility {
+	enum Visibility {
 		NeverSeen,
 		NotSeen,
-		SeenByAll	
+		SeenByAll;
+
+		public boolean hasSameExploredVisibility(Visibility visibility) {
+			if (this == NeverSeen) {
+				if (visibility != NeverSeen) 
+					return false;
+				else
+					return true;
+			}
+			if (visibility == NeverSeen) {
+				return false;
+			}
+			return true;
+		}	
 	}
 	
 	private Visibility[][] visibilityMap;
@@ -57,7 +71,7 @@ class VisibilityView {
 			}	
 		}
 	}
-	private void updateVisibility(IModel a_model) {
+	void updateVisibility(IModel a_model) {
 		if (shouldUpdateVisibility ) {
 			CharacterIterable soldiers = a_model.getAliveSoldiers();
 			
@@ -90,7 +104,7 @@ class VisibilityView {
 		}
 	}
 
-	private boolean doneUpdating() {
+	boolean doneUpdating() {
 		return visibilityProgressX >= Preferences.WIDTH;
 	}
 	
@@ -149,5 +163,26 @@ class VisibilityView {
 	private boolean canSee(int x, int y) {
 		return visibilityMap[x][y] == Visibility.SeenByAll;
 	}
+
+	public void Load(IPersistance persistence) {
+				
+	}
+
+	public void Save(IPersistance persistence) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean hasSameExploredVisibility(VisibilityView pre) {
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				if (visibilityMap[x][y].hasSameExploredVisibility(pre.visibilityMap[x][y]) == false) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
 }
 

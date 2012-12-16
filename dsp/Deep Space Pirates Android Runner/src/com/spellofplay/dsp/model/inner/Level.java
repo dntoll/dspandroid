@@ -19,7 +19,6 @@ public class Level {
 	}
 	
 	public TileType GetTile(int a_x, int a_y) {
-		//walls around the level
 		if (a_x >= 0 && a_x < Preferences.WIDTH && a_y >= 0 && a_y < Preferences.HEIGHT)
 			return m_tiles[a_x][a_y];
 		else
@@ -301,16 +300,13 @@ public class Level {
 	}
 
 	public void LoadFromString(String level) {
-		
-		
-		if (level != "") {
-			int index = 0;
-			for (int x = 0; x < Preferences.WIDTH; x++) {
-				for (int y = 0; y < Preferences.HEIGHT; y++) {
-					 int enumIndex = level.charAt(index)-'0';
-					 m_tiles[x][y] = TileType.values()[enumIndex];
-					 index++;
-				}
+
+		int index = 0;
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				 int enumIndex = level.charAt(index)-'0';
+				 m_tiles[x][y] = TileType.values()[enumIndex];
+				 index++;
 			}
 		}
 		

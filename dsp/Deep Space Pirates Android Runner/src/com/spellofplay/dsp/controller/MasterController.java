@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 
 import com.spellofplay.dsp.model.IEventTarget;
 import com.spellofplay.dsp.model.IModel;
+import com.spellofplay.dsp.model.inner.IPersistance;
 import com.spellofplay.dsp.view.AndroidDraw;
 import com.spellofplay.dsp.view.ITexture;
 import com.spellofplay.dsp.view.Input;
@@ -123,6 +124,10 @@ public class MasterController {
 
 	public void ShowMenu() {
 		showMenu = true;
+	}
+
+	public void Load(IPersistance persistence) {
+		masterView.Load(persistence);
 	}
 
 }
