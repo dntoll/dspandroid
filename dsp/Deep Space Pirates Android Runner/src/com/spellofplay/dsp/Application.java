@@ -133,6 +133,7 @@ class Application extends View implements IUpdateable {
 		
 		
 		model.Save(persistence);
+		m_master.Save(persistence);
 	}
 
 

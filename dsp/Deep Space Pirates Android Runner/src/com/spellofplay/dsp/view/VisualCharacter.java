@@ -12,7 +12,8 @@ class VisualCharacter {
 	private static final Rect DEAD_ENEMY = new Rect(64, 128, 96, 128 + 32);
 	private static final float MOVEMENT_TIME = 0.2f;
 	private static final float ROTATION_SPEED = 360.0f;
-	private final int TRANSPARENT = Color.argb(128, 255, 255, 255);
+	private static final int TRANSPARENT = Color.argb(128, 255, 255, 255);
+	
 	private float m_movementTimer = 0.0f;
 	private float m_attackTimer = 0.0f;
 	private float m_damageTimer = 0.0f;
@@ -22,10 +23,13 @@ class VisualCharacter {
 	private ICharacter m_modelCharacter;
 	private ModelPosition m_lastPositionSeen = new ModelPosition();
 	
-	VisualCharacter(ICharacter soldier2) {
-		m_modelCharacter = soldier2;
-		m_lastPositionSeen.x = soldier2.getPosition().x;
-		m_lastPositionSeen.y = soldier2.getPosition().y;
+	VisualCharacter(ICharacter character) {
+		m_modelCharacter = character;
+		m_lastPositionSeen.x = character.getPosition().x;
+		m_lastPositionSeen.y = character.getPosition().y;
+		
+		if (character.getHitPoints() <= 0)
+			m_showDeadEnemy = true;
 	}
 	
 	void drawEnemySpotted(AndroidDraw drawable, Camera camera, ITexture enemyTexture) {

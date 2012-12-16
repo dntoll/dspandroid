@@ -7,7 +7,6 @@ import java.util.List;
 public class CharacterIterable implements Iterable<ICharacter> {
 	
 	private List<ICharacter> characters = new ArrayList<ICharacter>();
-	//CharacterIterator iterator = new CharacterIterator();
 	
 	public <T extends ICharacter> CharacterIterable(List<T> in) {
 		characters.addAll(in);

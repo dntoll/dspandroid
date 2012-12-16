@@ -16,6 +16,10 @@ public interface IModel {
 	public abstract CharacterIterable getAliveEnemies();
 
 	public abstract CharacterIterable getDeadEnemies();
+	
+	public abstract CharacterIterable getAllSoldiers();
+
+	public abstract CharacterIterable getAllEnemies();
 
 	public abstract boolean enemyHasWon();
 
@@ -36,5 +40,7 @@ public interface IModel {
 	public abstract boolean canMove(ModelPosition clickOnLevelPosition);
 
 	public abstract boolean hasDoorCloseToIt(ICharacter m_selectedSoldier);
+
+	
 
 }

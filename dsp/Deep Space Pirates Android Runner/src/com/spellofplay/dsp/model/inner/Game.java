@@ -26,11 +26,11 @@ class Game implements IMoveAndVisibility {
 	public Game() {
 		
 		for (int i = 0; i < Preferences.MAX_SOLDIERS; i++) {
-			m_soldiers[i] = new Soldier(new ModelPosition(5,5));
+			m_soldiers[i] = new Soldier(new ModelPosition(-5, -5));
 			m_soldiers[i].hitPoints = 0;
 		}
 		for (int i = 0; i < Preferences.MAX_ENEMIES; i++) {
-			m_enemies[i] = new Enemy(new ModelPosition(5,5));
+			m_enemies[i] = new Enemy(new ModelPosition(-5,-5));
 			m_enemies[i].hitPoints = 0;
 		}
 		startNewGame();
@@ -46,6 +46,22 @@ class Game implements IMoveAndVisibility {
 	
 	public CharacterCollection<Enemy> getDeadEnemies() {
 		return new CharacterCollection<Enemy>(getCharacters(m_enemies, false));
+	}
+	
+	public CharacterCollection<Soldier> getAllSoldiers() {
+		return getAll(m_soldiers);
+	}
+
+	public CharacterCollection<Enemy> getAllEnemies() {
+		return getAll(m_enemies);
+	}
+	
+	private <T extends Character> CharacterCollection<T> getAll(T[] list) {
+		List<T> allSoldiers = new ArrayList<T>();
+		for (T s : list) {
+			allSoldiers.add(s);
+		}
+		return new CharacterCollection<T>(allSoldiers);
 	}
 
 	private <T extends ICharacter> List<T> getCharacters(T[] list, boolean isAlive) {
@@ -332,6 +348,8 @@ class Game implements IMoveAndVisibility {
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
+
+	
 
 	
 			

@@ -55,6 +55,7 @@ abstract class Character implements ICharacter  {
 		position = startLocation;
 		startNewRound();
 		hitPoints = skills.getHitPoints();
+		experience = new Experience();
 	}
 	
 	void startNewRound() {

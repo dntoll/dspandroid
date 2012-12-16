@@ -55,6 +55,16 @@ public class ModelFacade implements IModel, IEventTarget {
 	public CharacterIterable getDeadEnemies() {
 		return game.getDeadEnemies().getSafeIterator();
 	}
+	
+	@Override
+	public CharacterIterable getAllSoldiers() {
+		return game.getAllSoldiers().getSafeIterator();
+	}
+
+	@Override
+	public CharacterIterable getAllEnemies() {
+		return game.getAllEnemies().getSafeIterator();
+	}
 
 	@Override
 	public boolean enemyHasWon() {
@@ -181,6 +191,8 @@ public class ModelFacade implements IModel, IEventTarget {
 	public void Save(IPersistance settings) {
 		game.Save(settings);
 	}
+
+	
 
 
 	

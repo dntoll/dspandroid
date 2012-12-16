@@ -164,19 +164,35 @@ class VisibilityView {
 		return visibilityMap[x][y] == Visibility.SeenByAll;
 	}
 
-	public void Load(IPersistance persistence) {
-				
+	//TODO: Copied from Level.load
+	public void Load(IPersistance persistence) throws Exception {
+		String level = persistence.getString("Visibility");
+		int index = 0;
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				 int enumIndex = level.charAt(index)-'0';
+				 calculationMap[x][y] = Visibility.values()[enumIndex];
+				 index++;
+			}
+		}		
 	}
 
 	public void Save(IPersistance persistence) {
-		// TODO Auto-generated method stub
-		
+		StringBuilder strbuff = new StringBuilder();
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+				int ordinal = calculationMap[x][y].ordinal();
+				strbuff.append(ordinal);
+			}
+		}
+		String data = strbuff.toString();
+		persistence.putString("Visibility", data);
 	}
 
 	public boolean hasSameExploredVisibility(VisibilityView pre) {
 		for (int x = 0; x < Preferences.WIDTH; x++) {
 			for (int y = 0; y < Preferences.HEIGHT; y++) {
-				if (visibilityMap[x][y].hasSameExploredVisibility(pre.visibilityMap[x][y]) == false) {
+				if (calculationMap[x][y].hasSameExploredVisibility(pre.calculationMap[x][y]) == false) {
 					return false;
 				}
 			}

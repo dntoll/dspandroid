@@ -30,11 +30,11 @@ class CharacterDrawer {
 		m_characters.clear();
 		m_shotAnimation.removeAnimations();
 
-		for (ICharacter soldier : a_model.getAliveSoldiers()) {
+		for (ICharacter soldier : a_model.getAllSoldiers()) {
 			m_characters.put(soldier, new VisualCharacter(soldier));
 		}
 		
-		for (ICharacter enemy : a_model.getAliveEnemies()) {
+		for (ICharacter enemy : a_model.getAllEnemies()) {
 			m_characters.put(enemy, new VisualCharacter(enemy));
 		}
 		
