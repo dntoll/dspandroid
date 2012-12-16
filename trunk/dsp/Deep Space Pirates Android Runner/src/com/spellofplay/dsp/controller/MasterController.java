@@ -126,8 +126,13 @@ public class MasterController {
 		showMenu = true;
 	}
 
-	public void Load(IPersistance persistence) {
-		masterView.Load(persistence);
+	public void Load(IPersistance persistence) throws Exception {
+		masterView.Load(persistence, model);
+	}
+
+	public void Save(IPersistance persistence) {
+		masterView.Save(persistence);
+		
 	}
 
 }

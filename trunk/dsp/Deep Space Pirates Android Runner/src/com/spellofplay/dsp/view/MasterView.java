@@ -101,8 +101,15 @@ public class MasterView implements ICharacterListener {
 		
 	}
 
-	public void Load(IPersistance persistence) {
+	public void Load(IPersistance persistence, IModel model) throws Exception {
 		m_view.Load(persistence);
+		startNewGame(model);
+		
+	}
+
+	public void Save(IPersistance persistence) {
+		m_view.Save(persistence);
+		
 	}
 	
 	

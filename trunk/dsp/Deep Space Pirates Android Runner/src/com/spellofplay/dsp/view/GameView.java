@@ -152,8 +152,12 @@ class GameView implements ICharacterListener {
 		
 	}
 
-	public void Load(IPersistance persistence) {
+	public void Load(IPersistance persistence) throws Exception {
 		visibility.Load(persistence);
+	}
+
+	public void Save(IPersistance persistence) {
+		visibility.Save(persistence);
 	}
 
 	
