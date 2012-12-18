@@ -46,7 +46,7 @@ class GameController {
 		} else {
 			startNewSoldierRound(drawable, eventTarget, elapsedTimeSeconds);
 		}
-		masterView.drawGame(drawable, model, elapsedTimeSeconds);
+		masterView.drawGame(drawable, elapsedTimeSeconds);
 		
 		logger.draw(drawable);
 		simpleGui.DrawGui(drawable);
@@ -66,7 +66,7 @@ class GameController {
 		
 		doInteractWithSoldiers(drawable, eventTarget, input, elapsedTimeSeconds);
 		
-		if (masterView.updateAnimations(model, elapsedTimeSeconds)) {
+		if (masterView.updateAnimations(elapsedTimeSeconds)) {
 			eventTarget.updatePlayers(multipleCharacterListenter);
 		}
 	}
@@ -74,7 +74,7 @@ class GameController {
 
 
 	private void updateEnemies(AndroidDraw drawable, IEventTarget eventTarget, float elapsedTimeSeconds) {
-		if (masterView.updateAnimations(model, elapsedTimeSeconds)) {
+		if (masterView.updateAnimations(elapsedTimeSeconds)) {
 			eventTarget.updateEnemies(multipleCharacterListenter);
 		}
 		drawable.drawText("Enemy is moving", 200, 10, Color.WHITE);
@@ -90,38 +90,58 @@ class GameController {
 		InteractionView actionView = masterView.getInteractionView();
 		
 		
-		ICharacter selectedSoldier = actionView.getSelectedSoldier(model);
+		ICharacter selectedSoldier = actionView.getSelectedSoldier();
 		
 		int width = drawable.getWindowWidth();
 		int height = drawable.getWindowHeight();
 		if (selectedSoldier != null) {
 			int y = height - SimpleGui.BUTTON_HEIGHT-16;
-			if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH, y, "Watch", input)) {
-				eventTarget.doWatch(selectedSoldier);
-			}
 			
-			if (actionView.hasDestination(model)) {
-				if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*2, y, "Move", input)) {
-					ModelPosition destination = actionView.getDestination(model);
-					eventTarget.doMoveTo(selectedSoldier, destination);
-					actionView.unselectPath();
+			if (actionView.isInThrowGrenadeMode()) {
+				if (actionView.hasGrenadeDestination()) {
+					if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH, y, "Throw", input)) {
+						ModelPosition destination = actionView.getGrenadeDestination();
+						eventTarget.throwGrenade(selectedSoldier, destination, multipleCharacterListenter);
+						actionView.normalMode();
+					}
 				}
-			}
-			if (actionView.getFireTarget(model) != null) {
-				if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*3, y, "Fire", input)) {
-					ICharacter fireTarget = actionView.getFireTarget(model);
-					eventTarget.fireAt(selectedSoldier, fireTarget, multipleCharacterListenter);
+				if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*3, y, "Cancel", input)) {
+					actionView.normalMode();
 				}
-			}
-			if (model.hasDoorCloseToIt(selectedSoldier)) {
-				if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*4, y, "Open", input)) {
-					eventTarget.open(selectedSoldier);
-					masterView.open();
+			} else {
+				
+				if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH, y, "Watch", input)) {
+					eventTarget.doWatch(selectedSoldier);
+				}
+				
+				if (actionView.hasDestination()) {
+					if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*2, y, "Move", input)) {
+						ModelPosition destination = actionView.getDestination();
+						eventTarget.doMoveTo(selectedSoldier, destination);
+						actionView.unselectPath();
+					}
+				}
+				if (actionView.getFireTarget() != null) {
+					if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*3, y, "Fire", input)) {
+						ICharacter fireTarget = actionView.getFireTarget();
+						eventTarget.fireAt(selectedSoldier, fireTarget, multipleCharacterListenter);
+					}
+				}
+				if (selectedSoldier.canThrowGrenade()) {
+					if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*5, y, "Grenade", input)) {
+						actionView.setThrowGrenadeMode();
+					}
+				}
+				if (model.hasDoorCloseToIt(selectedSoldier)) {
+					if (simpleGui.DoButtonCentered(width - SimpleGui.BUTTON_WIDTH*4, y, "Open", input)) {
+						eventTarget.open(selectedSoldier);
+						masterView.open();
+					}
 				}
 			}
 		}
 		
-		actionView.setupInput(input, model, drawable.getWindowWidth(), drawable.getWindowHeight());
+		actionView.setupInput(input, drawable.getWindowWidth(), drawable.getWindowHeight());
 		
 		
 		

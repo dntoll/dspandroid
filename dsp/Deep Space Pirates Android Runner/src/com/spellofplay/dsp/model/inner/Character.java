@@ -125,23 +125,26 @@ abstract class Character implements ICharacter  {
 		clistener.moveTo(this);
 	}
 		
-	boolean fireAt(ICharacter fireTarget, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
+	void fireAt(ICharacter fireTarget, IMoveAndVisibility moveAndVisibility, ICharacterListener a_listener) {
 		if (RuleBook.canFireAt(this, fireTarget, moveAndVisibility) == false) {
 			a_listener.cannotFireAt(this, fireTarget);
-			return false;
+			return;
 		}
 		timeUnits -= getFireCost();
 		
 		if (RuleBook.DetermineFireSuccess(this, fireTarget, moveAndVisibility.targetHasCover(this, fireTarget))) {
 			Character target = (Character)fireTarget;
-			target.hitPoints -= getDamage();
 			a_listener.fireAt(this, fireTarget, true);
+			target.takeDamage(a_listener, getDamage());
 			experience.experience++;
-			return true;
 		} else {
 			a_listener.fireAt(this, fireTarget, false);
-			return false;
 		}
+	}
+	
+	void takeDamage(ICharacterListener a_listener, int damage) {
+		hitPoints -= damage;
+		a_listener.takeDamage(this);
 		
 	}
 

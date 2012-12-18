@@ -9,43 +9,59 @@ public class MasterView implements ICharacterListener {
 
 	private GameView m_view;
 	private InteractionView m_actionView;
-	private Camera  m_camera = new Camera();
+	private VisibilityView visibility;
+	private Camera  camera = new Camera();
+	private IModel model;
 
 	public MasterView(ITexture a_texture, ITexture a_player, IModel model) {
-		m_view = new GameView(a_texture, a_player, m_camera, model);
-		m_actionView = new InteractionView(m_camera);
+		m_view = new GameView(a_texture, a_player, camera, model);
+		m_actionView = new InteractionView(camera, model);
+		this.visibility = new VisibilityView();
+		this.model = model;
 	}
 
-	public void startNewGame(IModel model) {
+	public void startNewGame() {
 		m_view.startNewGame(model);
 		m_actionView.startNewGame();
+		visibility.clear();
+		visibility.recalculateVisibility(model);
 	}
 	
-	public void drawGame(AndroidDraw drawable, IModel model, float elapsedTimeSeconds) {
+	public void drawGame(AndroidDraw drawable, float elapsedTimeSeconds) {
 		
 		
-		m_camera.setScreenSize(drawable.getWindowWidth(), drawable.getWindowHeight());
-		m_actionView.updateSelections(model, m_camera);
-		ICharacter selected = m_actionView.getSelectedSoldier(model);
-		ICharacter target = m_actionView.getFireTarget(model);
+		camera.setScreenSize(drawable.getWindowWidth(), drawable.getWindowHeight());
+		m_actionView.updateSelections(camera);
+		ICharacter selected = m_actionView.getSelectedSoldier();
+		ICharacter target = m_actionView.getFireTarget();
 		
-		m_camera.update(elapsedTimeSeconds);
+		camera.update(elapsedTimeSeconds);
 		m_view.redrawLevelBuffer(drawable, model);
-		drawable.drawBackground(m_camera.getDisplacement());
+		drawable.drawBackground(camera.getDisplacement());
 		m_view.drawDoors(drawable);
-		m_view.getCharacterDrawer().drawCasualties(drawable, model, m_camera);
-		m_view.drawMovementHelp(drawable, selected);
-		m_view.drawVisibility(drawable);
-		m_actionView.drawMovementPath(drawable, model);
+		m_view.getCharacterDrawer().drawCasualties(drawable, model, camera);
+		if (m_actionView.isInThrowGrenadeMode()) {
+			
+		} else {
+			m_view.drawMovementHelp(drawable, selected);
+		}
+		
+		drawVisibility(drawable);
+		
+		m_actionView.drawMovementPath(drawable);
 		
 		
 		
-		m_view.getCharacterDrawer().draw(drawable, model, selected, m_camera, target);
+		m_view.getCharacterDrawer().draw(drawable, model, selected, camera, target);
 		
 		m_view.drawSightLines(drawable, selected);
 		
 		
 		
+	}
+	
+	private void drawVisibility(AndroidDraw drawable) {
+		visibility.drawNotVisible(model, drawable, camera);
 	}
 
 	public void startNewRound() {
@@ -56,6 +72,7 @@ public class MasterView implements ICharacterListener {
 	@Override
 	public void moveTo(ICharacter character) {
 		m_view.moveTo(character);
+		visibility.recalculateVisibility(model);
 		
 		
 	}
@@ -63,7 +80,12 @@ public class MasterView implements ICharacterListener {
 	@Override
 	public void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
 		m_view.fireAt(attacker, fireTarget, didHit);
-		m_camera.focusOn(fireTarget.getPosition());
+		camera.focusOn(fireTarget.getPosition());
+	}
+	
+	@Override
+	public void takeDamage(ICharacter character) {
+		m_view.takeDamage(character);
 	}
 
 	@Override
@@ -81,13 +103,13 @@ public class MasterView implements ICharacterListener {
 		return m_actionView;
 	}
 
-	public boolean updateAnimations(IModel model,
-			float elapsedTimeSeconds) {
+	public boolean updateAnimations(float elapsedTimeSeconds) {
 		return m_view.updateAnimations(model, elapsedTimeSeconds);
 	}
 
 	public void open() {
 		m_view.open();
+		visibility.recalculateVisibility(model);
 	}
 
 	@Override
@@ -101,15 +123,13 @@ public class MasterView implements ICharacterListener {
 		
 	}
 
-	public void load(IPersistance persistence, IModel model) throws Exception {
-		m_view.Load(persistence);
-		startNewGame(model);
-		
+	public void load(IPersistance persistence) throws Exception {
+		visibility.Load(persistence);
+		startNewGame();
 	}
 
 	public void save(IPersistance persistence) {
-		m_view.Save(persistence);
-		
+		visibility.Save(persistence);
 	}
 	
 	

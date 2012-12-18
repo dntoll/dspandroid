@@ -15,4 +15,7 @@ public interface ICharacterListener {
 
 	void enemySpotsNewSoldier();
 
+	void takeDamage(ICharacter character);
+
+
 }

@@ -7,5 +7,7 @@ public class Preferences {
 	public static final int HEIGHT = 24;
 	public static final int WIDTH= 24;
 	public static final int VISIBILITY_STEPS = 8;
+	public static final float GRENADE_RADIUS = 4;
+	public static final int GRENADE_DAMAGE = 3;
 
 }

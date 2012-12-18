@@ -58,5 +58,12 @@ class MultiCharacterListener implements ICharacterListener{
 		}
 	}
 
+	@Override
+	public void takeDamage(ICharacter character) {
+		for (ICharacterListener l : listeners) {
+			l.takeDamage(character);
+		}
+	}
+
 
 }

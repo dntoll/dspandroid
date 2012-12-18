@@ -74,5 +74,10 @@ class Enemy extends Character {
 		return closest;
 	}
 
+	@Override
+	public boolean canThrowGrenade() {
+		return false;
+	}
+
 	
 }
