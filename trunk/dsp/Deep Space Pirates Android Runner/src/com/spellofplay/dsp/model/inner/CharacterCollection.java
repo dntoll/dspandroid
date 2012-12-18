@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.spellofplay.dsp.model.CharacterIterable;
 import com.spellofplay.dsp.model.ICharacter;
+import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IMoveAndVisibility;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.RuleBook;
@@ -176,6 +177,19 @@ class CharacterCollection<T extends Character> implements Iterable<T>{
 		}
 		return new CharacterCollection<T>(charactersSeen);
 	}
+	
+	public CharacterCollection<T> closeAndVisibleFrom(ModelPosition destination, float radius, IMoveAndVisibility visibility) {
+		List<T> charactersSeen = new ArrayList<T>();
+		for(T theObserved : characters) {
+			ModelPosition characterPosition =theObserved.getPosition(); 
+			if (characterPosition.sub(destination).length() < radius) {
+				if (visibility.lineOfSight(characterPosition, destination)) {
+					charactersSeen.add(theObserved);
+				}
+			}
+		}
+		return new CharacterCollection<T>(charactersSeen);
+	}
 
 	boolean containsAll(CharacterCollection<T> observedEnemies) {
 		return  characters.containsAll(observedEnemies.characters);
@@ -190,6 +204,14 @@ class CharacterCollection<T extends Character> implements Iterable<T>{
 			mover.stopAllMovement();
 		}
 	}
+
+	public void takeDamage(ICharacterListener listener, int damage) {
+		for(T damagee : characters) {
+			damagee.takeDamage(listener, damage);
+		}
+	}
+
+	
 
 	
 

@@ -107,19 +107,19 @@ public class MasterController {
 	}
 
 	private void drawGameWhenItsOver(AndroidDraw drawable, float elapsedTimeSeconds, String message) {
-		masterView.updateAnimations(model, elapsedTimeSeconds);
-		masterView.drawGame(drawable, model, elapsedTimeSeconds);
+		masterView.updateAnimations(elapsedTimeSeconds);
+		masterView.drawGame(drawable, elapsedTimeSeconds);
 		drawable.drawText(message, 200, 10, Color.WHITE);
 	}
 	
 	private void newLevel() {
 		eventTarget.newLevel();
-		masterView.startNewGame(model);
+		masterView.startNewGame();
 	}
 	
 	private void startNewGame() {
 		eventTarget.startNewGame();
-		masterView.startNewGame(model);
+		masterView.startNewGame();
 	}
 
 	public void showMenu() {
@@ -127,7 +127,7 @@ public class MasterController {
 	}
 
 	public void load(IPersistance persistence) throws Exception {
-		masterView.load(persistence, model);
+		masterView.load(persistence);
 	}
 
 	public void save(IPersistance persistence) {

@@ -16,7 +16,6 @@ class VisualCharacter {
 	
 	private float m_movementTimer = 0.0f;
 	private float m_attackTimer = 0.0f;
-	private float m_damageTimer = 0.0f;
 	private float m_rotation = 0;
 	private float m_targetRotation = 0;
 	private boolean m_showDeadEnemy = false;
@@ -28,8 +27,9 @@ class VisualCharacter {
 		m_lastPositionSeen.x = character.getPosition().x;
 		m_lastPositionSeen.y = character.getPosition().y;
 		
-		if (character.getHitPoints() <= 0)
+		if (character.getHitPoints() <= 0) {
 			m_showDeadEnemy = true;
+		}
 	}
 	
 	void drawEnemySpotted(AndroidDraw drawable, Camera camera, ITexture enemyTexture) {
@@ -159,9 +159,8 @@ class VisualCharacter {
 		}
 		
 		m_attackTimer -= a_elapsedTime;
-		m_damageTimer -= a_elapsedTime;
 		
-		return m_movementTimer < 0.0f && m_attackTimer < 0.0f && m_damageTimer < 0.0f;
+		return m_movementTimer < 0.0f && m_attackTimer < 0.0f;
 	}
 
 	private float fixAngle(float a_rotation) {
@@ -196,13 +195,10 @@ class VisualCharacter {
 		m_attackTimer = 0.5f;
 	}
 
-	void takeDamage() {
-		m_damageTimer = 0.5f;
-	}
-
 	void doAnimateHit() {
-		if (m_modelCharacter.getHitPoints() <= 0)
+		if (m_modelCharacter.getHitPoints() <= 0) {
 			m_showDeadEnemy = true;
+		}
 	}
 
 	

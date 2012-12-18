@@ -80,8 +80,6 @@ class CharacterDrawer {
 		Vector2 attackerPos = m_characters.get(attacker).getInterpolatedModelPosition();
 		VisualCharacter targetPos = m_characters.get(fireTarget);
 		
-		if (didHit)
-			m_characters.get(fireTarget).takeDamage();
 		
 
 		for (int i = 0; i< 3;i++) {
@@ -92,7 +90,10 @@ class CharacterDrawer {
 				m_shotAnimation.addMiss(attackerPos, targetPos, rand, delay);
 			}
 		}
-		
+	}
+	
+	public void takeDamage(ICharacter character) {
+		m_characters.get(character).doAnimateHit();
 	}
 	
 	void drawCasualties(AndroidDraw drawable, IModel a_model, Camera camera) {
@@ -168,4 +169,6 @@ class CharacterDrawer {
 		drawEnemies(drawable, model, camera);
 		m_shotAnimation.draw(drawable, camera);
 	}
+
+	
 }

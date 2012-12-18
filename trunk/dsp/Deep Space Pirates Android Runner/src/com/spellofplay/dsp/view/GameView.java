@@ -9,13 +9,12 @@ import com.spellofplay.dsp.model.ICharacterListener;
 import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.RuleBook;
 import com.spellofplay.dsp.model.Vector2;
-import com.spellofplay.dsp.model.inner.IPersistance;
 
 
 class GameView implements ICharacterListener {
 	private LevelDrawer level;
 	private MovementMapView movementView = new MovementMapView();
-	private VisibilityView visibility;
+	
 	private CharacterDrawer m_characterDrawer;
 	private boolean hasInitatedBuffer = false;
 	private Camera  camera;
@@ -26,16 +25,14 @@ class GameView implements ICharacterListener {
 		setM_characterDrawer(new CharacterDrawer(a_texture, a_player));
 		this.camera = camera;
 		this.model = model;
-		this.visibility = new VisibilityView();
+		
 	}
 	
 	void drawMovementHelp(AndroidDraw drawable, ICharacter selected) {
 		
 		movementView.drawPossibleMoveArea(model.getMovePossible(), drawable, camera, selected);
 	}
-	void drawVisibility(AndroidDraw drawable) {
-		visibility.drawNotVisible(model, drawable, camera);
-	}
+	
 	
 	public void drawDoors(AndroidDraw drawable) {
 		level.drawDoors(drawable, camera);
@@ -82,15 +79,13 @@ class GameView implements ICharacterListener {
 	
 	void startNewGame(IModel model) {
 		hasInitatedBuffer = false;
-		visibility.clear();
-		visibility.recalculateVisibility(model);
+		
 		getCharacterDrawer().startNewGame(model);
 		movementView.update();
 	}
 
 	@Override
 	public void moveTo(ICharacter character) {
-		visibility.recalculateVisibility(model);
 		getCharacterDrawer().moveTo(character);
 		camera.focusOn(character.getPosition());
 		movementView.update();
@@ -103,6 +98,12 @@ class GameView implements ICharacterListener {
 	public void fireAt(ICharacter attacker, ICharacter fireTarget, boolean didHit) {
 		getCharacterDrawer().fireAt(attacker, fireTarget, didHit);
 		movementView.update();
+	}
+	
+	@Override
+	public void takeDamage(ICharacter character) {
+		getCharacterDrawer().takeDamage(character);
+		
 	}
 
 
@@ -125,7 +126,7 @@ class GameView implements ICharacterListener {
 	}
 
 	public void open() {
-		visibility.recalculateVisibility(model);
+		
 		movementView.update();
 	}
 	
@@ -152,13 +153,9 @@ class GameView implements ICharacterListener {
 		
 	}
 
-	public void Load(IPersistance persistence) throws Exception {
-		visibility.Load(persistence);
-	}
+	
 
-	public void Save(IPersistance persistence) {
-		visibility.Save(persistence);
-	}
+	
 
 	
 

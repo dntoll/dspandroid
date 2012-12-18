@@ -18,5 +18,7 @@ public interface ICharacter {
 	
 	ISkillSet getSkills();
 	Experience getExperience();
+	boolean canThrowGrenade();
+	
 
 }

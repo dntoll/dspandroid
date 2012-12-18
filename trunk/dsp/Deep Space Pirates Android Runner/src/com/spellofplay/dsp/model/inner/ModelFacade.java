@@ -126,9 +126,19 @@ public class ModelFacade implements IModel, IEventTarget {
 	}
 	
 	@Override
-	public boolean fireAt(ICharacter selectedSoldier, ICharacter fireTarget, ICharacterListener listener) {
+	public void fireAt(ICharacter selectedSoldier, ICharacter fireTarget, ICharacterListener listener) {
 		Soldier selected = (Soldier)selectedSoldier;
-		return selected.fireAt(fireTarget, game, listener);
+		selected.fireAt(fireTarget, game, listener);
+	}
+	
+	@Override
+	public void throwGrenade(ICharacter selectedSoldier, ModelPosition destination, ICharacterListener listener) {
+		Soldier selected = (Soldier)selectedSoldier;
+		if (selected.canThrowGrenade()) {
+			selected.throwGrenade();
+			game.throwGrenade(destination, listener);
+		}
+		
 	}
 	
 	@Override
@@ -189,6 +199,8 @@ public class ModelFacade implements IModel, IEventTarget {
 	public void Save(IPersistance settings) {
 		game.Save(settings);
 	}
+
+	
 
 	
 

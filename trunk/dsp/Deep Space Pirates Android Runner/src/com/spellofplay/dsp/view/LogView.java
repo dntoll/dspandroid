@@ -70,4 +70,9 @@ public class LogView implements ICharacterListener {
 	public void soldierSpotsNewEnemy() {
 		m_log.add("Soldier spotted enemy");
 	}
+
+	@Override
+	public void takeDamage(ICharacter character) {
+		m_log.add("character took damage");
+	}
 }

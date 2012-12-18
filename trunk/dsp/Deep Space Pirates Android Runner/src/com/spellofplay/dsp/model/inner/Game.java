@@ -346,6 +346,15 @@ class Game implements IMoveAndVisibility {
 		return currentLevel;
 	}
 
+	public void throwGrenade(ModelPosition destination, ICharacterListener listener) {
+		CharacterCollection<Enemy> closeEnemies =  getAliveEnemies().closeAndVisibleFrom(destination, Preferences.GRENADE_RADIUS, this);
+		CharacterCollection<Soldier> closeSoldiers = getAliveSoldiers().closeAndVisibleFrom(destination, Preferences.GRENADE_RADIUS, this);
+		
+		closeEnemies.takeDamage(listener, Preferences.GRENADE_DAMAGE);
+		closeSoldiers.takeDamage(listener, Preferences.GRENADE_DAMAGE);
+		
+	}
+
 	
 
 	
