@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import com.spellofplay.dsp.model.ICharacter;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.model.Vector2;
+import com.spellofplay.dsp.model.inner.CharacterType;
 
 class VisualCharacter {
 	private static final Rect SOLDIER = new Rect(0, 0, 255, 255);
@@ -73,6 +74,10 @@ class VisualCharacter {
 		dst.left++;
 		dst.right = dst.left + width;
 		drawable.drawRect(dst, Color.RED);
+		
+		CharacterType type = m_modelCharacter.getCharacterType();
+		drawable.drawText(type.toString(), dst.left, dst.top);
+		
 	}
 
 	void drawSoldier(AndroidDraw drawable, Camera camera, ITexture player, ICharacter target ) {

@@ -10,14 +10,11 @@ import com.spellofplay.dsp.model.ModelPosition;
 
 class Enemy extends Character {
 
-	private Map<Soldier, ModelPosition> m_soldiersLastPositions = new HashMap<Soldier, ModelPosition>();
-	
-	
-	private static int[] values = {4,4,4,4};
-	Enemy(ModelPosition startPosition) {
-		super(startPosition, new SkillSet(values));
-		hitPoints = 2;
+	private Map<Soldier, ModelPosition> soldiersLastPositionMemory = new HashMap<Soldier, ModelPosition>();
 
+	Enemy(ModelPosition startPosition, CharacterType type) {
+		super(startPosition, type);
+		hitPoints = 2;
 	}
 	
 	@Override
@@ -40,7 +37,7 @@ class Enemy extends Character {
 		boolean didSpotNewSoldiers = false;
 		
 		for (Soldier soldier : soldiersThatEnemyCanSee) {
-			if (m_soldiersLastPositions.containsKey(soldier) == false) {
+			if (soldiersLastPositionMemory.containsKey(soldier) == false) {
 				clistener.enemySpotsNewSoldier();
 			}
 			spot(soldier);
@@ -55,14 +52,14 @@ class Enemy extends Character {
 
 	private void spot(Soldier soldier) {
 		
-		m_soldiersLastPositions.put(soldier, soldier.getPosition() );
+		soldiersLastPositionMemory.put(soldier, soldier.getPosition() );
 	}
 	
 	public Soldier getClosestSoldierSpotted() {
 		float distance = Float.MAX_VALUE;
 		Soldier closest = null;
 		
-		for (Soldier soldier : m_soldiersLastPositions.keySet()) {
+		for (Soldier soldier : soldiersLastPositionMemory.keySet()) {
 			if (soldier.getHitPoints() > 0) {
 				float dist = soldier.distance(this);
 				if (dist < distance) {

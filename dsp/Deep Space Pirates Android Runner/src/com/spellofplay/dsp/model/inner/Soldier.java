@@ -4,12 +4,12 @@ import com.spellofplay.dsp.model.ISkillSet.SkillType;
 import com.spellofplay.dsp.model.ModelPosition;
 
 class Soldier extends Character {
-
-	private static int[] values = {9,9,9,4};
 	public int grenades = 1;
+	CharacterType type;
 	
-	Soldier(ModelPosition startPosition) {
-		super(startPosition, new SkillSet(values));
+	Soldier(ModelPosition startPosition, CharacterType type) {
+		super(startPosition, type);
+		this.type = type;
 	}
 	
 	@Override
@@ -39,9 +39,4 @@ class Soldier extends Character {
 	public void throwGrenade() {
 		grenades--;
 	}
-
-	
-
-	
-	
 }

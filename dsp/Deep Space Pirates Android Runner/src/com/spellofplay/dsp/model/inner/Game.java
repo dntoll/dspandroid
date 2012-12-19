@@ -22,14 +22,10 @@ class Game implements IMoveAndVisibility {
 	
 	public Game() {
 		
-		for (int i = 0; i < Preferences.MAX_SOLDIERS; i++) {
-			m_soldiers[i] = new Soldier(new ModelPosition(-5, -5));
-			m_soldiers[i].hitPoints = 0;
-		}
-		for (int i = 0; i < Preferences.MAX_ENEMIES; i++) {
-			m_enemies[i] = new Enemy(new ModelPosition(-5,-5));
-			m_enemies[i].hitPoints = 0;
-		}
+		
+		
+		
+		
 		startNewGame();
 	}
 	
@@ -95,7 +91,7 @@ class Game implements IMoveAndVisibility {
 		
 		try {
 			for (int i = 0; i < Preferences.MAX_ENEMIES; i++) {
-				m_enemies[i] = new Enemy(m_level.getEnemyStartLocation(i));
+				m_enemies[i] = new Enemy(m_level.getEnemyStartLocation(i), CharacterType.ENEMY);
 			}
 		} catch (LevelHasToFewEnemiesException e) {
 			
@@ -332,6 +328,17 @@ class Game implements IMoveAndVisibility {
 	}
 
 	public void startNewGame() {
+		
+		for (int i = 0; i < Preferences.MAX_ENEMIES; i++) {
+			m_enemies[i] = new Enemy(new ModelPosition(-5,-5), CharacterType.ENEMY);
+			m_enemies[i].hitPoints = 0;
+		}
+		
+		
+		m_soldiers[0] = new Soldier(new ModelPosition(-5, -5), CharacterType.HAXOR);
+		m_soldiers[1] = new Soldier(new ModelPosition(-5, -5), CharacterType.SNIPER);
+		m_soldiers[2] = new Soldier(new ModelPosition(-5, -5), CharacterType.TANK);
+		
 		currentLevel  = 0;
 		startLevel(0);
 	}

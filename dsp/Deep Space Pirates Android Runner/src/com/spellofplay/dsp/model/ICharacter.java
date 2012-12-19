@@ -1,5 +1,7 @@
 package com.spellofplay.dsp.model;
 
+import com.spellofplay.dsp.model.inner.CharacterType;
+
 
 
 public interface ICharacter {
@@ -19,6 +21,7 @@ public interface ICharacter {
 	ISkillSet getSkills();
 	Experience getExperience();
 	boolean canThrowGrenade();
+	CharacterType getCharacterType();
 	
 
 }
