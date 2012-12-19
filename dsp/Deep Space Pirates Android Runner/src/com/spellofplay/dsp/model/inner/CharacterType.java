@@ -3,9 +3,9 @@ package com.spellofplay.dsp.model.inner;
 import com.spellofplay.dsp.model.ISkillSet;
 
 public enum CharacterType {
-	HAXOR(1,6,4,6),
-	TANK(12,4,4,3),
-	SNIPER(4, 6, 8, 8),
+	HAXOR(1,6,3,3),
+	TANK(12,6,3,6),
+	SNIPER(3, 6, 10, 3),
 	ENEMY(2, 6, 4, 4);
 	
 	
