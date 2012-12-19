@@ -16,10 +16,17 @@ abstract class Character implements ICharacter  {
 	protected int timeUnits;
 	protected int hitPoints;
 	protected Experience experience = new Experience();
+
+	protected CharacterType type;
 	
-	Character(ModelPosition startPosition, SkillSet skillSet) {
-		skills = skillSet;
+	Character(ModelPosition startPosition, CharacterType type) {
+		skills = new SkillSet(type.getSkillArray());
+		this.type = type;
 		reset(startPosition);
+	}
+	
+	public CharacterType getCharacterType() {
+		return type;
 	}
 	
 	
