@@ -44,6 +44,7 @@ public class Level {
 			return m_enemyPositions[i];
 		
 		
+		
 		throw new LevelHasToFewEnemiesException("Level has not room for enemy number " + i);
 	}
 

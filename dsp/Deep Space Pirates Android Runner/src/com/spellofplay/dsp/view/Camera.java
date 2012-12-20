@@ -13,7 +13,7 @@ class Camera {
 	private int m_screenHeight;
 	
 	
-	private static final int m_scale = 32;
+	private static final int m_scale = 64;
 	private boolean m_isScrolling = false;
 	private Point m_scrollStartPos = new Point();
 	
