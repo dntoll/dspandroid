@@ -21,14 +21,9 @@ class Game implements IMoveAndVisibility {
 	private int currentLevel;
 	
 	public Game() {
-		
-		
-		
-		
-		
 		startNewGame();
 	}
-	
+
 	public CharacterCollection<Soldier> getAliveSoldiers() {
 		return new CharacterCollection<Soldier>(getCharacters(m_soldiers, true));
 	}
@@ -89,6 +84,8 @@ class Game implements IMoveAndVisibility {
 			
 		}
 		
+		killAllEnemies();
+		
 		try {
 			for (int i = 0; i < Preferences.MAX_ENEMIES; i++) {
 				m_enemies[i] = new Enemy(m_level.getEnemyStartLocation(i), CharacterType.ENEMY);
@@ -100,6 +97,13 @@ class Game implements IMoveAndVisibility {
 	}
 
 	
+	private void killAllEnemies() {
+		for (int i = 0; i < Preferences.MAX_ENEMIES; i++) {
+			m_enemies[i] = new Enemy(new ModelPosition(-5,-5), CharacterType.ENEMY);
+			m_enemies[i].hitPoints = 0;
+		}
+	}
+
 	void doMoveTo(ICharacter selectedSoldier, ModelPosition destination) {
 		
 		Character soldier = (Character)selectedSoldier;
@@ -329,10 +333,8 @@ class Game implements IMoveAndVisibility {
 
 	public void startNewGame() {
 		
-		for (int i = 0; i < Preferences.MAX_ENEMIES; i++) {
-			m_enemies[i] = new Enemy(new ModelPosition(-5,-5), CharacterType.ENEMY);
-			m_enemies[i].hitPoints = 0;
-		}
+		
+		killAllEnemies();
 		
 		
 		m_soldiers[0] = new Soldier(new ModelPosition(-5, -5), CharacterType.HAXOR);

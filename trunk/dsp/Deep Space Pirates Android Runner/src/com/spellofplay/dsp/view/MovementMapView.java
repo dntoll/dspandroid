@@ -38,21 +38,27 @@ class MovementMapView {
 			m_movementMap[selected.getPosition().x][selected.getPosition().y] = 0;
 			boolean hasAddedNewNodes = true;
 			while (hasAddedNewNodes) {
-				hasAddedNewNodes = false;
-				for (int x = 0; x < Preferences.WIDTH; x++) {
-					for (int y = 0; y < Preferences.HEIGHT; y++) {
-					
-						if (m_movementMap[x][y] < selected.getTimeUnits()) {
-							
-							int travelCost = m_movementMap[x][y] + 1;
-							
-							//check the neighbours
-							hasAddedNewNodes = checkTheNeighbours(a_checker, hasAddedNewNodes, x, y, travelCost);
-						}
-					}
+				hasAddedNewNodes = addNewNodes(a_checker, selected);
+			}
+		}
+	}
+
+
+
+	private boolean addNewNodes(IMoveAndVisibility a_checker, ICharacter selected) {
+		boolean hasAddedNewNodes;
+		hasAddedNewNodes = false;
+		
+		for (int x = 0; x < Preferences.WIDTH; x++) {
+			for (int y = 0; y < Preferences.HEIGHT; y++) {
+			
+				boolean canBeExpanded = m_movementMap[x][y] < selected.getTimeUnits();
+				if (canBeExpanded) {
+					hasAddedNewNodes = checkTheNeighbours(a_checker, hasAddedNewNodes, x, y);
 				}
 			}
 		}
+		return hasAddedNewNodes;
 	}
 
 
@@ -66,7 +72,9 @@ class MovementMapView {
 	}
 	
 	private boolean checkTheNeighbours(IMoveAndVisibility a_checker,
-			boolean hasAddedNewNodes, int x, int y, int travelCost) {
+			boolean hasAddedNewNodes, int x, int y) {
+		
+		int travelCost = m_movementMap[x][y] + 1;
 		for (int dx = -1; dx < 2; dx++) {
 			for (int dy = -1; dy < 2; dy++) { 
 				if (validNeighbour(a_checker, x, y, dx, dy) == false)
