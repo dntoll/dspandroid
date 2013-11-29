@@ -1,6 +1,8 @@
 package com.spellofplay.dsp.controller;
 
-import com.spellofplay.dsp.model.IModel;
+
+import com.spellofplay.dsp.model.Enemy;
+import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.model.ModelPosition;
 import com.spellofplay.dsp.view.IDraw;
 import com.spellofplay.dsp.view.GameView;
@@ -9,7 +11,7 @@ import com.spellofplay.dsp.view.IInput;
 public class GameController {
 
 	
-	public void update(IDraw drawable, IModel a_model, GameView a_view, IInput a_input, float elapsedTimeSeconds) {
+	public void update(IDraw drawable, ModelFacade a_model, GameView a_view, IInput a_input, float elapsedTimeSeconds) {
 		
 		a_view.setupInput(a_input, a_model);
 		
@@ -33,6 +35,14 @@ public class GameController {
 				
 				if (destination != null) {
 					a_model.doMoveTo(selectedSoldier, destination);
+				}
+				
+				Enemy fireTarget = a_view.getFireTarget(a_input);
+				
+				if (fireTarget != null) {
+					if (a_model.fireAt(selectedSoldier, fireTarget) == false) {
+						
+					}
 				}
 			}
 			

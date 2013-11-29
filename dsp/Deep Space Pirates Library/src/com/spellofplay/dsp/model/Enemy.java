@@ -14,7 +14,7 @@ public class Enemy extends Character{
 
 	public void attack(Soldier closest) {
 		
-		m_timeUnits = 0;
+		closest.m_hitpoints = 0;
 	}
 
 	public void removeTimeUnit() {

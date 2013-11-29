@@ -1,8 +1,7 @@
 package com.spellofplay.dsp.view;
 
+import android.graphics.Color;
 import android.graphics.Rect;
-
-import com.spellofplay.dsp.model.Soldier;
 
 public interface IDraw {
 
@@ -21,4 +20,9 @@ public interface IDraw {
 
 
 	void drawBitmap(com.spellofplay.dsp.view.ITexture a_textureMap, Rect src, Rect dst);
+	
+	public void drawCircle(ViewPosition center, int radius, int color);
+
+
+	void drawLine(ViewPosition vEpos, ViewPosition vsPos, int white);
 }

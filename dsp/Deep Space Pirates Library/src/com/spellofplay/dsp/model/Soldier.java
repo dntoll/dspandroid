@@ -7,4 +7,8 @@ public class Soldier extends Character {
 		super(startPosition, 10);
 	}
 
+	
+
+	
+
 }

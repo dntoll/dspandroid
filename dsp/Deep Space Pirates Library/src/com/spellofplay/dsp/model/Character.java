@@ -8,7 +8,7 @@ public class Character {
 	
 	int m_maxTimeUnits = 3;
 	int m_timeUnits = m_maxTimeUnits;
-	int m_hitpoints = 10;
+	int m_hitpoints = 3;
 
 	public Character(ModelPosition startPosition, int a_maxTimeUnits) {
 		m_position = startPosition;
@@ -25,6 +25,14 @@ public class Character {
 
 	public float getRadius() {
 		return 0.5f;
+	}
+	
+	public int getFireCost() {
+		return 5;
+	}
+	
+	public int getDamage() {
+		return 1;
 	}
 	
 	public int getTimeUnits() {
@@ -82,5 +90,27 @@ public class Character {
 		}
 		
 		return true;
+	}
+	
+	public boolean fireAt(Character fireTarget, boolean hasLineOfSight) {
+		/*if (m_level.lineOfSight(selectedSoldier.getPosition().toVector(), 
+								fireTarget.getPosition().toVector()) == false) {
+			return false;
+		}*/
+		
+		if (hasLineOfSight == false)
+			return false;
+		
+		if (m_timeUnits < getFireCost()) {
+			return false;
+		}
+		
+		m_timeUnits -= getFireCost();
+		
+		
+		
+		fireTarget.m_hitpoints -= getDamage();
+		return true;
+		
 	}
 }

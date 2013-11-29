@@ -16,8 +16,7 @@ public class LevelDrawer {
 		m_theTextureMap = a_theTexture;
 	}
 
-	public void draw(Level level, IDraw drawable) {
-		int a_scale = 32;
+	public void draw(Level level, IDraw drawable, int a_scale) {
 		
 		Mesh backgroundMeshBlocked = new Mesh(Level.Width, Level.Height);
 		for (int x = 0; x < Level.Width; x++) {
@@ -29,11 +28,11 @@ public class LevelDrawer {
 						x * a_scale + a_scale, 
 						y * a_scale + a_scale);
 				
-				int variation = 0;
-				RotatedTile rotTileBlocked = new RotatedTile(level.GetTile(x, y) == TileType.TileWall,
-													 		 level.GetTile(x +1, y) == TileType.TileWall,
-															 level.GetTile(x, y+1) == TileType.TileWall,
-															 level.GetTile(x +1, y + 1) == TileType.TileWall);
+				int variation = 2;
+				RotatedTile rotTileBlocked = new RotatedTile(level.GetTile(x, y) != TileType.TileWall,
+													 		 level.GetTile(x +1, y) != TileType.TileWall,
+															 level.GetTile(x, y+1) != TileType.TileWall,
+															 level.GetTile(x +1, y + 1) != TileType.TileWall);
 													
 				
 				

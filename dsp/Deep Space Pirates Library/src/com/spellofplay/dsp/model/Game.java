@@ -72,12 +72,7 @@ public class Game implements IIsMovePossible {
 	public void updateEnemies() {
 		List<Enemy> enemies = getAliveEnemies();
 		List<Soldier> soldiers = getAliveSoldiers();
-		
 		m_ai.think(enemies, soldiers, this);
-		
-		
-		
-		
 	}
 
 	public void startNewRound() {
@@ -119,6 +114,8 @@ public class Game implements IIsMovePossible {
 		
 		return false;
 	}
+
+	
 
 	
 

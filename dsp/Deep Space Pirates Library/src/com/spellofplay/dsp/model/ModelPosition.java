@@ -34,4 +34,9 @@ public class ModelPosition {
 		
 	}
 
+
+	public Vector2 toVector() {
+		return new Vector2(m_x, m_y);
+	}
+
 }
