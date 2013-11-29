@@ -1,7 +1,6 @@
 package com.spellofplay.dsp.controller;
 
 
-import com.spellofplay.dsp.model.IModel;
 import com.spellofplay.dsp.model.ModelFacade;
 import com.spellofplay.dsp.view.GameView;
 import com.spellofplay.dsp.view.IDraw;
@@ -12,15 +11,15 @@ import android.content.Context;
 import android.graphics.Paint;
 
 public class MasterController {
-	private IModel m_model = new ModelFacade();
+	private ModelFacade m_model = new ModelFacade();
 	private GameController m_game = new GameController();
 	private GameView m_view;
 	private IInput m_input = null;
 	
 	
-	public MasterController(Context context, IInput a_input, ITexture a_texture) {
+	public MasterController(Context context, IInput a_input, ITexture a_texture, ITexture a_player) {
 		
-		m_view = new GameView(a_texture);
+		m_view = new GameView(a_texture, a_player);
 		m_input = a_input;
 		
 		

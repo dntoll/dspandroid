@@ -1,34 +1,24 @@
 package com.spellofplay.dsp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class ModelFacade implements IModel {
+public class ModelFacade {
 	
 	Game m_game = new Game();
 	
 	
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.model.IModel#getGameTitle()
-	 */
-	@Override
+	
 	public String getGameTitle() {
 		return "Deep Space Pirates ";
 	}
 
 	
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.model.IModel#getLevel()
-	 */
-	@Override
 	public Level getLevel() {
 
 		return m_game.m_level;
 	}
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.model.IModel#hasUnfinishedActions()
-	 */
-	@Override
 	public boolean isSoldierTime() {
 		for (Soldier s : m_game.getAliveSoldiers()) {
 			if (s.getTimeUnits() > 0) {
@@ -39,10 +29,6 @@ public class ModelFacade implements IModel {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.model.IModel#isEnemyTime()
-	 */
-	@Override
 	public boolean isEnemyTime() {
 		if (isSoldierTime())
 			return false;
@@ -56,67 +42,67 @@ public class ModelFacade implements IModel {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.model.IModel#updatePlayers()
-	 */
-	@Override
 	public void updatePlayers() {
 		m_game.updatePlayers();
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.model.IModel#updateEnemies()
-	 */
-	@Override
 	public void updateEnemies() {
 		m_game.updateEnemies();
 	}
 
 
-	/* (non-Javadoc)
-	 * @see com.spellofplay.dsp.model.IModel#doMoveTo(com.spellofplay.dsp.model.Soldier, android.graphics.Point)
-	 */
-	@Override
 	public void doMoveTo(Soldier selectedSoldier, ModelPosition destination) {
 		m_game.doMoveTo(selectedSoldier, destination);
 	}
 
 
-	@Override
 	public List<Soldier> getAliveSoldiers() {
 		return m_game.getAliveSoldiers();
 	}
 	
-	@Override
 	public List<Enemy> getAliveEnemies() {
 		return m_game.getAliveEnemies();
 	}
 
 
-	@Override
 	public void startNewGame(int a_level) {
 		m_game.startLevel(a_level);
 		
 	}
 
-
-	@Override
 	public void startNewRound() {
 		m_game.startNewRound();
 	}
 
-
-	@Override
 	public boolean enemyHasWon() {
 		// TODO Auto-generated method stub
 		return m_game.getAliveSoldiers().size() == 0;
 	}
 
-
-	@Override
 	public boolean playerHasWon() {
 		// TODO Auto-generated method stub
 		return m_game.getAliveEnemies().size() == 0 && m_game.getAliveSoldiers().size() > 0;
+	}
+
+
+	public boolean fireAt(Soldier selectedSoldier, Enemy fireTarget) {
+		boolean hasLineOfSight = m_game.m_level.lineOfSight(selectedSoldier.m_position.toVector(), fireTarget.m_position.toVector());
+		return selectedSoldier.fireAt(fireTarget, hasLineOfSight);
+	}
+
+
+	public List<Soldier> canSee(Enemy e) {
+		List<Soldier> aliveSoldiers = m_game.getAliveSoldiers();
+		
+		List<Soldier> soldiersThatCanSee = new ArrayList<Soldier>();
+		
+		for (Soldier s : aliveSoldiers) {
+			if ( m_game.m_level.lineOfSight(s.getPosition().toVector(), e.getPosition().toVector())) {
+				soldiersThatCanSee.add(s);
+				
+			}
+		}
+		return soldiersThatCanSee;
 	}
 
 
