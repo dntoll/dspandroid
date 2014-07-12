@@ -62,7 +62,7 @@ class LevelDrawer {
 					
 				}
 				
-				variation = 2;
+				variation = 3;
 				rotTileBlocked = new RotatedTile(model.getTile(x, y) == TileType.TilePit,
 													 		 model.getTile(x +1, y) == TileType.TilePit,
 															 model.getTile(x, y+1) == TileType.TilePit,

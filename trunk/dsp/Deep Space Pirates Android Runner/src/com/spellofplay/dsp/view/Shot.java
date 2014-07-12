@@ -13,8 +13,8 @@ class Shot {
 	private boolean hit;
 	private static final float shotspeed = 15.0f;
 	private static final float blastAnimationTime = 0.3f;
-	float delay = 0.0f;
-	float time = 0;
+	private float delay = 0.0f;
+	private float time = 0;
 	private float x;
 	private float y;
 	private int randomSeed;
