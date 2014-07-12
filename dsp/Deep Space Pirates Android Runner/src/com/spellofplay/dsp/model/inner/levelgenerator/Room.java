@@ -122,9 +122,10 @@ class Room {
 	void addDecorations(Level level) {
 		TileType type = TileType.TileEmpty;
 		switch (random.nextInt(3)) {
-			case 0 : type = TileType.TileCover; break;
-			case 1 : type = TileType.TileWall; break;
-			case 2 : type = TileType.TilePit; break;
+			case 0 : type = TileType.TilePit; break;
+			case 1 : type = TileType.TileCover; break;
+			case 2 : type = TileType.TileWall; break;
+			
 			
 		}
 		
